@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Help on Getting Database Info</title>
+    <style type="text/css">
+        .style1
+        {
+            color: #000099;
+        }
+    </style>
+</head>
+<body>
+<div style="width:750px;">
+<P>
+			<span class="body" style="font-size: 11pt; font-family: Arial">To interface with 
+            your back end database, you can visually create SQL statements for your app. </span></p>
+    <P>
+			<span class="body" style="font-size: 11pt; font-family: Arial">When you push a button or table row on your phone or iPad, 
+            your 
+            device will call the ViziApps Database Web Service located on your server with 
+            the URL that you provide. This Web Service 
+            will use a connection string&nbsp; to your database on your server, that you 
+            also provide (more on this below)&nbsp; to execute the SQL commands on your database . </span></p>
+    <P>
+			<span class="body" style="font-size: 11pt; font-family: Arial">You need to install the <strong>
+            ViziApps Database Web Service</strong> , available for free, on your server 
+            (see below). </span></p>
+    <P>
+			<span class="body" style="font-size: 11pt; font-family: Arial">The app needs to 
+            know what type of database you are using, the schema of your database and a connection string to access your Database. 
+            </span></p>
+    <P>
+			<span class="body" style="font-size: 11pt; font-family: Arial">To provide this 
+            information for your app:</span></p>
+    <ul>
+        <li style="height: 29px">
+            <span class="body" style="font-size: 11pt; font-family: Arial"><b>Select your 
+            Database Type</b></span></li>
+        <li style="height: 68px">
+            <span class="body" style="font-size: 11pt; font-family: Arial">Generate a .SQL 
+            file, without data,&nbsp; from the normal database manager you use for the 
+            database you want to access and <strong>Upload the .SQL file</strong>, so 
+            ViziApps gets the schema of your database. This will be used to automatically 
+            populate fields in creating SQL Commands. </span></li>
+        <li style="height: 86px">
+            <span class="body" style="font-size: 11pt; font-family: Arial"><strong>Enter 
+            your database connection string</strong> that will allow the free web service, 
+            that we provide you, to access your database. If you have a firewall, provide 
+            the connection string from inside your firewall. For the syntax of the 
+            connection string <span class="style1"> <a href="http://www.connectionstrings.com">click here</a></span>. 
+            Here is an example connection string: <b>
+            <span style="font-size: 10.0pt; font-family: &quot;Arial&quot;,&quot;sans-serif&quot;; mso-fareast-font-family: Calibri; mso-fareast-theme-font: minor-latin; color: #003399; background: #FFFFCC; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+            DRIVER={MySQL ODBC 3.51 
+            Driver};SERVER=localhost;UID=admin;PASSWORD=password; DATABASE=my_database;option=3;</span></b></span></li>
+        <li><span class="body" style="font-size: 11pt; font-family: Arial">&nbsp;<strong>Click 
+            Save</strong> and then click <strong>Close</strong></span></li>
+    </ul>
+
+    <P>
+			<span class="body" style="font-size: 11pt; font-family: Arial">To download the 
+            free <strong>
+            ViziApps Database Web Service </strong>for installation on your server click on
+            <strong>DB Web 
+            Service. </strong>After you install this Web Service on your server, you need to provide the URL for your app 
+            on your device to directly access the Web Service <strong>&nbsp;</strong>The download gives you the source code for a project of the <strong>
+            ViziApps Database Web Service</strong> in C# ASP.NET that can be built using 
+            Visual Studio. Using this web service can be made secure using <strong>https </strong>
+            access.</span></p>
+ </div>   
+</body>
+</html>

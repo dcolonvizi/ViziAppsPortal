@@ -1,0 +1,360 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="GetGoogleDocsInfo.aspx.cs" Inherits="Dialogs_GetGoogleDocsInfo" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>ViziApps Interface to Google Docs</title>
+    <style type="text/css">
+
+        .style5
+        {
+            height: 35px;
+            width: 690px;
+        }
+        .style4
+        {
+            height: 44px;
+            width: 341px;
+        }
+        .style8
+        {
+            width: 149px;
+        }
+        .style9
+        {
+            height: 35px;
+            width: 13px;
+        }
+        .style11
+        {
+            height: 44px;
+            width: 13px;
+        }
+        .style12
+        {
+            width: 13px;
+        }
+        .style13
+        {
+            width: 128px;
+        }
+    
+.RadComboBox_Default
+{
+	font: 12px "Segoe UI", Arial, sans-serif;
+	color: #333;
+}
+
+.RadComboBox
+{
+	vertical-align: middle;
+}
+
+.RadComboBox
+{
+	text-align: left;
+}
+
+.RadComboBox_Default
+{
+	font: 12px "Segoe UI", Arial, sans-serif;
+	color: #333;
+}
+
+.RadComboBox
+{
+	vertical-align: middle;
+}
+
+.RadComboBox
+{
+	text-align: left;
+}
+
+.RadComboBox_Default
+{
+	font: 12px "Segoe UI", Arial, sans-serif;
+	color: #333;
+}
+
+.RadComboBox
+{
+	vertical-align: middle;
+}
+
+.RadComboBox
+{
+	text-align: left;
+}
+
+.RadComboBox *
+{
+	margin: 0;
+	padding: 0;
+}
+
+.RadComboBox *
+{
+	margin: 0;
+	padding: 0;
+}
+
+.RadComboBox *
+{
+	margin: 0;
+	padding: 0;
+}
+
+.RadComboBox_Default .rcbInputCellLeft
+{
+	background-image: url('mvwres://Telerik.Web.UI, Version=2010.1.519.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4/Telerik.Web.UI.Skins.Default.ComboBox.rcbSprite.png');
+}
+
+.RadComboBox .rcbInputCellLeft
+{
+	background-color: transparent;
+	background-repeat: no-repeat;
+}
+
+.RadComboBox_Default .rcbInputCellLeft
+{
+	background-image: url('mvwres://Telerik.Web.UI, Version=2010.1.519.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4/Telerik.Web.UI.Skins.Default.ComboBox.rcbSprite.png');
+}
+
+.RadComboBox .rcbInputCellLeft
+{
+	background-color: transparent;
+	background-repeat: no-repeat;
+}
+
+.RadComboBox_Default .rcbInputCellLeft
+{
+	background-image: url('mvwres://Telerik.Web.UI, Version=2010.1.519.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4/Telerik.Web.UI.Skins.Default.ComboBox.rcbSprite.png');
+}
+
+.RadComboBox .rcbInputCellLeft
+{
+	background-color: transparent;
+	background-repeat: no-repeat;
+}
+
+.RadComboBox .rcbReadOnly .rcbInput
+{
+	cursor: default;
+}
+
+.RadComboBox .rcbReadOnly .rcbInput
+{
+	cursor: default;
+}
+
+.RadComboBox .rcbReadOnly .rcbInput
+{
+	cursor: default;
+}
+
+.RadComboBox_Default .rcbInput
+{
+	font: 12px "Segoe UI", Arial, sans-serif;
+	color: #333;
+}
+
+.RadComboBox .rcbInput
+{
+	text-align: left;
+}
+
+.RadComboBox_Default .rcbInput
+{
+	font: 12px "Segoe UI", Arial, sans-serif;
+	color: #333;
+}
+
+.RadComboBox .rcbInput
+{
+	text-align: left;
+}
+
+.RadComboBox_Default .rcbInput
+{
+	font: 12px "Segoe UI", Arial, sans-serif;
+	color: #333;
+}
+
+.RadComboBox .rcbInput
+{
+	text-align: left;
+}
+
+.RadComboBox_Default .rcbArrowCellRight
+{
+	background-image: url('mvwres://Telerik.Web.UI, Version=2010.1.519.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4/Telerik.Web.UI.Skins.Default.ComboBox.rcbSprite.png');
+}
+
+.RadComboBox .rcbArrowCellRight
+{
+	background-color: transparent;
+	background-repeat: no-repeat;
+}
+
+.RadComboBox_Default .rcbArrowCellRight
+{
+	background-image: url('mvwres://Telerik.Web.UI, Version=2010.1.519.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4/Telerik.Web.UI.Skins.Default.ComboBox.rcbSprite.png');
+}
+
+.RadComboBox .rcbArrowCellRight
+{
+	background-color: transparent;
+	background-repeat: no-repeat;
+}
+
+.RadComboBox_Default .rcbArrowCellRight
+{
+	background-image: url('mvwres://Telerik.Web.UI, Version=2010.1.519.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4/Telerik.Web.UI.Skins.Default.ComboBox.rcbSprite.png');
+}
+
+.RadComboBox .rcbArrowCellRight
+{
+	background-color: transparent;
+	background-repeat: no-repeat;
+}
+
+        .style14
+        {
+            width: 102px;
+        }
+
+        </style>
+        <script  language="javascript" type="text/javascript" src="../../scripts/default_script_1.6.js"></script>
+    <script type="text/javascript">
+        function GetRadWindow() {
+            var oWindow = null;
+            if (window.radWindow) oWindow = window.radWindow;
+            else if (window.frameElement.radWindow) oWindow = window.frameElement.radWindow;
+            return oWindow;
+        }
+
+        function Close(sender, eventArgs) {
+            var Status = document.getElementById("Status");
+            var customArg = Status.value;
+            GetRadWindow().close(customArg);
+        }
+        </script>
+
+</head>
+<body>
+    <form id="form2" runat="server">
+    	<telerik:RadScriptManager ID="RadScriptManagerDB" runat="server"/>
+        <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+        <AjaxSettings>        
+              <telerik:AjaxSetting AjaxControlID="SaveDatabaseInfo">
+                    <UpdatedControls>
+                        <telerik:AjaxUpdatedControl ControlID="SaveGoogleDocsInfoMessage" LoadingPanelID="GDocsLoadingPanel"  />    
+                        <telerik:AjaxUpdatedControl ControlID="Status" />                     
+                    </UpdatedControls>
+                </telerik:AjaxSetting>
+                </AjaxSettings>
+        </telerik:RadAjaxManager>
+	
+         <telerik:RadWindowManager ID="RadWindowManagerDB" runat="server">
+            <Windows>
+                <telerik:RadWindow 
+                    id="HelpGetDatabaseInfoWindow" 
+                    runat="server"
+                    showcontentduringload="false"
+                    title="Help on Getting Database Info"
+                    behaviors="Close" Skin="Web20">
+                </telerik:RadWindow>
+                
+            </Windows>
+            </telerik:RadWindowManager>
+             <telerik:RadAjaxLoadingPanel ID="GDocsLoadingPanel" runat="server" Skin="Default"></telerik:RadAjaxLoadingPanel>
+             <telerik:RadMultiPage ID="ContentMultiPage" runat="server" 
+            SelectedIndex="0" Width="110px">
+            <telerik:RadPageView ID="MobiFlexAccountType" runat="server">
+    <div style=" font-family:Verdana; font-size:12px;">
+   
+     <table width="850"><tr><td   valign="bottom" colspan="4">Enter your Google Docs 
+         account
+         <strong>Username</strong> and <strong>Password</strong> and then click <strong>
+         Get Spreadsheets</strong>. Select a spreadsheet for this app and then click
+         <strong>Save</strong>. Wait for a success message before closing.</td>
+         <td  valign="top">
+      <asp:ImageButton ID="GetGoogleDocsInfoHelp" runat="server" ImageUrl="~/images/help.gif" 
+        ToolTip="How is this info used?" />
+
+         </td></tr><tr><td height="35" >
+         <table ><tr><td>Username:&nbsp; </td><td>
+        <asp:TextBox ID="Username" runat="server" Width="140px"></asp:TextBox></td><td>Password:</td>
+             <td width="150px">
+        <asp:TextBox ID="Password" runat="server" Width="106px" TextMode="Password"></asp:TextBox>
+             </td></tr></table>
+         </td>
+             <td height="35">
+                 <asp:Button ID="GetSpreadsheets" runat="server" 
+                     Text="Get Spreadsheets" Width="134px" onclick="GetSpreadsheets_Click" />
+             </td>
+             <td height="35">
+                 spreadsheet:</td>
+             <td height="35">
+                 <telerik:RadComboBox ID="AccountSpreadsheets" runat="server" 
+                     AutoPostBack="True" />
+             </td>
+             <td height="35" >
+                </td></tr>
+                 
+                 </table>
+                 </div>
+                  </telerik:RadPageView>
+         <telerik:RadPageView ID="GoogleAppsAccountType" runat="server">
+    <div style=" font-family:Verdana; font-size:12px;">
+     <table style="width: 690px"><tr><td  class="style5" valign="bottom">Select your 
+         Google Docs 
+         <strong>Spreadsheet</strong> for this app. Select a spreadsheet for this app<br /> and 
+         then click <strong>Save</strong>. Wait for a success message before closing.</td>
+         <td class="style9" valign="top">
+      <asp:ImageButton ID="GetGoogleDocsInfoHelp2" runat="server" ImageUrl="~/images/help.gif" 
+        ToolTip="How is this info used?" />
+
+         </td></tr><tr><td height="35">
+         <table style="width: 655px"><tr><td align="right">Spreadsheet:</td><td style="width:5px;"></td><td>
+             <telerik:RadComboBox ID="Spreadsheets" runat="server" AutoPostBack="True" 
+                 Width="250px" />                
+             </td><td>&nbsp; </td><td>
+             &nbsp;</td><td>&nbsp;</td><td>
+             &nbsp;</td></tr></table>
+         </td><td height="35" class="style12">
+                 &nbsp;</td></tr></table>
+         </div>
+         </telerik:RadPageView>
+         </telerik:RadMultiPage>
+         <div>
+                 <table>
+                 <tr><td class="style4">
+         <table style="width: 649px; height: 67px;"><tr><td class="style13">
+             &nbsp;</td><td class="style14">
+                 &nbsp;</td><td class="style13">
+    <asp:Button runat="server" ID="SaveDatabaseInfo" Text="Save" onclick="SaveDatabaseInfo_Click"  
+ /></td><td class="style13">
+                    <asp:Button ID="Cancel" runat="server" Text="Close" 
+                     OnClientClick="Close();return false;"  />
+                        </td><td class="style8">
+                    <asp:Button ID="Remove" runat="server" Text="Remove All Info" onclick="Remove_Click" 
+                       />
+                        </td><td>
+        
+                    <asp:TextBox ID="Status" runat="server" style="display:none" />
+             </td></tr><tr><td>
+                 &nbsp;</td><td class="style14">
+                     &nbsp;</td><td>
+                     &nbsp;</td><td colspan="3">
+                <asp:Label ID="SaveGoogleDocsInfoMessage" runat="server" Font-Bold="True" 
+                    Font-Names="Arial" Font-Size="10pt" ForeColor="Maroon" Width="306px"></asp:Label>
+                        </td></tr></table>
+         </td><td class="style11">
+                         &nbsp;</td></tr></table>
+         </div>        
+    </form>
+</body>
+</html>

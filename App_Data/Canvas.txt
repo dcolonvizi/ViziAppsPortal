@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+   <link href="jquery/css/cupertino/jquery-ui-1.8.13.custom.css" type="text/css" rel="stylesheet"/>
+   <style type="text/css">
+     body
+    {
+    	 font-family:Verdana;
+         font-size:14pt;
+         color: black;
+         margin-top:0 0 0 0;
+         padding: 0 0 0 0; 
+         border-width:0;
+         position:fixed;
+         top:0px;
+         left:0px;
+    }
+  </style>
+
+
+</head>
+<body>
+    <form id="form1" >   
+    <REPLACE>   
+    </form>
+</body>
+</html>

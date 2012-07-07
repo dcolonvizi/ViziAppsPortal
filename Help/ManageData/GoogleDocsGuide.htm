@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Guide to Using Google Docs Spreadsheets</title>
+    <style type="text/css">
+        .style1
+        {
+            width: 771px;
+            height: 340px;
+        }
+        .style6
+        {
+            color: #006600;
+        }
+        .style8
+        {
+            font-family: Arial;
+            color: navy;
+        }
+        </style>
+</head>
+<body>
+
+<P>
+			<span class="body" style="font-size: 11pt; font-family: Arial">Here is a guide 
+            to using query commands with Google Docs SpreadSheets. This guide will explain 
+            how to design a device interface to perform the 4 major commands of select, 
+            insert, update and delete as well as how to design <a href="#conditional_statements">conditional statements</a> for 
+            these commands based on phone field values.</span></p>
+    <P>
+			<span class="body" style="font-size: 11pt; font-family: Arial">First, some basic 
+            concepts:</span></p>
+    <p>
+        <span class="body" style="font-size: 11pt; font-family: Arial">A Google Docs 
+            Spreadsheet works like Excel where a spreadsheet doc is composed of a set of 
+            worksheet pages.</span></p>
+    <p>
+        <span class="body" style="font-size: 11pt; font-family: Arial">The name of a 
+            worksheet in Google Docs is on the bottom tab of the worksheet page.</span></p>
+    <p>
+        <span class="body" style="font-size: 11pt; font-family: Arial">The 
+            &quot;fields&quot; of a worksheet are the worksheet columns and the names of the &quot;fields&quot; 
+            are always the first row of cells. The values of each &quot;field&quot; are all 
+            the cell values from row 2 downwards. </span></p>
+    <p>
+        <span class="body" style="font-size: 11pt; font-family: Arial"><strong>Google requires that references to 
+        field names have the spaces removed and that they are case-insensitive. To 
+        standardize field name references in the portal, they are always displayed in 
+        lower case. Also for inserting data, Google requires that the spreadsheet 
+        already have at least 1 row of data below the field names. Try to avoid the 
+        characters &quot;-&quot; and &quot;_&quot; in your data, since Google will not pick these up in many 
+        cases.</strong></span></p>
+    <p class="style8">
+        <strong>Basic Query Commands</strong></p>
+    <p>
+        <span class="body" style="font-size: 11pt; font-family: Arial">There are 4 
+            possible operations on the worksheet rows: <strong>Select From, Insert Into, 
+        Update </strong>and<strong> Delete</strong>. Let&#39;s see some examples based on a worksheet that looks like 
+        this:</span>
+            </p>
+    <div align="center"  class="body" style="font-size: 11pt; font-family: Arial; text-align:center;">
+    <div align="center" >
+    <table border="2" style="width: 110px" >
+        <tr>
+            <td>
+                Age</td>
+            <td>
+                Name</td>
+        </tr>
+        <tr>
+            <td>
+                20</td>
+            <td>
+                Tom</td>
+        </tr>
+        <tr>
+            <td>
+                25</td>
+            <td>
+                Sally</td>
+        </tr>
+        <tr>
+            <td>
+                30</td>
+            <td>
+                Joe</td>
+        </tr>
+        <tr>
+            <td>
+                20</td>
+            <td>
+                Sue</td>
+        </tr>
+    </table>
+    </div>
+    </div>
+    <ul>
+        <li style="height: 152px">
+            <span class="body" style="font-size: 11pt; font-family: Arial"><strong>Select From</strong> lets 
+            you select field values for download into your&nbsp; phone in some order based 
+            on some conditions. For example in a phrase: Select From worksheet1 the field 
+            values Age and Name where Age values = 20 by ascending order of 
+            Name. This results in returning to the phone all the rows of values for both 
+            age and name where any value of cells in Age = 20 and the results are 
+            ordered by the returned values in Name. So in this example the 
+        returned values are &quot;20, Tom&quot; and &quot;20, Sue&quot;. If there is a table on your phone 
+        called employees with table fields employee_age and employee_name, then the 
+        returned values fill 2 rows of the table when the worksheet field &quot;Age&quot; is 
+        associated with the device field &quot;employee_age&quot; and the worksheet field &quot;Name&quot; is 
+        associated with the device field &quot;employee_name&quot;</span></li>
+        <li style="height: 99px">
+            <span class="body" style="font-size: 11pt; font-family: Arial">&nbsp;<strong>Insert 
+            Into</strong> lets you add a row of values into the worksheet. For example in a 
+            phrase: Insert Into worksheet1 a row of values Age=entered_age and 
+            Name=entered_name. This results in a new row being added to the worksheet from 
+            the values of the associated device fields. So if the device field &quot;entered_age&quot; 
+            has the value &quot;35&quot; and the device field entered_name has the value &quot;Harry&quot;, then a 
+            new row is added to the worksheet with column values &quot;35&quot; and &quot;Harry&quot;.</span></li>
+        <li style="height: 106px">
+            <span class="body" style="font-size: 11pt; font-family: Arial">&nbsp;<strong>Update</strong> 
+            lets you change 1 or more rows of values in the worksheet based on some 
+            condition. For example in a 
+            phrase: Update in worksheet1 a row of values Age=entered_age and Name=entered_name 
+            where Name=Joe. This results in the row with the name &quot;Joe&quot; being changed to 
+            the values of the device field entered_age and entered_name. So if the phone 
+            field &quot;entered_age&quot; has the value &quot;35&quot; and the device field entered_name has the 
+            value &quot;Joe&quot;, then the current row with the name &quot;Joe&quot; is updated with the column 
+            values &quot;30&quot; and &quot;Joe&quot; to the values &quot;35&quot; and &quot;Joe&quot;.</span></li>
+        <li style="height: 77px">
+            <span class="body" style="font-size: 11pt; font-family: Arial">&nbsp;<strong>Delete</strong> 
+            lets you delete 1 or more rows from the worksheet vbased on some condition. For example in a phrase: 
+            Delete from worksheet1&nbsp;rows where Age=entered_age. This results in any rows 
+            being deleted from the worksheet that match the condition where values in column 
+            Age = value of the phone_field entered_age. So if the device field &quot;entered_age&quot; 
+            has the value 20, then the 2 rows with the Age value =20 are deleted.</span></li>
+    </ul>
+    <p class="style8">
+        <strong>Commands with Real Data</strong></p>
+    <p>
+        <span class="body" style="font-size: 11pt; font-family: Arial">Now let&#39;s look at 
+        how commands are actually created in ViziApps based on a more real world example that can be seen in the ViziApps template app called 
+        Event Listing GDocs. The worksheet named &quot;Events&quot; in the Google 
+        spreadsheet, in this example, looks like:</span></p>
+    <p>
+        <img alt="" border="1" class="style1" src="../../images/worksheet_example1.png" /></p>
+    <p>
+        <span class="body" style="font-size: 11pt; font-family: Arial">The fields of the 
+        worksheet are <strong>title, date, speaker </strong>and<strong> description</strong>.</span></p>
+    <p>
+        <span class="body" style="font-size: 11pt; font-family: Arial">The following are 
+        4 example operations. To add a command, click on the green <span class="style6">
+        <strong>+</strong></span> at the top right. The tool set at the right of each 
+        command let you add either add a field, add a condition, add an ordering sort or 
+        delete the command.</span></p>
+    <p>
+        <span class="body" style="font-size: 11pt; font-family: Arial">Here is an 
+        example <strong>Select From </strong>query command that is created with the 
+        query graphical tool which returns the event titles and event dates from the 
+        worksheet &quot;Events&quot; to be displayed on a table on the phone. </span></p>
+    <p>
+        <img alt="" border="1"  src="../../images/select_example.png" /></p>
+    <p>
+        <span class="body" style="font-size: 11pt; font-family: Arial">Here is an 
+        example<strong> Insert 
+            Into </strong>command that inserts a new row of values at the end of the 
+        worksheet. The 2nd <strong>Select From</strong> command gets the appropriate 
+        confirmation message from another worksheet called messages that will be 
+        displayed as an alert on the phone when both operations are done.</span></p>
+    <p>
+        <img alt="" border="1" src="../../images/insert_example.png" /></p>
+    <p>
+        <span class="body" style="font-size: 11pt; font-family: Arial">Here is an 
+        example <strong>Update</strong>
+        command that updates a row of values where the title matches the title of the 
+        event being displayed. Because the title of the event is not visible on the 
+        phone, it is stored in a hidden variable called hidden_title. The 2nd <strong>
+        Select From</strong> command gets the appropriate confirmation message from 
+        another worksheet called messages that will be displayed as an alert on the 
+        phone when both operations are done.</span></p>
+    <p>
+        <img alt="" border="1" src="../../images/update_example.png" /></p>
+    <p>
+        <span class="body" style="font-size: 11pt; font-family: Arial">Here is an 
+        example<strong> Delete</strong> command that deletes a row of values where the 
+        title matches the title of the event being displayed. Because the title of the 
+        event is not visible on the phone, it is stored in a hidden variable called 
+        hidden_title. The 2nd <strong>Select From</strong> command gets the appropriate 
+        confirmation message from another worksheet called messages that will be 
+        displayed as an alert on the phone when both operations are done.</span></p>
+    <p>
+        <img alt="" border="1" src="../../images/delete_example.png" /></p>
+    <p class="style8">
+        <a name="conditional_statements"><strong>Conditional Commands</strong></a></p>
+    <p style="font-size: 11pt; font-family: Arial">
+        Suppose your app needs to query and respond differently with responses 
+        appearing on different pages, depending on different input in your app? This is 
+        the type of situation where you want to use conditional statements. 
+        A common example is logging into an app. If the user logs in with the wrong credentials 
+        the app should respond with an alert to that effect, on the same page as the 
+        input page. However if the user logs in with the correct credentials, the app should 
+        present data on a different page. The following example shows how to design a 
+        login in your app. </p>
+    <p style="font-size: 11pt; font-family: Arial">
+        The next set of figures shows parts of 
+        some of the worksheets used in an app for monitoring medication usage and 
+        glucose readings:</p>
+    <p style="font-size: 11pt; font-family: Arial">
+        Users:</p>
+        <p>
+        <img alt="" border="1" src="../../images/credentials_example.png" /></p>
+    <p style="font-size: 11pt; font-family: Arial">
+        Medical History:</p>
+        <p>
+        <img alt="" border="1" src="../../images/graphics_example.png" /></p>
+    <p style="font-size: 11pt; font-family: Arial">
+        Glucose Readings:</p>
+        <p>
+        <img alt="" border="1" src="../../images/readings_example.png" /></p>
+    <p style="font-size: 11pt; font-family: Arial">
+        Messages:</p>
+        <p>
+        <img alt="" border="1" src="../../images/messages_example.png" /></p>
+    <p style="font-size: 11pt; font-family: Arial">
+        The next figure shows the interface design used for a login operation 
+        to this app. The numbered circles are reference points that will be 
+        discussed. They don&#39;t actually appear in the portal page.</p>
+        <p>
+        <img alt="" border="1" src="../../images/conditional_example.png" /></p>
+         <p style="font-size: 11pt; font-family: Arial">
+             (1) First is a query command to select the account status 
+             of users in the worksheet which 
+             could have the values of &quot;active&quot; or &quot;inactive&quot; associated with username and 
+             password credential values in the worksheet.The <strong>Select From</strong> command selects the 
+             account status from the worksheet associated with device field values for 
+             username and password that equal the worksheet field values for username and 
+             password. The result worksheet value of accountstatus sets the device field 
+             account_status value. This value could be &quot;active&quot;, &quot;inactive&quot; if the 
+             credentials matched or an empty value if the credentials that the user entered didn&#39;t 
+             match any of the credentials in the worksheet. <strong>Note that the worksheet 
+             field &quot;account_status&quot; is represented as &quot;accountstatus&quot; by Google&#39;s 
+             representation of the field. The &quot;_&quot; is ignored.</strong></p>
+    <p style="font-size: 11pt; font-family: Arial">
+        (2) If the device field account_status value equals &quot;active&quot; then the login 
+        suceeded, so do the query (3). Else the login failed, so do the query (4). The 
+        query (3) sets the values of a table on the device, while the query (4) set the 
+        value of an alert. The alert is on the same page as the input while the table 
+        set by (4) is on a different page.</p>
+    <p style="font-size: 11pt; font-family: Arial">
+        (5) Again if the device field account_status value equals &quot;active&quot; then get some 
+        more data which happens to get a medical history image for the app called history.</p>
+    <p style="font-size: 11pt; font-family: Arial">
+        After all the commands are complete, the app will display the page that contains 
+        the last device field that is assigned by the command responses. If no device 
+        field is assigned by any of the commands then the app will display the page 
+        chosen in the property sheet of the button, table, image button or switch for 
+        the tap event. If there is a difference between the two, then the page that 
+        contains the last device field that is assigned by the command responses, will 
+        be chosen.</p>
+        <p>
+
+</body>
+</html>

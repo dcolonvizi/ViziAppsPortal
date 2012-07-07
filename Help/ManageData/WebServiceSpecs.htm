@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Web Service Specifications</title>
+    <style type="text/css">
+        .MsoNormal
+        {
+            margin-left: 0px;
+        }
+        .style1
+        {
+            color: #000099;
+        }
+        .style2
+        {
+            font-family: Calibri, sans-serif;
+            color: #000099;
+            margin-left: 60px;
+             padding:0px;
+             line-height:5px;
+        }
+    </style>
+</head>
+<body>
+<P>
+			<span class="body" style="font-size: 11pt; font-family: Arial">To download a 
+            free example .NET Web Service project that can be used with your app <a 
+            href="Demo.zip">click here</a></span></p>
+    <P>
+			<span class="body" style="font-size: 11pt; font-family: Arial">To use your web 
+            services with your app , they need to satisfy the following criteria: </span></p>
+    <ul>
+        <li style="height: 24px">
+            <span class="body" style="font-size: 11pt; font-family: Arial">The Web services 
+            must be SOAP based , each with a defined WSDL file.</span></li>
+        <li style="height: 24px">
+            <span class="body" style="font-size: 11pt; font-family: Arial">All the input parameters to all Methods need to be of type &quot;string&quot;.</span></li>
+        <li style="height: 43px">
+            <span class="body" style="font-size: 11pt; font-family: Arial">The response output type 
+            must be of type &quot;XmlDocument&quot; . It cannot be a string of XML characters of type 
+            &quot;string&quot;.</span></li>
+        <li style="height: 40px; font-size: 11pt; font-family: Arial;">
+            One of the response outputs must be the status of the web wervice call that 
+            contains a success or failure message.</li>
+        <li style="font-size: 11pt; font-family: Arial">The XML output tags from the web 
+            service response that are to be assigned to the mobile phone fields must have 
+            unique names in the XML output document. This is because their values are 
+            retrieved using global XPath queries. To represent an array of data for a phone 
+            field, the XML output must have an array of XML nodes all with the same tag 
+            name.</li>
+        <li style="font-size: 11pt; font-family: Arial">
+            <p class="MsoNormal">
+                <span style="font-family:Arial; font-size: 11pt;">Use the 
+                following XML syntax examples for outputs:<o:p></o:p></span></p>
+            <ul>
+                <li>
+                    <p class="MsoNormal">
+                        <span style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">
+                        <o:p>
+                        &nbsp;</o:p>For single item:<o:p></o:p></span></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p style=" margin-left:100px">
+        <span style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">
+        <span class="style1">&lt;item&gt;value&lt;/item&gt;</span><o:p>&nbsp;</o:p></span></p>
+    <ul>
+        <ul>
+                <li>
+                    <p class="MsoNormal">
+                        <span style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">
+                        <o:p>
+                        &nbsp;</o:p>For 
+                        any 1 dimensional array:<o:p></o:p></span></p>
+                </li>
+            </ul>
+        <p class="style2">
+            &lt;array1&gt;aaa&lt;/array1&gt;<o:p></o:p></p>
+        <p class="style2">
+            &lt;array1&gt;bbb&lt;/array1&gt;<o:p></o:p></p>
+        <p class="style2">
+            &lt;array1&gt;ccc&lt;/array1&gt;<o:p></o:p></p>
+         <ul>
+                <li>
+                    <p class="MsoNormal">
+                        <span style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">
+                        <o:p>
+                        &nbsp;</o:p>For 
+                        any 2 dimensional array:<o:p></o:p></span></p>
+                </li>
+            </ul>
+        <p class="style2">
+            &lt;array2&gt;<o:p></o:p></p>
+        <p class="style2">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;dim1&gt;aaa&lt;/dim1&gt;<o:p></o:p></p>
+        <p class="style2">
+            &nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp; &lt;dim2&gt;www&lt;/dim2&gt;<o:p></o:p></p>
+        <p class="style2">
+            &lt;/array2&gt;<o:p></o:p></p>
+        <p style=" margin-left:60px">
+            <span style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">
+            <span class="style1">
+            <o:p>
+            &nbsp;</o:p>&lt;array2&gt;</span><o:p></o:p></span></p>
+        <p class="style2">
+            &nbsp; 
+            &nbsp;&nbsp;&nbsp;&lt;dim1&gt;bbb&lt;/dim1&gt;<o:p></o:p></p>
+        <p class="style2">
+            &nbsp; 
+            &nbsp;&nbsp;&nbsp;&lt;dim2&gt;xxx&lt;/dim2&gt;<o:p></o:p></p>
+        <p class="style2">
+            &lt;/array2&gt;<o:p></o:p></p>
+        <p style=" margin-left:60px">
+            <span style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">
+            <span class="style1">
+            <o:p>
+            &nbsp;</o:p>&lt;array2&gt;</span><o:p></o:p></span></p>
+        <p class="style2">
+            &nbsp; 
+            &nbsp;&nbsp;&nbsp;&lt;dim1&gt;ccc&lt;/dim1&gt;<o:p></o:p></p>
+        <p class="style2">
+            &nbsp; 
+            &nbsp;&nbsp;&nbsp;&lt;dim2&gt;yyy&lt;/dim2&gt;<o:p></o:p></p>
+        <p class="style2">
+            &lt;/array2&gt;<o:p></o:p></p>
+         <ul>
+                <li>
+                    <p class="MsoNormal">
+                        <span style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">
+                        <o:p>
+                        &nbsp;</o:p>For 
+                        any 3 dimensional array:<o:p></o:p></span></p>
+                </li>
+            </ul>
+        <p class="style2">
+            &lt;array3&gt;<o:p></o:p></p>
+        <p class="style2">
+            &nbsp; 
+            &nbsp;&nbsp;&nbsp;&lt;dim1&gt;aaa&lt;/dim1&gt;<o:p></o:p></p>
+        <p class="style2">
+            &nbsp; 
+            &nbsp;&nbsp;&nbsp;&lt;dim2&gt;www&lt;/dim2&gt;<o:p></o:p></p>
+        <p class="style2">
+            &nbsp; 
+            &nbsp;&nbsp;&nbsp;&lt;dim3&gt;mmm&lt;/dim3&gt;<o:p></o:p></p>
+        <p class="style2">
+            &lt;/array3&gt;<o:p></o:p></p>
+        <p style=" margin-left:60px">
+            <span style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">
+            <span class="style1">
+            <o:p>
+            &nbsp;</o:p>&lt;array3&gt;</span><o:p></o:p></span></p>
+        <p class="style2">
+            &nbsp; 
+            &nbsp;&nbsp;&nbsp;&lt;dim1&gt;bbb&lt;/dim1&gt;<o:p></o:p></p>
+        <p class="style2">
+            &nbsp; 
+            &nbsp;&nbsp;&nbsp;&lt;dim2&gt;xxx&lt;/dim2&gt;<o:p></o:p></p>
+        <p class="style2">
+            &nbsp; 
+            &nbsp;&nbsp;&nbsp;&lt;dim3&gt;nnn&lt;/dim3&gt;<o:p></o:p></p>
+        <p class="style2">
+            &lt;/array3&gt;<o:p></o:p></p>
+        <p style=" margin-left:60px">
+            <span style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">
+            <span class="style1">
+            <o:p>
+            &nbsp;</o:p>&lt;array3&gt;</span><o:p></o:p></span></p>
+        <p class="style2">
+            &nbsp; 
+            &nbsp;&nbsp;&nbsp;&lt;dim1&gt;ccc&lt;/dim1&gt;<o:p></o:p></p>
+        <p class="style2">
+            &nbsp; 
+            &nbsp;&nbsp;&nbsp;&lt;dim2&gt;yyy&lt;/dim2&gt;<o:p></o:p></p>
+        <p class="style2">
+            &nbsp; 
+            &nbsp;&nbsp;&nbsp;&lt;dim3&gt;ooo&lt;/dim3&gt;<o:p></o:p></p>
+        <p class="style2">
+            &lt;/array3&gt;<o:p></o:p></p>
+    </ul>
+</body>
+</html>

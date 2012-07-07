@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://metaphorflex.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://metaphorflex.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://metaphorflex.com/">
+      <s:element name="GetMobiFlexURLs">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetMobiFlexURLsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMobiFlexURLsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SyncList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="applicationID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pageName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="list" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SyncListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SyncListResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecognizeItem">
+        <s:complexType />
+      </s:element>
+      <s:element name="RecognizeItemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecognizeItemResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RestartASRService">
+        <s:complexType />
+      </s:element>
+      <s:element name="RestartASRServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RestartASRServiceResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetMobiFlexURLsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMobiFlexURLs" />
+  </wsdl:message>
+  <wsdl:message name="GetMobiFlexURLsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMobiFlexURLsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SyncListSoapIn">
+    <wsdl:part name="parameters" element="tns:SyncList" />
+  </wsdl:message>
+  <wsdl:message name="SyncListSoapOut">
+    <wsdl:part name="parameters" element="tns:SyncListResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecognizeItemSoapIn">
+    <wsdl:part name="parameters" element="tns:RecognizeItem" />
+  </wsdl:message>
+  <wsdl:message name="RecognizeItemSoapOut">
+    <wsdl:part name="parameters" element="tns:RecognizeItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="RestartASRServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:RestartASRService" />
+  </wsdl:message>
+  <wsdl:message name="RestartASRServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:RestartASRServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMobiFlexURLsHttpGetIn" />
+  <wsdl:message name="GetMobiFlexURLsHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="SyncListHttpGetIn">
+    <wsdl:part name="applicationID" type="s:string" />
+    <wsdl:part name="pageName" type="s:string" />
+    <wsdl:part name="list" type="s:string" />
+    <wsdl:part name="request" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SyncListHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="RecognizeItemHttpGetIn" />
+  <wsdl:message name="RecognizeItemHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="RestartASRServiceHttpGetIn" />
+  <wsdl:message name="RestartASRServiceHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetMobiFlexURLsHttpPostIn" />
+  <wsdl:message name="GetMobiFlexURLsHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="SyncListHttpPostIn">
+    <wsdl:part name="applicationID" type="s:string" />
+    <wsdl:part name="pageName" type="s:string" />
+    <wsdl:part name="list" type="s:string" />
+    <wsdl:part name="request" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SyncListHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="RecognizeItemHttpPostIn" />
+  <wsdl:message name="RecognizeItemHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="RestartASRServiceHttpPostIn" />
+  <wsdl:message name="RestartASRServiceHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="GetMobiFlexURLs">
+      <wsdl:input message="tns:GetMobiFlexURLsSoapIn" />
+      <wsdl:output message="tns:GetMobiFlexURLsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SyncList">
+      <wsdl:input message="tns:SyncListSoapIn" />
+      <wsdl:output message="tns:SyncListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecognizeItem">
+      <wsdl:input message="tns:RecognizeItemSoapIn" />
+      <wsdl:output message="tns:RecognizeItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RestartASRService">
+      <wsdl:input message="tns:RestartASRServiceSoapIn" />
+      <wsdl:output message="tns:RestartASRServiceSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ServiceHttpGet">
+    <wsdl:operation name="GetMobiFlexURLs">
+      <wsdl:input message="tns:GetMobiFlexURLsHttpGetIn" />
+      <wsdl:output message="tns:GetMobiFlexURLsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SyncList">
+      <wsdl:input message="tns:SyncListHttpGetIn" />
+      <wsdl:output message="tns:SyncListHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecognizeItem">
+      <wsdl:input message="tns:RecognizeItemHttpGetIn" />
+      <wsdl:output message="tns:RecognizeItemHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RestartASRService">
+      <wsdl:input message="tns:RestartASRServiceHttpGetIn" />
+      <wsdl:output message="tns:RestartASRServiceHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ServiceHttpPost">
+    <wsdl:operation name="GetMobiFlexURLs">
+      <wsdl:input message="tns:GetMobiFlexURLsHttpPostIn" />
+      <wsdl:output message="tns:GetMobiFlexURLsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SyncList">
+      <wsdl:input message="tns:SyncListHttpPostIn" />
+      <wsdl:output message="tns:SyncListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecognizeItem">
+      <wsdl:input message="tns:RecognizeItemHttpPostIn" />
+      <wsdl:output message="tns:RecognizeItemHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RestartASRService">
+      <wsdl:input message="tns:RestartASRServiceHttpPostIn" />
+      <wsdl:output message="tns:RestartASRServiceHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetMobiFlexURLs">
+      <soap:operation soapAction="http://metaphorflex.com/GetMobiFlexURLs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SyncList">
+      <soap:operation soapAction="http://metaphorflex.com/SyncList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecognizeItem">
+      <soap:operation soapAction="http://metaphorflex.com/RecognizeItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RestartASRService">
+      <soap:operation soapAction="http://metaphorflex.com/RestartASRService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetMobiFlexURLs">
+      <soap12:operation soapAction="http://metaphorflex.com/GetMobiFlexURLs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SyncList">
+      <soap12:operation soapAction="http://metaphorflex.com/SyncList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecognizeItem">
+      <soap12:operation soapAction="http://metaphorflex.com/RecognizeItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RestartASRService">
+      <soap12:operation soapAction="http://metaphorflex.com/RestartASRService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceHttpGet" type="tns:ServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetMobiFlexURLs">
+      <http:operation location="/GetMobiFlexURLs" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SyncList">
+      <http:operation location="/SyncList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecognizeItem">
+      <http:operation location="/RecognizeItem" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RestartASRService">
+      <http:operation location="/RestartASRService" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceHttpPost" type="tns:ServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetMobiFlexURLs">
+      <http:operation location="/GetMobiFlexURLs" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SyncList">
+      <http:operation location="/SyncList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecognizeItem">
+      <http:operation location="/RecognizeItem" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RestartASRService">
+      <http:operation location="/RestartASRService" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="http://localhost/SpeechReco/Service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="http://localhost/SpeechReco/Service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceHttpGet" binding="tns:ServiceHttpGet">
+      <http:address location="http://localhost/SpeechReco/Service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceHttpPost" binding="tns:ServiceHttpPost">
+      <http:address location="http://localhost/SpeechReco/Service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

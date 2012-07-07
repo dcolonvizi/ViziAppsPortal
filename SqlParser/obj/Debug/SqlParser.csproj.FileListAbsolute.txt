@@ -1,0 +1,5 @@
+C:\Program Files\MobiFlex\MobiFlexPortal\SqlParser\bin\Debug\SqlParser.dll
+C:\Program Files\MobiFlex\MobiFlexPortal\SqlParser\bin\Debug\SqlParser.pdb
+C:\Program Files\MobiFlex\MobiFlexPortal\SqlParser\obj\Debug\ResolveAssemblyReference.cache
+C:\Program Files\MobiFlex\MobiFlexPortal\SqlParser\obj\Debug\SqlParser.dll
+C:\Program Files\MobiFlex\MobiFlexPortal\SqlParser\obj\Debug\SqlParser.pdb

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<checkout-shopping-cart xmlns="http://checkout.google.com/schema/2">
+  <shopping-cart>
+    <items>
+      <item>
+        <item-name>Subscription to ViziApps Design and Test Service</item-name>
+        <item-description>Design and Test Native Mobile Apps Online with Access to Spreadsheets Data</item-description>
+        <unit-price currency="USD">0.00</unit-price>
+        <quantity>1</quantity>
+        <merchant-private-item-data>
+          10
+        </merchant-private-item-data>
+        <digital-content>
+          <display-disposition>OPTIMISTIC</display-disposition>
+          <description>Congratulations! Your subscription is being set up.</description>
+        </digital-content>
+      </item>
+    </items>
+  </shopping-cart>
+</checkout-shopping-cart>

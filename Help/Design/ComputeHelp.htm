@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>How to Use the Compute Property</title>
+    <style type="text/css">
+        .style1
+        {
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+<div style="width:700px;height:497px">
+       <span class="body" style="font-size: 11pt; font-family: Arial">
+            <p>
+                The <b>
+                Compute </b>property<b>
+                </b>is used to compute values and run commands on the device like formulas in Excel. The 
+                operations that are currently available are:</p>
+       <p style="font-weight: 700">
+                <strong>=</strong>&nbsp;&nbsp;&nbsp; <span class="style1">This assigns the value of one field 
+                or a constant to the value of another field. The field name is its internal name 
+                in its property sheet. For example, suppose a text field has the internal name 
+                &quot;amount&quot; and a picker sub-field has the name &quot;cost&quot;. Then 
+                &quot;amount = cost&quot; assigns the value of the selected picker &quot;cost&quot; to the 
+                &quot;amount&quot; field.&nbsp; In another example, &quot;amount = 100&quot; assigns the value &quot;100&quot; 
+                to the amount field.</span></p>
+       <p>
+                <strong>+, - , * ,&nbsp; /&nbsp;</strong>&nbsp;&nbsp; These are arithmetic operations on field values. For 
+                example &quot;field1 = field2 + 10&quot; or field1 = field2 * field3&quot;. 
+                Currently, the use of &quot;(&quot; and &quot;)&quot; are not supported. To 
+                check out a good example of using the Compute property, see the template app 
+                TapNCharge.</p>
+       <p>
+                <strong>Now()</strong>&nbsp; This will get the current date time and time zone 
+                in hours relative to Greenwich mean time. For example &quot;field1 = Now()&quot; After the 
+                computation, the value of field1 is &quot;2011-03-26 13:49:23 -0400&quot;</p>
+       <p>
+                <strong>PlayAudio()</strong> This will play the audio in a field. For example 
+                &quot;PlayAudio(field1)&quot; where field1 is an audio field or hidden field containing an 
+                audio URL. This example will play the&nbsp; audio of the URL in field1.</p>
+       <p>
+       <span class="body" style="font-size: 11pt; font-family: Arial">
+                <strong>ShowWebPage()</strong> This will show the web page for a URL value of a 
+                field. For example 
+                &quot;ShowWebPage(url_field)&quot; where url_field is a field or hidden field containing a URL. 
+        </span></p>
+       <p>
+                The state of a <strong>switch</strong> or <strong>checkbox</strong> can be set 
+                by assigning the <strong>switch</strong> or <strong>checkbox</strong> to either
+                <strong>true</strong> or <strong>false</strong>. For example &quot;switch1 = 
+                true&quot; will set the field switch1 to &quot;on&quot; if the switch type for switch1 is
+                <strong>on-off</strong> or set switch1 to &quot;checked&quot; if the switch type is
+                <strong>checkbox.</strong></p>
+       <p>
+                A sequence of statements can be used in one compute field separated by a &quot;;&quot;. 
+                For example, &quot;field1 = field2; field3 = 100; switch1=false&quot;.</p>
+        </span>
+        </div>
+</body>
+</html>

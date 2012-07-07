@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections;
+
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Controls_AddCommand : System.Web.UI.UserControl
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
+        if (State == null || State.Count <= 2) { Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "timeOut('../Default.aspx');", true); return; }
+    }
+  
+}

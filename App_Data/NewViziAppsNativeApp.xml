@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<mobiflex_project>
+  <version>2.0</version>
+  <configuration>
+    <device_type>iphone</device_type>
+    <device_design_width>320</device_design_width>
+    <device_design_height>480</device_design_height>
+  </configuration>
+  <application>
+    <type>native</type>
+    <name>new_app</name>
+    <id></id>
+    <pages>
+      <first_page_name>
+      </first_page_name>
+    </pages>
+ </application>
+</mobiflex_project>

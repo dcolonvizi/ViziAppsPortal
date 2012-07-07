@@ -1,0 +1,11 @@
+   .CustomTab
+    {
+        font-weight: bold !important;  
+   }
+    .DraggedNode
+    {
+    	background-color:#99ffb9;
+    	font-size:12px;
+	    font-family:Verdana;
+	    color:Navy;
+    }

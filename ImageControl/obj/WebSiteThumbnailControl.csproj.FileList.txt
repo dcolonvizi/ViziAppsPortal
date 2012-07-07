@@ -1,0 +1,7 @@
+bin\Debug\WebSiteThumbnailControl.dll
+bin\Debug\WebSiteThumbnailControl.pdb
+bin\Debug\ImageControl.xml
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\WebSiteThumbnailControl.dll
+obj\Debug\WebSiteThumbnailControl.pdb
+obj\Debug\PAB.WebControls.Notavailable.jpg

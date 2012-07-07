@@ -1,0 +1,48 @@
+.TopGroup
+{
+  z-index:99;
+  position:relative;
+}
+
+.DefaultTab 
+{
+  color:#336699; 
+  background-image: url(../images/tab_bg.gif);
+  font-family:Verdana; 
+  font-size:12px; 
+  font-weight: bold;
+  cursor:pointer;
+}
+
+.DefaultTabHover 
+{
+  color:#ff6600; 
+  background-image: url(../images/hover_tab_bg.gif);
+  font-family:Verdana; 
+  font-size:12px; 
+  font-weight: bold;
+  text-decoration: underline;
+  cursor:pointer;
+}
+
+.SelectedTab 
+{
+  color:#003399; 
+  background-image: url(../images/selected_tab_bg20.gif);
+  font-family:Verdana; 
+  font-size:12px; 
+  font-weight: bold;
+  cursor:pointer;
+  background-position:bottom;
+}
+
+.DisabledTab 
+{
+  color:#AAAAAA; 
+  background-image: url(../images/tab_bg.gif);
+  font-family:Verdana; 
+  font-size:12px; 
+  font-weight: bold;
+  cursor:default;
+}
+

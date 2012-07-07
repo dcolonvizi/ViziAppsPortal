@@ -1,0 +1,74 @@
+.ui-btn-inner {
+    display: block;
+    overflow: hidden;
+    padding: 0em 0px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ui-content .ui-listview-inset {
+    margin: 0 0;
+}
+
+.ui-checkbox, .ui-radio {
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+.ui-checkbox .ui-btn-icon-left .ui-btn-inner {
+    padding-left: 0;
+    height: 32px;
+}
+
+.ui-checkbox .ui-btn {
+    margin: 0;
+    height: 32px;
+    width: 32px;
+    z-index: 2;
+}
+
+.ui-checkbox .ui-icon {
+    top: 0.9em;
+}
+.ui-checkbox .ui-btn-icon-left .ui-icon {
+    left: 7px;
+}
+
+.viziapps-first-table-text
+{
+    position:relative;
+    top:7px;
+    font-family:arial; 
+    font-size:13px;
+    font-weight:bold; 
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+    padding: 5px;
+    display:block;
+}
+
+.viziapps-second-table-text
+{
+    position:relative;
+    top:-7px;
+     font-family:arial; 
+    font-size:11px;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+    padding: 5px;
+    display:block;
+}
+
+nav {
+		display: block;
+		height: 90%;
+		-webkit-perspective: 1000;
+		-webkit-backface-visibility: hidden;
+	}

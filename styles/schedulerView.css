@@ -1,0 +1,118 @@
+.schedulerview
+{
+  background-color:#C3D9FF;
+  font-family:Arial;
+  font-size:11px;
+  overflow:hidden;
+}
+
+.appointment,
+.appointmentFocus
+{
+  color:#FFFFFF;
+  filter:alpha(opacity=90);-moz-opacity:0.9;-khtml-opacity:0.9;opacity:0.9;
+  overflow:hidden;
+  background-color:#59BFB3;
+  font-family:Verdana;
+}
+.appointment
+{
+  border:solid 1px #1B887A;
+}
+.appointmentFocus
+{
+  border:dotted 1px orange;
+}
+
+.appointment dl,
+.appointmentFocus dl 
+{
+  margin:0;
+  padding:0;
+  position:absolute;
+  top:0;
+  bottom:0;
+  height:auto;
+  left:0;
+  right:0;
+  width:auto;
+}
+
+.appointment dt,
+.appointmentFocus dt
+{
+  margin:0;
+  padding:1px 4px 1px 4px;
+  background-color:#1B887A;
+  color:#FFFFFF;
+  font-weight:bold;
+  font-size:10px;
+  position:absolute;
+  top:0;
+  height:14px;
+  bottom:auto;
+  left:0;
+  right:0;
+  width:auto;
+}
+
+.appointment dd,
+.appointmentFocus dd
+{
+  margin:0;
+  padding:1px 4px 0 4px;
+  font-size:11px;
+  position:absolute;
+  top:16px;
+  bottom:0;
+  height:auto;
+  left:0;
+  right:0;
+  width:auto;
+}
+
+.appointmentFooter
+{
+  cursor:n-resize;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-image:url(../images/footer_resize.png);
+}
+
+.rowHeaderCell
+{
+  background-image:url(../images/rowheaderbg.gif);
+  background-position:top;
+  background-repeat:repeat-x;
+  background-color:#E8EEF7;
+  color:#446688;
+  text-align:right;
+  padding-right:2px;
+  padding-top:2px;
+  width:38px !important;
+  height:40px !important;
+}
+
+.columnHeaderCell
+{
+  padding-top:2px;
+  text-align:center;
+  width:132px !important;
+}
+.columnHeaderCellToday,
+.columnHeaderCellNotToday
+{
+  color:#112ABB;
+  background-color:#C3D9FF;
+  border:solid 1px #C3D9FF;
+}
+.column
+{
+  width:134px;
+  background-image:url(../images/cellbg.gif);
+}
+.columnToday,
+.columnNotToday
+{
+  background-color:#FFFFDC;
+}

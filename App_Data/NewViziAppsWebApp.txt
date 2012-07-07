@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html> 
+<html> 
+<head>
+	<title>CUSTOM_TITLE</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="YES">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+	<link rel="stylesheet"  href="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/viziapps_device_web_apps_1.11.css" />
+	 <style type="text/css">
+  </style>
+   <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+	<script type="text/javascript" src="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/touch-scroll.min.js"></script>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/jshashtable-2.1.js"></script>		
+    <script type="text/javascript" src="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/viziapps_device_web_apps_1.15.min.js"></script>	
+    <script type="text/javascript" src="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/google_spreadsheet_util_1.8.min.js"></script>	
+	<script type="text/javascript" src="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/s3_util_1.0.js"></script>	
+	ADDON_VIZIAPPS_SCRIPTS
+	<script type="text/javascript">
+	CUSTOM_VIZIAPPS_INIT
+	</script>
+	<script type="text/javascript">
+	$(function () {
+CUSTOM_VIZIAPPS_FUNCTIONS
+    });
+	</script>
+CUSTOM_ACCOUNT_HEADER
+</head> 
+<body> 
+<div id="viziapps_spinner" class="viziapps_spinner" style="display:none;">
+	<img src="http://jquerymobile.com/test/css/themes/default/images/ajax-loader.gif" alt="Loading"/>
+</div>
+<img id='viziapps_photo_image' style="display:none;width:60px;height:60px;" alt="image here"/>
+<div id='viziapps_gps_info'>
+	<input id="viziapps_gps_latitude" type="hidden"/>
+	<input id="viziapps_gps_longitude" type="hidden"/>
+</div>
+</body>
+</html>
+

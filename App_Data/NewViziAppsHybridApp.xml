@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<app_project>
+  <version>1.0</version>
+  <configuration>
+    <device_type/>
+    <device_design_height/>
+    <device_design_width/>
+  </configuration>
+  <application>
+    <type>hybrid</type>
+    <name/>
+    <id/>
+    <html/>
+  </application>
+</app_project>

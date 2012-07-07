@@ -1,0 +1,111 @@
+﻿a:active,a:focus { outline:none; }
+
+/* Thermometer / standard */
+.thermometer { }
+    .thermometer .grip { width:11px;height:30px;background:transparent url("../images/thermometer/static.png") no-repeat;cursor:e-resize; }
+    .thermometer .grip-h { width:11px;height:30px;background:transparent url("../images/thermometer/static.png") no-repeat -11px 0;cursor:e-resize; }
+    .thermometer .track { width:251px;height:30px;background:transparent url("../images/thermometer/static.png") no-repeat -36px 0; }
+    .thermometer .track-dec { width:251px;height:30px;background:transparent url("../images/thermometer/horizontal.png") repeat-x; }
+    .thermometer .dec { width:14px;height:30px;background:transparent url("../images/thermometer/static.png") no-repeat -22px 0; }
+    .thermometer .inc { width:15px;height:30px;background:transparent url("../images/thermometer/static.png") no-repeat -287px 0; }
+
+/* Thermomter popup */
+.thermometer-popup { padding:3px;border:1px solid #666;background:#fff; }
+
+
+/* 'Sloped' volume */
+.sloped { }
+    .sloped .grip { width:10px;height:35px;background:transparent url("../images/sloped/static.png") no-repeat;cursor:e-resize; }
+    .sloped .grip-h { width:10px;height:35px;background:transparent url("../images/sloped/static.png") no-repeat -10px 0;cursor:e-resize; }
+    .sloped .track { width:255px;height:33px;background:#fff url("../images/sloped/static.png") no-repeat -23px 0; }
+    .sloped .track-inc { width:255px;height:33px;background:transparent url("../images/sloped/horizontal.png") repeat-x; }
+    .sloped .dec { width:3px;height:33px;background:transparent url("../images/sloped/static.png") no-repeat -20px 0; }
+    .sloped .inc { width:3px;height:33px;background:transparent url("../images/sloped/static.png") no-repeat -278px 0; }
+
+
+/* Stepped volume */
+.stepped { }
+    .stepped .grip { width:9px;height:29px;background:transparent url("../images/stepped/static.png") no-repeat;cursor:e-resize; }
+    .stepped .grip-h { width:9px;height:29px;background:transparent url("../images/stepped/static.png") no-repeat -9px 0;cursor:e-resize; }
+    .stepped .track { width:249px;height:25px;background:#fff url("../images/stepped/static.png") no-repeat -20px 0; }
+    .stepped .track-inc { width:249px;height:25px;background:transparent url("../images/stepped/horizontal.png") repeat-x; }
+    .stepped .dec { width:2px;height:25px;background:transparent url("../images/stepped/static.png") no-repeat -18px 0; }
+    .stepped .inc { width:3px;height:25px;background:transparent url("../images/stepped/static.png") no-repeat -269px 0; }
+
+/* Stepped volume popup */
+.stepped-popup { width:98px;height:17px;line-height:15px;text-align:center;padding:1px 2px 2px 1px;font-size:10px;color:#586dcf;background:transparent url("../images/stepped/static.png") no-repeat 0 -29px; }
+
+
+/* Equalizer(s) */
+.equalizer { float:left;margin:3px 0 0 12px;width:15px; }
+    .equalizer .grip { width:15px;height:9px;background:transparent url("../images/equalizer/static.png") no-repeat;cursor:n-resize; }
+    .equalizer .grip-h { width:15px;height:9px;background:transparent url("../images/equalizer/static.png") no-repeat -15px 0;cursor:n-resize; }
+    .equalizer .track { width:15px;height:100px;background:transparent url("../images/equalizer/vertical.png") repeat-y; }
+    .equalizer .track-inc { width:15px;height:100px;background:transparent url("../images/equalizer/vertical.png") repeat-y -15px 0; }
+    .equalizer .dec { width:15px;height:8px;background:transparent url("../images/equalizer/static.png") no-repeat 0 -25px; }
+    .equalizer .inc { width:15px;height:20px;background:transparent url("../images/equalizer/static.png") no-repeat -15px -9px;padding:4px 0 0 0;text-align:center;line-height:20px;font-size:10px;color:#333;cursor:default; }
+
+
+/* Spectrum */
+.spectrum { }
+    .spectrum .grip { width:37px;height:12px;background:transparent url("../images/spectrum/static.png") no-repeat;cursor:n-resize; }
+    .spectrum .grip-h { width:37px;height:12px;background:transparent url("../images/spectrum/static.png") no-repeat 0 -12px;cursor:n-resize; }
+    .spectrum .track { width:17px;height:258px;background:#fff url("../images/spectrum/static.png") no-repeat -37px 0; }
+    .spectrum .dec { width:17px;height:17px;background:transparent url("../images/spectrum/static.png") no-repeat 0 -24px; }
+    .spectrum .dec:hover { background-position:-17px -24px; }
+    .spectrum .inc { width:17px;height:17px;background:transparent url("../images/spectrum/static.png") no-repeat 0 -41px; }
+    .spectrum .inc:hover { background-position:-17px -41px; }
+
+
+/* XP */
+.xp { background:#efebe7;border:1px solid #fff;border-color:#fff #e1ddda #e1ddda #fff; }
+    .xp .grip { width:22px;height:11px;background:transparent url("../images/xp/static.png") no-repeat -11px 0;cursor:n-resize; }
+    .xp .grip-h { width:22px;height:11px;background:transparent url("../images/xp/static.png") no-repeat -11px -11px;cursor:n-resize; }
+    .xp .track { width:4px;height:254px;background:#fff url("../images/xp/vertical.png") repeat-y; }
+    .xp .track-inc { width:4px;height:254px;background:#fff url("../images/xp/vertical.png") repeat-y -4px 0; }
+    .xp .inc { width:26px;height:21px;background:transparent url("../images/xp/static.png") no-repeat -21px -65px; }
+    .xp .dec { width:26px;height:21px;background:transparent url("../images/xp/static.png") no-repeat -21px -44px; }
+
+
+/* Google */
+.google { }
+    .google .grip_vertical { background-image:url('images/google/grip_vertical.png');height:11px;width:28px;cursor: pointer;cursor:hand; }
+    .google .grip_hover_vertical { background-image:url('images/google/grip_hover_vertical.png');height:11px;width:28px;cursor: pointer;cursor: hand; }
+    .google .track_vertical { background-image:url('images/google/track_vertical.png'); width:30px;cursor: pointer;cursor: hand; }
+    .google .decrease_vertical { background-image:url('images/google/decrease_vertical.png');width:30px;height:26px;cursor: pointer;cursor: hand; }
+    .google .decrease_hover_vertical { background-image:url('images/google/decrease_hover_vertical.png');width:30px;height:26px;cursor: pointer;cursor: hand; }
+    .google .increase_vertical { background-image:url('images/google/increase_vertical.png');width:30px;height:26px;cursor: pointer;cursor: hand; }
+    .google .increase_hover_vertical { background-image:url('images/google/increase_hover_vertical.png');width:30px;height:26px;cursor: pointer;cursor: hand; }
+
+
+
+
+/* Layout-specific classes */
+.DemoArea div.l { width:290px;height:300px;float:left; }
+.DemoArea div.r { width:250px;height:300px;float:left; }
+
+.DemoArea span.lbl { display:block;text-align:right;font-size:10px;line-height:16px;height:16px; }
+
+
+.slider1 { width:280px;height:50px;margin:24px 0 0 8px; }
+    .slider1 span.lbl { padding:0 13px 0 0; }
+
+.slider2 { width:261px;height:50px;margin:16px 0 0 16px; }
+    .slider2 span.lbl { padding:4px 0 0 0; }
+
+.slider3 { width:255px;height:50px;margin:16px 0 0 22px; }
+    .slider3 span.lbl { padding:4px 0 0 0; }
+
+.slider4 { width:261px;height:78px;margin:16px 0 0 16px; }
+    .slider4 .eq { width:100%;height:100%;border:1px solid #fff;border-color:#fff #bbb #bbb #fff; }
+    .slider4 .presets { float:right;width:80px;height:70px;padding:6px 6px 0 0; }
+        .slider4 .presets a { display:block;width:76px;height:18px;border:1px solid #fff;border-color:#fff #bbb #bbb #fff;line-height:18px;font-size:11px;color:#168300;margin:2px 0 0 0;text-align:center;text-decoration:none;cursor:default;font-weight:bold; }
+        .slider4 .presets a:hover { background:#f9f9f9;color:#1a5f0c;border-color:#ccc #999 #999 #ccc; }
+        .slider4 .presets a:active { background:#f9f9f9;color:#1a5f0c;border-color:#999 #ccc #ccc #999; }
+    .slider4 span.lbl { padding:4px 0 0 0; }
+
+.slider5 { float:left;margin:14px 12px 0 20px; }
+
+.slider6 { float:left;margin:14px 12px 0 30px; }
+
+.slider7 { float:left;margin:14px 12px 0 30px; }

@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Guide to Using Google Docs Spreadsheets</title>
+    <style type="text/css">
+        .style1
+        {
+            font-family: "Courier New", Courier, monospace;
+        }
+        .style2
+        {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    </head>
+<body style="width:780px">
+<div>
+<span class="body" style="font-size: 11pt; font-family: Arial">
+<P>
+			This is a reference to ViziApps javascript functions that can be used in custom header HTML to enhance the operation of your app. 
+            Your app runs within a jQuery and jQuery-Mobile javascript context. All of these functions need to be inside of the following javascript code:</p>
+    <P style="background-color: #FFFFCC">
+<span class="body" style="font-size: 11pt; font-family: Arial">
+<span class="style1" >
+ &lt;script type=&quot;text/javascript&quot;&gt;<br /> 
+ &nbsp; 
+ $(function () {<br /> 
+				&nbsp;&nbsp; <br /> 
+&nbsp;&nbsp;&nbsp;&nbsp; ... your code here ....<br /> 
+&nbsp;&nbsp;&nbsp; <br /> 
+&nbsp; 
+}); <br /> 
+			&lt;/script&gt;</span></span></p>
+    <P>
+			The line <span class="body" style="font-size: 11pt; font-family: Arial">
+            <span class="style1" style="background-color: #FFFFCC;" >
+            $(function () </span>
+</span>
+</span>
+<span class="style2" style="font-size: 11pt; ">
+            is required for the JQuery context.</span><span class="body" style="font-size: 11pt; font-family: Arial"><span class="style1" >
+ </span>
+</span></p>
+    <P>
+			<span class="body" style="font-size: 11pt; font-family: Arial">
+			To run your code when a button or image button is tapped use this type code:</p>
+    <P style="background-color: #FFFFCC;">
+<span class="body" style="font-size: 11pt; font-family: Arial">
+<span class="style1" >
+ &lt;script type=&quot;text/javascript&quot;&gt;<br /> 
+ $(function () {<br /> 
+				&nbsp;&nbsp; 
+				$(&#39;#button1&#39;).bind(&#39;tap&#39;,function(event){<br /> 
+&nbsp;&nbsp;&nbsp;&nbsp; ... your code here ....<br /> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+event.stopPropagation();<br /> 
+&nbsp;&nbsp; 
+}); <br /> 
+}); <br /> 
+			&lt;/script&gt;</span></span></p>
+    <P>
+			Here is the list of ViziApps javascript functions</p>
+    <P>
+			<strong>getFieldValue(&#39;field_name&#39;)</strong></p>
+    <P>
+<span class="body" style="font-size: 11pt; font-family: Arial">
+            Returns the string value for the ViziApps field</span></p>
+    <P>
+<span class="body" style="font-size: 11pt; font-family: Arial">
+            <strong>getFieldArrayValues(&#39;field_name&#39;)</strong></span></p>
+    <P>
+<span class="body" style="font-size: 11pt; font-family: Arial">
+            Returns the array of string values for the ViziApps field</span></p>
+    <P>
+			<strong>setFieldValue(&#39;field_name&#39;, field_value)</strong></p>
+    <P>
+<span class="body" style="font-size: 11pt; font-family: Arial">
+            Sets the value for the ViziApps field</span></p>
+    <P>
+			<strong>setFieldArrayValues(&#39;field_name&#39;, array_values)</strong></p>
+    <P>
+<span class="body" style="font-size: 11pt; font-family: Arial">
+            Sets the array of string values for the ViziApps field</span></p>
+    <P>
+			<strong>gotoPage(&#39;page_name&#39;)</strong></p>
+    <P>
+			Performs a page transition to the named page</p>
+</span>
+<span class="style1" style="font-size: 11pt; ">
+</span>
+<span class="body" style="font-size: 11pt; font-family: Arial">
+    <P>
+<span class="body" style="font-size: 11pt; font-family: Arial">
+            <strong>getFieldType(&#39;field_name&#39;)</strong></span></p>
+    <P>
+			Returns the ViziApps field type of the field. The supported field types are:</p>
+    <ul>
+        <li>button</li>
+        <li>image_button</li>
+        <li>label</li>
+        <li>text_field</li>
+        <li>text_area</li>
+        <li>image</li>
+        <li>audio</li>
+        <li>table</li>
+        <li>picker</li>
+        <li>slider</li>
+        <li>web_view</li>
+        <li>alert</li>
+        <li>switch</li>
+        <li>hidden_field</li>
+        <li>photo</li>
+        <li>gps</li>
+        <li>html_panel</li>
+    </ul>
+</span>
+</div>
+</body>
+</html>

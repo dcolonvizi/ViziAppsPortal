@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Interfacing to Google Docs</title>
+    <style type="text/css">
+
+        .style1
+        {
+            font-size: large;
+            color: #006600;
+        }
+    </style>
+    <script language="javascript" type="text/javascript">
+
+        function popitup(url) {
+            newwindow = window.open(url, 'name', 'height=600,width=1000');
+            if (window.focus) { newwindow.focus() }
+            return false;
+        }
+</script>
+
+</head>
+<body>
+<div style="width:800px">
+<P>
+			<span class="body" style="font-size: 11pt; font-family: Arial">To interface your 
+            app with 
+            your Google Docs spreadsheet, you can create query commands for your app that 
+            will run when you tap a button or table row on your phone or iPad. </span></p>
+    <P>
+			<span class="body" style="font-size: 11pt; font-family: Arial">To create the 
+            interface from your phone or iPad to your database:</span></p>
+    <ul>
+        <li style="height: 83px">
+            <span class="body" style="font-size: 11pt; font-family: Arial">Create a <a href="https://www.google.com/accounts/ServiceLogin" onclick="return popitup('https://www.google.com/accounts/ServiceLogin?service=writely&passive=1209600&continue=http://docs.google.com/&followup=http://docs.google.com/&ltmpl=homepage')">Google Docs 
+            account</a> or <a href="http://www.google.com/apps/intl/en/business/index.html" onclick="return popitup('http://www.google.com/apps/intl/en/business/index.html')">Google Apps 
+            account</a>, if you don&#39;t already have one. Then create a 
+            spreadsheet with one or more worksheets. <a href="GoogleSpreadsheetHelp.htm" onclick="return popitup('GoogleSpreadsheetHelp.htm')">Click here for a step by step guide</a>. Set your worksheet(s) with field names in 
+            the first row, your data and set the sheet name(s). Note that spaces and &quot;_&quot; 
+            will be ignored in the field names and worksheet names.</span></li>
+        <li style="height: 34px">
+            <span class="body" style="font-size: 11pt; font-family: Arial">Click<b> Connect 
+            to 
+            Your Google Docs. </b>See the context help in the popup for more information.</span></li>
+        <li style="height: 55px">
+            <span class="body" style="font-size: 11pt; font-family: Arial">Select the<strong> 
+            Event</strong> on the phone or iPad (some button or table field name) that 
+            will activate the query commands you are going to create.</span></li>
+        <li style="height: 37px">
+            <span class="body" style="font-size: 11pt; font-family: Arial">Create query 
+            commands. Start by clicking on the </span><span class="style1" 
+                style="font-family: Arial"><strong>+</strong></span><span class="body" style="font-size: 11pt; font-family: Arial">.
+            </span></li>
+        <li style="height: 35px"><span class="body" style="font-size: 11pt; font-family: Arial">&nbsp;Click<strong> 
+            Save </strong>and select other events and create their associated query 
+            commands.</span></li>
+    </ul>
+    </div>
+</body>
+</html>

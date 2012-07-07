@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>Set ViziApps Background</title>
+    <style type="text/css">
+        body {background-color:Gray}
+
+    </style>
+    <link rel="stylesheet" title="Standard" href="stylesBackground.css" type="text/css" media="screen" />
+   <link rel="stylesheet" title="Standard" href="contentflowBackground.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript" src="contentflowBackground_src.js"></script>
+    <script type="text/javascript">
+ 
+       var cf = new ContentFlow('contentFlow');
+  
+       function GetRadWindow() {
+            var oWindow = null;
+            if (window.radWindow) oWindow = window.radWindow;
+            else if (window.frameElement.radWindow) oWindow = window.frameElement.radWindow;
+            return oWindow;
+        }
+
+         function CloseSetBackgroundWithArg(sender) {
+             var customArg = sender.src;
+             if (!customArg) {
+                 var attributes = sender.attributes;
+                 for (var i = 0; i < attributes.length; i++) {
+                     if (attributes[i].nodeName == 'src') {
+                         customArg = attributes[i].nodeValue;
+                         break;
+                     }
+                 }
+             }
+             if (!customArg)
+                 customArg = sender.id;   
+            GetRadWindow().close(customArg);
+        }
+     </script>
+</head>
+<body>    
+    <div style="height:35px;"></div>
+    <div id="contentFlow" class="ContentFlow" style="height:500px;">
+        <!-- should be place before flow so that contained images will be loaded first -->
+        <div class="loadIndicator"><div class="indicator"></div></div>
+
+       <div class="flow" style="height:450px;">
+
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/notepad_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/notepad_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/golf_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/golf_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/arty_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/arty_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/azure_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/azure_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/black_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/black_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/blue_grey_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/blue_grey_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+             <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/blue_green_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+          <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/blue_wave_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/blue_wave_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/blue_diagonal_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/navy_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/brick_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/brick_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/circles_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/circles_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/cocoa_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/cocoa_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/grape_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/grape_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/grass_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/grass_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/lime_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/lime_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/ocean_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/ocean_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/purple_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/purple_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/retro_green_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/retro_green_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/standard_iphone.png" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/stripes_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/stripes_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/sun_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/sun_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/swish_blue_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+         <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/swish_light_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+        <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/swish_light_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+        <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/wallpaper_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+        <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/wallpaper_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+             <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/standard_w_header_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+             <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/blue_design_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+             <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/blue_streak_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+             <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/blue_swirl_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+             <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/corkboard_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+             <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/darkstripes_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+             <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/doodle_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+             <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/purple_swirl_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+             <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/red_fan_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+             <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/red_pattern_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+             <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/wood2_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div>
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/wood_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div> 
+            <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/black_holes_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div> 
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/dark_green_grade_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div> 
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/dark_grey_grade_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div> 
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/deep_blue_grade_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div> 
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/diagonal_grey_blue_stripes_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div> 
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/leaf_green_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div> 
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/maroon_grade_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div> 
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/red2_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div> 
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/sky_blue_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div> 
+           <div class="item">
+                <img alt="" class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/solid_black_iphone.jpg" onclick="CloseSetBackgroundWithArg(this)"/>
+            </div> 
+
+        </div>
+         
+        <div class="scrollbar" style="top:120px;position:relative;">
+            <div class="slider"><div class="position"></div></div>            
+        </div>
+        <div align="center" style="top:125px;position:relative;">
+        <table width="800"><tr><td>
+        <button id="upload" type="button"  onclick="CloseSetBackgroundWithArg(this,'__upload_background_image')" style="height:30px;width:265px">Upload Your Own Background Image</button></td><td style="width:500px">
+       </td></tr></table>
+        </div>
+    </div>
+
+</body>
+</html>

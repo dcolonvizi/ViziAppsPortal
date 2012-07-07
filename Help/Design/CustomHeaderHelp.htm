@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Guide to Using Google Docs Spreadsheets</title>
+    <style type="text/css">
+        .style1
+        {
+            font-family: "Courier New", Courier, monospace;
+        }
+    </style>
+    </head>
+<body style="width:780px">
+<div>
+<span class="body" style="font-size: 11pt; font-family: Arial">
+<P>
+			Here is a guide 
+            to using custom header HTML to enhance the operation of your app.</p>
+    <P>
+			<strong>Overview</strong></p>
+    <P>
+			You can put any type of header HTML in your hybrid and web app including 
+            scripts, styling, Google Analytics, external web service calls and others. Put 
+            all of your&nbsp; HTML elements together in one
+<span class="body" style="font-size: 11pt; font-family: Arial">
+            custom header. 
+</span>
+           You 
+            can assume a JQuery context for your scripts. You can also refer to your 
+            ViziApps fields and buttons. Here a few example headers that may be useful to your 
+            app:</p>
+    <P>
+			<strong>Google Analytics</strong></p>
+    <P>
+			Copy the Javascript code right from Google Analytics into your custom header and 
+            see reports on the user traffic for your mobile app from your own
+<span class="body" style="font-size: 11pt; font-family: Arial">
+            Google Analytics. Here is a sample code. Replace &quot;UA-12345678-1&quot; with your own&nbsp; 
+            Google Analytics account number:</span></p>
+</span>
+<span class="style1" style="font-size: 11pt; ">
+    <P style="background-color:#FFFFCC">
+ &lt;script type=&quot;text/javascript&quot;&gt;<br /> 
+			var _gaq = _gaq || [];<br /> 
+  _gaq.push(['_setAccount', 'UA-12345678-1']);<br /> 
+  _gaq.push(['_trackPageview']);<br /> 
+  <br /> 
+  (function() {<br /> 
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;<br /> 
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';<br /> 
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);<br /> 
+  })();<br /> 
+			&lt;/script&gt;</p>
+</span>
+<span class="body" style="font-size: 11pt; font-family: Arial">
+    <P>
+			<strong>Concatenation of string values</strong></p>
+    <P>
+			If you want to refer to values of fields in your ViziApp, use the JQuery 
+            notation and the unique identifier name you gave the field. For example to 
+            concatenate the values of 2 strings into a third when a button is pressed use 
+            the following javascript code, where &quot;field1&quot; and &quot;field2&quot; are the 2 sources and 
+            &quot;field3&quot; is the result of the concatenation. In this case &quot;button1&quot; refers to a 
+            Viziapps button with no associated ViziApps action.</p>
+<span class="style1" style="font-size: 11pt; ">
+    <P style="background-color:#FFFFCC">
+ &lt;script type=&quot;text/javascript&quot;&gt;<br /> 
+ $(function () {<br /> 
+				&nbsp;&nbsp; 
+				$(&#39;#button1&#39;).bind(&#39;tap&#39;,function(event){<br /> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+var concat_value =  
+<span class="body" style="font-size: 11pt; ">
+        getFieldValue(&#39;field1&#39;)</span>
+        +  
+<span class="body" style="font-size: 11pt; font-family: Arial">
+<span class="style1" style="font-size: 11pt; ">
+<span class="body" style="font-size: 11pt; ">
+        getFieldValue(&#39;field2&#39;)</span></span></span>;              <br /> 
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span class="body" 
+            style="font-size: 11pt; font-family: 'Courier New', Courier, monospace">
+        setFieldValue(&#39;field3&#39;,
+<span class="body" style="font-size: 11pt; font-family: Arial">
+<span class="style1" style="font-size: 11pt; ">
+        concat_value 
+</span>
+</span>
+       );</span><br /> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+event.stopPropagation();<br /> 
+&nbsp;&nbsp; 
+}); <br /> 
+});  <br /> 
+			&lt;/script&gt;</p>
+</span>
+    <P>
+			Here is a screen shot from a running hybrid app of what this looks like:</p>
+    <P>
+			<img alt="" src="../../images/concat_screenshot.jpg"/></p>
+</span>
+</div>
+</body>
+</html>

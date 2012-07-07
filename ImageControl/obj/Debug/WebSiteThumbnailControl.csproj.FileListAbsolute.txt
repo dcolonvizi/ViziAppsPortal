@@ -1,0 +1,12 @@
+C:\Temp\ImageControl\bin\Debug\WebSiteThumbnailControl.dll
+C:\Temp\ImageControl\bin\Debug\WebSiteThumbnailControl.pdb
+C:\Temp\ImageControl\bin\Debug\ImageControl.xml
+C:\Temp\ImageControl\obj\Debug\ResolveAssemblyReference.cache
+C:\Temp\ImageControl\obj\Debug\WebSiteThumbnailControl.dll
+C:\Temp\ImageControl\obj\Debug\WebSiteThumbnailControl.pdb
+C:\Program Files\MobiFlex\MobiFlexPortal\ImageControl\bin\Debug\WebSiteThumbnailControl.dll
+C:\Program Files\MobiFlex\MobiFlexPortal\ImageControl\bin\Debug\WebSiteThumbnailControl.pdb
+C:\Program Files\MobiFlex\MobiFlexPortal\ImageControl\bin\Debug\ImageControl.xml
+C:\Program Files\MobiFlex\MobiFlexPortal\ImageControl\obj\Debug\ResolveAssemblyReference.cache
+C:\Program Files\MobiFlex\MobiFlexPortal\ImageControl\obj\Debug\WebSiteThumbnailControl.dll
+C:\Program Files\MobiFlex\MobiFlexPortal\ImageControl\obj\Debug\WebSiteThumbnailControl.pdb

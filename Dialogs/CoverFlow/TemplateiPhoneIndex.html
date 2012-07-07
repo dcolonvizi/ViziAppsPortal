@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>ViziApps iPhone Templates</title>
+    <link rel="stylesheet" title="Standard" href="stylesTemplate.css" type="text/css" media="screen" />
+     <link rel="stylesheet" title="Standard" href="contentflowTemplate_src.css" type="text/css" media="screen" />
+         <style type="text/css">
+        .style2
+        {
+            width: 591px;
+        }
+        .style3
+        {
+            height: 49px;
+        }
+    </style>
+
+    <script language="JavaScript" type="text/javascript" src="contentflowTemplate_src.js"></script>
+    <script language="JavaScript" type="text/javascript">
+        //preload images
+ 
+        // set image list
+        images = new Array();
+        images[0] = "https://s3.amazonaws.com/MobiFlexImages/apps/images/template_apps/event_listing_iphone.jpg";
+        images[1] = "https://s3.amazonaws.com/MobiFlexImages/apps/images/template_apps/diabetes_monitor_iphone.jpg";
+        images[2] = "https://s3.amazonaws.com/MobiFlexImages/apps/images/template_apps/coupons_near_me_iphone.jpg";
+        images[3] = "https://s3.amazonaws.com/MobiFlexImages/apps/images/template_apps/homes_for_sale_iphone.jpg";
+        images[4] = "https://s3.amazonaws.com/MobiFlexImages/apps/images/template_apps/tapncharge_iphone.jpg";
+        images[5] = "https://s3.amazonaws.com/MobiFlexImages/apps/images/template_apps/rite_aid_locator_iphone.jpg";
+
+        var imageObjArray = new Array();
+        var cf;
+
+        // start preloading
+        for (var i = 0; i <= images.length; i++) {
+            imageObjArray[i] = new Image();
+            imageObjArray[i].onload = function() {
+                reloadOnceOnly();
+            }
+
+            imageObjArray[i].src = images[i];
+        }
+
+        function onCoverClick(item) {
+            var img_node = item.element.childNodes[1];
+            var src = null;
+            if (item.image)
+                src = item.image.src;
+            else {
+                src = img_node.src;
+                if (!src) {
+                    var attributes = img_node.attributes;
+                    for (var i = 0; i < attributes.length; i++) {
+                        if (attributes[i].nodeName == 'src') {
+                            src = attributes[i].nodeValue;
+                            break;
+                        }
+                    }
+                }
+            }               
+
+            var alt = null;
+            if (item.image)
+                alt = item.image.alt;
+            else {
+                alt = img_node.alt;
+                if (!alt) {
+                    var attributes = img_node.attributes;
+                    for (var i = 0; i < attributes.length; i++) {
+                        if (attributes[i].nodeName == 'alt') {
+                            alt = attributes[i].nodeValue;
+                            break;
+                        }
+                    }
+                }
+            }               
+ 
+            window.location.href = 'TemplateiPhoneDetail.aspx?src=' + src + '&app=' + alt;
+        }
+
+        var reloaded = false;
+        var loc = "" + document.location;
+        loc = loc.indexOf("?reloaded=") != -1 ? loc.substring(loc.indexOf("?reloaded=") + 10, loc.length) : "";
+        loc = loc.indexOf("&") != -1 ? loc.substring(0, loc.indexOf("&")) : loc;
+        reloaded = loc != "" ? (loc == "true") : reloaded;
+
+        var imageLoadCounter = 0;
+        function reloadOnceOnly() {
+            imageLoadCounter++;
+
+            if (imageLoadCounter >= images.length) {
+                if (!reloaded)
+                    window.location.replace(window.location + "?reloaded=true");
+
+                cf = new ContentFlow('contentFlow', {
+                    reflectionColor: "#000000",
+                    reflectionHeight: 0.3,
+                    maxItemHeight: 400,
+                    onclickActiveItem: onCoverClick                    
+                });
+
+            }
+        }
+        cf = new ContentFlow('contentFlow', {
+            reflectionColor: "#000000",
+            reflectionHeight: 0.3,
+            maxItemHeight: 400,
+            onclickActiveItem: onCoverClick
+        });
+    </script>
+</head>
+<body>    
+   <div style="height:90px;"></div>
+    <!-- ===== FLOW ===== -->
+    <div id="contentFlow" class="ContentFlow">
+        <!-- should be place before flow so that contained images will be loaded first -->
+        <div class="loadIndicator"><div class="indicator"></div></div>
+
+        <div class="flow">
+            <div class="item" >
+                <img alt="Event Listing GDocs"  class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/template_apps/event_listing_iphone.jpg"/>
+                <div class="caption">Event Listing GDocs: Conference listings, insertions and updates<br />Uses Google Spreadsheets</div>
+            </div>
+            <div class="item">
+                <img alt="Diabetes Monitor"  class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/template_apps/diabetes_monitor_iphone.jpg"/>                
+                <div class="caption">Diabetes Monitor: Monitoring Medicine and glucose reading<br />Uses Web Services</div>
+            </div>
+            <div class="item">
+                <img alt="Zipcode Coupons"  class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/template_apps/coupons_near_me_iphone.jpg"/>                
+                <div class="caption">Coupons Near Me: Providing coupons based on GPS or Zipcode<br />Uses GPS and Web Services</div>
+            </div>
+            <div class="item">
+                <img alt="Homes For Sale"  class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/template_apps/homes_for_sale_iphone.jpg"/>                
+                <div class="caption">Homes For Sale: real estate listing and capture<br />Uses camera, GPS, timestamp and Google Spreadsheets</div>
+             </div>
+            <div class="item">
+                <img alt="TapNCharge"  class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/template_apps/tapncharge_iphone.jpg"/>                
+                <div class="caption">TapNCharge: Charging credit cards for purchase<br />Uses on-phone calculations and Web Services</div>
+             </div>
+            <div class="item">
+                <img alt="Rite Aid Locator"  class="content" src="https://s3.amazonaws.com/MobiFlexImages/apps/images/template_apps/rite_aid_locator_iphone.jpg"/>                 
+                <div class="caption">Rite Aid Locator: Store locator and services<br />Uses Web Services</div>
+             </div>
+  
+           
+        </div>
+        <div class="globalCaption"></div>
+        <div class="scrollbar">
+            <div class="slider"><div class="position"></div></div>
+        </div>
+
+    </div>
+     <div style="position:absolute;top:10px;left:10px;height:10px;font-family:Verdana;font-size:28px;font-weight:bold;color:#aaaaaa">
+     <table style="width:405px"><tr><td colspan="2" class="style3">ViziApps Template Apps</td></tr>
+         <tr><td colspan="2" class="style3">on an iPhone</td></tr>
+     <tr>
+     
+     <td style="font-size:14px;font-weight:normal;color:#aaaaaa;" class="style2"> Click center image 
+         to<br /> enlarge and then select</td>
+        
+         <td style="width:184px" >
+             <a href="TemplateAndroidIndex.html" style="text-decoration:none;">
+         <img alt="" src="../../images/template_apps/view_android_apps.png" /></a>
+         </td></tr></table>
+     
+     </div>     
+ 
+   
+</body>
+</html>
