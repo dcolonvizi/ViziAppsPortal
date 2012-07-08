@@ -43,6 +43,13 @@
 	</telerik:RadScriptManager>
 	
 	<telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+    <AjaxSettings>
+    <telerik:AjaxSetting AjaxControlID="ForgotPasswordButton">
+    <UpdatedControls>
+    <telerik:AjaxUpdatedControl ControlID="LoginPages" />
+    </UpdatedControls>
+    </telerik:AjaxSetting>
+    </AjaxSettings>
 	</telerik:RadAjaxManager>
 
      <div align="center" id="header" style="height:60px; width:100%;  background-color:#0054c2;">
@@ -86,9 +93,13 @@
                 </table>   
                
                 </div>   
-    <div align="center" style="vertical-align:top;height:230px; ">
+                <telerik:RadMultiPage ID="LoginPages" runat="server" 
+        SelectedIndex="0">
+        <telerik:RadPageView ID="Login" runat="server">
+           
+    <div align="center" style="vertical-align:top;height:260px; ">
        
-        <table style="width: 300px;  background-image:url('images/login_background.png'); background-repeat:no-repeat; height: 230px;font-family:Arial;color:#333333;font-size:12pt;">
+        <table style="width: 300px;  background-image:url('images/login_background.png'); background-repeat:no-repeat; height: 260px; font-family:Arial;color:#333333;font-size:12pt;">
        
                             
             <tr>
@@ -127,14 +138,51 @@
                         Font-Names="Arial" Font-Size="10pt" ForeColor="#333333" /></td>
             </tr>
             <tr>
-                <td colspan="2" align="center" >
+                <td colspan="2" align="center" valign="top" >
                     <asp:Label ID="FailureText" runat="server" Font-Names="Arial" Font-Size="12px" 
                         ForeColor="Maroon"></asp:Label></td>
             </tr>
             </table>
         
         </div>
-                
+           </telerik:RadPageView>
+           <telerik:RadPageView ID="ForgotLogin" runat="server" Height="16px">
+           
+    <div align="center" style="vertical-align:top;height:150px; ">
+       
+        <table style="width: 300px;  background-image:url('images/forgot_login_background.png'); background-repeat:no-repeat; height: 152px; font-family:Arial;color:#333333;font-size:12pt;">
+       
+                            
+            <tr>
+                <td align="center"  colspan="2" class="style2">
+                    <asp:Image ID="Image2" runat="server" ImageUrl="~/images/login_button2.png" /></td>
+            </tr>
+            <tr>
+                <td align="center" class="style4" >
+                    email</td>
+                <td align="left" class="style4" >
+                    <asp:TextBox ID="Email" runat="server" 
+                        Width="197px" Height="22px"></asp:TextBox></td>
+            </tr>
+            <tr>
+                <td class="style5" >
+                    </td>
+                <td  align="left" class="style5">
+    <asp:Button ID="SendPasswordButton" runat="server" CausesValidation="False"
+        Text="Send my credentials" Width="144px" 
+                        Font-Names="Arial" Font-Size="10pt" ForeColor="#333333" 
+                        onclick="SendPasswordButton_Click" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center" valign="top" >
+                    <asp:Label ID="Message" runat="server" Font-Names="Arial" Font-Size="12px" 
+                        ForeColor="Maroon"></asp:Label></td>
+            </tr>
+            </table>
+        
+        </div>
+           </telerik:RadPageView>
+    </telerik:RadMultiPage>      
 
     </form>
 </body>

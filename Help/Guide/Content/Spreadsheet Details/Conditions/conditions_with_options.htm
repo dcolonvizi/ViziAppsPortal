@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="no-feedback" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Data Management|Google Docs|Spreadsheet Details|Conditions">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Conditions With Options</title>
+        <script type="text/javascript">/* <![CDATA[ */var switchTo5x=true;/* ]]> */</script>
+        <script type="text/javascript">/* <![CDATA[ */stLight.options({publisher: "c5ab5d3c-b66a-4c01-8933-72124c6662e8"}); /* ]]> */</script>
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/ViziApps Help.css" rel="stylesheet" />
+        <script src="http://w.sharethis.com/button/buttons.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Data Management</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Google Docs</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Spreadsheet Details</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Conditions Before Commands</span>
+        </div>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <h1><a name="kanchor17"></a>Conditions With Options</h1>
+            <p>We may want a condition to be met before an app can perform a task <i>and</i> make the app do one thing if the condition is met and another if it isn't. For example, we want users to login, then provide one set of options if the login is valid and different options if it isn't. We do this using an If/Then/Else statement in the condition. <i>If</i> the  condition is met, then do X, or <i>else</i>, if the condition is not met,  do Y. </p>
+            <p>We'll illustrate this case with the example of a user login. Imagine that an app offers a listing of events but requires that users login in order to read it. For a valid login, the list of events displays. For an invalid login, an error message displays instead.</p>
+            <p>The command set, shown below, looks more complex than any other examples so far. However, if you're gone through the other command descriptions, you'll see that there's only one new element here - adding the condition before a command and specifying the associated If/Then/Else actions.</p>
+            <p>Here's the completed data management commands.</p>
+        </div>
+        <p>
+            <img src="../../Resources/Images/Conditions Before - Login Test Spreadsheet Commands.png" />
+        </p>
+        <div class="body_text">
+            <p>In this case, we're passing an <i>account_status</i> value from a spreadsheet field to a field on the device. The device field is a "hidden" field because we don't want the users to see it. We just want a field on the mobile device that can hold a value that we'll then test for.</p>
+            <p>The app then compares the username and password that the user enters on the mobile device to those values in the corresponding database fields. </p>
+            <p>The app then checks to see if the account status for that username and pasword is <i>active</i>. </p>
+            <ul>
+                <li class="BulletLevel1" value="1">If it status is active, the app then performs the Then statement and displays the list of events.</li>
+                <li class="BulletLevel1" value="2">If the status is not active, then app then performs the Else statement and displays the login_failed error message.</li>
+            </ul>
+        </div>
+        <p>&#160;</p>
+        <hr width="100%" size="0" align="center" />
+        <p class="image_background">Copyright © 2012 ViziApps</p>
+        <p class="image_background"><a href="http://www.viziapps.mobi/portal/Help/Guide/ViziAppsHelp.pdf">Download This Guide As a PDF</a>
+        </p>
+        <p class="image_background"><a href="http://www.viziapps.com/"><img src="../../Resources/Images/Viziapps Icon for Toolbar and Footer.png" /></a>
+        </p>
+    </body>
+</html>

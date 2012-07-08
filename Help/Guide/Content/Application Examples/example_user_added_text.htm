@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="no-feedback" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Data Management|Google Docs|Application Examples">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Example - User-Added Text</title>
+        <script type="text/javascript">/* <![CDATA[ */var switchTo5x=true;/* ]]> */</script>
+        <script type="text/javascript">/* <![CDATA[ */stLight.options({publisher: "c5ab5d3c-b66a-4c01-8933-72124c6662e8"}); /* ]]> */</script>
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/ViziApps Help.css" rel="stylesheet" />
+        <script src="http://w.sharethis.com/button/buttons.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Data Management</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Google Docs</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Application Examples</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Example - User-Added Text</span>
+        </div>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <h1><a name="kanchor28"></a>Example - User-Added Text</h1>
+            <p>We can add participation to apps by letting users add their own entries; this adds a social media element. For example, a conference app might offer a list of barbecue restaurants in the conference city to help attendees decide how to spend their free time. Allowing conference attendees, not just the app developer, to add to the list offers two benefits.</p>
+            <ul>
+                <li class="BulletLevel1" value="1">It takes advantage of local attendees' familiarity with the restaurant scene that an out-of-town app developer won't have.</li>
+                <li class="BulletLevel1" value="2">It adds the social media element that lets attendees add entries and visibly take credit for their entries by offering them a credit line.</li>
+            </ul>
+            <p>This feature is straightforward, as the following example shows. (The example is from an app for a conference in Austin, TX in 2011. One part of the app provided a list of local barbecue restaurants and let users add their own listings.)</p>
+            <p>This feature had two components:</p>
+            <ol>
+                <li class="NumberedLevel1" value="1">Add a restaurant to the predefined list. <a href="#Take_Annotate_and_Store" class="MCXref xref">See "Add a Restaurant to the List"</a></li>
+                <li class="NumberedLevel1" value="2">View a list of the restaurants by name or city. <a href="#Get_a_List_of_All_Pictures" class="MCXref xref">See "View a List of the Restaurants"</a></li>
+            </ol>
+            <p>Let's go through each component.</p>
+            <h2><a name="Take_Annotate_and_Store"></a>Add a Restaurant to the List</h2>
+            <p>Here's the "add a listing" page in the app, in ViziApps.</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - Add BBQ Listing Page.png" />
+        </p>
+        <div class="body_text">
+            <p>The relevant fields are:</p>
+            <ul>
+                <li class="BulletLevel1" value="1">The Name, Web, and City fields with the internal names <i>add_name_field</i>, <i>add_web_site_field</i>, and <i>add_city_field</i>.</li>
+                <li class="BulletLevel1" value="2">The Submit button, with the internal name <i>add_listing_submit_button</i>.</li>
+                <li class="BulletLevel1" value="3">The alert, at the bottom right, with the internal name <i>confirmation</i>.</li>
+            </ul>
+            <p>Here's the related spreadsheet worksheet, called <i>restaurants</i>. Notice the order in which the restaurants are listed. They're in the order in which users entered them rather than in alphabetical order. We'll discuss the effect at the end of this topic.<i><![CDATA[ ]]></i></p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - Add BBQ Listing Restaurants Spreadsheet.png" />
+        </p>
+        <div class="body_text">
+            <p>The relevant fields are:</p>
+            <ul>
+                <li class="BulletLevel1" value="1"><i>restaurantname</i>
+                </li>
+                <li class="BulletLevel1" value="2"><i>website</i>
+                </li>
+                <li class="BulletLevel1" value="3"><i>city</i>
+                </li>
+            </ul>
+            <p>Here are the data management commands:</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - Add BBQ Listing Data Management - Submit Button.png" />
+        </p>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <p>To add a restaurant to the list, the user makes the appropriate entries in the add_name_field, add_web_site_field, and add_city_field fields on the mobile device. </p>
+            <p>When the user taps the <i>add_listing_submit_button </i>button:</p>
+            <ol>
+                <li class="NumberedLevel1" value="1">The app inserts the entries in the <i>add_name_field</i>, <i>add_web_site_field</i>, and <i>add_city_field </i>fields in the equivalent spreadsheet fields - restaurantname, website, and city in the <i>restaurants </i>worksheet.</li>
+                <li class="NumberedLevel1" value="2">The app displays a feedback message to the user, confirming that the data was added to the spreadsheet. </li>
+            </ol>
+            <p>The image below shows the <i>feedback </i>worksheet for the example.</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - Add BBQ Listing Restaurants Spreadsheet Feedback Page.png" />
+        </p>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <h2><a name="Get_a_List_of_All_Pictures"></a>View a List of the Restaurants</h2>
+            <p>Once the restaurant listed are stored, users can see a list of them by name (or by city or any other criterion set up by the app developer). Here's the list, live in the app.</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/BBQ Restaurants List - As Is_288x432.png" style="width: 288;height: 432;" />
+        </p>
+        <div class="body_text">
+            <p>Here's the table and table properties in ViziApps:</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - View BBQ Listings - Table Properties.png" />
+        </p>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <p>The two fields' internal names - the column names in this case - are <i>name_column </i>and city_column.</p>
+            <p>Here are the data management commands:</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - View BBQ Listings - Data Management.png" />
+        </p>
+        <div class="body_text">
+            <p>When the user taps the <i>list_by_name_button </i>button:</p>
+            <ol>
+                <li class="NumberedLevel1" value="1">The app reads the entries in the <i>restaurantname </i>and <i>city </i>fields on the <i>restaurants </i>worksheet and displays them in the <i>name_column </i>and <i>city_column </i>fields on the mobile device.</li>
+            </ol>
+            <p>The result is this:</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/BBQ Restaurants List - As Is_288x432.png" style="width: 288;height: 432;" />
+        </p>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <p><b>Note:</b> This list is correct but has one problem. The restaurants are listed in their order rather than alphabetically, making it hard to find a particular restaurant. The app developer could sort them alphabetically in the spreadsheet, but would have to resort them every time a user entered a new restaurant in the list. Instead, we'd like to set up the data management so that the entries are always in alphabetical order on the device no matter what order they appear in on the spreadsheet. We can do that using ViziApps' sort function, described in the sorting example. <a href="example_sorting_data_in_a_table.htm" class="MCXref xref">See "Example - Sorting Data In a Table"</a></p>
+        </div>
+        <h2><a name="Get_An_Expanded_View_of_One_Picture"></a>
+        </h2>
+        <hr width="100%" size="0" align="center" />
+        <p class="image_background">Copyright © 2012 ViziApps</p>
+        <p class="image_background"><a href="http://www.viziapps.mobi/portal/Help/Guide/ViziAppsHelp.pdf">Download This Guide As a PDF</a>
+        </p>
+        <p class="image_background"><a href="http://www.viziapps.com/"><img src="../Resources/Images/Viziapps Icon for Toolbar and Footer.png" /></a>
+        </p>
+    </body>
+</html>

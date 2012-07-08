@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="no-feedback" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Data Management|Google Docs|Spreadsheet Details|Feedback To the App User">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Feedback for Data Operations</title>
+        <script type="text/javascript">/* <![CDATA[ */var switchTo5x=true;/* ]]> */</script>
+        <script type="text/javascript">/* <![CDATA[ */stLight.options({publisher: "c5ab5d3c-b66a-4c01-8933-72124c6662e8"}); /* ]]> */</script>
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/ViziApps Help.css" rel="stylesheet" />
+        <script src="http://w.sharethis.com/button/buttons.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Data Management</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Google Docs</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Spreadsheet Details</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Feedback To the App User</span>
+        </div>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <h1><a name="kanchor19"></a>Feedback for Data Operations</h1>
+            <p>If users take some action that affects data in the spreadsheet, they need feedback to tell them that the action worked.</p>
+            <p>Here's a simple feedback message that appears after a user deletes the spreadsheet entries marked as Inactive by tapping the Delete Inactive Leads button.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Feedback Example_288x432.png" style="border-left-style: solid;border-left-width: 3px;border-left-color: #dcdcdc;border-right-style: solid;border-right-width: 3px;border-right-color: #dcdcdc;border-top-style: solid;border-top-width: 3px;border-top-color: #dcdcdc;border-bottom-style: solid;border-bottom-width: 3px;border-bottom-color: #dcdcdc;width: 288;height: 432;" />
+        </p>
+        <div class="body_text">
+            <p>The feedback feature lets us specify the message, and automatically adds a tap option that closes the message. Here's how to add a message, specifically the one shown above.</p>
+            <p><a name="kanchor20"></a>First, the app page has to include a ViziApps alert. This screen object is on the output page but hidden. Here's what the page looks like in ViziApps' development mode.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Alert for Deletion Feedback.png" />
+        </p>
+        <div class="body_text">
+            <p>The two orange triangles with white exclamation points are alerts. The code name for the one on the left is deletion_confirmation_inactive, which displays when we hover over the alert.</p>
+            <p>Here's the complete data management commands for the Delete Inactive Leads button on the page shown above.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Feedback Control for Delete Inactive Example.png" />
+        </p>
+        <div class="body_text">
+            <p>After completing the first command, the Delete From and its Where condition, we click the Add Database Command button again. We're going to use a different worksheet from the same spreadsheet, messages, and shown below.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Messages Worksheet for Deletion Feedback Example.png" />
+        </p>
+        <div class="body_text">
+            <p>This worksheet contains two columns - type and message - with one for each data activity. How does this work?</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Feedback Control for Delete Inactive Example - Message Specifics.png" />
+        </p>
+        <div class="body_text">
+            <ol>
+                <li class="NumberedLevel1" value="1">Click the Add Database Command button to insert another command.</li>
+                <li class="NumberedLevel1" value="2">We want to select a message for display on the mobile device, so we select the Select From command and the messages worksheet.</li>
+                <li class="NumberedLevel1" value="3">We now need to specify the database field that contains the message and the field on the mobile device in which to insert the message. On the worksheet example above , the messages are stored in a field called message. We want to insert this message in a field on the mobile device that's doesn't display until we put content, the alert, in it.</li>
+                <li class="NumberedLevel1" value="4">There are two alerts on the page, one to show the confirmation for deleting inactive entries and one to show the confirmation for deleting user-selected entries. We select the first one, <i>deletion_confirmation inactive</i>.</li>
+                <li class="NumberedLevel1" value="5">Finally, we need to specify which type of message to display. The type field on the spreadsheet contains one called <i>deletion_confirmation_inactive</i>, which is the one we want.</li>
+            </ol>
+            <p>The result is to tell the app that after deleting the Inactive entries, the app should switch to a different worksheet, select the message whose type is <i>deletion_confirmation_inactive</i>, and display it in the hidden field, the alert, of the same name.</p>
+        </div>
+        <hr width="100%" size="0" align="center" />
+        <p class="image_background">Copyright © 2012 ViziApps</p>
+        <p class="image_background"><a href="http://www.viziapps.mobi/portal/Help/Guide/ViziAppsHelp.pdf">Download This Guide As a PDF</a>
+        </p>
+        <p class="image_background"><a href="http://www.viziapps.com/"><img src="../../Resources/Images/Viziapps Icon for Toolbar and Footer.png" /></a>
+        </p>
+    </body>
+</html>

@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="no-feedback" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Data Management|Google Docs|Spreadsheet Details|Conditions">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Conditions On Commands</title>
+        <script type="text/javascript">/* <![CDATA[ */var switchTo5x=true;/* ]]> */</script>
+        <script type="text/javascript">/* <![CDATA[ */stLight.options({publisher: "c5ab5d3c-b66a-4c01-8933-72124c6662e8"}); /* ]]> */</script>
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/ViziApps Help.css" rel="stylesheet" />
+        <script src="http://w.sharethis.com/button/buttons.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Data Management</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Google Docs</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Spreadsheet Details</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Conditions On Commands</span>
+        </div>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <h1><a name="kanchor18"></a>Conditions On Commands</h1>
+            <p>Inserting conditions after commands lets us specify the data on which to apply the commands. We'll base this discussion on the illustration in the Update Example topic and take it one step further. <a href="../Database Commands/update_examples.htm" class="MCXref xref">See "Update - Examples"</a> <![CDATA[ ]]></p>
+            <p>To recap, the update feature is controlled by the page shown below.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Update Page - Specific_288x432.png" style="width: 288;height: 432;">
+            </img>
+        </p>
+        <div class="body_text">
+            <p>To update a spreadsheet field, the user types the new value in the field on the page above and taps the Update button. This replaces the contents of each specified field with the new value. In our example, it replaces the old value in a status field with the new value of Active.</p>
+            <p>Here's the spreadsheet before running the Update command.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Spreadsheet for Delete From.png">
+            </img>
+        </p>
+        <div class="body_text">
+            <p>And after running the command.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Spreadsheet for Update After Update.png" />
+        </p>
+        <div class="body_text">
+            <p>It worked, but the Update changed the value of all status fields to active. We want to change only specified fields. Let's say we want to change only values of Green to Active. We need a condition. (Here's the finished data management entry from the simple Update command. for reference.)</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Completed Entry for Update Example.png">
+            </img>
+        </p>
+        <div class="body_text">
+            <p>We need to specify that the command should only apply to cases where the status field value is Green. Here's how to add the condition to the existing commands.</p>
+            <ol>
+                <li class="NumberedLevel1" value="1">Click the Add a Where Condition button.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Add a Where Condition Icon for Conditions After - Update Example.png" />
+        </p>
+        <div class="body_text">
+            <p>This adds the condition statement below the command, as shown below.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Add a Condition - Conditions After - Update Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="2">Leave the command option set to Where, click the database field pulldown, and select the field whose value will be the basis for the condition, in this case the status field, shown below.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Add a Condition - Conditions After - Database Field - Update Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="3">Leave the arithmetic operator set to =. (You could select !=, &lt;, or &gt; depending on the condition you want to define.)</li>
+                <li class="NumberedLevel1" value="4">Type the value to check for in the device field, here the value of Green, shown below.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Add a Condition - Conditions After - Device Field - Update Example.png" />
+        </p>
+        <div class="body_text">
+            <p>The result is the change of every entry whose status is Green to a status of Active. First the original spreadsheet.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Spreadsheet for Delete From.png">
+            </img>
+        </p>
+        <div class="body_text">
+            <p>Then the changed spreadsheet.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Add a Condition - Conditions After - One Condition - Modified Spreadsheet.png" />
+        </p>
+        <div class="body_text">
+            <p>Karry and Sam have had their status changed from Green to Active.</p>
+            <p>What if you only want to change one entry at a time, such as being able to select and change customer Karry's status from Green to Active.</p>
+            <p>The process is similar to the one above, except that you need a second condition. You also need to add a field on the Update page to contain the value that the new condition will test for. So you'd change the Update page to something like this.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Update Page - With Client Name Field_288x432.png" style="width: 288;height: 432;" />
+        </p>
+        <div class="body_text">
+            <p>The code name for the Client field is client_name_field. We can now add a condition in order to be able to specify which entry's status to change based on the client name, like this.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Add a Condition - Conditions After - Two Conditions - Modified Spreadsheet.png" />
+        </p>
+        <div class="body_text">
+            <p>The second condition, And, tells the app to change the value of the status field from Green to Active for the client whose name is specified in the client_name_field on the Update page. Specifying Karry in that field changes Karry's status value from Green to Active but leaves Sam's set to Green.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Spreadsheet for Update After Double Condition Update.png" />
+        </p>
+        <hr width="100%" size="0" align="center" />
+        <p class="image_background">Copyright © 2012 ViziApps</p>
+        <p class="image_background"><a href="http://www.viziapps.mobi/portal/Help/Guide/ViziAppsHelp.pdf">Download This Guide As a PDF</a>
+        </p>
+        <p class="image_background"><a href="http://www.viziapps.com/"><img src="../../Resources/Images/Viziapps Icon for Toolbar and Footer.png" /></a>
+        </p>
+    </body>
+</html>

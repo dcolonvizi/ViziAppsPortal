@@ -57,6 +57,15 @@
            {
                width: 121px;
            }
+           .style11
+           {
+               height: 20px;
+               width: 737px;
+           }
+           .style12
+           {
+               width: 135px;
+           }
      </style>
       <script  language="javascript" type="text/javascript" src="scripts/google_analytics_1.0.js"></script>
          <script  language="javascript" type="text/javascript" src="scripts/default_script_1.6.js"></script> 
@@ -492,18 +501,23 @@
                 <td style="width:968px;" >
                 <table>
                 <tr>
-                <td>
-                <table>
+                <td align="left">
+                <table style="width: 954px">
                 <tr>
-   <td style="width:868px; height: 20px; background-color:#0054c2; text-align:left;">
+   <td style="background-color:#0054c2; text-align:left;" align="left" class="style11">
   &nbsp;&nbsp;
   <asp:Label ID="ManageDataHeader" runat="server" Font-Bold="True" Font-Names="Arial"
                 Font-Size="10pt" ForeColor="White" 
            
            Text="   Application Data"></asp:Label>   </td>
-                <td>
+                <td align="left">
                     &nbsp;</td>
-                 <td>
+                    <td class="style12">
+                                <asp:Button ID="Button10" runat="server" Text="Spreadsheet User Guide" 
+                           Width="162px" 
+                            OnClientClick="PopUp('Help/Guide/Default.htm', ' menubar=no, status=no, location=no, toolbar=no, scrollbars=yes, resizable=yes');return false;" />
+                            </td>
+                 <td align="center">
       <asp:ImageButton ID="MySolutionsHelp" runat="server" ImageUrl="~/images/help.gif" 
         ToolTip="What is this page for?" OnClientClick="var oWin=radopen('Help/ManageData/ManageDataHelp.htm', 'PageHelp'); 
         oWin.setSize(600,400);
@@ -770,7 +784,7 @@
                                    Text="Connect to Google Docs" Width="165px" /></td><td align="right">
                                                    <asp:Button ID="Button9" runat="server" CausesValidation="False" 
                                    Font-Names="Arial" Font-Size="10pt" OnClientClick="PopUp('Help/ManageData/GoogleDocsGuide.htm', 'height=800, width=820, left=200, top=200, menubar=no, status=no, location=no, toolbar=no, scrollbars=yes, resizable=yes');return false;" 
-                                   Text="Interface Users Guide" Width="145px" /></td><td align="right"><asp:ImageButton ID="GoogleDocsHelpButton" runat="server" 
+                                   Text="Short Guide" Width="145px" /></td><td align="right"><asp:ImageButton ID="GoogleDocsHelpButton" runat="server" 
                                    ImageUrl="~/images/help.gif" OnClientClick="var oWin=radopen('Help/ManageData/GoogleDocsHelp.htm', 'DatabaseHelp'); 
                                                         oWin.setSize(850,450);
                                                                  oWin.set_visibleTitlebar(true);

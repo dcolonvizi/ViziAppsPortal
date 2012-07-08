@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="no-feedback" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Data Management|Google Docs|Spreadsheet Details|Database Commands|Update">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Update - Examples</title>
+        <script type="text/javascript">/* <![CDATA[ */var switchTo5x=true;/* ]]> */</script>
+        <script type="text/javascript">/* <![CDATA[ */stLight.options({publisher: "c5ab5d3c-b66a-4c01-8933-72124c6662e8"}); /* ]]> */</script>
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/ViziApps Help.css" rel="stylesheet" />
+        <script src="http://w.sharethis.com/button/buttons.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Data Management</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Google Docs</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Spreadsheet Details</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Update - Examples</span>
+        </div>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <h1><a name="kanchor10"></a>Update - Examples</h1>
+            <p>To update a field, a user enters the update value (the value that will replace the old value) in a field on the mobile device, then specifies the spreadsheet field whose value should be replaced by the new value. For example, in the image below, typing the word Active (or any word) in the entry field and tapping the Update button replaces the contents of all specified fields, in this case the <i>status </i>field, with the new status Active.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Update Page - Specific_288x432.png" style="width: 288;height: 432;" />
+        </p>
+        <div class="body_text">
+            <p>Here's a copy of the spreadsheet.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Spreadsheet for Delete From.png" />
+        </p>
+        <div class="body_text">
+            <p>We need to know the name of the field in which users can enter the replacement value and the name of the tap event - the button. The name of the entry field is <i>status_field</i>, as shown below.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Update Page - Status Entry Field Label.png" />
+        </p>
+        <div class="body_text">
+            <p>The name of the tap event is the picker name, here <i>delete_leads_picker</i>, which we can determine by hovering over the Update button, as shown below.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Update Page - Update Button Label.png" />
+        </p>
+        <div class="body_text">
+            <p>We now have enough to set up the code.</p>
+            <ol>
+                <li class="NumberedLevel1" value="1">Go to the Manage Data page in ViziApps and select <i>update_status_button </i>from the Tap Event... field.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Tap Event for Update Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="2">Click the Add Database Command button.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Add Database Command Button for Update Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="3">Select the Update command from the command pulldown.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Select Update Command for Update Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="4">Select the worksheet from the worksheet pulldown.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Select Worksheet for Update Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="5">Click the Add a Field icon to specify the field containing the replacement value.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Add a Field Icon for Update Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="6">Click the pulldown for the device field and select the desired field name, <i>status_field </i>in the example below.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Add Device Field for Update Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="7">Click the pulldown for the database field whose values are to be replaced, in this case the <i>status </i>field as shown below. </li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Select Database Field for Update Example.png" />
+        </p>
+        <div class="body_text">
+            <p class="ContinueLevel1_Bullet">The image below shows the completed entry. </p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Completed Entry for Update Example.png" />
+        </p>
+        <div class="body_text">
+            <p>The result is the change in every status field from its current entry to Active, as shown in the image below. First the original spreadsheet.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Spreadsheet for Delete From.png" />
+        </p>
+        <div class="body_text">
+            <p>Then the changed spreadsheet.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Spreadsheet for Update After Update.png" />
+        </p>
+        <div class="body_text">
+            <p>Note that the Update command updates the contents of all fields with the same name, such as all status fields. But what if you only want to update the status of Unpaid entries, such as Jake in line 8, but not change Karry, Bisbee, or Sam on lines 6, 7, and 9. That requires using conditions, covered in another section of the help. <a href="../Conditions/introduction_to_conditions_in_viziapps.htm" class="MCXref xref">See "Introduction to Conditions in ViziApps"</a></p>
+        </div>
+        <hr width="100%" size="0" align="center" />
+        <p class="image_background">Copyright © 2012 ViziApps</p>
+        <p class="image_background"><a href="http://www.viziapps.mobi/portal/Help/Guide/ViziAppsHelp.pdf">Download This Guide As a PDF</a>
+        </p>
+        <p class="image_background"><a href="http://www.viziapps.com/"><img src="../../Resources/Images/Viziapps Icon for Toolbar and Footer.png" /></a>
+        </p>
+    </body>
+</html>

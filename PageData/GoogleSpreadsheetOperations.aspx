@@ -26,7 +26,7 @@ td
         }
         .style14
         {
-            width: 74px;
+            width: 13px;
         }
         .style15
         {
@@ -34,7 +34,7 @@ td
         }
         .style16
         {
-            width: 158px;
+            width: 191px;
         }
            </style>
    <script type="text/javascript" src="../jquery/js/jquery-1.5.1.min.js"></script>
@@ -175,10 +175,13 @@ td
             Font-Size="11pt" ForeColor="#003399" Text="Spreadsheet Commands" Width="178px"></asp:Label>
             </td><td class="style14">
                            </td><td class="style15">
-                           </td><td class="style16">
                     <asp:Button ID="Button9" runat="server" CausesValidation="False" 
     Font-Names="Arial" Font-Size="10pt" OnClientClick="PopUp('../Help/PageData/GoogleDocsGuide.htm', 'height=800, width=820, left=200, top=200, menubar=no, status=no, location=no, toolbar=no, scrollbars=yes, resizable=yes');return false;" 
-    Text="Interface Users Guide" Width="145px" /></td><td>
+    Text="Short Guide" Width="86px" />
+                           </td><td class="style16" align="center">
+                                <asp:Button ID="Button1" runat="server" Text="Spreadsheet User Guide" 
+                           Width="162px" OnClientClick="PopUp('../Help/Guide/Default.htm', ' menubar=no, status=no, location=no, toolbar=no, scrollbars=yes, resizable=yes');return false;" />
+                            </td><td align="center">
                         <asp:ImageButton ID="GoogleDocsHelpButton" runat="server" 
     ImageUrl="~/images/help.gif" OnClientClick="var oWin=radopen('../Help/PageData/GoogleDocsHelp.htm', 'DatabaseHelp'); 
                         oWin.setSize(850,450);

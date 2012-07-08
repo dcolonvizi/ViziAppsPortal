@@ -1,0 +1,519 @@
+/* MadCap Table Style: */
+
+/*<meta Version="7" />*/
+
+mcTableStyle
+{
+	name: viziapps_table_stylesheet;
+	border-collapse: collapse;
+	border-left-style: solid;
+	border-left-width: 0px;
+	border-left-color: #000000;
+	border-right-style: solid;
+	border-right-width: 0px;
+	border-right-color: #000000;
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-top-color: #000000;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #000000;
+	max-id: 3;
+	border-spacing-y: 0;
+	border-spacing-x: 0;
+	cell-padding-left: 3px;
+}
+
+mcTableColumnStyle
+{
+	span: 1;
+	separator-style: solid;
+	separator-width: 1px;
+	separator-color: #000000;
+	name: Column1;
+	id: 0;
+}
+
+mcTableHeadStyle
+{
+	span: 1;
+	separator-style: solid;
+	separator-width: 1px;
+	separator-color: #000000;
+	name: Header1;
+	id: 2;
+	font-size: 14pt;
+	font-family: Arial;
+	background-color: #0054c1;
+	color: #ffffff;
+}
+
+mcTableBodyStyle
+{
+	span: 1;
+	separator-style: solid;
+	separator-width: 1px;
+	separator-color: #000000;
+	name: Body1;
+	id: 1;
+	font-size: 11pt;
+	font-family: Arial;
+}
+
+mcTableFootStyle
+{
+	span: 1;
+	separator-style: solid;
+	separator-width: 1px;
+	separator-color: #000000;
+	name: Footer1;
+	id: 3;
+}
+
+
+/* Cell Styles: */
+ 
+.TableStyle-viziapps_table_stylesheet
+{
+	border-collapse: collapse;
+	border-left-style: solid;
+	border-left-color: #000000;
+	border-left-width: 0px;
+	border-right-style: solid;
+	border-right-color: #000000;
+	border-right-width: 0px;
+	border-top-style: solid;
+	border-top-color: #000000;
+	border-top-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #000000;
+	border-bottom-width: 1px;
+	border-spacing: 0px 0px;
+}
+
+.TableStyle-viziapps_table_stylesheet .Column-Column1
+{
+	
+}
+
+.TableStyle-viziapps_table_stylesheet .Head-Header1
+{
+	
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadI-Column1-Header1
+{
+	padding-left: 3px;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+	background-color: #0054c1;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadI-Column1-Header1 p
+{
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadE-Column1-Header1
+{
+	padding-left: 3px;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+	background-color: #0054c1;
+	border-bottom-width: 1px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadE-Column1-Header1 p
+{
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadF-Column1-Header1
+{
+	padding-left: 3px;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+	background-color: #0054c1;
+	border-bottom-width: 1px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadF-Column1-Header1 p
+{
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadH-Column1-Header1
+{
+	padding-left: 3px;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+	background-color: #0054c1;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadH-Column1-Header1 p
+{
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadD-Column1-Header1
+{
+	padding-left: 3px;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+	background-color: #0054c1;
+	border-bottom-width: 1px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadD-Column1-Header1 p
+{
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadC-Column1-Header1
+{
+	padding-left: 3px;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+	background-color: #0054c1;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadC-Column1-Header1 p
+{
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadB-Column1-Header1
+{
+	padding-left: 3px;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+	background-color: #0054c1;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadB-Column1-Header1 p
+{
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadA-Column1-Header1
+{
+	padding-left: 3px;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+	background-color: #0054c1;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadA-Column1-Header1 p
+{
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadG-Column1-Header1
+{
+	padding-left: 3px;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+	background-color: #0054c1;
+}
+
+.TableStyle-viziapps_table_stylesheet .HeadG-Column1-Header1 p
+{
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .Foot-Footer1
+{
+	
+}
+
+.TableStyle-viziapps_table_stylesheet .FootI-Column1-Footer1
+{
+	padding-left: 3px;
+}
+
+.TableStyle-viziapps_table_stylesheet .FootI-Column1-Footer1 p
+{
+	
+}
+
+.TableStyle-viziapps_table_stylesheet .FootE-Column1-Footer1
+{
+	padding-left: 3px;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+	border-top-width: 1px;
+	border-top-color: #000000;
+	border-top-style: solid;
+}
+
+.TableStyle-viziapps_table_stylesheet .FootE-Column1-Footer1 p
+{
+	
+}
+
+.TableStyle-viziapps_table_stylesheet .FootF-Column1-Footer1
+{
+	padding-left: 3px;
+	border-top-width: 1px;
+	border-top-color: #000000;
+	border-top-style: solid;
+}
+
+.TableStyle-viziapps_table_stylesheet .FootF-Column1-Footer1 p
+{
+	
+}
+
+.TableStyle-viziapps_table_stylesheet .FootH-Column1-Footer1
+{
+	padding-left: 3px;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle-viziapps_table_stylesheet .FootH-Column1-Footer1 p
+{
+	
+}
+
+.TableStyle-viziapps_table_stylesheet .FootD-Column1-Footer1
+{
+	padding-left: 3px;
+	border-top-width: 1px;
+	border-top-color: #000000;
+	border-top-style: solid;
+}
+
+.TableStyle-viziapps_table_stylesheet .FootD-Column1-Footer1 p
+{
+	
+}
+
+.TableStyle-viziapps_table_stylesheet .FootC-Column1-Footer1
+{
+	padding-left: 3px;
+}
+
+.TableStyle-viziapps_table_stylesheet .FootC-Column1-Footer1 p
+{
+	
+}
+
+.TableStyle-viziapps_table_stylesheet .FootB-Column1-Footer1
+{
+	padding-left: 3px;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle-viziapps_table_stylesheet .FootB-Column1-Footer1 p
+{
+	
+}
+
+.TableStyle-viziapps_table_stylesheet .FootA-Column1-Footer1
+{
+	padding-left: 3px;
+}
+
+.TableStyle-viziapps_table_stylesheet .FootA-Column1-Footer1 p
+{
+	
+}
+
+.TableStyle-viziapps_table_stylesheet .FootG-Column1-Footer1
+{
+	padding-left: 3px;
+}
+
+.TableStyle-viziapps_table_stylesheet .FootG-Column1-Footer1 p
+{
+	
+}
+
+.TableStyle-viziapps_table_stylesheet .Body-Body1
+{
+	
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyI-Column1-Body1
+{
+	padding-left: 3px;
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyI-Column1-Body1 p
+{
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyE-Column1-Body1
+{
+	padding-left: 3px;
+	font-family: Arial;
+	font-size: 11pt;
+	border-bottom-width: 1px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyE-Column1-Body1 p
+{
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyF-Column1-Body1
+{
+	padding-left: 3px;
+	font-family: Arial;
+	font-size: 11pt;
+	border-bottom-width: 1px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyF-Column1-Body1 p
+{
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyH-Column1-Body1
+{
+	padding-left: 3px;
+	font-family: Arial;
+	font-size: 11pt;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyH-Column1-Body1 p
+{
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyD-Column1-Body1
+{
+	padding-left: 3px;
+	font-family: Arial;
+	font-size: 11pt;
+	border-bottom-width: 1px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyD-Column1-Body1 p
+{
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyC-Column1-Body1
+{
+	padding-left: 3px;
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyC-Column1-Body1 p
+{
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyB-Column1-Body1
+{
+	padding-left: 3px;
+	font-family: Arial;
+	font-size: 11pt;
+	border-right-width: 1px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyB-Column1-Body1 p
+{
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyA-Column1-Body1
+{
+	padding-left: 3px;
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyA-Column1-Body1 p
+{
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyG-Column1-Body1
+{
+	padding-left: 3px;
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+.TableStyle-viziapps_table_stylesheet .BodyG-Column1-Body1 p
+{
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+

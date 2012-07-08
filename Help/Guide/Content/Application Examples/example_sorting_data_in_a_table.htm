@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="no-feedback" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Data Management|Google Docs|Application Examples">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Example - Sorting Data In a Table</title>
+        <script type="text/javascript">/* <![CDATA[ */var switchTo5x=true;/* ]]> */</script>
+        <script type="text/javascript">/* <![CDATA[ */stLight.options({publisher: "c5ab5d3c-b66a-4c01-8933-72124c6662e8"}); /* ]]> */</script>
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/ViziApps Help.css" rel="stylesheet" />
+        <script src="http://w.sharethis.com/button/buttons.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Data Management</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Google Docs</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Application Examples</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Example - Sorting Data In a Table</span>
+        </div>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <h1><a name="kanchor26"></a>Example - Sorting Data In a Table</h1>
+            <p>The example of user-added entries in apps ended by noting the problem that table entries will appear in the order in which the entries are made. (<a href="example_user_added_text.htm" class="MCXref xref">See "Example - User-Added Text"</a>) This will rarely be alphabetical, which makes it difficult to find an entry in a long list.</p>
+            <p>For example, the figure below shows the list of restaurants in the Austin, TX, barbecue app. </p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/BBQ Restaurants List - As Is_288x432.png" style="width: 288;height: 432;" class="image_background" />
+        </p>
+        <div class="body_text">
+            <p>The list isn't alphabetized. It shows the entries as they were added to the spreadsheet, shown below.</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - Add BBQ Listing Restaurants Spreadsheet.png" class="image_background" />
+        </p>
+        <div class="body_text">
+            <p>This list is so short that it's easy to find entries even if they're not in alphabetical order, but it would be more convenient if they were. How can we get the entries in alphabetical order?</p>
+            <ul>
+                <li class="BulletLevel1" value="1">Alphabetize the entries in the spreadsheet. However, this is inefficient since it requires sorting the spreadsheet every time a new entry gets added.</li>
+                <li class="BulletLevel1" value="2">Use the sort feature in ViziApps' data management to dynamically present the entries in alphabetical order when they're displayed in the app, no matter what their order is in the spreadsheet. </li>
+            </ul>
+            <p>The second approach is obviously the best. Let's see how to do it by taking the data management commands for the barbecue app one step further.</p>
+            <p>Here are the data management commands for the listing by name:</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - View BBQ Listings - Data Management.png" />
+        </p>
+        <div class="body_text">
+            <p>We need to add a sort function so that when the user taps the <i>list_by_name_button </i>button, the app reads the entries in the <i>restaurantname </i>and <i>city </i>fields on the <i>restaurants </i>worksheet <i>and </i>automatically displays them in alphabetical order<i><![CDATA[ ]]></i>in the <i>name_column </i>and <i>city_column </i>fields on the mobile device. Here's how.</p>
+            <p>Click the Add Order By icon to the right of the worksheets field, shown below.</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Add Order By Icon.png" />
+        </p>
+        <div class="body_text">
+            <p>This adds an Order by Database Field command that lets us specify the field to sort by and whether to sort in ascending or descending (normal or reverse) order.</p>
+        </div>
+        <p>
+            <img src="../Resources/Images/Order by Database Field.png" />
+        </p>
+        <div class="body_text">
+            <p>If we change this to order by the <i>restaurantname </i>field rather than the <i>city </i>field, but leave the order as Ascending, here's the result when we view the list of restaurants.</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/BBQ Restaurants List - Alphabetized_288x432.png" style="width: 288;height: 432;" />
+        </p>
+        <div class="body_text">
+            <p>It's now alphabetized even though the entries in the spreadsheet are not. From now on, whenever users add a new restaurant, it will be added at the bottom of the list in the spreadsheet but will always automatically display in alphabetical order when viewed in a table on the mobile device.</p>
+        </div>
+        <hr width="100%" size="0" align="center" />
+        <p class="image_background">Copyright © 2012 ViziApps</p>
+        <p class="image_background"><a href="http://www.viziapps.mobi/portal/Help/Guide/ViziAppsHelp.pdf">Download This Guide As a PDF</a>
+        </p>
+        <p class="image_background"><a href="http://www.viziapps.com/"><img src="../Resources/Images/Viziapps Icon for Toolbar and Footer.png" /></a>
+        </p>
+    </body>
+</html>

@@ -261,31 +261,31 @@ public partial class Default : System.Web.UI.Page
 
     protected void ForgotPasswordButton_Click(object sender, EventArgs e)
     {
-        if (Username.Text.Length == 0)
-        {
-            FailureText.Text = "Enter your username and click on \"I forget my password\".";
-            return;
-        }
-        string username = Username.Text.Trim().ToLower();
-        string sql = "SELECT email,password FROM customers WHERE username='" + username + "'";
+        LoginPages.SelectedIndex = 1;       
+    }
+
+    protected void SendPasswordButton_Click(object sender, EventArgs e)
+    {
+        string user_email = Email.Text.Trim().ToLower();
+        string sql = "SELECT username,password FROM customers WHERE email='" + user_email + "'";
         DB db = new DB();
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         DataRow[] rows = db.ViziAppsExecuteSql(State, sql);
         if (rows.Length > 0)
         {
             DataRow row = rows[0];
-            string to_email = row["email"].ToString();
-            string body = "Your ViziApps password is " + row["password"].ToString();
+            string username = row["username"].ToString();
+            string body = "Your ViziApps credentials are:\nUsername: " + row["username"].ToString() + "\nPassword: " + row["password"].ToString();
             Email email = new Email();
             InitPortalSession(); //to init from email
-            email.SendEmail(State, State["TechSupportEmail"].ToString(), to_email, "", "", "ViziApps Password", body, "",false);
-            FailureText.Text = "An email has been sent to you with your password.";
+            email.SendEmail(State, State["TechSupportEmail"].ToString(), user_email, "", "", "ViziApps Credentials", body, "", false);
+            LoginPages.SelectedIndex = 0;
+            FailureText.Text = "An email has been sent to you with your credentials.";
         }
         else
         {
-            FailureText.Text = "The username you entered is not a registered account.";
+            Message.Text = "The email you entered is not registered.";
         }
         db.CloseViziAppsDatabase(State);
     }
-
 }

@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="no-feedback" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Data Management|Google Docs|Spreadsheet Details|Conditions">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Introduction to Conditions in ViziApps</title>
+        <script type="text/javascript">/* <![CDATA[ */var switchTo5x=true;/* ]]> */</script>
+        <script type="text/javascript">/* <![CDATA[ */stLight.options({publisher: "c5ab5d3c-b66a-4c01-8933-72124c6662e8"}); /* ]]> */</script>
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/ViziApps Help.css" rel="stylesheet" />
+        <script src="http://w.sharethis.com/button/buttons.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Data Management</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Google Docs</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Spreadsheet Details</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Introduction to Conditions in ViziApps</span>
+        </div>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <h1><a name="kanchor16"></a>Introduction to Conditions in ViziApps</h1>
+            <p>ViziApps' database commands let us pass data between a mobile device and a spreadsheet, update data on a spreadsheet, or delete data from a spreadsheet. But we may want to refine those commands to perform them subject to certain conditions. For example:</p>
+            <ul>
+                <li class="BulletLevel1" value="1">Use the Update command to change an entry's status to Active only if that entry's status is Inactive, rather than changing all entries' status to Active.</li>
+                <li class="BulletLevel1" value="2">Use the Update command to change a specific entry's status to Active only if its status is Inactive. For example, several clients may have a status of Inactive, but you want to be able to change a specific client's status to Active after calling that client.</li>
+            </ul>
+            <p>In such cases, we want the app to perform a task only on data that meets a condition. To do so, we specify the condition after the command. <a href="conditions_on_commands.htm" class="MCXref xref" xrefformat="See &quot;{paratext}&quot;">See "Conditions On Commands"</a></p>
+            <ul>
+                <li class="BulletLevel1" value="1">Users must login before the app will perform a tasks, such as requiring users to login in order to post a message. We also want the app to respond differently if the login is right or wrong.</li>
+            </ul>
+            <p>In this case, we want to test for a condition before performing the task. This means we want to specify the condition before the command. This also lets us specify if/then options - what to do if the condition is met or not met, right or wrong, such as logging in successfully vs. unsuccessfully. <a href="conditions_with_options.htm" class="MCXref xref" xrefformat="See &quot;{paratext}&quot;">See "Conditions With Options"</a></p>
+        </div>
+        <hr width="100%" size="0" align="center" />
+        <p class="image_background">Copyright © 2012 ViziApps</p>
+        <p class="image_background"><a href="http://www.viziapps.mobi/portal/Help/Guide/ViziAppsHelp.pdf">Download This Guide As a PDF</a>
+        </p>
+        <p class="image_background"><a href="http://www.viziapps.com/"><img src="../../Resources/Images/Viziapps Icon for Toolbar and Footer.png" /></a>
+        </p>
+    </body>
+</html>

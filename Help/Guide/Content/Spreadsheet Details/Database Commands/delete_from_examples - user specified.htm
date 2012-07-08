@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="no-feedback" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Data Management|Google Docs|Spreadsheet Details|Database Commands|Delete From">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Delete From - Examples - User-Specified  Value Deletion</title>
+        <script type="text/javascript">/* <![CDATA[ */var switchTo5x=true;/* ]]> */</script>
+        <script type="text/javascript">/* <![CDATA[ */stLight.options({publisher: "c5ab5d3c-b66a-4c01-8933-72124c6662e8"}); /* ]]> */</script>
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/ViziApps Help.css" rel="stylesheet" />
+        <script src="http://w.sharethis.com/button/buttons.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Data Management</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Google Docs</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Spreadsheet Details</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Delete From - Examples - User-Specified  Value Deletion</span>
+        </div>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <h1><a name="kanchor15"></a>Delete From - Examples - User-Specified  Value Deletion</h1>
+            <p>In this approach, the reader selects the value to be deleted by clicking the desired option on the picker (iPhone) or dropdown (Android). For example, in the image below, tapping the Green option on the picker, then tapping the Delete Selected Lead Type button at the bottom deletes all entries whose status is Green, in this case the Karry and Sam entries.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Deletion Page - User-Selected - With Picker and Deletion Button Marked_288x432.png" style="width: 288;height: 432;" />
+        </p>
+        <div class="body_text">
+            <p>Here's a copy of the spreadsheet.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Spreadsheet for Delete From.png" />
+        </p>
+        <div class="body_text">
+            <p>The name of the field in which readers can select the deletion value is the picker name, here <i>delete_leads_picker</i>, which we can determine by hovering over the picker, as shown below.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Delete Inactive Leads Button Picker for Delete From Example Topic.png" />
+        </p>
+        <div class="body_text">
+            <p>However, a picker can have one or more fields, each with a programmatic section name that we'll use to refer to data in that field. To find the section name, double-click on the picker to open its properties window, shown below.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Picker Section Name for Delete From - User Specified - Example.png" />
+        </p>
+        <div class="body_text">
+            <p>The name of the tap event for this example is <i>delete_selected_leads_button</i>, which we can determine by hovering over the Delete Selected Lead Type button, as shown below.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Delete Selected Leads Button Picker for Delete From Example Topic.png" />
+        </p>
+        <div class="body_text">
+            <ol>
+                <li class="NumberedLevel1" value="1">Go to the Manage Data page in ViziApps and select <i>delete_selected_leads_button </i>from the Tap Event... field.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Select Delete Selected Leads Button for Tap Event for Delete From - User Specified - Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="2">Click the Add Database Command button.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Add Database Command Button for Delete From - User Specified - Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="3">Select the Delete From command from the command pulldown.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Select Delete From Command for Delete From Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="4">Select the worksheet from the worksheet pulldown.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Select Worksheet for Delete From Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="5">Click the Add a Where Condition icon to specify the field value to delete.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Add a Where Condition Icon for Delete From - Predefined - Example.png" />
+        </p>
+        <p>&#160;</p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="6">Click the pulldown for the spreadsheet field and select the desired field name, <i>status </i>in the example below.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Database Field Specification for Delete From - User Specified - Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="7">Click the pulldown for the arithmetic operator - equal or not-equal - to specify how the deletion will work. </li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Arithmetic Operators for Delete From - User Specified - Example.png" />
+        </p>
+        <div class="body_text">
+            <p class="ContinueLevel1_Bullet">Selecting status=Inactive deletes all entries with a status of Inactive, but selecting status!=Inactive deletes all entries <i>except</i> those with a status of Inactive. Selecting &lt; or &gt; lets you specify whether the factor for deletion is to be greater than or less than some value.</p>
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="8">Click the pulldown for the device field and select or type the desired value. Here, we want to tell the app to delete the value specified when the reader taps the desired value in the picker. That means that we have to tell the app to delete the value stored in the picker's <i>lead_types </i>field. </li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Device Field for Delete From - User Specified - Example.png" />
+        </p>
+        <div class="body_text">
+            <p class="ContinueLevel1_Bullet">Unlike the hard-coded example, where the value of Inactive was one that the user typed and was not in the list of available fields, <i>lead_types </i>is in the list of available fields.</p>
+            <p class="ContinueLevel1_Bullet">The image below shows the completed entry. </p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Completed Entry for Delete From - User-Defined - Example.png" />
+        </p>
+        <div class="body_text">
+            <p>The result is the deletion of any entry whose status value equals Green, which the user selected from the picker (dropdown on an Android) and was thus stored as the value of the <i>lead_types </i>field. Specifically, the deletion of the Karry and Sam entries on lines 6 and 9 in the image below.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Spreadsheet for Delete From.png" />
+        </p>
+        <hr width="100%" size="0" align="center" />
+        <p class="image_background">Copyright © 2012 ViziApps</p>
+        <p class="image_background"><a href="http://www.viziapps.mobi/portal/Help/Guide/ViziAppsHelp.pdf">Download This Guide As a PDF</a>
+        </p>
+        <p class="image_background"><a href="http://www.viziapps.com/"><img src="../../Resources/Images/Viziapps Icon for Toolbar and Footer.png" /></a>
+        </p>
+    </body>
+</html>

@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="no-feedback" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Data Management|Google Docs|Spreadsheet Details|Database Commands|Select From">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Select From - Examples</title>
+        <script type="text/javascript">/* <![CDATA[ */var switchTo5x=true;/* ]]> */</script>
+        <script type="text/javascript">/* <![CDATA[ */stLight.options({publisher: "c5ab5d3c-b66a-4c01-8933-72124c6662e8"}); /* ]]> */</script>
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Resources/Stylesheets/ViziApps Help.css" rel="stylesheet" />
+        <script src="http://w.sharethis.com/button/buttons.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Data Management</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Google Docs</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Spreadsheet Details</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Select From - Examples</span>
+        </div>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <h1><a name="kanchor6"></a>Select From - Examples</h1>
+            <p>How did the example in the Select From - Concepts topic work? <a href="select_from_concepts.htm" class="MCXref xref" xrefformat="See &quot;{paratext}&quot;">See "Select From - Concepts"</a></p>
+            <p>The image below shows the spreadsheet for this project.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Spreadsheet for Select From.png" />
+        </p>
+        <div class="body_text">
+            <p>Notice the field (column) names - <i>name</i>, <i>phone</i>, <i>projecttype</i>, and <i>status</i>. (We'll ignore the <i>status </i>field in this example.) This spreadsheet also has two worksheets - <i>prospects </i>and <i>messages</i>. We'll use <i>prospects </i>in this example.</p>
+            <p>An app should contain fields that are to contain the data extracted from the spreadsheet and that correspond to the field names in the spreadsheet. In this example, we want to extract the users' names and project type of interest and display that information in the app. (We're also doing this for all users listed in the spreadsheet, rather than trying to display a specific user's information.) So there should be fields in the app that correspond to the name and project type fields and that will contain and display the data extracted from the spreadsheet. They're called <i>name </i>and <i>projecttype</i>. </p>
+            <p><b>Tip:</b> Give fields names that make it clear which fields in the app connect to which fields in the spreadsheet. For example, it might be better to name these two table fields <i>name_column </i>and <i>projecttype_column</i>. (The actual names aren't crucial as long as they're clear.)</p>
+            <p>The last thing we need to know is the name of the tap event, the button or control that, when tapped, runs the data management operation. The name of the tap event for this example is view_prospects_button. We can determine this by hovering over the View Existing button, as shown below.</p>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/View Existing Tap Event Button for Select From - Example Topic.png" />
+        </p>
+        <div class="body_text">
+            <p>With this information, we're ready to go.</p>
+            <ol>
+                <li class="NumberedLevel1" value="1">Go to the Manage Data page in ViziApps and select <i>view_prospects_button </i>from the Tap Event... field.</li>
+            </ol>
+            <p class="image_background">
+                <img src="../../Resources/Images/Data Management Page - Tap Event for Select From Example.png" />
+            </p>
+        </div>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="2">Click the Add Database Command button.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Add Database Command Button for Select From Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="3">Select the command, in this case Select From, from the command pulldown.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Select Select From Command for Select From Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="4">Select the worksheet from the worksheet pulldown.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Select Worksheet for Select From Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="5">Click the Add a Field icon.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Add a Field Icon for Select From Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="6">Click the pulldown for the spreadsheet field and select the desired field name, <i>name </i>in the example below.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Select From Spreadsheet Field for Select From Example.png" />
+        </p>
+        <div class="body_text">
+            <ol data-mc-continue="false">
+                <li class="NumberedLevel1" value="7">Click the pulldown for the device field and select the desired field name, <i>name </i>in the example below.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Page - Add Device Field for Select From Example.png" />
+        </p>
+        <div class="body_text">
+            <p>That's the first entry. </p>
+            <ol data-mc-continue="true">
+                <li class="NumberedLevel1" value="8">There's one more field on that app screen, so we need to repeat the process. Here's the result.</li>
+            </ol>
+        </div>
+        <p class="image_background">
+            <img src="../../Resources/Images/Data Management Pane - Name and projecttype Fields for Select From Example.png" />
+        </p>
+        <div class="body_text">
+            <p>The app maps the selected spreadsheet fields to those two fields in the table on the app page when the user taps the View Existing button on the app page.</p>
+        </div>
+        <hr width="100%" size="0" align="center" />
+        <p class="image_background">Copyright © 2012 ViziApps</p>
+        <p class="image_background"><a href="http://www.viziapps.mobi/portal/Help/Guide/ViziAppsHelp.pdf">Download This Guide As a PDF</a>
+        </p>
+        <p class="image_background"><a href="http://www.viziapps.com/"><img src="../../Resources/Images/Viziapps Icon for Toolbar and Footer.png" /></a>
+        </p>
+    </body>
+</html>

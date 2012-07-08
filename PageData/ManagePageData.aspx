@@ -27,7 +27,7 @@
  
            .style6
            {
-               width: 356px;
+               width: 303px;
            }
            .style8
            {
@@ -183,14 +183,14 @@
                 <tr><td>
                 
                 <div style="height: 35px">               
-                <table style="width: 576px" align="left">
+                <table style="width: 527px" align="left">
                 <tr><td style="color:#000099;" align="left" class="style20">
                                 All App Data Sources</td>
                   <td class="style6">
                       <asp:Button ID="AppDataSourcesPost" runat="server" Text="" 
                           onclick="AppDataSourcesPost_Click" style="display:none"/>
             <telerik:RadComboBox ID="AppDataSources" runat="server"   
-                 Width="350px"  OnClientLoad="setDataSource" OnClientSelectedIndexChanged="onSelectAppDataSource"
+                 Width="300px"  OnClientLoad="setDataSource" OnClientSelectedIndexChanged="onSelectAppDataSource"
                          >
                 <Items>
                     
@@ -248,6 +248,11 @@
         return false;"/>
 
                    </td>
+                   <td style="width:10px"></td>
+                   <td>
+                                <asp:Button ID="Button1" runat="server" Text="Spreadsheet User Guide" 
+                           Width="162px" OnClientClick="PopUp('../Help/Guide/Default.htm', ' menubar=no, status=no, location=no, toolbar=no, scrollbars=yes, resizable=yes');return false;" />
+                       </td>
                    </tr>
                    </table>
                        </div> 

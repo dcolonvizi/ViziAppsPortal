@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="no-feedback" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Data Management|Google Docs|Application Examples">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Example - User-Added Images</title>
+        <script type="text/javascript">/* <![CDATA[ */var switchTo5x=true;/* ]]> */</script>
+        <script type="text/javascript">/* <![CDATA[ */stLight.options({publisher: "c5ab5d3c-b66a-4c01-8933-72124c6662e8"}); /* ]]> */</script>
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/ViziApps Help.css" rel="stylesheet" />
+        <script src="http://w.sharethis.com/button/buttons.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Data Management</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Google Docs</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Application Examples</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Example - User-Added Images</span>
+        </div>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <h1><a name="kanchor27"></a>Example - User-Added Images</h1>
+            <p>We can add participation to apps by letting users add their own entries; this adds a social media element to the app. For example, people who correspond with others in the same profession via email may never meet in person except at a conference. (A common comment about conferences is that "it let me put a face to the names".)</p>
+            <p>One way to add this social media element is to let users take pictures, annotate the pictures - "So this is what Jane Doe looks like!" - and store them for review after the conference. This feature is straightforward, as the following example shows. (The example was in an app for a conference in Chicago in May 2012. All personal pictures have been removed.)</p>
+            <p>This feature had three components:</p>
+            <ol>
+                <li class="NumberedLevel1" value="1">Take and annotate a picture and store the picture and annotation. <a href="#Take_Annotate_and_Store" class="MCXref xref">See "Take, Annotate, and Store"</a></li>
+                <li class="NumberedLevel1" value="2">View a list of all the pictures and annotations. <a href="#Get_a_List_of_All_Pictures" class="MCXref xref">See "View a List of All Pictures"</a></li>
+                <li class="NumberedLevel1" value="3">Get a larger view of one picture. <a href="#Get_An_Expanded_View_of_One_Picture" class="MCXref xref">See "Get A Larger View of One Picture"</a></li>
+            </ol>
+            <p><b>Note:</b> This feature works very well mechanically, but it is sensitive to the quality of the network because graphic files are large. If network connectivity is poor or fair, you may not want to use this feature because it will slow down the app.</p>
+            <p>Let's go through each component.</p>
+            <h2><a name="Take_Annotate_and_Store"></a>Take, Annotate, and Store</h2>
+            <p>Here's the "take and annotate a picture" page in the app, in ViziApps.</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - Take a Photo Page.png" />
+        </p>
+        <div class="body_text">
+            <p>The relevant fields are:</p>
+            <ul>
+                <li class="BulletLevel1" value="1">The camera icon at the top right, which opens the iPhone camera and lets you take a picture. Its internal name is <i>camera</i>.</li>
+                <li class="BulletLevel1" value="2">The add a description field at the top, with the internal name <i>photo_description_field</i>.</li>
+                <li class="BulletLevel1" value="3">The Save Photo button, with the internal name <i>save_photo_button</i>.</li>
+                <li class="BulletLevel1" value="4">The See All Photos button, with the internal name <i>see_all_photos_button</i>.</li>
+                <li class="BulletLevel1" value="5">The alert, at the bottom right, with the internal name <i>photo_feedback</i>.</li>
+            </ul>
+            <p>Here's the related spreadsheet worksheet, called <i>photos</i>:</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - Take a Photo Page - Spreadsheet Page.png" />
+        </p>
+        <div class="body_text">
+            <p>The relevant fields are:</p>
+            <ul>
+                <li class="BulletLevel1" value="1"><i>photo</i>
+                </li>
+                <li class="BulletLevel1" value="2"><i>photodescription</i>
+                </li>
+            </ul>
+            <p>And here are the data management commands:</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - Take a Photo Page - Data Management Screen.png" />
+        </p>
+        <div class="body_text">
+            <p>When the user takes a picture, it's stored in the <i>camera </i>field on the device. The optional description is stored in the <i>photo_description_field </i>field on the device. </p>
+            <p>When the user taps the <i>save_photo_button </i>button:</p>
+            <ol>
+                <li class="NumberedLevel1" value="1">The app stores the photo in the cloud, inserts its URL in the <i>photo </i>field in the spreadsheet, and stores the description in the <i>photodescription </i>field in the spreadsheet. </li>
+                <li class="NumberedLevel1" value="2">The app displays a feedback message to the user, confirming that the data was added to the spreadsheet. </li>
+            </ol>
+            <p>The image below shows the <i>feedback </i>worksheet for the example.</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - Take a Photo Page - Feedback Page.png" />
+        </p>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <h2><a name="Get_a_List_of_All_Pictures"></a>View a List of All Pictures</h2>
+            <p>Once the pictures are stored, users can see a list of all pictures taken by all users. Here's the list, live in the app.</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Photo List in STC App_288x432.png" style="width: 288;height: 432;" />
+        </p>
+        <div class="body_text">
+            <p>Here's the table and table properties in ViziApps:</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - List Photos Page.png" />
+        </p>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <p>The two fields' internal names - the column names in this case - are <i>photo </i>and <i>text</i>.</p>
+            <p>Here are the data management commands:</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - See All Photos - Data Management Screen.png" /> <![CDATA[ ]]></p>
+        <div class="body_text">
+            <p>When the user taps the <i>see_all_photos_button </i>button:</p>
+            <ol>
+                <li class="NumberedLevel1" value="1">The app reads the URLs in the <i>photo </i>field in the spreadsheet, finds those photos in the cloud, and displays them in the <i>photo </i>field on the device - column 1 in the table.</li>
+                <li class="NumberedLevel1" value="2"> The app reads the entry in the <i>photodedescription </i>field in the spreadsheet and displays that in the <i>text </i>field on the device - column 2 in the table. </li>
+            </ol>
+            <p>The result is this:</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Photo List in STC App_288x432.png" style="width: 288;height: 432;" />
+        </p>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <h2><a name="Get_An_Expanded_View_of_One_Picture"></a>Get A Larger View of One Picture</h2>
+            <p>Once the list of pictures displays, users may want to see a larger view of a particular one. To do so, they can just tap on the desired picture, which displays in a larger form, as shown below.</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - Enlarged Picture_288x432.png" style="width: 288;height: 432;" />
+        </p>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <p>Here's the table and table properties in ViziApps:</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - List Photos Page.png" />
+        </p>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <p>Note that the two fields' internal names - the column names - are <i>photo </i>and <i>text</i>.</p>
+            <p>Here is the page on which the selected image will display in a larger format.</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - Image Display Page in ViziApps_288x481.png" style="width: 288;height: 481;" />
+        </p>
+        <div class="body_text">
+            <p>The relevant fields are:</p>
+            <ul>
+                <li class="BulletLevel1" value="1">The large top field with the camera icon. The image will display in this field, whose internal name is <i>image_display_field</i>. You can modify its size.</li>
+                <li class="BulletLevel1" value="2">The small lower field in which the image's description displays. It's internal name is <i>image_description_field</i>.</li>
+            </ul>
+            <p>Here are the data management commands:</p>
+        </div>
+        <p class="image_background">
+            <img src="../Resources/Images/Example - Image Display Conditions in ViziApps.png" />
+        </p>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <p>When the user taps the table row containing the desired photo, the <i>photo </i>field:</p>
+            <ol>
+                <li class="NumberedLevel1" value="1">The app selects the desired photo from the <i>photos </i>worksheet, extracts its URL from the <i>photo </i>field in the database, finds that picture and displays it in the large <i>image_display_field </i>field on the device.</li>
+                <li class="NumberedLevel1" value="2">The app selects the related <i>photodescription field </i>entry from the spreadsheet and displays it in the smaller <i>image_description_field </i>field on the device. </li>
+                <li class="NumberedLevel1" value="3">The Where condition specifies that the app should select the URL from the spreadsheet equal to the photo that the user clicked in the table on the device.</li>
+            </ol>
+        </div>
+        <hr width="100%" size="0" align="center" />
+        <p class="image_background">Copyright © 2012 ViziApps</p>
+        <p class="image_background"><a href="http://www.viziapps.mobi/portal/Help/Guide/ViziAppsHelp.pdf">Download This Guide As a PDF</a>
+        </p>
+        <p class="image_background"><a href="http://www.viziapps.com/"><img src="../Resources/Images/Viziapps Icon for Toolbar and Footer.png" /></a>
+        </p>
+    </body>
+</html>
