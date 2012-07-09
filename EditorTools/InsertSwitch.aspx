@@ -181,7 +181,7 @@
         <script type="text/javascript" src="../jquery/js/jquery-1.5.1.min.js"></script>
         <script  language="javascript" type="text/javascript" src="../scripts/default_script_1.6.js"></script>
         <script  language="javascript" type="text/javascript" src="../scripts/font_1.6.min.js"></script>
-        <script  language="javascript" type="text/javascript" src="js/insertSwitch_1.18.min.js"></script>
+        <script  language="javascript" type="text/javascript" src="js/insertSwitch_1.19.min.js"></script>
 </head>
 <body>
     <form id="switchform" runat="server">

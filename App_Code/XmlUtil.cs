@@ -1013,7 +1013,7 @@ public class XmlUtil
                                             is_first = false;
                                         else
                                             sb_submit.Append(",");
-                                        sb_submit.Append(submit_attribute.Name + "~" + submit_attribute.InnerText);
+                                        sb_submit.Append(submit_attribute.Name + "~" + submit_attribute.InnerText.Replace(":", "%3A"));
                                     }
                                     submit = sb_submit.ToString() + ";";
                                 }
@@ -1114,7 +1114,7 @@ public class XmlUtil
                                             is_first = false;
                                         else
                                             sb_submit.Append(",");
-                                        sb_submit.Append(submit_attribute.Name + "~" + submit_attribute.InnerText);
+                                        sb_submit.Append(submit_attribute.Name + "~" + submit_attribute.InnerText.Replace(":", "%3A"));
                                     }
                                     image_button_submit = sb_submit.ToString() + ";";
                                 }
@@ -2763,7 +2763,7 @@ public class XmlUtil
                 case "capture_process_document":
                 case "manage_document_case":
                 case "login_to_mcommerce":
-                     XmlNode login_to_mcommerce = CreateNode(doc, submit_node, sub_parts[0]);
+                     XmlNode multi_node = CreateNode(doc, submit_node, sub_parts[0]);
                      if (sub_parts.Length > 1 && sub_parts[1].Length > 0)
                      {
                          string[] pieces = sub_parts[1].Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
@@ -2771,7 +2771,7 @@ public class XmlUtil
                          {
                              pairs = piece.Split("~".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                              if (pairs.Length == 2)
-                                 CreateNode(doc, login_to_mcommerce, pairs[0], pairs[1]);
+                                 CreateNode(doc, multi_node, pairs[0], pairs[1].Replace("%3A",":"));
                          }
                      }
                      break;

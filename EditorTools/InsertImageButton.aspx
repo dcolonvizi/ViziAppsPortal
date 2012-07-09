@@ -197,7 +197,7 @@
          <script type="text/javascript" src="../jquery/js/jquery-1.5.1.min.js"></script>
          <script  language="javascript" type="text/javascript" src="../scripts/default_script_1.6.js"></script>
          <script  language="javascript" type="text/javascript" src="../scripts/font_1.6.min.js"></script>
-         <script  language="javascript" type="text/javascript" src="js/insertImageButton_1.35.min.js"></script>
+         <script  language="javascript" type="text/javascript" src="js/insertImageButton_1.37.min.js"></script>
 </head>
 <body>
     <form id="imageform" runat="server">
@@ -604,32 +604,32 @@
                             <td align="left" class="style23" valign="top">
                                 <select onchange="addPropertySelected(this,'addSwiperPropertyDiv');" 
                                     style="width: 173px; font-size:12px">
-                                    <option>Add a property -&gt;</option>
-                                 <option>Amount field name</option>
-                                 <option>Credit card field name</option>
-                                 <option>Expiration field name</option>                                
-                                 <option>Security code field name</option>
-                                 <option>Full name field name</option>
-                                 <option>Organization field name</option>
-                                  <option>Occupation field name</option>
-                                 <option>Transaction label field name</option>
-                                 <option>Email field name</option>
-                                 <option>Street address1 field name</option>
-                                 <option>Street address2 field name</option>
-                                 <option>City field name</option>
-                                 <option>State or province field name</option>
-                                 <option>Zipcode field name</option>
-                                 <option>Phone field name</option>
-                                 <option>Order field name</option>
-                                 <option>Notes field name</option>
-                                 <option>Confirmation page name</option>
-                                 <option>Confirmation message field name</option>
-                                 <option>Transaction ID field name</option>
-                                 <option>Transaction log button name</option>
-                                 <option>Signature field name</option>    
-                                 <option>User agree1 field name</option>  
-                                 <option>User agree2 field name</option> 
-                                 <option>User agree3 field name</option>     
+                                 <option>Add a property -&gt;</option>
+                                 <option value="NAME">Amount field name</option>
+                                 <option value="NAME">Credit card field name</option>
+                                 <option value="NAME">Expiration field name</option>                                
+                                 <option value="NAME">Security code field name</option>
+                                 <option value="NAME">Full name field name</option>
+                                 <option value="NAME">Organization field name</option>
+                                 <option value="NAME">Occupation field name</option>
+                                 <option value="NAME">Transaction label field name</option>
+                                 <option value="NAME">Email field name</option>
+                                 <option value="NAME">Street address1 field name</option>
+                                 <option value="NAME">Street address2 field name</option>
+                                 <option value="NAME">City field name</option>
+                                 <option value="NAME">State or province field name</option>
+                                 <option value="NAME">Zipcode field name</option>
+                                 <option value="NAME">Phone field name</option>
+                                 <option value="NAME">Order field name</option>
+                                 <option value="NAME">Notes field name</option>
+                                 <option value="NAME">Confirmation page name</option>
+                                 <option value="NAME">Confirmation message field name</option> 
+                                 <option value="NAME">Transaction ID field name</option>
+                                 <option value="NAME">Transaction log button name</option>   
+                                 <option value="NAME">Signature field name</option>  
+                                 <option value="NAME">User agree1 field name</option>  
+                                 <option value="NAME">User agree2 field name</option> 
+                                 <option value="NAME">User agree3 field name</option>              
                              </select> </td>
                             <td valign="top" class="style100">
                                 &nbsp;</td>
@@ -648,10 +648,10 @@
                                  <select style="width: 173px; font-size:12px" 
                                      onchange="addPropertySelected(this,'addVoidPropertyDiv');">
                                  <option>Add a property -&gt;</option>
-                                 <option>Transaction ID field name</option>
-                                 <option>Confirmation page name</option>
-                                 <option>Confirmation message field name</option>                                 
-                                 <option>Transaction log button name</option>  
+                                 <option value="NAME">Transaction ID field name</option>
+                                 <option value="NAME">Confirmation page name</option>
+                                 <option value="NAME">Confirmation message field name</option>  
+                                 <option value="NAME">Transaction log button name</option>    
                                </select>
                                  </td>
                              <td class="style100" valign="top">
@@ -680,18 +680,18 @@
                            <td align="left" class="style23" valign="top">
                                <select name="D1" onchange="addPropertySelected(this,'addCaptureProcessDocumentPropertyDiv');" 
                                    style="width: 173px; font-size:12px">
-                                   <option>Add a property -&gt;</option>
-                                   <option>Name of field containing image processing string</option>
-                                   <option>Auto process image</option>
-                                   <option>Show image quality feedback</option>
-                                   <option>Use stability feature</option>
-                                   <option>Stability sensitivity </option>
-                                   <option>Do review image</option>
-                                   <option>Do process only</option>
-                                   <option>Image source</option>
-                                   <option>Name of field containing photo file paths</option>
-                                   <option>Name of field containing processed image file paths</option>
-                                   <option>Show capture and process settings</option>
+                                  <option>Add a property -&gt;</option>
+                                   <option value="NAME">Name of field containing image processing string</option>
+                                   <option value="true,false">Auto process image</option>
+                                   <option value="true,false">Show image quality feedback</option>
+                                   <option value="true,false">Use stability feature</option>
+                                   <option value="0-100">Stability sensitivity </option>
+                                   <option value="true,false">Do review image</option>
+                                   <option value="true,false">Do process only</option>
+                                   <option value="camera">Image source</option>
+                                   <option value="NAME">Name of field containing photo file paths</option>
+                                   <option value="NAME">Name of field containing processed image file paths</option>
+                                   <option value="true,false">Show capture and process settings</option>
                                </select> </td>
                            <td class="style100" valign="top">
                                &nbsp;</td>
@@ -708,16 +708,16 @@
                                <select name="D2" onchange="addPropertySelected(this,'addManageDocumentCasePropertyDiv');" 
                                    style="width: 173px; font-size:12px">
                                    <option>Add a property -&gt;</option>
-                                   <option>Data flow type</option>
-                                   <option>Name of field containing case definition</option>
-                                   <option>Name of field containing case data</option>
-                                   <option>Case management logo url</option>
+                                   <option value="kofax, user_defined_cases_kofax_submission, user_defined_cases_user_defined_submission">Data flow type</option>
+                                   <option value="NAME">Name of field containing case definition</option>
+                                   <option value="NAME">Name of field containing case data</option>
+                                   <option value="URL">Case management logo url</option>
                                    <option>About box text</option>
-                                   <option>Name of field containing email body template</option>
-                                   <option>Show settings screen</option>
+                                   <option value="NAME">Name of field containing email body template</option>
+                                   <option value="true,false">Show settings screen</option>
                                    <option>Replacement for case label name </option>
-                                   <option>Do capture and process images</option>
-                                   <option>Case management server url</option>
+                                   <option value="true,false">Do capture and process images</option>
+                                   <option value="URL">Case management server url</option>
                                </select> </td>
                            <td class="style100" valign="top">
                                &nbsp;</td>
