@@ -15,7 +15,7 @@ public partial class Dialogs_ButtonColor : System.Web.UI.Page
 
         DB db = new DB();
         string sql = "SELECT * FROM stock_images WHERE ";
-        if ( State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE)
+        if (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE || State["SelectedAppType"].ToString() == Constants.HYBRID_APP_TYPE)
             sql += "type='jquery_buttons' or type='blank_buttons'";
         else
             sql += "type='blank_buttons'";

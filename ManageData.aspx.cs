@@ -1798,9 +1798,9 @@ public partial class ManageData : System.Web.UI.Page
             CommandEntry["command"] = command;
             if (command == "if")
             {
-                CommandEntry["command_condition_phone_field1"] = sql_command.SelectSingleNode("command_condition_phone_field1").InnerText;
+                CommandEntry["command_condition_device_field1"] = sql_command.SelectSingleNode("command_condition_phone_field1").InnerText;
                 CommandEntry["command_condition_operation"] = sql_command.SelectSingleNode("command_condition_operation").InnerText;
-                CommandEntry["command_condition_phone_field2"] = sql_command.SelectSingleNode("command_condition_phone_field2").InnerText;
+                CommandEntry["command_condition_device_field2"] = sql_command.SelectSingleNode("command_condition_phone_field2").InnerText;
             }
             else
             {
@@ -1819,9 +1819,9 @@ public partial class ManageData : System.Web.UI.Page
                         FieldEntry["database_field"] = field.SelectSingleNode("database_field").InnerText;
                         XmlNode phone_field_node = field.SelectSingleNode("phone_field");
                         if (phone_field_node != null)
-                            FieldEntry["phone_field"] = phone_field_node.InnerText;
+                            FieldEntry["device_field"] = phone_field_node.InnerText;
                         else
-                            FieldEntry["phone_field"] = "";
+                            FieldEntry["device_field"] = "";
 
                         DBFields.Add(FieldEntry);
                     }
@@ -1910,9 +1910,9 @@ public partial class ManageData : System.Web.UI.Page
             x_util.CreateNode(doc, sql_command, "command", command);
             if (command == "if")
             {
-                x_util.CreateNode(doc, sql_command, "command_condition_phone_field1", CommandEntry["command_condition_phone_field1"].ToString());
+                x_util.CreateNode(doc, sql_command, "command_condition_phone_field1", CommandEntry["command_condition_device_field1"].ToString());
                 x_util.CreateNode(doc, sql_command, "command_condition_operation", CommandEntry["command_condition_operation"].ToString());
-                x_util.CreateNode(doc, sql_command, "command_condition_phone_field2", CommandEntry["command_condition_phone_field2"].ToString());
+                x_util.CreateNode(doc, sql_command, "command_condition_phone_field2", CommandEntry["command_condition_device_field2"].ToString());
             }
             else
             {
@@ -1928,9 +1928,9 @@ public partial class ManageData : System.Web.UI.Page
                         {
                             x_util.CreateNode(doc, field_item, "database_field", FieldEntry["database_field"].ToString());
                         }
-                        if (FieldEntry["phone_field"] != null && FieldEntry["phone_field"].ToString().Length > 0)
+                        if (FieldEntry["device_field"] != null && FieldEntry["device_field"].ToString().Length > 0)
                         {
-                            x_util.CreateNode(doc, field_item, "phone_field", FieldEntry["phone_field"].ToString());
+                            x_util.CreateNode(doc, field_item, "phone_field", FieldEntry["device_field"].ToString());
                         }
                     }
                 }
@@ -2151,20 +2151,20 @@ public partial class ManageData : System.Web.UI.Page
             return;
         }
         //command_condition
-        else if (info_text.StartsWith("command_condition_phone_field1"))
+        else if (info_text.StartsWith("command_condition_device_field1"))
         {
             CommandEntry = (Hashtable)DBCommands[Convert.ToInt32(split[1])];
-            CommandEntry["command_condition_phone_field1"] = split[2];
+            CommandEntry["command_condition_device_field1"] = split[2];
         }
         else if (info_text.StartsWith("command_condition_operation"))
         {
             CommandEntry = (Hashtable)DBCommands[Convert.ToInt32(split[1])];
             CommandEntry["command_condition_operation"] = split[2];
         }
-        else if (info_text.StartsWith("command_condition_phone_field2"))
+        else if (info_text.StartsWith("command_condition_device_field2"))
         {
             CommandEntry = (Hashtable)DBCommands[Convert.ToInt32(split[1])];
-            CommandEntry["command_condition_phone_field2"] = split[2];
+            CommandEntry["command_condition_device_field2"] = split[2];
         }
         else if (info_text.StartsWith("delete_command_condition"))//this is order dependent because 2 items contain "delete_command"
         {
@@ -2247,14 +2247,14 @@ public partial class ManageData : System.Web.UI.Page
                 FieldEntry["database_field"] = split[3];
             }
         }
-        else if (info_text.StartsWith("phone_field"))
+        else if (info_text.StartsWith("device_field"))
         {
             CommandEntry = (Hashtable)DBCommands[Convert.ToInt32(split[1])];
             ArrayList DBFields = (ArrayList)CommandEntry["database_fields"];
             if (DBFields != null)
             {
                 Hashtable FieldEntry = (Hashtable)DBFields[Convert.ToInt32(split[2])];
-                FieldEntry["phone_field"] = split[3];
+                FieldEntry["device_field"] = split[3];
             }
         }
         else if (info_text.StartsWith("delete_field"))
@@ -2381,9 +2381,9 @@ public partial class ManageData : System.Web.UI.Page
 
         Hashtable newCommandEntry = new Hashtable();
         newCommandEntry["command"] = "If";
-        newCommandEntry["command_condition_phone_field1"] = null;
+        newCommandEntry["command_condition_device_field1"] = null;
         newCommandEntry["command_condition_operation"] = null;
-        newCommandEntry["command_condition_phone_field2"] = null;
+        newCommandEntry["command_condition_device_field2"] = null;
 
 
         DBCommands.Add(newCommandEntry);
@@ -2534,7 +2534,7 @@ public partial class ManageData : System.Web.UI.Page
             Control CommandControl = null;
             if (command == "if")
             {
-                CommandControl = LoadControl("Controls/IfPhoneFieldThenDoCommand.ascx");               
+                CommandControl = LoadControl("Controls/IfDeviceFieldThenDoCommand.ascx");               
             }
             else
             {
@@ -2564,14 +2564,14 @@ public partial class ManageData : System.Web.UI.Page
 
             if (command == "if")
             {
-                if (CommandEntry["command_condition_phone_field1"] != null && CommandEntry["command_condition_phone_field1"].ToString().Length > 0)
+                if (CommandEntry["command_condition_device_field1"] != null && CommandEntry["command_condition_device_field1"].ToString().Length > 0)
                 {
-                    string command_condition_phone_field1 = CommandEntry["command_condition_phone_field1"].ToString();
-                    ((RadComboBox)CommandControl.FindControl("command_condition_phone_field1")).SelectedValue = command_condition_phone_field1;
+                    string command_condition_device_field1 = CommandEntry["command_condition_device_field1"].ToString();
+                    ((RadComboBox)CommandControl.FindControl("command_condition_device_field1")).SelectedValue = command_condition_device_field1;
                 }
                 else
                 {
-                    CommandEntry["command_condition_phone_field1"] = ((RadComboBox)CommandControl.FindControl("command_condition_phone_field1")).SelectedValue;
+                    CommandEntry["command_condition_device_field1"] = ((RadComboBox)CommandControl.FindControl("command_condition_device_field1")).SelectedValue;
                 }
                 if (CommandEntry["command_condition_operation"] != null && CommandEntry["command_condition_operation"].ToString().Length > 0)
                 {
@@ -2582,16 +2582,16 @@ public partial class ManageData : System.Web.UI.Page
                 {
                     CommandEntry["command_condition_operation"] = ((RadComboBox)CommandControl.FindControl("command_condition_operation")).SelectedValue;
                 }
-                if (CommandEntry["command_condition_phone_field2"] != null && CommandEntry["command_condition_phone_field2"].ToString().Length > 0)
+                if (CommandEntry["command_condition_device_field2"] != null && CommandEntry["command_condition_device_field2"].ToString().Length > 0)
                 {
-                    string command_condition_phone_field2 = CommandEntry["command_condition_phone_field2"].ToString();
-                    RadComboBox command_condition_phone_field2_combo = ((RadComboBox)CommandControl.FindControl("command_condition_phone_field2"));
-                    command_condition_phone_field2_combo.SelectedIndex = -1;
-                    command_condition_phone_field2_combo.Text = command_condition_phone_field2;
+                    string command_condition_device_field2 = CommandEntry["command_condition_device_field2"].ToString();
+                    RadComboBox command_condition_device_field2_combo = ((RadComboBox)CommandControl.FindControl("command_condition_device_field2"));
+                    command_condition_device_field2_combo.SelectedIndex = -1;
+                    command_condition_device_field2_combo.Text = command_condition_device_field2;
                 }
                 else
                 {
-                    CommandEntry["command_condition_phone_field2"] = ((RadComboBox)CommandControl.FindControl("command_condition_phone_field2")).SelectedValue;
+                    CommandEntry["command_condition_device_field2"] = ((RadComboBox)CommandControl.FindControl("command_condition_device_field2")).SelectedValue;
                 }
                 continue;
             }
@@ -2629,7 +2629,7 @@ public partial class ManageData : System.Web.UI.Page
                     field_node.Category = "field";
                     field_node.PostBack = false;
                      State["SelectedDatabaseTable"] = table;
-                    string control_file = (field_control_type == "from_database_to_phone") ? "DatabaseToPhoneField.ascx" : "PhoneToDatabaseField.ascx";
+                    string control_file = (field_control_type == "from_database_to_phone") ? "DatabaseToDeviceField.ascx" : "DeviceToDatabaseField.ascx";
                     Control FieldControl = LoadControl("Controls/" +control_file);
                     if ( State["SpreadsheetError"] != null)
                     {
@@ -2648,20 +2648,20 @@ public partial class ManageData : System.Web.UI.Page
                     {
                         FieldEntry["database_field"] = ((RadComboBox)FieldControl.FindControl("database_field")).SelectedValue;
                     }
-                    if (FieldEntry["phone_field"] != null && FieldEntry["phone_field"].ToString().Length > 0)
+                    if (FieldEntry["device_field"] != null && FieldEntry["device_field"].ToString().Length > 0)
                     {
-                        string phone_field = FieldEntry["phone_field"].ToString();
-                        RadComboBox phone_field_combo = (RadComboBox)FieldControl.FindControl("phone_field");
+                        string phone_field = FieldEntry["device_field"].ToString();
+                        RadComboBox phone_field_combo = (RadComboBox)FieldControl.FindControl("device_field");
                         phone_field_combo.SelectedIndex = -1;
                         phone_field_combo.Text = phone_field;
                     }
                     else
                     {
-                        string phone_field_text = ((RadComboBox)FieldControl.FindControl("phone_field")).Text;
+                        string phone_field_text = ((RadComboBox)FieldControl.FindControl("device_field")).Text;
                         if (phone_field_text.Length > 0)
-                            FieldEntry["phone_field"] = phone_field_text;
+                            FieldEntry["device_field"] = phone_field_text;
                         else
-                            FieldEntry["phone_field"] = ((RadComboBox)FieldControl.FindControl("phone_field")).SelectedValue;
+                            FieldEntry["device_field"] = ((RadComboBox)FieldControl.FindControl("device_field")).SelectedValue;
                     }
                     sub_command_index++;
                 }

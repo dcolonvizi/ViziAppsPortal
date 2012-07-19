@@ -197,7 +197,7 @@
          <script type="text/javascript" src="../jquery/js/jquery-1.5.1.min.js"></script>
          <script  language="javascript" type="text/javascript" src="../scripts/default_script_1.6.js"></script>
          <script  language="javascript" type="text/javascript" src="../scripts/font_1.6.min.js"></script>
-         <script  language="javascript" type="text/javascript" src="js/insertImageButton_1.37.min.js"></script>
+         <script  language="javascript" type="text/javascript" src="js/insertImageButton_1.38.min.js"></script>
 </head>
 <body>
     <form id="imageform" runat="server">
@@ -382,7 +382,7 @@
                              <td class="style53">
                                  Call Phone in field:</td>
                              <td class="style63">
-                                 <input type="text" id="phone_field" size="25"/>
+                                 <input type="text" id="device_field" size="25"/>
                              </td>
                              <td class="style10">
                                  (name of the field that will contain the actual phone number)</td>
@@ -688,7 +688,7 @@
                                    <option value="0-100">Stability sensitivity </option>
                                    <option value="true,false">Do review image</option>
                                    <option value="true,false">Do process only</option>
-                                   <option value="camera">Image source</option>
+                                   <option value="camera,photo_album">Document image source</option>
                                    <option value="NAME">Name of field containing photo file paths</option>
                                    <option value="NAME">Name of field containing processed image file paths</option>
                                    <option value="true,false">Show capture and process settings</option>
@@ -716,8 +716,8 @@
                                    <option value="NAME">Name of field containing email body template</option>
                                    <option value="true,false">Show settings screen</option>
                                    <option>Replacement for case label name </option>
-                                   <option value="true,false">Do capture and process images</option>
-                                   <option value="URL">Case management server url</option>
+                                   <option value="NAME">Name of field containing do capture and process images</option>
+                                   <option value="NAME">Name of field containing case management server url</option>
                                </select> </td>
                            <td class="style100" valign="top">
                                &nbsp;</td>

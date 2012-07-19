@@ -858,3 +858,17 @@ html.feedback-anonymous-enabled .comment-form-wrapper .username-field
 	-pie-background: linear-gradient(#ffffff, #ececec);
 }
 
+.pdf_link-button
+{
+	background: #ececec url('Images/Download PDF Button.png') no-repeat center center;
+	background: url('Images/Download PDF Button.png') no-repeat center center, -moz-linear-gradient(top, #ffffff 0%, #ececec 100%);
+	background: url('Images/Download PDF Button.png') no-repeat center center, -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#ececec));
+	background: url('Images/Download PDF Button.png') no-repeat center center, -webkit-linear-gradient(top, #ffffff 0%, #ececec 100%);
+	background: url('Images/Download PDF Button.png') no-repeat center center, -o-linear-gradient(top, #ffffff 0%,#ececec 100%);
+	background: url('Images/Download PDF Button.png') no-repeat center center, -ms-linear-gradient(top, #ffffff 0%,#ececec 100%);
+	background: url('Images/Download PDF Button.png') no-repeat center center, linear-gradient(top, #ffffff 0%,#ececec 100%);
+	-pie-background: url('Skins/Default/Stylesheets/Images/Download PDF Button.png') no-repeat center center, linear-gradient(#ffffff, #ececec);
+	width: 160px;
+	click: location;
+}
+

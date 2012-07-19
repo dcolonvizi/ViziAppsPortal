@@ -2654,7 +2654,8 @@ public class Util
 
         db.CloseViziAppsDatabase(State);
 
-        if (State["SelectedAppType"] != null && State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE && State["UrlAccountIdentifier"] != null)
+        if (State["SelectedAppType"] != null && (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE || State["SelectedAppType"].ToString() == Constants.HYBRID_APP_TYPE) && 
+            State["UrlAccountIdentifier"] != null)
         {
             AmazonS3 s3 = new AmazonS3();
             string Bucket = ConfigurationManager.AppSettings["WebAppBucket"];
@@ -3213,7 +3214,6 @@ public class Util
     public RadTreeNode CreateFieldNode(RadTreeNode PageRoot, string field, string field_type)
     {
         RadTreeNode id = new RadTreeNode(field);
-       // RadTreeNode id = new RadTreeNode(field + " (" + field_type + ")");
         id.CssClass = "RadTreeView";
 
         switch (field_type)
@@ -3325,7 +3325,7 @@ public class Util
         string url = db.ViziAppsExecuteScalar(State, sql);
         if (url == null || url.Length == 0)
         {
-            if (State["SelectedAppType"] != null && State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE)
+            if (State["SelectedAppType"] != null && (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE || State["SelectedAppType"].ToString() == Constants.HYBRID_APP_TYPE))
                 url = ConfigurationManager.AppSettings["DefaultWebAppButtonImage"];
             else
                 url = ConfigurationManager.AppSettings["DefaultButtonImage"];
@@ -3362,7 +3362,7 @@ public class Util
             DB db = new DB();
             if (default_button_url == null || default_button_url.Length == 0)
             {
-                if (State["SelectedAppType"] != null && State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE)
+                if (State["SelectedAppType"] != null && (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE || State["SelectedAppType"].ToString() == Constants.HYBRID_APP_TYPE))
                     default_button_url = ConfigurationManager.AppSettings["DefaultWebAppButtonImage"];
                 else
                     default_button_url = ConfigurationManager.AppSettings["DefaultButtonImage"];

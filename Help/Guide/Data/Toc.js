@@ -5,12 +5,12 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'    <TocEntry Title=\"Data Management\" ComputedFirstTopic=\"false\" DescendantCount=\"30\">' +
 	'        <TocEntry Title=\"Google Docs\" ComputedFirstTopic=\"false\" DescendantCount=\"30\">' +
 	'            <TocEntry Title=\"Spreadsheet Concepts\" ComputedFirstTopic=\"false\" DescendantCount=\"4\">' +
-	'                <TocEntry Title=\"What Google Docs Buys You\" Link=\"/Content/Spreadsheet Concepts/what_google_docs_buys_you.htm\" ComputedResetPageLayout=\"true\" ComputedFirstTopic=\"true\" DescendantCount=\"0\" />' +
+	'                <TocEntry Title=\"What Is Google Docs and Why Is It Useful?\" Link=\"/Content/Spreadsheet Concepts/what_is_google_docs_why_is_it_useful.htm\" StartSection=\"false\" SectionNumberReset=\"continue\" VolumeNumberReset=\"same\" ChapterNumberReset=\"continue\" ComputeToc=\"false\" ReplaceMergeNode=\"false\" ComputedResetPageLayout=\"true\" ComputedFirstTopic=\"true\" DescendantCount=\"0\" />' +
 	'                <TocEntry Title=\"Overview of Data Management Operations\" Link=\"/Content/Spreadsheet Concepts/overview_of_data_management_operations.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />' +
 	'                <TocEntry Title=\"Spreadsheet Concepts and Syntax Rules\" Link=\"/Content/Spreadsheet Concepts/spreadsheet_concepts and syntax rules.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />' +
 	'                <TocEntry Title=\"What Is a Query?\" Link=\"/Content/Spreadsheet Concepts/what_is_a_query.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />' +
 	'            </TocEntry>' +
-	'            <TocEntry Title=\"Spreadsheet Details\" ComputedFirstTopic=\"false\" DescendantCount=\"23\">' +
+	'            <TocEntry Title=\"Spreadsheet Details\" ComputedFirstTopic=\"false\" DescendantCount=\"21\">' +
 	'                <TocEntry Title=\"Database Commands\" Link=\"/Content/Spreadsheet Details/Database Commands/introduction_to_database_commands.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"14\">' +
 	'                    <TocEntry Title=\"Select From\" Link=\"/Content/Spreadsheet Details/Database Commands/select_from_examples.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"2\">' +
 	'                        <TocEntry Title=\"Select From - Concepts\" Link=\"/Content/Spreadsheet Details/Database Commands/select_from_concepts.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />' +
@@ -40,13 +40,13 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'                    <TocEntry Title=\"Feedback To the App User\" Link=\"/Content/Spreadsheet Details/Feedback To the App User/feedback_to_the_app_user.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />' +
 	'                </TocEntry>' +
 	'                <TocEntry Title=\"Images and Maps\" ComputedFirstTopic=\"false\" DescendantCount=\"2\">' +
-	'                    <TocEntry Title=\"How Images Are Stored\" Link=\"/Content/Spreadsheet Details/Best Practices/how_images_are_stored.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />' +
-	'                    <TocEntry Title=\"How Maps Are Stored\" Link=\"/Content/Spreadsheet Details/Best Practices/how_maps_are_stored.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />' +
+	'                    <TocEntry Title=\"How Images Are Stored\" Link=\"/Content/Best Practices/how_images_are_stored.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />' +
+	'                    <TocEntry Title=\"How Maps Are Stored\" Link=\"/Content/Best Practices/how_maps_are_stored.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />' +
 	'                </TocEntry>' +
-	'                <TocEntry Title=\"Best Practices\" ComputedFirstTopic=\"false\" DescendantCount=\"2\">' +
-	'                    <TocEntry Title=\"Planning and Development\" Link=\"/Content/Spreadsheet Details/Best Practices/planning_and_development.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />' +
-	'                    <TocEntry Title=\"Google Apps for Business\" Link=\"/Content/Spreadsheet Details/Best Practices/google_apps_for_business.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />' +
-	'                </TocEntry>' +
+	'            </TocEntry>' +
+	'            <TocEntry Title=\"Best Practices\" ComputedFirstTopic=\"false\" DescendantCount=\"2\">' +
+	'                <TocEntry Title=\"Planning and Development\" Link=\"/Content/Best Practices/planning_and_development.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />' +
+	'                <TocEntry Title=\"Google Apps for Business\" Link=\"/Content/Best Practices/google_apps_for_business.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />' +
 	'            </TocEntry>' +
 	'            <TocEntry Title=\"Application Examples\" ComputedFirstTopic=\"false\" DescendantCount=\"3\">' +
 	'                <TocEntry Title=\"Example - Sorting Data In a Table\" Link=\"/Content/Application Examples/example_sorting_data_in_a_table.htm\" ComputedFirstTopic=\"false\" DescendantCount=\"0\" />' +

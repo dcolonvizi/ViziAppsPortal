@@ -513,6 +513,42 @@ public class PhoneWebService : System.Web.Services.WebService
         return Report;
     }
 
+    [WebMethod(EnableSession = true)]
+    public XmlDocument GetCustomerInfo()
+    {
+        XmlUtil x_util = new XmlUtil();
+        Util util = new Util();
+        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
+        XmlNode status = null; 
+        XmlDocument Response = new XmlDocument();
+        XmlNode root = Response.CreateElement("response");
+        Response.AppendChild(root);
+        try
+        {
+            DB db = new DB();
+            String sql = "SELECT COUNT(*) FROM customers WHERE status!='inactive'";
+            String count = db.ViziAppsExecuteScalar(State, sql);
+            x_util.CreateNode(Response, root, "customer_count",count);
+            db.CloseViziAppsDatabase(State);
+            x_util.CreateNode(Response, root, "status", "success");
+        }
+        catch (System.Exception SE)
+        {
+            util.LogError(State, SE);
+
+            if (status == null)
+            {
+                Response = new XmlDocument();
+                XmlNode root2 = Response.CreateElement("response");
+                Response.AppendChild(root2);
+                status = x_util.CreateNode(Response, root2, "status");
+
+            }
+            status.InnerText = SE.Message;
+            util.LogError(State, SE);
+        }
+        return Response;
+    }
     protected XmlDocument GetDesign(string application_id, string user_id, string customer_id,
         int device_display_width, int device_display_height,string app_status,string time_stamp)
     {

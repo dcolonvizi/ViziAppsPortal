@@ -11,7 +11,7 @@ public partial class InsertTextField : System.Web.UI.Page
     {
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         if (State == null || State.Count <= 2) Page.ClientScript.RegisterStartupScript(this.GetType(), Guid.NewGuid().ToString(), "timeOut('../Default.aspx');", true);
-        if (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE)
+        if (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE || State["SelectedAppType"].ToString() == Constants.HYBRID_APP_TYPE)
             Response.Redirect("InsertWebAppTextField.aspx", false);
         // Bold.Attributes.Add("onclick", "onBoldClick();");
         //Italic.Attributes.Add("onclick", "onItalicClick();");

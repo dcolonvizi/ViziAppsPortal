@@ -29,7 +29,7 @@ if (State == null || State.Count <= 2) { Page.ClientScript.RegisterStartupScript
     {
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         actions.Items.Add(new RadComboBoxItem("Select action ->", ""));
-        if ( State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE)
+        if ( State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE )
         {
             actions.Items.Add(new RadComboBoxItem("Go to page", "next_page"));
             actions.Items.Add(new RadComboBoxItem("If/Then Go to page ", "if_then_next_page"));

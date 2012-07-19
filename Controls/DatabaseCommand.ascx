@@ -38,6 +38,11 @@
         ImageUrl="~/images/add_order_by.png" OnClientClick="add_order_by_click(this,null);"
         ToolTip="Add Order By" Width="18px" />
         </td>
+        <td>
+         <asp:ImageButton ID="test_query" runat="server" 
+        ImageUrl="~/images/check.png" OnClientClick="test_query_click(this,null);"
+        ToolTip="Test Command" Width="18px" />
+        </td>
 <td>
     <asp:ImageButton ID="delete_command" runat="server" 
         ImageUrl="~/images/delete_small.gif"  

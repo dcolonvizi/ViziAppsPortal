@@ -245,17 +245,17 @@
                                <select name="D1" onchange="addPropertySelected(this,'addCaptureProcessDocumentPropertyDiv');" 
                                    style="width: 173px; font-size:12px">
                                    <option>Add a property -&gt;</option>
-                                   <option>Name of field containing image processing string</option>
-                                   <option>Auto process image</option>
-                                   <option>Show image quality feedback</option>
-                                   <option>Use stability feature</option>
-                                   <option>Stability sensitivity </option>
-                                   <option>Do review image</option>
-                                   <option>Do process only</option>
-                                   <option>Image source</option>
-                                   <option>Name of field containing photo file paths</option>
-                                   <option>Name of field containing processed image file paths</option>
-                                   <option>Show capture and process settings</option>
+                                   <option value="NAME">Name of field containing image processing string</option>
+                                   <option value="true,false">Auto process image</option>
+                                   <option value="true,false">Show image quality feedback</option>
+                                   <option value="true,false">Use stability feature</option>
+                                   <option value="0-100">Stability sensitivity </option>
+                                   <option value="true,false">Do review image</option>
+                                   <option value="true,false">Do process only</option>
+                                   <option value="camera,photo_album">Document image source</option>
+                                   <option value="NAME">Name of field containing photo file paths</option>
+                                   <option value="NAME">Name of field containing processed image file paths</option>
+                                   <option value="true,false">Show capture and process settings</option>
                                </select> </td>
                            <td class="style100" valign="top">
                                &nbsp;</td>
@@ -272,16 +272,16 @@
                                <select name="D2" onchange="addPropertySelected(this,'addManageDocumentCasePropertyDiv');" 
                                    style="width: 173px; font-size:12px">
                                    <option>Add a property -&gt;</option>
-                                   <option>Data flow type</option>
-                                   <option>Name of field containing case definition</option>
-                                   <option>Name of field containing case data</option>
-                                   <option>Case management logo url</option>
+                                   <option value="kofax, user_defined_cases_kofax_submission, user_defined_cases_user_defined_submission">Data flow type</option>
+                                   <option value="NAME">Name of field containing case definition</option>
+                                   <option value="NAME">Name of field containing case data</option>
+                                   <option value="URL">Case management logo url</option>
                                    <option>About box text</option>
-                                   <option>Name of field containing email body template</option>
-                                   <option>Show settings screen</option>
+                                   <option value="NAME">Name of field containing email body template</option>
+                                   <option value="true,false">Show settings screen</option>
                                    <option>Replacement for case label name </option>
-                                   <option>Do capture and process images</option>
-                                   <option>Case management server url</option>
+                                   <option value="NAME">Name of field containing do capture and process images</option>
+                                   <option value="NAME">Name of field containing case management server url</option>
                                </select> </td>
                            <td class="style100" valign="top">
                                &nbsp;</td>

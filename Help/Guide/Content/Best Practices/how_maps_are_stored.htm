@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="no-feedback" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Data Management|Google Docs|Spreadsheet Details|Images and Maps">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>How Maps Are Stored</title>
+        <script type="text/javascript">/* <![CDATA[ */var switchTo5x=true;/* ]]> */</script>
+        <script type="text/javascript">/* <![CDATA[ */stLight.options({publisher: "c5ab5d3c-b66a-4c01-8933-72124c6662e8"}); /* ]]> */</script>
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/ViziApps Help.css" rel="stylesheet" />
+        <script src="http://w.sharethis.com/button/buttons.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Data Management</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Google Docs</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Spreadsheet Details</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">How Maps Are Stored</span>
+        </div>
+        <p class="image_background">&#160;</p>
+        <div class="body_text">
+            <h1><a name="kanchor22"></a>How Maps Are Stored</h1>
+            <p>Text or numeric entries in mobile device fields are stored as such in the spreadsheet. For example, John Q. Public entered in a <i>name </i>field and 978-654-3310 entered in a <i>phone </i>field display in the spreadsheet like the example below.</p>
+        </div>
+        <p class="image_background">
+            <img src="https://s3.amazonaws.com/viziapps/apps/HelpGuide/images/Data+Training+Spreadsheet+With+John+Q+Public+Added+Using+Insert+Into_672x421.png" style="width: 7in;height: auto;" />
+        </p>
+        <div class="body_text">
+            <p>There are two exceptions to this, images and maps. This topic explains how maps are stored. <a href="how_images_are_stored.htm" class="MCXref xref">See "How Images Are Stored"</a> for information about images.</p>
+            <p>Maps are stored as URLs that contain address data and a Google Maps command to be processed by Google Maps. For example, the map shown below:</p>
+        </div>
+        <p class="image_background">
+            <img src="https://s3.amazonaws.com/viziapps/apps/HelpGuide/images/Google+Maps+Example+(2).PNG" style="width: 3in;" />
+        </p>
+        <div class="body_text">
+            <p>Is controlled by this entry in the spreadsheet - http://maps.google.com/maps?hl=en&amp;q=375+Main+Street,+Waltham,+MA+02451-7404</p>
+            <p>How do we create these entries? There are two ways, depending on how many you have to create and how familiar you are with spreadsheet commands.</p>
+            <h2>Manually Creating the URL</h2>
+            <p>You can insert each address in the address box of a Google Maps screen, capture the resulting link URL, and insert it in the spreadsheet. This is slow but simple. For example, to get the URL for the map above, open Google Maps, type the address in the address field, and click the blue Search icon, as shown below.</p>
+        </div>
+        <p class="image_background">
+            <img src="https://s3.amazonaws.com/viziapps/apps/HelpGuide/images/Google+Map+URL+Generation+-+Step+1.png" />
+        </p>
+        <div class="body_text">
+            <p>Then click the Link icon, which opens a window displaying the URL for the location. The image below shows the Link icon and the URL window.</p>
+        </div>
+        <p class="image_background">
+            <img src="https://s3.amazonaws.com/viziapps/apps/HelpGuide/images/Google+Map+URL+Generation+-+Step+2.png" />
+        </p>
+        <div class="body_text">
+            <p>Copy the URL, highlighted and circled on the right in the image above, into your spreadsheet. You can generate a short URL instead by clicking the Short URL option, which gives the result shown in the image below.</p>
+        </div>
+        <p class="image_background">
+            <img src="https://s3.amazonaws.com/viziapps/apps/HelpGuide/images/Google+Map+URL+Generation+-+Step+2+-+Short+URL.png" />
+        </p>
+        <p>&#160;</p>
+        <div class="body_text">
+            <h2>Automatically Creating the URL</h2>
+            <p>If you already have the address data in your spreadsheet, you can semi-automatically create URLs by using the spreadsheet's concatenate command to combine the different pieces into a URL. Here's the complete URL:</p>
+            <p>http://maps.google.com/maps?hl=en&amp;q=375+Main+Street,+Waltham,+MA+02451-7404</p>
+            <p>and here are the sections:</p>
+            <ul>
+                <li class="BulletLevel1" value="1">http://maps.google.com/maps? - The Google Maps command. Include it as is.</li>
+                <li class="BulletLevel1" value="2">hl+en - Specifies the host language. en = English.</li>
+                <li class="BulletLevel1" value="3">&amp; - Separates two parameters. Use as shown.</li>
+                <li class="BulletLevel1" value="4">q - The address, as if it were entered in the http://maps.google.com page.</li>
+                <li class="BulletLevel1" value="5">+ - The symbol for a space</li>
+            </ul>
+            <p>So the first section of the URL - http://maps.google.com/maps?hl=en&amp;q= - can simply be a constant value. This is more complex than the manual method but much faster.</p>
+        </div>
+        <hr width="100%" size="0" align="center" />
+        <p class="image_background">Copyright © 2012 ViziApps</p>
+        <p class="image_background"><a href="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/HelpGuide/ViziAppsHelp.pdf">Download the Guide as a PDF</a>
+        </p>
+        <p class="image_background"><a href="http://www.viziapps.com/"><img src="../Resources/Images/Viziapps Icon for Toolbar and Footer.png" /></a>
+        </p>
+    </body>
+</html>

@@ -44,9 +44,12 @@ td
    <script  language="javascript" type="text/javascript" src="../scripts/storyboard_popup_1.5.min.js"></script> 
    <script  language="javascript" type="text/javascript" src="../scripts/google_analytics_1.0.js"></script>
    <script  language="javascript" type="text/javascript" src="../scripts/dialogs_1.26.min.js"></script>
-    <script  language="javascript" type="text/javascript" src="../scripts/database_script_1.13.min.js"></script>
-    <script  language="javascript" type="text/javascript" src="../scripts/manage_data_1.3.min.js"></script>
+   <script  language="javascript" type="text/javascript" src="../scripts/database_script_1.14.min.js"></script>
+   <script  language="javascript" type="text/javascript" src="../scripts/manage_data_1.5.min.js"></script>
    <script  language="javascript" type="text/javascript">
+       //global static
+       var TestQueryURL = 'Dialogs/TestQuery.aspx'; 
+
        function checkError() {
            var Message = document.getElementById("Message");
            if (Message.innerHTML.length > 0 && Message.innerHTML.indexOf("Query Error:") >=0 ) {
@@ -165,7 +168,7 @@ td
                               ></telerik:RadTreeView>
                               </td></tr></table>
                     </td>
-                        <td class="style94">&#160;&#160;</td>
+                        <td style="width:10px"></td>
                         <td valign="top">
                         <table>
                         <tr><td>

@@ -73,8 +73,7 @@
       <script  language="javascript" type="text/javascript" src="../scripts/google_analytics_1.0.js"></script>
          <script  language="javascript" type="text/javascript" src="../scripts/default_script_1.6.js"></script> 
        <script  language="javascript" type="text/javascript" src="../scripts/dialogs_1.26.min.js"></script>
-       <script  language="javascript" type="text/javascript" src="../scripts/manage_data_1.3.min.js"></script>
-         
+       <script  language="javascript" type="text/javascript" src="../scripts/manage_data_1.5.min.js"></script>
 </head>
 <body onload="onManagePageDataLoad()">
     <form id="form1" runat="server">

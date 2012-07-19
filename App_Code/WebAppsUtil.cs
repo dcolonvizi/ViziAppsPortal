@@ -364,7 +364,7 @@ public class WebAppsUtil
                             field_node.Attributes["style"].Value += "text-shadow:none;";
                             break;
                         case "text_field":
-                            field_node.Attributes["style"].Value += "background-color:#f0f0f0;text-shadow:none;";
+                            field_node.Attributes["style"].Value += "background-color:#f0f0f0;text-shadow:none;padding:4px";
                             if (field_map["text"] != null)
                             {
                                 HtmlAttribute text_field_value = htmlDoc.CreateAttribute("value");
@@ -1054,6 +1054,8 @@ public class WebAppsUtil
         HtmlAttribute style = htmlDoc.CreateAttribute("style", "position:absolute;");
         field_node.Attributes.Append(style);
         HtmlAttribute icon_field = null;
+        int MinTextFieldHeight = 30;
+        int MinButtonHeight = 30;
 
         //set default z-index
         if (!field_map.ContainsKey("z_index"))
@@ -1082,10 +1084,10 @@ public class WebAppsUtil
             int top = Convert.ToInt32(field_map["top"].ToString());
             //int left = Convert.ToInt32(field_map["left"].ToString());
             //field_map["left"] = (left - 10).ToString();
-            if (height < 30)
+            if (height < MinButtonHeight)
             {
-                field_map["height"] = "30";
-                top -= (30-height)/2;
+                field_map["height"] = MinButtonHeight.ToString();
+                top -= (MinButtonHeight - height) / 2;
                 field_map["top"] = top.ToString();
             }
         }
@@ -1093,10 +1095,10 @@ public class WebAppsUtil
         {
             int height = Convert.ToInt32(field_map["height"].ToString());
             int top = Convert.ToInt32(field_map["top"].ToString());
-            if (height < 40)
+            if (height < MinTextFieldHeight)
             {
-                field_map["height"] = "40";
-                top -= (40 - height) / 2;
+                field_map["height"] = MinTextFieldHeight.ToString();
+                top -= (MinTextFieldHeight - height) / 2;
                 field_map["top"] = top.ToString();
             }
         }
@@ -1157,6 +1159,10 @@ public class WebAppsUtil
                     break;
                 case "left":
                     int left = Convert.ToInt32(field_map[key].ToString());
+                    if (field_type == "text_field")
+                    {
+                        left += 5; //because there is border of 1 and padding of 4 added
+                    }
                     if (x_size_factor == 1.0D)
                         field_node.Attributes["style"].Value += key + ":" + left.ToString() + "px;";
                     else
@@ -1169,7 +1175,7 @@ public class WebAppsUtil
                     int height = Convert.ToInt32(field_map[key].ToString());
                     if (field_type == "text_field")
                     {
-                        height -= 16;
+                        height -= 10; //because there is border of 1 and padding of 4 added
                     }
                     if (y_size_factor != 1.0D)
                     {
@@ -1189,6 +1195,10 @@ public class WebAppsUtil
                   
                  case "width":
                     int width = Convert.ToInt32(field_map[key].ToString());
+                    if (field_type == "text_field")
+                    {
+                        width -= 10; //because there is border of 1 and padding of 4 added
+                    }
                     if (x_size_factor != 1.0D)
                     {
                          width = Convert.ToInt32(Math.Round(Convert.ToDouble(width) * x_size_factor));

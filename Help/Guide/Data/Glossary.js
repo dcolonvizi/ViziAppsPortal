@@ -19,7 +19,7 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'        <ul>' +
 	'            <li class=\"GlossaryPageEntry\">' +
 	'                <div class=\"GlossaryPageTerm\">' +
-	'                    <a name=\"1134993326_anchor1\">My Term</a>' +
+	'                    <a name=\"2306914843_anchor1\">My Term</a>' +
 	'                </div>' +
 	'                <div class=\"GlossaryPageDefinition\">My definition</div>' +
 	'            </li>' +

@@ -94,9 +94,9 @@ public partial class ManageData_GoogleSpreadsheetOperations : System.Web.UI.Page
         
         RadTreeNode DatabaseCommandRoot = null;
         if (State["DataSourceEventField"] == null)
-            DatabaseCommandRoot = new RadTreeNode("Operations that will run before " + State["SelectedAppPage"].ToString() + " is shown");
+            DatabaseCommandRoot = new RadTreeNode("Commands that will run before " + State["SelectedAppPage"].ToString() + " is shown");
         else
-            DatabaseCommandRoot = new RadTreeNode("Operations that will run after " + State["DataSourceEventField"].ToString() + " is tapped");
+            DatabaseCommandRoot = new RadTreeNode("Commands that will run after " + State["DataSourceEventField"].ToString() + " is tapped");
 
         DatabaseCommandRoot.CssClass = "RadTreeView";
         DatabaseCommandRoot.Category = "event";
@@ -318,9 +318,9 @@ public partial class ManageData_GoogleSpreadsheetOperations : System.Web.UI.Page
             x_util.CreateNode(doc, sql_command, "command", command);
             if (command == "if")
             {
-                x_util.CreateNode(doc, sql_command, "command_condition_phone_field1", CommandEntry["command_condition_phone_field1"].ToString());
+                x_util.CreateNode(doc, sql_command, "command_condition_phone_field1", CommandEntry["command_condition_device_field1"].ToString());
                 x_util.CreateNode(doc, sql_command, "command_condition_operation", CommandEntry["command_condition_operation"].ToString());
-                x_util.CreateNode(doc, sql_command, "command_condition_phone_field2", CommandEntry["command_condition_phone_field2"].ToString());
+                x_util.CreateNode(doc, sql_command, "command_condition_phone_field2", CommandEntry["command_condition_device_field2"].ToString());
             }
             else
             {
@@ -345,9 +345,9 @@ public partial class ManageData_GoogleSpreadsheetOperations : System.Web.UI.Page
                             else
                                 x_util.CreateNode(doc, field_item, "database_field", GetFirstDatabaseField(CommandEntry["table"].ToString()));
 
-                            if (FieldEntry["phone_field"] != null && FieldEntry["phone_field"].ToString().Length > 0)
+                            if (FieldEntry["device_field"] != null && FieldEntry["device_field"].ToString().Length > 0)
                             {
-                                x_util.CreateNode(doc, field_item, "phone_field", FieldEntry["phone_field"].ToString());
+                                x_util.CreateNode(doc, field_item, "phone_field", FieldEntry["device_field"].ToString());
                             }
                         }
                     }
@@ -433,7 +433,7 @@ public partial class ManageData_GoogleSpreadsheetOperations : System.Web.UI.Page
                 if (State["DataSourceDatabaseTableFields"] == null)
                 {
                     ResetDatabaseConfig_Click(null, null);
-                    Message.Text = State["SpreadsheetError"].ToString();
+                    Message.Text = "Internal Error:  All commands have been cleared.";
                     State["SpreadsheetError"] = null;
                     State["DBCommands"] = null;
                     State["SelectedDatabaseTable"] = null;
@@ -444,7 +444,7 @@ public partial class ManageData_GoogleSpreadsheetOperations : System.Web.UI.Page
  
             if (command == "if")
             {
-                CommandControl = LoadControl("Controls/IfPhoneFieldThenDoCommand.ascx");
+                CommandControl = LoadControl("Controls/IfDeviceFieldThenDoCommand.ascx");
             }
             else if(command.EndsWith("go to page"))
             {
@@ -498,14 +498,14 @@ public partial class ManageData_GoogleSpreadsheetOperations : System.Web.UI.Page
 
             if (command == "if")
             {
-                if (CommandEntry["command_condition_phone_field1"] != null && CommandEntry["command_condition_phone_field1"].ToString().Length > 0)
+                if (CommandEntry["command_condition_device_field1"] != null && CommandEntry["command_condition_device_field1"].ToString().Length > 0)
                 {
-                    string command_condition_phone_field1 = CommandEntry["command_condition_phone_field1"].ToString();
-                    ((HtmlInputText)CommandControl.FindControl("command_condition_phone_field1")).Value = command_condition_phone_field1;
+                    string command_condition_device_field1 = CommandEntry["command_condition_device_field1"].ToString();
+                    ((HtmlInputText)CommandControl.FindControl("command_condition_device_field1")).Value = command_condition_device_field1;
                 }
                 else
                 {
-                    CommandEntry["command_condition_phone_field1"] = ((HtmlInputText)CommandControl.FindControl("command_condition_phone_field1")).Value;
+                    CommandEntry["command_condition_device_field1"] = ((HtmlInputText)CommandControl.FindControl("command_condition_device_field1")).Value;
                 }
                 if (CommandEntry["command_condition_operation"] != null && CommandEntry["command_condition_operation"].ToString().Length > 0)
                 {
@@ -516,15 +516,15 @@ public partial class ManageData_GoogleSpreadsheetOperations : System.Web.UI.Page
                 {
                     CommandEntry["command_condition_operation"] = ((RadComboBox)CommandControl.FindControl("command_condition_operation")).SelectedValue;
                 }
-                if (CommandEntry["command_condition_phone_field2"] != null && CommandEntry["command_condition_phone_field2"].ToString().Length > 0)
+                if (CommandEntry["command_condition_device_field2"] != null && CommandEntry["command_condition_device_field2"].ToString().Length > 0)
                 {
-                    string command_condition_phone_field2 = CommandEntry["command_condition_phone_field2"].ToString();
-                    HtmlInputText command_condition_phone_field2_input = ((HtmlInputText)CommandControl.FindControl("command_condition_phone_field2"));
-                    command_condition_phone_field2_input.Value = command_condition_phone_field2;
+                    string command_condition_device_field2 = CommandEntry["command_condition_device_field2"].ToString();
+                    HtmlInputText command_condition_device_field2_input = ((HtmlInputText)CommandControl.FindControl("command_condition_device_field2"));
+                    command_condition_device_field2_input.Value = command_condition_device_field2;
                 }
                 else
                 {
-                    CommandEntry["command_condition_phone_field2"] = ((HtmlInputText)CommandControl.FindControl("command_condition_phone_field2")).Value;
+                    CommandEntry["command_condition_device_field2"] = ((HtmlInputText)CommandControl.FindControl("command_condition_device_field2")).Value;
                 }
                 continue;
             }
@@ -560,7 +560,7 @@ public partial class ManageData_GoogleSpreadsheetOperations : System.Web.UI.Page
                     field_node.Category = "field";
                     field_node.PostBack = false;
                     State["SelectedDatabaseTable"] = selected_table;
-                    string control_file = (field_control_type == "from_database_to_phone") ? "DatabaseToPhoneField.ascx" : "PhoneToDatabaseField.ascx";
+                    string control_file = (field_control_type == "from_database_to_phone") ? "DatabaseToDeviceField.ascx" : "DeviceToDatabaseField.ascx";
                     string selected_database_field = null;
                     if (FieldEntry["database_field"] != null && FieldEntry["database_field"].ToString().Length > 0)
                     {
@@ -586,10 +586,10 @@ public partial class ManageData_GoogleSpreadsheetOperations : System.Web.UI.Page
                     field_node.Controls.Add(FieldControl);
                     command_node.Nodes.Add(field_node);
 
-                    if (FieldEntry["phone_field"] != null && FieldEntry["phone_field"].ToString().Length > 0)
+                    if (FieldEntry["device_field"] != null && FieldEntry["device_field"].ToString().Length > 0)
                     {
-                        string phone_field = FieldEntry["phone_field"].ToString();
-                        HtmlInputText phone_field_input = (HtmlInputText)FieldControl.FindControl("phone_field");
+                        string phone_field = FieldEntry["device_field"].ToString();
+                        HtmlInputText phone_field_input = (HtmlInputText)FieldControl.FindControl("device_field");
                         phone_field_input.Value = phone_field;
                     }
                     sub_command_index++;
@@ -829,20 +829,20 @@ public partial class ManageData_GoogleSpreadsheetOperations : System.Web.UI.Page
         string info_text = DBTreeInfo.Text;
  
         //command_condition
-        if (info_text.StartsWith("command_condition_phone_field1"))
+        if (info_text.StartsWith("command_condition_device_field1"))
         {
             CommandEntry = (Hashtable)DBCommands[Convert.ToInt32(split[1])];
-            CommandEntry["command_condition_phone_field1"] = split[2];
+            CommandEntry["command_condition_device_field1"] = split[2];
         }
         else if (info_text.StartsWith("command_condition_operation"))
         {
             CommandEntry = (Hashtable)DBCommands[Convert.ToInt32(split[1])];
             CommandEntry["command_condition_operation"] = split[2];
         }
-        else if (info_text.StartsWith("command_condition_phone_field2"))
+        else if (info_text.StartsWith("command_condition_device_field2"))
         {
             CommandEntry = (Hashtable)DBCommands[Convert.ToInt32(split[1])];
-            CommandEntry["command_condition_phone_field2"] = split[2];
+            CommandEntry["command_condition_device_field2"] = split[2];
         }
         else if (info_text.StartsWith("delete_command_condition"))//this is order dependent because 2 items contain "delete_command"
         {
@@ -939,14 +939,14 @@ public partial class ManageData_GoogleSpreadsheetOperations : System.Web.UI.Page
                 FieldEntry["database_field"] = split[3];
             }
         }
-        else if (info_text.StartsWith("phone_field"))
+        else if (info_text.StartsWith("device_field"))
         {
             CommandEntry = (Hashtable)DBCommands[Convert.ToInt32(split[1])];
             ArrayList DBFields = (ArrayList)CommandEntry["database_fields"];
             if (DBFields != null)
             {
                 Hashtable FieldEntry = (Hashtable)DBFields[Convert.ToInt32(split[2])];
-                FieldEntry["phone_field"] = split[3];
+                FieldEntry["device_field"] = split[3];
             }
         }
         else if (info_text.StartsWith("delete_field"))
@@ -1074,9 +1074,9 @@ public partial class ManageData_GoogleSpreadsheetOperations : System.Web.UI.Page
 
         Hashtable newCommandEntry = new Hashtable();
         newCommandEntry["command"] = "If";
-        newCommandEntry["command_condition_phone_field1"] = null;
+        newCommandEntry["command_condition_device_field1"] = null;
         newCommandEntry["command_condition_operation"] = null;
-        newCommandEntry["command_condition_phone_field2"] = null;
+        newCommandEntry["command_condition_device_field2"] = null;
 
 
         DBCommands.Add(newCommandEntry);

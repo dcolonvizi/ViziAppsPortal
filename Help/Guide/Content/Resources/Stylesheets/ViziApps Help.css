@@ -267,12 +267,12 @@ p.ContinueLevel3_Bullet
 
 	p.image_background
 	{
-		background-color: #006400;
+		
 	}
 
 	div.body_text
 	{
-		background-color: #efffff;
+		background-color: #ffffff;
 	}
 }
 
@@ -324,7 +324,7 @@ img.image_background
 
 div.body_text
 {
-	background-color: #efffff;
+	background-color: #fefefe;
 }
 
 a:link

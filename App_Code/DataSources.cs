@@ -74,22 +74,36 @@ public class DataSources
     public string GetDataSourceDatabaseConnection(Hashtable State)
     {
         XmlDocument doc = GetStagingAppXml(State);
-        if (State["DataSourceID"] == null)
-            return null;
-        XmlNode data_source_id = doc.SelectSingleNode("//application/data_sources/data_source/data_source_id[.='" + State["DataSourceID"].ToString() + "']");
-        if (data_source_id == null)
+        if (State["SelectedAppType"] != null && State["SelectedAppType"].ToString() == Constants.NATIVE_APP_TYPE)
         {
-            return null;
+            XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+            XmlNode connection_string = database_config.SelectSingleNode("connection_string");
+            if (connection_string != null)
+            {
+                return connection_string.InnerText;
+            }
+            else
+                return null;
         }
-
-        XmlNode data_source = data_source_id.ParentNode;
-        XmlNode connection = data_source.SelectSingleNode("data_source_configuration/connection_string");
-        if (connection == null)
+        else
         {
-            return null;
-        }
+            if (State["DataSourceID"] == null)
+                return null;
+            XmlNode data_source_id = doc.SelectSingleNode("//application/data_sources/data_source/data_source_id[.='" + State["DataSourceID"].ToString() + "']");
+            if (data_source_id == null)
+            {
+                return null;
+            }
 
-        return connection.InnerText;
+            XmlNode data_source = data_source_id.ParentNode;
+            XmlNode connection = data_source.SelectSingleNode("data_source_configuration/connection_string");
+            if (connection == null)
+            {
+                return null;
+            }
+
+            return connection.InnerText;
+        }
     }
     public ArrayList GetDataSourceDatabaseTableFields(Hashtable State)
     {
@@ -328,9 +342,9 @@ public class DataSources
         CommandEntry["command"] = command;
         if (command == "if")
         {
-            CommandEntry["command_condition_phone_field1"] = sql_command.SelectSingleNode("command_condition_phone_field1").InnerText;
+            CommandEntry["command_condition_device_field1"] = sql_command.SelectSingleNode("command_condition_phone_field1").InnerText;
             CommandEntry["command_condition_operation"] = sql_command.SelectSingleNode("command_condition_operation").InnerText;
-            CommandEntry["command_condition_phone_field2"] = sql_command.SelectSingleNode("command_condition_phone_field2").InnerText;
+            CommandEntry["command_condition_device_field2"] = sql_command.SelectSingleNode("command_condition_phone_field2").InnerText;
         }
         else
         {
@@ -357,9 +371,9 @@ public class DataSources
                             FieldEntry["database_field"] = GetFirstDatabaseField(doc, CommandEntry["table"].ToString());
                         XmlNode phone_field_node = field.SelectSingleNode("phone_field");
                         if (phone_field_node != null)
-                            FieldEntry["phone_field"] = phone_field_node.InnerText;
+                            FieldEntry["device_field"] = phone_field_node.InnerText;
                         else
-                            FieldEntry["phone_field"] = "";
+                            FieldEntry["device_field"] = "";
 
                         DBFields.Add(FieldEntry);
                     }

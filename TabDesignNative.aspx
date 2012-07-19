@@ -109,7 +109,7 @@
        <script type="text/javascript" src="jquery/js/jquery-ui-1.8.13.custom.min.js"></script>
        <script language="javascript" type="text/javascript" src="scripts/browser_1.4.js"></script> 
        <script  language="javascript" type="text/javascript" src="scripts/dialogs_1.26.min.js"></script>
-       <script language="javascript" type="text/javascript" src="EditorTools/js/editor_custom_tools_2.38.min.js"></script>
+       <script language="javascript" type="text/javascript" src="EditorTools/js/editor_custom_tools_2.39.min.js"></script>
  </head>
 <body onload="onCurrentAppChanged();">
     <form id="form1" runat="server">

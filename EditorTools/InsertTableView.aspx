@@ -97,7 +97,7 @@
          <script type="text/javascript" src="../jquery/js/jquery-1.5.1.min.js"></script>
          <script  language="javascript" type="text/javascript" src="../scripts/default_script_1.6.js"></script>
          <script  language="javascript" type="text/javascript" src="../scripts/font_1.6.min.js"></script>
-         <script  language="javascript" type="text/javascript" src="js/insertTableView_1.19.min.js"></script>
+         <script  language="javascript" type="text/javascript" src="js/insertTableView_1.20.min.js"></script>
 
 </head>
 <body>
@@ -318,7 +318,7 @@
                  <div style="height:32px;">
     <table style="width: 765px"><tr><td>
         Call Phone in field:</td>
-        <td><input type="text" id="phone_field" size="25"/></td>
+        <td><input type="text" id="device_field" size="25"/></td>
         <td>
             (name of the field that will contain the actual phone number)</td>
         </tr></table>

@@ -176,7 +176,7 @@
          <script type="text/javascript" src="../jquery/js/jquery-1.5.1.min.js"></script>
          <script  language="javascript" type="text/javascript" src="../scripts/default_script_1.6.js"></script>
          <script  language="javascript" type="text/javascript" src="../scripts/font_1.6.min.js"></script>
-         <script  language="javascript" type="text/javascript" src="js/insertCheckBox_1.7.min.js"></script>
+         <script  language="javascript" type="text/javascript" src="js/insertCheckBox_1.8.min.js"></script>
 </head>
 <body>
     <form id="checkboxform" runat="server">
@@ -329,7 +329,7 @@
                  <div style="height:32px;">
     <table style="width: 759px"><tr><td class="style53">
         Call Phone in field:</td>
-        <td class="style56"><input type="text" id="phone_field" size="25"/></td>
+        <td class="style56"><input type="text" id="device_field" size="25"/></td>
         <td class="style10">
             (name of the field that will contain the actual phone number)</td>
         </tr></table>

@@ -68,13 +68,15 @@
            }
      </style>
       <script  language="javascript" type="text/javascript" src="scripts/google_analytics_1.0.js"></script>
-         <script  language="javascript" type="text/javascript" src="scripts/default_script_1.6.js"></script> 
-          <script  language="javascript" type="text/javascript" src="scripts/storyboard_1.4.js"></script>  
-     <script  language="javascript" type="text/javascript" src="scripts/tree_view_script_1.1.min.js"></script>
-       <script  language="javascript" type="text/javascript" src="scripts/dialogs_1.26.min.js"></script>
-          <script  language="javascript" type="text/javascript" src="scripts/database_script_1.13.min.js"></script>
-          <script  language="javascript" type="text/javascript">
-              var storyBoardWindow = null; //global static
+      <script  language="javascript" type="text/javascript" src="scripts/default_script_1.6.js"></script> 
+      <script  language="javascript" type="text/javascript" src="scripts/storyboard_1.4.js"></script>  
+      <script  language="javascript" type="text/javascript" src="scripts/tree_view_script_1.1.min.js"></script>
+      <script  language="javascript" type="text/javascript" src="scripts/dialogs_1.26.min.js"></script>
+      <script  language="javascript" type="text/javascript" src="scripts/database_script_1.14.min.js"></script>
+      <script  language="javascript" type="text/javascript">
+          //global static
+          var storyBoardWindow = null;
+          var TestQueryURL = 'PageData/Dialogs/TestQuery.aspx'; 
        </script>
 </head>
 <body>

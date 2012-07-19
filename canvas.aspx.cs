@@ -29,7 +29,7 @@ public partial class canvas : System.Web.UI.Page
                 (State["SelectedDeviceView"].ToString() == Constants.IPAD ||
                  State["SelectedDeviceView"].ToString() == Constants.ANDROID_TABLET))
             {
-                if ( State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE)
+                if (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE || State["SelectedAppType"].ToString() == Constants.HYBRID_APP_TYPE)
                 {
                     if ( State["BackgroundColor"] == null)
                          State["BackgroundColor"] = "#cccccc";

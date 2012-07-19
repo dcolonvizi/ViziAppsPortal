@@ -1150,7 +1150,7 @@ public class XmlUtil
                         case "picker": //"<div title=\"MobiFlex Picker\" style=\"position:absolute;z-index:{3};top:44px;left:0px;width:320px; height:216px;background-image:url('images/editor_images/datepicker.jpg');background-repeat:no-repeat\" id=\"{0}\"  type=\"{1}\" options=\"\"  />"
                             title_attr.Value = "MobiFlex Picker";
                             string picker_type = field_map["picker_type"].ToString();
-                            if (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE &&
+                            if ((State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE || State["SelectedAppType"].ToString() == Constants.HYBRID_APP_TYPE) &&
                                 picker_type != "date" &&
                                 picker_type != "time" &&
                                 picker_type != "1_section")
@@ -1160,7 +1160,7 @@ public class XmlUtil
                             HtmlAttribute picker_type_attr = htmlDoc.CreateAttribute("type", picker_type);
                             new_node.Attributes.Append(picker_type_attr);
                             if((State["SelectedDeviceView"] != null && State["SelectedDeviceView"].ToString() == Constants.ANDROID_PHONE) ||
-                                (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE))
+                                (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE || State["SelectedAppType"].ToString() == Constants.HYBRID_APP_TYPE))
                             {
                                 switch (picker_type)
                                 {
@@ -1222,7 +1222,7 @@ public class XmlUtil
                                     XmlNode options_node = picker_field.SelectSingleNode("options");
                                     if (options_node != null)
                                         option_list.Append(options_node.InnerText);
-                                    if (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE)
+                                    if ((State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE) || State["SelectedAppType"].ToString() == Constants.HYBRID_APP_TYPE )
                                         break;
                                 }                               
  

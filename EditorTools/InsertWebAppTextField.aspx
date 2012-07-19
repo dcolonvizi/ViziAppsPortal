@@ -26,6 +26,10 @@
          }
 
     </style>
+    <script  language="javascript" type="text/javascript" src="../scripts/default_script_1.6.js"></script>
+    <script  language="javascript" type="text/javascript" src="../scripts/color_picker_1.0.js"></script>
+    <script  language="javascript" type="text/javascript" src="../scripts/font_1.6.min.js"></script>
+    <script  language="javascript" type="text/javascript" src="js/insertWebAppTextField_1.0.min.js"></script>
 </head>
 <body>
     <form id="textfieldform" runat="server">
@@ -151,12 +155,6 @@
       <div style="height:25px;">
         <input type="button" id="insertButtonID" onclick="insertButton();" value="Insert Text Field"/>
     </div>    
-    
-        <script  language="javascript" type="text/javascript" src="../scripts/default_script_1.6.js"></script>
-         <script  language="javascript" type="text/javascript" src="../scripts/color_picker_1.0.js"></script>
-       <script  language="javascript" type="text/javascript" src="../scripts/font_1.6.min.js"></script>
-        <script  language="javascript" type="text/javascript" src="js/insertWebAppTextField_1.0.min.js"></script>
-
     </form>
 </body>
 </html>

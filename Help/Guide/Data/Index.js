@@ -18,7 +18,7 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'                    <IndexEntry Term=\"Spreadsheet field names\">' +
 	'                        <Entries />' +
 	'                        <Links>' +
-	'                            <IndexLink Title=\"Best Practices for Using Spreadsheets\" Link=\"/Content/Spreadsheet Details/Best Practices/planning_and_development.htm#kanchor23\" UsedConditions=\"\" LocalConditions=\"\" />' +
+	'                            <IndexLink Title=\"Best Practices for Using Spreadsheets\" Link=\"/Content/Best Practices/planning_and_development.htm#kanchor23\" UsedConditions=\"\" LocalConditions=\"\" />' +
 	'                        </Links>' +
 	'                        <SeeAlsoLinks />' +
 	'                        <IndexControlLinks />' +
@@ -27,7 +27,7 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'                    <IndexEntry Term=\"Spreadsheet use\">' +
 	'                        <Entries />' +
 	'                        <Links>' +
-	'                            <IndexLink Title=\"Best Practices for Using Spreadsheets\" Link=\"/Content/Spreadsheet Details/Best Practices/planning_and_development.htm#kanchor23\" UsedConditions=\"\" LocalConditions=\"\" />' +
+	'                            <IndexLink Title=\"Best Practices for Using Spreadsheets\" Link=\"/Content/Best Practices/planning_and_development.htm#kanchor23\" UsedConditions=\"\" LocalConditions=\"\" />' +
 	'                        </Links>' +
 	'                        <SeeAlsoLinks />' +
 	'                        <IndexControlLinks />' +
@@ -42,7 +42,7 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'            <IndexEntry Term=\"captcha error\">' +
 	'                <Entries />' +
 	'                <Links>' +
-	'                    <IndexLink Title=\"Google Apps for Business\" Link=\"/Content/Spreadsheet Details/Best Practices/google_apps_for_business.htm#kanchor25\" UsedConditions=\"\" LocalConditions=\"\" />' +
+	'                    <IndexLink Title=\"Google Apps for Business\" Link=\"/Content/Best Practices/google_apps_for_business.htm#kanchor25\" UsedConditions=\"\" LocalConditions=\"\" />' +
 	'                </Links>' +
 	'                <SeeAlsoLinks />' +
 	'                <IndexControlLinks />' +
@@ -426,7 +426,7 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'                    <IndexEntry Term=\"Importing into Google Docs\">' +
 	'                        <Entries />' +
 	'                        <Links>' +
-	'                            <IndexLink Title=\"Best Practices for Using Spreadsheets\" Link=\"/Content/Spreadsheet Details/Best Practices/planning_and_development.htm#kanchor23\" UsedConditions=\"\" LocalConditions=\"\" />' +
+	'                            <IndexLink Title=\"Best Practices for Using Spreadsheets\" Link=\"/Content/Best Practices/planning_and_development.htm#kanchor23\" UsedConditions=\"\" LocalConditions=\"\" />' +
 	'                        </Links>' +
 	'                        <SeeAlsoLinks />' +
 	'                        <IndexControlLinks />' +
@@ -460,7 +460,7 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'                    <IndexEntry Term=\"Best practices for naming\">' +
 	'                        <Entries />' +
 	'                        <Links>' +
-	'                            <IndexLink Title=\"Best Practices for Using Spreadsheets\" Link=\"/Content/Spreadsheet Details/Best Practices/planning_and_development.htm#kanchor23\" UsedConditions=\"\" LocalConditions=\"\" />' +
+	'                            <IndexLink Title=\"Best Practices for Using Spreadsheets\" Link=\"/Content/Best Practices/planning_and_development.htm#kanchor23\" UsedConditions=\"\" LocalConditions=\"\" />' +
 	'                        </Links>' +
 	'                        <SeeAlsoLinks />' +
 	'                        <IndexControlLinks />' +
@@ -477,7 +477,7 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'                    <IndexEntry Term=\"Concepts\">' +
 	'                        <Entries />' +
 	'                        <Links>' +
-	'                            <IndexLink Title=\"Google Apps for Business\" Link=\"/Content/Spreadsheet Details/Best Practices/google_apps_for_business.htm#kanchor24\" UsedConditions=\"\" LocalConditions=\"\" />' +
+	'                            <IndexLink Title=\"Google Apps for Business\" Link=\"/Content/Best Practices/google_apps_for_business.htm#kanchor24\" UsedConditions=\"\" LocalConditions=\"\" />' +
 	'                        </Links>' +
 	'                        <SeeAlsoLinks />' +
 	'                        <IndexControlLinks />' +
@@ -492,7 +492,7 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'            <IndexEntry Term=\"Google Docs\">' +
 	'                <Entries />' +
 	'                <Links>' +
-	'                    <IndexLink Title=\"Google Apps for Business\" Link=\"/Content/Spreadsheet Details/Best Practices/google_apps_for_business.htm#kanchor25\" UsedConditions=\"\" LocalConditions=\"\" />' +
+	'                    <IndexLink Title=\"Google Apps for Business\" Link=\"/Content/Best Practices/google_apps_for_business.htm#kanchor25\" UsedConditions=\"\" LocalConditions=\"\" />' +
 	'                </Links>' +
 	'                <SeeAlsoLinks />' +
 	'                <IndexControlLinks />' +
@@ -501,7 +501,7 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'            <IndexEntry Term=\"Google Docs Spreadsheet - benefits of using\">' +
 	'                <Entries />' +
 	'                <Links>' +
-	'                    <IndexLink Title=\"What Google Docs Buys You\" Link=\"/Content/Spreadsheet Concepts/what_google_docs_buys_you.htm#kanchor1\" UsedConditions=\"\" LocalConditions=\"\" />' +
+	'                    <IndexLink Title=\"What Is Google Docs and Why Is It Useful?\" Link=\"/Content/Spreadsheet Concepts/what_is_google_docs_why_is_it_useful.htm#kanchor1\" UsedConditions=\"\" LocalConditions=\"\" />' +
 	'                </Links>' +
 	'                <SeeAlsoLinks />' +
 	'                <IndexControlLinks />' +
@@ -521,7 +521,7 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'                    <IndexEntry Term=\"Storage\">' +
 	'                        <Entries />' +
 	'                        <Links>' +
-	'                            <IndexLink Title=\"How Images Are Stored\" Link=\"/Content/Spreadsheet Details/Best Practices/how_images_are_stored.htm#kanchor21\" UsedConditions=\"\" LocalConditions=\"\" />' +
+	'                            <IndexLink Title=\"How Images Are Stored\" Link=\"/Content/Best Practices/how_images_are_stored.htm#kanchor21\" UsedConditions=\"\" LocalConditions=\"\" />' +
 	'                        </Links>' +
 	'                        <SeeAlsoLinks />' +
 	'                        <IndexControlLinks />' +
@@ -564,7 +564,7 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'                    <IndexEntry Term=\"Storage\">' +
 	'                        <Entries />' +
 	'                        <Links>' +
-	'                            <IndexLink Title=\"How Maps Are Stored\" Link=\"/Content/Spreadsheet Details/Best Practices/how_maps_are_stored.htm#kanchor22\" UsedConditions=\"\" LocalConditions=\"\" />' +
+	'                            <IndexLink Title=\"How Maps Are Stored\" Link=\"/Content/Best Practices/how_maps_are_stored.htm#kanchor22\" UsedConditions=\"\" LocalConditions=\"\" />' +
 	'                        </Links>' +
 	'                        <SeeAlsoLinks />' +
 	'                        <IndexControlLinks />' +
@@ -695,7 +695,7 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'                    <IndexEntry Term=\"Best practices for using\">' +
 	'                        <Entries />' +
 	'                        <Links>' +
-	'                            <IndexLink Title=\"Best Practices for Using Spreadsheets\" Link=\"/Content/Spreadsheet Details/Best Practices/planning_and_development.htm#kanchor23\" UsedConditions=\"\" LocalConditions=\"\" />' +
+	'                            <IndexLink Title=\"Best Practices for Using Spreadsheets\" Link=\"/Content/Best Practices/planning_and_development.htm#kanchor23\" UsedConditions=\"\" LocalConditions=\"\" />' +
 	'                        </Links>' +
 	'                        <SeeAlsoLinks />' +
 	'                        <IndexControlLinks />' +
@@ -704,7 +704,7 @@ MadCap.Utilities.Xhr._FilePathToXmlStringMap.Add(
 	'                    <IndexEntry Term=\"Importing into Google Docs\">' +
 	'                        <Entries />' +
 	'                        <Links>' +
-	'                            <IndexLink Title=\"Best Practices for Using Spreadsheets\" Link=\"/Content/Spreadsheet Details/Best Practices/planning_and_development.htm#kanchor23\" UsedConditions=\"\" LocalConditions=\"\" />' +
+	'                            <IndexLink Title=\"Best Practices for Using Spreadsheets\" Link=\"/Content/Best Practices/planning_and_development.htm#kanchor23\" UsedConditions=\"\" LocalConditions=\"\" />' +
 	'                        </Links>' +
 	'                        <SeeAlsoLinks />' +
 	'                        <IndexControlLinks />' +
