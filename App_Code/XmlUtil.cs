@@ -3264,27 +3264,30 @@ public class XmlUtil
         if (submit_node != null)
         {
 
-            XmlNode action_node = submit_node.FirstChild;
-            if (action_node == null)
+            XmlNodeList action_node_list = submit_node.ChildNodes;
+            if (action_node_list == null || action_node_list.Count == 0)
                 return null;
-
-            switch (action_node.Name)
+            foreach (XmlNode action_node in action_node_list)
             {
-                case "post":
-                    AppOpenAction[action_node.Name] = true;
-                    break;
-                case "capture_process_document":
-                case "manage_document_case":
-                case "capture_doc":
-                    XmlNode child_node = action_node.FirstChild;
-                    if (child_node != null)
-                        AppOpenAction[action_node.Name] = child_node.InnerText;
-                    else
+                switch (action_node.Name)
+                {
+                    case "post":
                         AppOpenAction[action_node.Name] = true;
-                    break;
-
-                default:
-                    return null;
+                        break;
+                    case "capture_process_document":
+                    case "manage_document_case":
+                        AppOpenAction[action_node.Name] = submit_node.FirstChild.InnerText;
+                        break;
+                    /*case "capture_doc":
+                        XmlNode child_node = action_node.FirstChild;
+                        if (child_node != null)
+                            AppOpenAction[action_node.Name] = child_node.InnerText;
+                        else
+                            AppOpenAction[action_node.Name] = true;
+                        break;*/
+                    default:
+                        continue;
+                }
             }
         }
 
@@ -3316,8 +3319,38 @@ public class XmlUtil
             configuration_node.RemoveChild(on_app_open_node);
             on_app_open_node = CreateNode(doc, configuration_node, "on_app_open");
         }
+ 
+        if (AppOpenAction.Keys.Count > 0)
+        {
+            XmlNode submit_node = on_app_open_node.SelectSingleNode("submit");
+            if (submit_node == null)
+            {
+                string innerText = null;
+                foreach (string key in AppOpenAction.Keys)
+                {
+                    if (key != "compute")
+                    {
+                        innerText = AppOpenAction[key].ToString().Replace("=", "~");
+                        break;
+                    }
+                }
+                if (innerText != null)
+                {
+                    submit_node = CreateNode(doc, on_app_open_node, "submit",innerText);
+                    EncodeSubmit(State, doc, submit_node);
+                }
+            }
 
-        foreach (string key in AppOpenAction.Keys)
+        }
+
+        if (AppOpenAction["compute"] != null)
+        {
+            XmlNode compute_node = CreateNode(doc, on_app_open_node, "compute");
+            EncodeCompute(State, doc, compute_node, "compute:" + AppOpenAction["compute"].ToString().Replace("=", "~").Replace(";", "|"));
+        }
+
+
+        /*foreach (string key in AppOpenAction.Keys)
         {
             XmlNode submit_node = null;
             switch (key)
@@ -3329,9 +3362,7 @@ public class XmlUtil
                     
                     CreateNode(doc, submit_node, key);
                     break;
-                case "capture_process_document":
-                case "manage_document_case":
-                case "capture_doc":
+                 case "capture_doc":
                     submit_node = on_app_open_node.SelectSingleNode("submit");
                     if (submit_node == null)                    
                         submit_node = CreateNode(doc, on_app_open_node, "submit");
@@ -3343,7 +3374,7 @@ public class XmlUtil
                     EncodeCompute(State, doc, compute_node, "compute:" + AppOpenAction[key].ToString().Replace("=","~").Replace(";","|"));
                     break;
             }
-        }
+        }*/
 
         Util util = new Util();
         State["AppXmlDoc"] = doc;

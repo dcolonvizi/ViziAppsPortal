@@ -101,83 +101,24 @@
             width: 32px;
         }
         </style>
-         <script  language="javascript" type="text/javascript">
-            if (window.attachEvent) {
-                window.attachEvent("onload", initDialog);
-            }
-            else if (window.addEventListener) {
-                window.addEventListener("load", initDialog, false);
-            }
-
-            var ArgList = null;
-
-            function changeAction(sender, args) {
-                var view_name = null;
-                switch (sender.get_value()) {
-                    case 'post':
-                    case 'capture_process_document':
-                    case 'manage_document_case':
-                        view_name = sender.get_value() + '_view';
-                        break;
-                    default:
-                        view_name = 'no_view';
-                        break;
-                }
-                var actionsMultiPage = document.getElementById("actionsMultiPage");
-                for (var i = 0; i < actionsMultiPage.control._pageViewData.length; i++) {
-                    if (actionsMultiPage.control._pageViewData[i].id == view_name) {
-                        actionsMultiPage.control._selectPageViewByIndex(i);
-                        //clear all param class selections
-                        $('.param').each(function (index, element) {
-                            $(this).remove();
-                        });
-                        return;
-                    }
-                }
-                actionsMultiPage.control._selectPageViewByIndex(0);
-                //clear all param class selections
-                $('.param').each(function (index, element) {
-                    $(this).remove();
-                });
-            }
-
-            function setComboValue(comboBox, value) {
-                if (comboBox.control) {
-                    comboBox.control.trackChanges();
-                    var item = comboBox.control.findItemByValue(value);
-                    if (item) {
-                        item.select();
-                    }
-                    comboBox.control.commitChanges();
-                }
-                else {
-                    comboBox.trackChanges();
-                    var item = comboBox.findItemByValue(value);
-                    if (item) {
-                        item.select();
-                    }
-                    comboBox.commitChanges();
-                }
-            }
-
-            function initDialog() {
-            }
-            function PopUp(url, features) {
-                var PUtest = window.open(url, '_blank', features);
-                if (PUtest == null) {
-                    alert('For correct operation, popups need to be allowed from this website.');
-                }
-            }
-            </script>
+        <script  language="javascript" type="text/javascript" src="../../scripts/default_script_1.6.js"/>
+        <script language="javascript" type="text/javascript" src="../../scripts/browser_1.4.js"></script> 
+        <script  language="javascript" type="text/javascript" src="../../jquery/js/jquery-1.5.1.min.js"></script>  
+        <script  language="javascript" type="text/javascript" src="../../scripts/dialogs_1.26.min.js"></script>  
+         <script  language="javascript" type="text/javascript" src="../../scripts/onAppOpen_1.0.min.js"></script>
 </head>
 <body>
     <form id="buttonform" runat="server">
                <telerik:RadScriptManager ID="RadScriptManagerButton" runat="server">
                 </telerik:RadScriptManager>
-          <telerik:RadAjaxManager ID="RadAjaxManagerButton" runat="server">
-        <AjaxSettings>            
-
-                       
+          <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+          <ClientEvents OnResponseEnd="initDialog" />
+        <AjaxSettings>  
+             <telerik:AjaxSetting AjaxControlID="actions">
+              <UpdatedControls>
+            <telerik:AjaxUpdatedControl ControlID="actions"/>  
+             </UpdatedControls>
+             </telerik:AjaxSetting>         
                 </AjaxSettings>
      </telerik:RadAjaxManager>
 
@@ -299,9 +240,9 @@
          <asp:CheckBox ID="docompute" runat="server" /></td><td class="style5">And Compute Among Fields</td>
          <td class="style36"><input type="text" id="compute"  size="70" runat="server"/></td>
          <td align="right" class="style4">
-      <asp:ImageButton ID="ComputeHelp" runat="server" ImageUrl="~/images/help.gif" 
-        ToolTip="How is the compute property used?" OnClientClick="PopUp('../../Help/Design/ComputeHelp.htm', 'height=600, width=800, left=200, top=200, menubar=no, status=no, location=no, toolbar=no, titlebar=no,scrollbars=no, resizable=no');return false;" 
-        />
+         
+
+    <img alt="" title="How is the compute property used?" id="ComputeHelp" src="../../images/help.gif" onclick="PopUp('../../Help/Design/ComputeHelp.htm', 'height=600, width=800, left=200, top=200, menubar=no, status=no, location=no, toolbar=no, titlebar=no,scrollbars=no, resizable=no');return false;"  width="16" height="16" />
 
      </td></tr></table>
     </div>
@@ -309,13 +250,16 @@
        
        <div style="height:16px;"></div>
      <div style="height:25px; vertical-align:bottom;">
-       <table style="width: 741px"><tr><td class="style93"><asp:Button ID="Save" runat="server" onclick="Save_Click" Text="Save" /></td>
-           <td class="style94"><asp:Button ID="Clear" runat="server" 
+       <table style="width: 741px"><tr><td class="style93"><asp:Button ID="Save" 
+               runat="server" onclick="Save_Click" Text="Save" 
+               UseSubmitBehavior="False"/></td>
+           <td class="style94"><asp:Button ID="Clear" runat="server" UseSubmitBehavior="False"
                    Text=" Clear Action" Width="95px" style="display:none" 
                    onclick="Clear_Click"/></td><td>
                                 <asp:Label ID="Message" runat="server" Font-Bold="True" Font-Names="Arial" 
                                     Font-Size="10pt" ForeColor="Maroon"  Width="260px"></asp:Label></td></tr></table>
-    </div>  
+    </div> 
+    <asp:TextBox ID="action_value" runat="server" style="display:none"></asp:TextBox>
     </form>
 </body>
 </html>

@@ -382,6 +382,7 @@ public partial class PageData_Dialogs_TestQuery : System.Web.UI.Page
 	    else if(command == "insert into")
 	    {
             StringBuilder insert = new StringBuilder();
+            bool has_inputs = false;
 	        foreach(Hashtable FieldEntry in DBFields)
 	        {
                 Hashtable TestInputValueMap = (Hashtable)State["TestInputValueMap"];
@@ -389,7 +390,13 @@ public partial class PageData_Dialogs_TestQuery : System.Web.UI.Page
                 string device_field = test_input.Value;
                 if (device_field.Length == 0)
                     continue;
+                has_inputs = true;
                 insert.Append( FieldEntry["database_field"].ToString() + "=|" + HttpUtility.UrlEncode(device_field) + "|;");	//for some reason quotes do not encode correctly through url query                 
+            }
+            if (!has_inputs)
+            {
+                Message.Text = "There are no insert test inputs";
+                return;
             }
 	        GoogleDocsParams.Append("&insert=" + HttpUtility.UrlEncode(insert.ToString()));
  	        googleSpreadsheetQuery(GoogleDocsParams.ToString()+"&callback=?");	
@@ -397,6 +404,7 @@ public partial class PageData_Dialogs_TestQuery : System.Web.UI.Page
 	    else if(command == "update")
 	    {
            StringBuilder update = new StringBuilder();
+           bool has_inputs = false;
 	        foreach(Hashtable FieldEntry in DBFields)
 	        {
                 Hashtable TestInputValueMap = (Hashtable)State["TestInputValueMap"];
@@ -404,7 +412,13 @@ public partial class PageData_Dialogs_TestQuery : System.Web.UI.Page
                 string device_field = test_input.Value;
                 if (device_field.Length == 0)
                     continue;
+                has_inputs = true;
                 update.Append(FieldEntry["database_field"].ToString() + "=|" + HttpUtility.UrlEncode(device_field) + "|;");	//for some reason quotes do not encode correctly through url query                 
+            }
+            if (!has_inputs)
+            {
+                Message.Text = "There are no update test inputs";
+                return;
             }
 	        GoogleDocsParams.Append("&update=" + HttpUtility.UrlEncode(update.ToString()));
  	        googleSpreadsheetQuery(GoogleDocsParams.ToString()+"&callback=?");	

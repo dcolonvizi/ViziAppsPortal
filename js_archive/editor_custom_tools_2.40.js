@@ -20,7 +20,7 @@ $(function () {
     $("#tool_help_dialog").dialog({ autoOpen: false, width: 800, height: 550, modal: true, beforeClose: function (event, ui) { $(this).children().first().remove(); } });
     $("#design_page_help_dialog").dialog({ autoOpen: false, width: 420, height: 280, modal: true, beforeClose: function (event, ui) { $(this).children().first().remove(); } });
     $("#custom_header_html_dialog").dialog({ autoOpen: false, width: 700, height: 800, modal: true, beforeClose: function (event, ui) { $(this).children().first().remove(); } });
-    $("#on_app_open_dialog").dialog({ autoOpen: false, width: 800, height: 280, modal: true, beforeClose: function (event, ui) { $(this).children().first().remove(); } });
+    $("#on_app_open_dialog").dialog({ autoOpen: false, width: 800, height: 600, modal: true, beforeClose: function (event, ui) { $(this).children().first().remove(); } });
     $("#app_images_dialog").dialog({ autoOpen: false, width: 1200, height: 1000, modal: true, beforeClose: function (event, ui) { $(this).children().first().remove(); } });
     $("#app_description_dialog").dialog({ autoOpen: false, width: 500, height: 280, modal: true, beforeClose: function (event, ui) { $(this).children().first().remove(); } });
     $("#page_transition_type_dialog").dialog({ autoOpen: false, width: 500, height: 150, modal: true, beforeClose: function (event, ui) { $(this).children().first().remove(); } });    

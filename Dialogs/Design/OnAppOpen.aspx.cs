@@ -33,28 +33,47 @@ public partial class Dialogs_OnAppOpen : System.Web.UI.Page
         else
         {
             actions.Items.Add(new RadComboBoxItem("Get or send device data via a web data source", "post"));
- 
-            if (State["AccountType"].ToString().Contains("kofax"))
+
+            if (State["SelectedAppType"].ToString() == Constants.NATIVE_APP_TYPE &&
+                State["AccountType"].ToString().Contains("kofax"))
             {
                 actions.Items.Add(new RadComboBoxItem("Capture documents from camera photos", "capture_doc"));
+                actions.Items.Add(new RadComboBoxItem("Capture and Process documents from photos", "capture_process_document"));
+                actions.Items.Add(new RadComboBoxItem("Manage document case", "manage_document_case"));
             }
         }
         Hashtable AppOpenAction = x_util.GetAppOpenAction(State);
         if (AppOpenAction != null)
         {
+            int index = 0;
             foreach (String key in AppOpenAction.Keys)
             {
                 switch (key)
                 {
                     case "post":
                         actions.Items.FindItemByValue(key).Selected = true;
-                        actionsMultiPage.PageViews[1].Selected = true;
-                        break;
-                    case "capture_doc":
+                        index = actionsMultiPage.PageViews.IndexOf(actionsMultiPage.FindPageViewByID("post_view"));
+                        actionsMultiPage.PageViews[index].Selected = true;
+                       break;
+                    /*case "capture_doc":
                         actions.Items.FindItemByValue(key).Selected = true;
                         actionsMultiPage.PageViews[2].Selected = true;
                         if (AppOpenAction[key].ToString().Length > 0)
                             doc_case_field.Value = AppOpenAction[key].ToString();                       
+                        break;*/
+                    case "capture_process_document":
+                         actions.Items.FindItemByValue(key).Selected = true;
+                         index = actionsMultiPage.PageViews.IndexOf(actionsMultiPage.FindPageViewByID("capture_process_document_view"));
+                        actionsMultiPage.PageViews[index].Selected = true;
+                        if (AppOpenAction[key].ToString().Length > 0)
+                            action_value.Text = AppOpenAction[key].ToString();   
+                        break;
+                    case "manage_document_case":
+                        actions.Items.FindItemByValue(key).Selected = true;
+                        index = actionsMultiPage.PageViews.IndexOf(actionsMultiPage.FindPageViewByID("manage_document_case_view"));
+                        actionsMultiPage.PageViews[index].Selected = true;
+                        if (AppOpenAction[key].ToString().Length > 0)
+                            action_value.Text = AppOpenAction[key].ToString();   
                         break;
                     case "compute":
                         docompute.Checked = true;
@@ -71,10 +90,16 @@ public partial class Dialogs_OnAppOpen : System.Web.UI.Page
         switch (actions.SelectedValue)
         {
             case "post":
-                AppOpenAction["post"] = true;
+                AppOpenAction["post"] = action_value.Text;
                 break;
-            case "capture_doc":
+            /*case "capture_doc":
                 AppOpenAction["capture_doc"] = doc_case_field.Value;
+                break;*/
+            case "capture_process_document":
+                AppOpenAction["capture_process_document"] = action_value.Text;
+                 break;
+            case "manage_document_case":
+                AppOpenAction["manage_document_case"] = action_value.Text;
                 break;
             default:
                 if (!docompute.Checked)

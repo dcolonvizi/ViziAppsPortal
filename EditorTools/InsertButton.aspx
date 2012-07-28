@@ -220,7 +220,7 @@
          <script  language="javascript" type="text/javascript" src="../scripts/font_1.6.min.js"></script>
          <script  language="javascript" type="text/javascript" src="../scripts/color_picker_1.0.js"></script>
          <script  language="javascript" type="text/javascript" src="../scripts/default_script_1.6.js"></script>
-         <script  language="javascript" type="text/javascript" src="js/insertButton_1.38.min.js"></script>
+         <script  language="javascript" type="text/javascript" src="js/insertButton_1.40.min.js"></script>
 </head>
 <body>
     <form id="buttonform" runat="server">

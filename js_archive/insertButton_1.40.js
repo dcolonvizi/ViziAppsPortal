@@ -125,8 +125,16 @@
              var div_id = id + "_div";
              $('#' + prop_id).css('display', 'none');
 
-             if (validations != null && validations != param && validations != 'NAME' && validations != 'URL') {
+             if (validations != null && validations.indexOf('-') >= 0) {
                  $('#' + prop_id).before('<div id="' + div_id + '"><table style="width: 600px"><tr><td align="left" valign="top" style="width:180px" >' + param + '</td><td valign="top"><input class="param" type="text" id="' + id + '" size="30" /></td><td>[' + validations + ']</td><td style="width:20px"><img id="' + delete_id + '" alt="delete" src="../images/delete_small.gif"  /></td></tr></table></div>');
+             }
+             else if (validations != null && validations != param && validations != 'NAME' && validations != 'URL') {
+                 var options = '<option>select -&gt;</option>';
+                 var validation_list = validations.split(',');
+                 for (var i = 0; i < validation_list.length; i++) {
+                     options += '<option>' + validation_list[i] + '</option>';
+                 }
+                 $('#' + prop_id).before('<div id="' + div_id + '"><table style="width: 600px"><tr><td align="left" valign="top" style="width:180px" >' + param + '</td><td valign="top"><select class="param" id="' + id + '" >"' + options + '"</select></td><td style="width:20px"><img id="' + delete_id + '" alt="delete" src="../images/delete_small.gif"  /></td></tr></table></div>');
              }
              else
                  $('#' + prop_id).before('<div id="' + div_id + '"><table style="width: 600px"><tr><td align="left" valign="top" style="width:180px" >' + param + '</td><td valign="top"><input class="param" type="text" id="' + id + '" size="30" /></td><td style="width:20px"><img id="' + delete_id + '" alt="delete" src="../images/delete_small.gif"  /></td></tr></table></div>');
@@ -163,7 +171,7 @@
                     else {//else it is a list of possible values
                         var possible_list = validations.split(',');
                         for (var i = 0; i < possible_list.length; i++) {
-                            if (this.value == possible_list[i]) {
+                            if (this.value == possible_list[i].replaceAll(' ','')) {
                                 match_found = true;
                                 break;
                             }
