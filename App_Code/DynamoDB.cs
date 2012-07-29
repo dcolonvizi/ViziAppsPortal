@@ -16,16 +16,24 @@ using System.Data;
 /// </summary>
 public class DynamoDB
 {
-	public DynamoDB()
-	{
-	}
+    public DynamoDB()
+    {
+    }
     public void SetupClient(Hashtable State)
     {
         //Creating AmazonSecurityTokenServiceClient, using Access and Secret keys from web.config
         AmazonSecurityTokenServiceClient stsClient = new AmazonSecurityTokenServiceClient();
         //Creating RefreshingSessionAWSCredentials and initializing AmazonDynamoDBClient
-         RefreshingSessionAWSCredentials sessionCredentials = new RefreshingSessionAWSCredentials(stsClient);
+        RefreshingSessionAWSCredentials sessionCredentials = new RefreshingSessionAWSCredentials(stsClient);
         State["DynamoDBClient"] = new AmazonDynamoDBClient(sessionCredentials);
+    }
+    public List<string> GetTableNames(Hashtable State)
+    {
+        if (State["DynamoDBClient"] == null)
+            SetupClient(State);
+        AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
+        List<string> currentTables = client.ListTables().ListTablesResult.TableNames;
+        return currentTables;
     }
     public void CreateTable(Hashtable State, string tableName, string IDField)
     {
@@ -38,7 +46,7 @@ public class DynamoDB
             client.CreateTable(new CreateTableRequest
             {
                 TableName = tableName,
-                 ProvisionedThroughput = new ProvisionedThroughput { ReadCapacityUnits = 10, WriteCapacityUnits = 10 },
+                ProvisionedThroughput = new ProvisionedThroughput { ReadCapacityUnits = 10, WriteCapacityUnits = 10 },
                 KeySchema = new KeySchema
                 {
                     HashKeyElement = new KeySchemaElement { AttributeName = IDField, AttributeType = "S" },
@@ -53,30 +61,31 @@ public class DynamoDB
         AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
         client.DeleteTable(new DeleteTableRequest { TableName = tableName });
     }
-    public Hashtable SelectFromIDKey(Hashtable State, string TableName,string ID)
+    public Hashtable SelectFromIDKey(Hashtable State, string TableName, string ID)
     {
         if (State["DynamoDBClient"] == null)
             SetupClient(State);
         AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
-        Table table = Table.LoadTable(client, TableName);        
-        Document doc = table.GetItem(table.HashKeyName, ID);
-        List <String> fields = doc.GetAttributeNames();
+        Table table = Table.LoadTable(client, TableName);
+        Document doc = table.GetItem(ID);
+        List<String> fields = doc.GetAttributeNames();
         Hashtable row = new Hashtable();
-        foreach(String field in fields){
+        foreach (String field in fields)
+        {
             row[field] = doc[field];
         }
         return row;
     }
-    public void InsertRow(Hashtable State,string TableName,Hashtable fields)
+    public void InsertRow(Hashtable State, string TableName, Hashtable fields)
     {
         if (State["DynamoDBClient"] == null)
             SetupClient(State);
         AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
         Table table = Table.LoadTable(client, TableName);
         Document doc = new Document();
-        foreach(string key in fields.Keys)
+        foreach (string key in fields.Keys)
         {
-            doc[key] = (DynamoDBEntry)fields[key];
+            doc[key] = fields[key].ToString();
         }
         table.PutItem(doc);
     }
@@ -92,7 +101,7 @@ public class DynamoDB
             Document doc = new Document();
             foreach (string key in fields.Keys)
             {
-                doc[key] = (DynamoDBEntry)fields[key].ToString();
+                doc[key] = fields[key].ToString();
             }
             batch.AddDocumentToPut(doc);
         }
@@ -101,40 +110,40 @@ public class DynamoDB
         DateTime end = DateTime.Now;
         TimeSpan duration = end - start;
     }
-    public void UpdateRow(Hashtable State,string TableName,Hashtable fields)
+    public void UpdateRow(Hashtable State, string TableName, Hashtable fields)
     {
         if (State["DynamoDBClient"] == null)
             SetupClient(State);
         AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
         Table table = Table.LoadTable(client, TableName);
-        if(fields.ContainsKey(table.HashKeyName))
+        if (fields.ContainsKey(table.HashKeyName))
             throw new Exception("DynamoDB update does not contain Hash Key Name");
-        
+
         Document doc = new Document();
-        foreach(string key in fields.Keys)
+        foreach (string key in fields.Keys)
         {
             doc[key] = (DynamoDBEntry)fields[key]; //field value of null will delete field
         }
-        table.UpdateItem(doc);   
+        table.UpdateItem(doc);
     }
     public void CreateViziAppsDatabase(Hashtable State)
     {
         DB db = new DB();
         String query = "SHOW TABLES";
-        DataRow[] tables  = db.ViziAppsExecuteSql(State, query);
+        DataRow[] tables = db.ViziAppsExecuteSql(State, query);
         foreach (DataRow table in tables)
         {
             query = "SHOW COLUMNS in " + table.ItemArray[0].ToString();
-            DataRow[] fields  = db.ViziAppsExecuteSql(State, query);
+            DataRow[] fields = db.ViziAppsExecuteSql(State, query);
             CreateTable(State, table.ItemArray[0].ToString(), fields[0].ItemArray[0].ToString());
             query = "SELECT * FROM " + table.ItemArray[0].ToString() + " LIMIT 0,50";
             DataRow[] dataRows = db.ViziAppsExecuteSql(State, query);
             ArrayList rows = new ArrayList();
-            foreach(DataRow dataRow in dataRows)
+            foreach (DataRow dataRow in dataRows)
             {
                 Hashtable fieldMap = new Hashtable();
                 int index = 0;
-                foreach(object o in dataRow.ItemArray)
+                foreach (object o in dataRow.ItemArray)
                 {
                     fieldMap[fields[index].ItemArray[0].ToString()] = o;
                     index++;
