@@ -19,8 +19,11 @@ public partial class Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Util util = new Util();
+        DynamoDB db = new DynamoDB();
+         Util util = new Util();
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
+        db.CreateViziAppsDatabase(State);
+        util.Logout(State);
         if (State == null)
         {
             //Session.Abandon();
