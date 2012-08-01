@@ -1408,11 +1408,10 @@ $(function () {
      function setAppBackgroundColor() {
          $("#app_background_color_dialog").dialog("open");
          addIFrame($("#app_background_color_dialog"), 'Dialogs/Design/AppBackgroundColor.aspx');
-     }
-     function setAppBackgroundColorCallback() {
-        //refresh canvas
-         var DisplayMode = document.getElementById("DisplayMode");
-         DisplayMode.click();
+         $("#app_background_color_dialog").bind("dialogclose", function (event, ui) {
+             var DisplayMode = document.getElementById("DisplayMode");
+             DisplayMode.click();
+         });  
      }
      function GetTdAttribute(html_input, attribute) {
          var start = html_input.indexOf('<td');

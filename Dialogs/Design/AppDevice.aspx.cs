@@ -28,7 +28,31 @@ public partial class Dialogs_AppDevice : System.Web.UI.Page
             if (util.CheckSessionTimeout(State, Response, "Default.aspx")) return;
             XmlUtil x_util = new XmlUtil();
             State["SelectedDeviceType"] = x_util.GetAppDeviceType(State);
-            DesignedForDevice.Items.FindItemByValue(State["SelectedDeviceType"].ToString()).Selected = true;
+            DesignedForDevice.Items.Clear();
+            DesignedForDevice.Items.Add(new RadComboBoxItem("Select ->", "->"));
+            switch (State["SelectedDeviceType"].ToString())
+            {
+                case Constants.IPHONE:
+                    DesignedForDevice.Items.Add(new RadComboBoxItem("iPad", Constants.IPAD));
+                    DesignedForDevice.Items.Add(new RadComboBoxItem("Android Phone", Constants.ANDROID_PHONE));
+                    DesignedForDevice.Items.Add(new RadComboBoxItem("Android Tablet", Constants.ANDROID_TABLET));
+                    break;
+                case Constants.IPAD:
+                    DesignedForDevice.Items.Add(new RadComboBoxItem("iPhone", Constants.IPHONE));
+                    DesignedForDevice.Items.Add(new RadComboBoxItem("Android Phone", Constants.ANDROID_PHONE));
+                    DesignedForDevice.Items.Add(new RadComboBoxItem("Android Tablet", Constants.ANDROID_TABLET));
+                   break;
+                case Constants.ANDROID_PHONE:
+                    DesignedForDevice.Items.Add(new RadComboBoxItem("iPhone", Constants.IPHONE));
+                     DesignedForDevice.Items.Add(new RadComboBoxItem("iPad", Constants.IPAD));
+                    DesignedForDevice.Items.Add(new RadComboBoxItem("Android Tablet", Constants.ANDROID_TABLET));
+                   break;
+                 case Constants.ANDROID_TABLET:
+                    DesignedForDevice.Items.Add(new RadComboBoxItem("iPhone", Constants.IPHONE));
+                     DesignedForDevice.Items.Add(new RadComboBoxItem("iPad", Constants.IPAD));
+                    DesignedForDevice.Items.Add(new RadComboBoxItem("Android Phone", Constants.ANDROID_PHONE));
+                   break;
+           }
         }
     }
     protected void DesignedForDevice_SelectedIndexChanged(object o, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -47,7 +71,7 @@ public partial class Dialogs_AppDevice : System.Web.UI.Page
             XmlUtil x_util = new XmlUtil();
             string previous_device_design = x_util.GetAppDeviceType(State);
   
-            State["SelectedDeviceView"] = device_design;
+            //State["SelectedDeviceView"] = device_design;
             State["SelectedDeviceType"] = device_design;
             if (State["SelectedApp"] == null || State["SelectedApp"].ToString().Contains("->"))
             {

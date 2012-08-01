@@ -34,7 +34,7 @@
           <script  language="javascript" type="text/javascript" src="../../scripts/color_picker_1.0.js"></script>
           <script  language="javascript" type="text/javascript" src="../../scripts/font_1.6.min.js"></script>
 </head>
-<body onunload="parent.window.setAppBackgroundColorCallback();">
+<body>
      <form id="form1" runat="server" >
      <telerik:RadScriptManager ID="RadScriptManagerEditAppBackgroundColor" runat="server">
                 </telerik:RadScriptManager>

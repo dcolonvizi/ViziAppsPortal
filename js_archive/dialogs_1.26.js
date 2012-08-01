@@ -56,11 +56,16 @@ function DesignPageHelp() {
 }
 function onNewAppClientClose(args) {
     $("#new_app_dialog").dialog("close");
-    document.getElementById("AppName").value = args[0];
-    document.getElementById("DeviceType").value = args[1];
-    document.getElementById("AppType").value = args[2];
-    document.getElementById("AppDescription").value = args[3];
-    document.getElementById("PageName").value = args[4];
+    var AppName =  document.getElementById("AppName");
+    AppName.value = args[0];
+    var DeviceType = document.getElementById("DeviceType");
+    DeviceType.value = args[1];
+    var AppType = document.getElementById("AppType");
+    AppType.value = args[2];
+    var AppDescription = document.getElementById("AppDescription");
+    AppDescription.value = args[3];
+    var PageName = document.getElementById("PageName");
+    PageName.value = args[4];
 
     //make edit tools visible
     var AppPropertiesLabel = document.getElementById("AppPropertiesLabel");

@@ -120,16 +120,15 @@ public partial class TabDesignHybrid : System.Web.UI.Page
             SavePage();
 
         SetViewForDevice();
-        SetAppProperties();
         ShowPage(State["SelectedAppPage"].ToString());
     }
     protected void SetViewForDevice()
     {
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
-        if (State["SelectedDeviceView"] == null)
-            State["SelectedDeviceView"] = Constants.IPHONE;
+        if (State["SelectedDeviceType"] == null)
+            State["SelectedDeviceType"] = Constants.IPHONE;
 
-        switch (State["SelectedDeviceView"].ToString())
+        switch (State["SelectedDeviceType"].ToString())
         {
             case Constants.IPHONE:
                 DeviceMultiPage.SelectedIndex = 0;
@@ -158,7 +157,6 @@ public partial class TabDesignHybrid : System.Web.UI.Page
                 State["BackgroundImageUrl"] = "Dialogs/CoverFlow/pics/standard_w_header_ipad.jpg";
                 break;
             default:
-                State["SelectedDeviceView"] = Constants.IPHONE;
                 DeviceMultiPage.SelectedIndex = 0;
                 CanvasFrame.Attributes["style"] = "width:320px;height:460px;position:relative;left:33px;top:-592px;";
                 if (State["BackgroundImageUrl"] == null)
@@ -168,11 +166,12 @@ public partial class TabDesignHybrid : System.Web.UI.Page
                 break;
 
         }
+        SetAppProperties();
     }
     private void SetAppProperties()
     {
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
-        if (State["SelectedDeviceView"] == null)
+        if (State["SelectedDeviceType"] == null)
             return;
         AppProperties.Items.Clear();
         AppProperties.Items.Add(new RadComboBoxItem("Select ->", ""));
@@ -181,8 +180,8 @@ public partial class TabDesignHybrid : System.Web.UI.Page
         AppProperties.Items.Add(new RadComboBoxItem("Set the Page Transition Type for the App", "page_transition_type"));
         AppProperties.Items.Add(new RadComboBoxItem("Set Main Device Type for App", "app_device"));
          AppProperties.Items.Add(new RadComboBoxItem("URL Account Identifier", "url_account_identifier"));
-        if (State["SelectedDeviceView"].ToString() == Constants.IPAD ||
-            State["SelectedDeviceView"].ToString() == Constants.ANDROID_TABLET)
+         if (State["SelectedDeviceType"].ToString() == Constants.IPAD ||
+            State["SelectedDeviceType"].ToString() == Constants.ANDROID_TABLET)
         {
             AppProperties.Items.Add(new RadComboBoxItem("App Background Color", "app_background_color"));
         }
@@ -251,11 +250,11 @@ public partial class TabDesignHybrid : System.Web.UI.Page
             XmlUtil x_util = new XmlUtil();
 
             Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
-            if (State["SelectedDeviceType"] == null || State["SelectedDeviceView"] == null)
+            if (State["SelectedDeviceType"] == null /*|| State["SelectedDeviceView"] == null*/)
             {
                 string device_type = x_util.GetAppDeviceType(State);
                  State["SelectedDeviceType"] = device_type;
-                 State["SelectedDeviceView"] = device_type;
+                // State["SelectedDeviceView"] = device_type;
                 DeviceType.Text =  State["SelectedDeviceType"].ToString();
             }
 
@@ -337,7 +336,7 @@ public partial class TabDesignHybrid : System.Web.UI.Page
                 ResetAppStateVariables();
                 DesignMessage.Text = "Select an App or Click the New App Icon";
                 State["SelectedDeviceType"] = Constants.IPHONE;
-                State["SelectedDeviceView"] = Constants.IPHONE;
+                //State["SelectedDeviceView"] = Constants.IPHONE;
                 SetViewForDevice(); 
                 HideAppControls();
                 AppName.Text = "";
@@ -363,10 +362,12 @@ public partial class TabDesignHybrid : System.Web.UI.Page
             } 
             XmlUtil x_util = new XmlUtil();
             util.GetStagingAppXml(State, app);
-            State["SelectedDeviceView"] = State["SelectedDeviceType"] = x_util.GetAppDeviceType(State);
+            //State["SelectedDeviceView"] = 
+            State["SelectedDeviceType"] = x_util.GetAppDeviceType(State);
             if (State["SelectedDeviceType"] == null)
             {
-                State["SelectedDeviceView"] = State["SelectedDeviceType"] = Constants.IPHONE;
+                //State["SelectedDeviceView"] = 
+                State["SelectedDeviceType"] = Constants.IPHONE;
             }
             if (State["SelectedDeviceType"].ToString() == Constants.IPAD ||
                 State["SelectedDeviceType"].ToString() == Constants.ANDROID_TABLET)
@@ -387,7 +388,6 @@ public partial class TabDesignHybrid : System.Web.UI.Page
             AppPages.SelectedValue = State["SelectedAppPage"].ToString();
 
             ShowAppControls();
-            SetAppProperties();
         }
         catch (Exception ex)
         {
@@ -648,9 +648,9 @@ public partial class TabDesignHybrid : System.Web.UI.Page
             if (!CheckAppName(app))
                 return;
 
-            AppName.Text = "";
-
             string page_name = PageName.Text.Trim().Replace(" ", "_");
+            string designed_for = DeviceType.Text.Trim();
+            string app_type = AppType.Text.Trim();
 
             if (IsNewApp.Text.Length > 0)
             {
@@ -666,18 +666,14 @@ public partial class TabDesignHybrid : System.Web.UI.Page
                     return;
             }
 
-            PageName.Text = "";
+            State["SelectedApp"] = app;
+            State["SelectedAppPage"] = page_name;
+            State["SelectedDeviceType"] = designed_for;
+           // State["SelectedDeviceView"] = designed_for;
+            State["SelectedAppType"] = app_type;
 
-             State["SelectedApp"] = app;
              AppSelectedForTest.Visible = false;
 
-             State["SelectedAppPage"] = page_name;
-             PageName.Text = State["SelectedAppPage"].ToString();
-
-             string designed_for = DesignedFor.Text.Trim();
-             State["SelectedDeviceType"] = designed_for;
-             State["SelectedDeviceView"] = designed_for;
-             State["SelectedAppType"] = AppType.Text.Trim();
              XmlUtil x_util = new XmlUtil();
 
              AppPages.SelectedValue = page_name;
@@ -703,7 +699,6 @@ public partial class TabDesignHybrid : System.Web.UI.Page
 
              DesignedFor.Text = "";
             DeviceType.Text = State["SelectedDeviceType"].ToString();
-            SetAppProperties();
             ShowAppControls();
             InitAppPages();
 
@@ -748,14 +743,14 @@ public partial class TabDesignHybrid : System.Web.UI.Page
              State["PageHtml"] = x_util.FilterCanvasOutput(SavedCanvasHtml.Text);
             string html =  State["PageHtml"].ToString();
 
-            if ( State["SelectedDeviceType"] == null ||  State["SelectedDeviceView"] == null)
+            if ( State["SelectedDeviceType"] == null /*||  State["SelectedDeviceView"] == null*/)
             {
                  State["SelectedDeviceType"] = Constants.IPHONE;
-                 State["SelectedDeviceView"] = Constants.IPHONE;
+                // State["SelectedDeviceView"] = Constants.IPHONE;
                 DeviceType.Text =  State["SelectedDeviceType"].ToString();
             }
-            if ( State["SelectedDeviceType"].ToString() !=  State["SelectedDeviceView"].ToString())
-                html = util.UnScaleYValues(State, html);
+           // if ( State["SelectedDeviceType"].ToString() !=  State["SelectedDeviceView"].ToString())
+           //     html = util.UnScaleYValues(State, html);
 
             util.CreateApp(State, page_name, State["SelectedDeviceType"].ToString(), AppDescription.Text);
             util.SetDefaultButton(State, DefaultButtonImage.Text);
@@ -843,12 +838,12 @@ public partial class TabDesignHybrid : System.Web.UI.Page
 
         ClearMessages();
         string background = Background.Text.Trim();
-        if (State["SelectedDeviceView"] != null)
+        if (State["SelectedDeviceType"] != null)
         {
-            if ( State["SelectedDeviceView"].ToString() == Constants.ANDROID_PHONE)
+            if (State["SelectedDeviceType"].ToString() == Constants.ANDROID_PHONE)
                 background = background.Replace("_iphone.", "_android.");
-            if ( State["SelectedDeviceView"].ToString() == Constants.IPAD ||
-                 State["SelectedDeviceView"].ToString() == Constants.ANDROID_TABLET)
+            if (State["SelectedDeviceType"].ToString() == Constants.IPAD ||
+                 State["SelectedDeviceType"].ToString() == Constants.ANDROID_TABLET)
                 return;
         }
          State["BackgroundImageUrl"] = background;
@@ -901,8 +896,8 @@ public partial class TabDesignHybrid : System.Web.UI.Page
             State["PageHtml"] = x_util.FilterCanvasOutput(SavedCanvasHtml.Text);
             string html = State["PageHtml"].ToString();
 
-            if (State["SelectedDeviceType"].ToString() != State["SelectedDeviceView"].ToString())
-                html = util.UnScaleYValues(State, html);
+           // if (State["SelectedDeviceType"].ToString() != State["SelectedDeviceView"].ToString())
+           //     html = util.UnScaleYValues(State, html);
             Hashtable duplicates = x_util.EncodeAppPageToAppXml(State, page_name, html);
             if (duplicates != null)
             {
@@ -1373,12 +1368,13 @@ public partial class TabDesignHybrid : System.Web.UI.Page
         State["BackgroundImageUrl"] = null;
         State["AppXmlDoc"] = null;
         State["SelectedDeviceType"] = null;
-        State["SelectedDeviceView"] = null;
+       // State["SelectedDeviceView"] = null;
         DeviceType.Text = "";
         HideAppControls();
         InitPage();
         AppName.Text = "";
         PageName.Text = "";
+        AppType.Text = "";
     }
    /* protected void GoToWebAppDesign_Click(object sender, EventArgs e)
     {

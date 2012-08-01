@@ -47,10 +47,12 @@ public partial class PublishingFormWebApps : System.Web.UI.Page
             if (!IsPostBack)
             {
                 XmlUtil x_util = new XmlUtil();
-                State["SelectedDeviceView"] = State["SelectedDeviceType"] = x_util.GetAppDeviceType(State);
+                //State["SelectedDeviceView"] = 
+                State["SelectedDeviceType"] = x_util.GetAppDeviceType(State);
                 if (State["SelectedDeviceType"] == null)
                 {
-                    State["SelectedDeviceView"] = State["SelectedDeviceType"] = Constants.IPHONE;
+                   // State["SelectedDeviceView"] = 
+                    State["SelectedDeviceType"] = Constants.IPHONE;
                 }
 
                 //check on device type

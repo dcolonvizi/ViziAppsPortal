@@ -314,12 +314,7 @@ a
                                              <telerik:RadComboBox ID="DesignedForDevice" runat="server" AutoPostBack="True" 
                                                  Font-Names="Arial" Font-Size="10pt" 
                                                  onselectedindexchanged="DesignedForDevice_SelectedIndexChanged" 
-                                                 Width="250px"><Items>
-                                                     <telerik:RadComboBoxItem Text="iPhone" Value="iphone" />
-                                                     <telerik:RadComboBoxItem Text="Android Phone" Value="android_phone" />
-                                                     <telerik:RadComboBoxItem Text="iPad" Value="ipad" />
-                                                     <telerik:RadComboBoxItem Text="Android Tablet" Value="android_tablet" />
-                                               </Items></telerik:RadComboBox></td></tr><tr><td colspan="2">
+                                                 Width="250px"></telerik:RadComboBox></td></tr><tr><td colspan="2">
                                 <asp:Label ID="Message" runat="server" Font-Bold="True" Font-Names="Arial" 
                                     Font-Size="10pt" ForeColor="Maroon" Height="42px" 
                 Width="498px"></asp:Label>

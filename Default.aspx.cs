@@ -23,8 +23,6 @@ public partial class Default : System.Web.UI.Page
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         if (State == null)
         {
-            //Session.Abandon();
-            //Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
             return;
         }
         else if (State["PreviousError"] != null)

@@ -25,34 +25,30 @@ public partial class canvas : System.Web.UI.Page
                 return;
 
             int left = 0;
-            if ( State["SelectedDeviceView"] != null &&  
-                (State["SelectedDeviceView"].ToString() == Constants.IPAD ||
-                 State["SelectedDeviceView"].ToString() == Constants.ANDROID_TABLET))
+            if (State["SelectedDeviceType"] != null &&
+                (State["SelectedDeviceType"].ToString() == Constants.IPAD ||
+                 State["SelectedDeviceType"].ToString() == Constants.ANDROID_TABLET))
             {
-                if (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE || State["SelectedAppType"].ToString() == Constants.HYBRID_APP_TYPE)
-                {
-                    if ( State["BackgroundColor"] == null)
+                State["BackgroundImageUrl"] = null;
+                State["BackgroundHtml"] = null;
+                     if ( State["BackgroundColor"] == null)
                          State["BackgroundColor"] = "#cccccc";
 
                     string background_color_div_prefix = null;
-                    if (State["SelectedDeviceView"].ToString() == Constants.IPAD)
+                    if (State["SelectedDeviceType"].ToString() == Constants.IPAD)
                         background_color_div_prefix = "<div style=\"border:0px;width:" + Constants.IPAD_SPLASH_PORTRAIT_WIDTH_S + "px;height:" + Constants.IPAD_SPLASH_PORTRAIT_HEIGHT_S + "px;vertical-align:top;background-color:" + State["BackgroundColor"].ToString() + "\" >";
-                    if (State["SelectedDeviceView"].ToString() == Constants.ANDROID_TABLET)
+                    else if (State["SelectedDeviceType"].ToString() == Constants.ANDROID_TABLET)
                         background_color_div_prefix = "<div style=\"border:0px;width:" + Constants.ANDROID_TABLET_SPLASH_PORTRAIT_WIDTH_S + "px;height:" + Constants.ANDROID_TABLET_SPLASH_PORTRAIT_HEIGHT_S + "px;vertical-align:top;background-color:" + State["BackgroundColor"].ToString() + "\" >";
                     
                     string background_color_div_suffix = "</div>";
                    html_content.Text = background_color_div_prefix +  State["PageHtml"].ToString() + background_color_div_suffix;
-                }
-                else //for native type
-                {
-                    string background = "<img id=\"background_image\" src=\"" + State["BackgroundImageUrl"].ToString() + "\" style=\"position:absolute;top:0px;left:0px;\"/>";
-                    if (( State["SelectedAppPage"] == null || x_util.IsFirstAppPage(State,  State["SelectedAppPage"].ToString())) )
+
+                     if (( State["SelectedAppPage"] == null || x_util.IsFirstAppPage(State,  State["SelectedAppPage"].ToString())) )
                     {
-                        left = (State["SelectedDeviceView"].ToString() == Constants.IPAD) ? 731 : 763;
-                        background += "<img src=\"images/editor_images/settings_button.png\" style=\"position:absolute;top:5px;left:" + left.ToString() + "px\"/>";
-                    }
-                    html_content.Text = background +  State["PageHtml"].ToString();
-                }
+                        left = (State["SelectedDeviceType"].ToString() == Constants.IPAD) ? 731 : 763;
+                        string background = "<img src=\"images/editor_images/settings_button.png\" style=\"position:absolute;top:5px;left:" + left.ToString() + "px\"/>";
+                        html_content.Text += background;
+                    }               
             }
             else{
                 left = 283;                

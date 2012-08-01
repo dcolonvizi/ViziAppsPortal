@@ -1503,7 +1503,7 @@ public class Util
         }
 
         double to_display_height = Constants.IPHONE_DISPLAY_HEIGHT_D;
-        switch (State["SelectedDeviceView"].ToString())
+        switch (State["SelectedDeviceType"].ToString())
         {
             case Constants.ANDROID_PHONE:
                 to_display_height = Constants.ANDROID_PHONE_DISPLAY_HEIGHT_D;
@@ -1541,7 +1541,7 @@ public class Util
         }
 
         double to_display_height = Constants.IPHONE_DISPLAY_HEIGHT_D;
-        switch (State["SelectedDeviceView"].ToString())
+        switch (State["SelectedDeviceType"].ToString())
         {
             case Constants.ANDROID_PHONE:
                 to_display_height = Constants.ANDROID_PHONE_DISPLAY_HEIGHT_D;
@@ -1558,7 +1558,7 @@ public class Util
     public string UnScaleYValues(Hashtable State, string html)
     {
         double from_display_height = Constants.IPHONE_DISPLAY_HEIGHT_D;
-        switch (State["SelectedDeviceView"].ToString())
+        switch (State["SelectedDeviceType"].ToString())
         {
             case Constants.ANDROID_PHONE:
                 from_display_height = Constants.ANDROID_PHONE_DISPLAY_HEIGHT_D;
@@ -3456,7 +3456,7 @@ public class Util
         State["BackgroundImageUrl"] = null;
         State["AppXmlDoc"] = null;
         State["SelectedDeviceType"] = null;
-        State["SelectedDeviceView"] = null;
+       // State["SelectedDeviceView"] = null;
     }
     public static string Encrypt(string clearText, string Password)
     {

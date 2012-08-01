@@ -847,14 +847,14 @@ public class XmlUtil
             string background_image = background_image_node.InnerText;
             if (background_image.Contains("customer_media") || background_image.Contains("s3.amazonaws.com"))
             {
-                if (State["SelectedDeviceView"].ToString() == Constants.ANDROID_PHONE)
+                if (State["SelectedDeviceType"].ToString() == Constants.ANDROID_PHONE)
                     background_image = background_image.Replace("_iphone.", "_android.");
                 State["BackgroundImageUrl"] = background_image;
             }
             else
             {
                 background_image = background_image.Substring(background_image.LastIndexOf("/") + 1);
-                if (State["SelectedDeviceView"].ToString() == Constants.ANDROID_PHONE)
+                if (State["SelectedDeviceType"].ToString() == Constants.ANDROID_PHONE)
                     background_image = background_image.Replace("_iphone.", "_android.");
 
                 State["BackgroundImageUrl"] = "https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/" + background_image;
@@ -866,10 +866,10 @@ public class XmlUtil
 
             double y_factor = 1.0D;
             Util util = new Util();
-            if (State["SelectedDeviceType"].ToString() != State["SelectedDeviceView"].ToString())
-            {
-                y_factor = util.GetYFactor(State);
-            }
+            //if (State["SelectedDeviceType"].ToString() != State["SelectedDeviceView"].ToString())
+            //{
+           //     y_factor = util.GetYFactor(State);
+           // }
 
             XmlNode page_node = page_name_node.ParentNode;
             XmlNode fields_node = page_node.SelectSingleNode("fields");
@@ -1159,7 +1159,7 @@ public class XmlUtil
                             }
                             HtmlAttribute picker_type_attr = htmlDoc.CreateAttribute("type", picker_type);
                             new_node.Attributes.Append(picker_type_attr);
-                            if((State["SelectedDeviceView"] != null && State["SelectedDeviceView"].ToString() == Constants.ANDROID_PHONE) ||
+                            if ((State["SelectedDeviceType"] != null && State["SelectedDeviceType"].ToString() == Constants.ANDROID_PHONE) ||
                                 (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE || State["SelectedAppType"].ToString() == Constants.HYBRID_APP_TYPE))
                             {
                                 switch (picker_type)
@@ -1893,7 +1893,7 @@ public class XmlUtil
                  throw new Exception(ret);
              }
          }
-         else //new page with only a backbground
+         else if (State["BackgroundImageUrl"] != null) //new page with only a backbground
          {
             State["BackgroundHtml"] =  html = "<img id=\"background_image\" src=\"" + State["BackgroundImageUrl"].ToString() + "\" style=\"position:absolute;top:0px;left:0px;\"/>";          
          }
