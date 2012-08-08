@@ -10,33 +10,78 @@
             <style type="text/css">
                  body
                 {
-        	         background-color:#bcbcbc;
+        	         background-color:#ffffff;
                 }
-                .style1
+                .style12
                 {
-                    width: 95px;
+                    width: 138px;
                 }
-                .style2
+                .style13
+                {
+                    width: 317px;
+                }
+                .style27
                 {
                     height: 33px;
                 }
-                .style3
+                .style28
                 {
                     height: 34px;
                 }
-                .style4
+                .style30
+                {
+                    width: 130px;
+                }
+                .style31
+                {
+                    width: 135px;
+                }
+                .style37
+                {
+                    width: 160px;
+                    height: 35px;
+                }
+                .style38
+                {
+                    width: 217px;
+                    height: 35px;
+                }
+                .style39
+                {
+                    width: 184px;
+                }
+                .style40
+                {
+                    width: 217px;
+                }
+                .style42
+                {
+                    width: 160px;
+                     height: 35px;
+                }
+                .style43
+                {
+                    width: 133px;
+                }
+                .style44
+                {
+                    width: 159px;
+                    height: 35px;
+                }
+                .style45
+                {
+                    height: 31px;
+                }
+                .style46
+                {
+                    width: 174px;
+                    height: 35px;
+                }
+                .style47
                 {
                     height: 35px;
                 }
-                .style5
-                {
-                    height: 37px;
-                }
-                .style7
-                {
-                    width: 212px;
-                }
-            </style>
+                </style>
       <script  language="javascript" type="text/javascript" src="scripts/default_script_1.6.js"></script>
 </head>
 <body>
@@ -60,8 +105,100 @@
                 
             </Windows>
             </telerik:RadWindowManager>
-    
-      <div align="center">
+        <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+        <AjaxSettings> 
+  
+            <telerik:AjaxSetting AjaxControlID="EmailUpgradeNotice">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="Message"/>                       
+                </UpdatedControls>
+            </telerik:AjaxSetting>  
+
+           <telerik:AjaxSetting AjaxControlID="UpdateImageListing">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="Message"/>                       
+                </UpdatedControls>
+            </telerik:AjaxSetting>  
+
+            <telerik:AjaxSetting AjaxControlID="UpdatePassword">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="AdminMessage"/>                       
+                </UpdatedControls>
+            </telerik:AjaxSetting>  
+
+          <telerik:AjaxSetting AjaxControlID="UpdateExpirationDate">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="AdminMessage"/>                       
+                </UpdatedControls>
+            </telerik:AjaxSetting>  
+
+          <telerik:AjaxSetting AjaxControlID="UpdateAccountTypes">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="AdminMessage"/>                       
+                </UpdatedControls>
+            </telerik:AjaxSetting>  
+            
+         <telerik:AjaxSetting AjaxControlID="DeactivateCustomer">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="AdminMessage"/>   
+                                        
+                </UpdatedControls>
+            </telerik:AjaxSetting>  
+
+        <telerik:AjaxSetting AjaxControlID="ActivateCustomer">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="AdminMessage"/>                       
+                </UpdatedControls>
+            </telerik:AjaxSetting>  
+
+       <telerik:AjaxSetting AjaxControlID="RemoveCustomer">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="AdminMessage"/>     
+                  <telerik:AjaxUpdatedControl ControlID="LoginPanel"/>                       
+                    <telerik:AjaxUpdatedControl ControlID="AccountPanel"/>  
+                     <telerik:AjaxUpdatedControl ControlID="AppPanel"/>                     
+                   <telerik:AjaxUpdatedControl ControlID="CustomersByEmail"/>                       
+                      <telerik:AjaxUpdatedControl ControlID="CustomersByAccount"/>                       
+               </UpdatedControls>
+            </telerik:AjaxSetting>  
+            
+      <telerik:AjaxSetting AjaxControlID="CustomersByAccount">
+                <UpdatedControls>
+                     <telerik:AjaxUpdatedControl ControlID="CustomersByEmail"/>                       
+                      <telerik:AjaxUpdatedControl ControlID="CustomersByAccount"/>                       
+                  <telerik:AjaxUpdatedControl ControlID="LoginPanel"/>                       
+                    <telerik:AjaxUpdatedControl ControlID="AccountPanel"/>  
+                     <telerik:AjaxUpdatedControl ControlID="AppPanel"/>    
+                     <telerik:AjaxUpdatedControl ControlID="RegisteredDateTime"/> 
+                      <telerik:AjaxUpdatedControl ControlID="LastUsedDateTime"/>    
+                       <telerik:AjaxUpdatedControl ControlID="AdminMessage"/>                                        
+                </UpdatedControls>
+       </telerik:AjaxSetting>  
+ 
+       <telerik:AjaxSetting AjaxControlID="CustomersByEmail">
+                <UpdatedControls>
+                     <telerik:AjaxUpdatedControl ControlID="CustomersByEmail"/>                       
+                     <telerik:AjaxUpdatedControl ControlID="CustomersByAccount"/>                       
+                   <telerik:AjaxUpdatedControl ControlID="LoginPanel"/>                       
+                    <telerik:AjaxUpdatedControl ControlID="AccountPanel"/>  
+                     <telerik:AjaxUpdatedControl ControlID="AppPanel"/>                        
+                     <telerik:AjaxUpdatedControl ControlID="RegisteredDateTime"/> 
+                      <telerik:AjaxUpdatedControl ControlID="LastUsedDateTime"/>   
+                       <telerik:AjaxUpdatedControl ControlID="AdminMessage"/>                                         
+                </UpdatedControls>
+       </telerik:AjaxSetting>  
+ 
+       <telerik:AjaxSetting AjaxControlID="Applications">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="Applications"/>                       
+                    <telerik:AjaxUpdatedControl ControlID="OneAppPanel"/>                       
+                </UpdatedControls>
+       </telerik:AjaxSetting>  
+            
+        </AjaxSettings>
+        </telerik:RadAjaxManager>
+            
+     
 	              <div align="center" id="header" style="height:60px;  background-color:#0054c2;">
                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
@@ -93,68 +230,45 @@
                 </table>
                 </div>  
  
-    <div align="center" style=" background-color:#bcbcbc; width:900px; vertical-align:top;">
-                <table border="0" cellpadding="0" cellspacing="0">
-                 <tr style="height:16px">
-                             <td style="height:16px;width:16px;  background-image:url(images/round_top_left.png); background-position:right bottom; background-repeat:no-repeat;">
-                                   
-                             </td>
-                             <td style="background-image:url(images/white_square.png); height:16px; width:868px;background-repeat:repeat">
-                             
-                             </td>
-                             <td style="height:16px;width:16px;background-image:url(images/round_top_right.png); background-position:left bottom; background-repeat:no-repeat; ">
-                              </td>
-                         </tr>
-                </table>
+    <div  style="height:10px">
                 </div>
- <table style="width: 900px;background-color: #ffffff;" border=0 cellpadding="0" cellspacing="0">
-    <tr>
-        <td colspan="5" style="height: 20px" valign="middle" align="left" 
-            bgcolor="#680792">
-            &nbsp;
+ 
+    <div style="height: 20px; background-color:#680792; text-align:left" >
+           
+            &nbsp;&nbsp;&nbsp;&nbsp;
+           
             <asp:Label ID="Label6" runat="server" Font-Bold="True" Font-Names="Arial" Font-Size="10pt"
-                ForeColor="White" Text="All Customers and Applications"></asp:Label></td>
-    </tr>
-    <tr>
-        <td colspan="5" align="right" class="style20">
-            </td>
-    </tr>
-    <tr>
-    <td align="left" valign="top" colspan="5">
-            &nbsp;<asp:Label ID="Message" runat="server" Font-Bold="True" Font-Italic="False" 
-                Font-Names="Arial" Font-Size="10pt" ForeColor="Maroon" Height="23px" 
-                Width="812px"></asp:Label>
-            &nbsp;&nbsp;
-            </td>
-    </tr>
-    <tr>
-        <td valign="top" class="style21" colspan="5" >
-            <table style="width: 861px; height: 80px;">
+                ForeColor="White" Text="All Acounts and Applications"></asp:Label>
+    </div>
+    <div style="height:10px"></div>
+    <div align="center">
+ 
+            <table style="width: 861px; ">
             <tr>
-            <td class="style5" align="left">
+            <td class="style27" align="left">
                 <asp:Button ID="ViewCurrentUsers" runat="server" CausesValidation="False" 
                     Font-Names="Arial" Font-Size="10pt" Text="View Current Users" 
-                    Width="132px" />
+                    Width="192px" />
                 </td>
-            <td class="style5">
-                <asp:Button ID="ViewAllCustomers" runat="server" CausesValidation="False" 
-                    Font-Names="Arial" Font-Size="10pt" Text="View All Customers" 
-                    Width="143px" />
+            <td align="center">
+                <asp:Button ID="ViewActiveCustomers" runat="server" CausesValidation="False" 
+                    Font-Names="Arial" Font-Size="10pt"  
+                    Text="View Active Users" Width="148px" 
+                      />
                 </td>
-            <td class="style5">
+            <td class="style27">
                 <asp:Button ID="EmailUpgradeNotice" runat="server" CausesValidation="False" 
                     Font-Names="Arial" Font-Size="10pt" Text="Email Maintenance Notice" 
                     Width="167px" onclick="EmailUpgradeNotice_Click"  />
                 </td>
-            <td class="style5">
-                &nbsp;</td>
-            <td class="style5">
+            <td class="style27">
                 <asp:Button ID="EmailCustomers" runat="server" CausesValidation="False" 
-                    Font-Names="Arial" Font-Size="10pt" Text="Email Customers" Width="140px" />
+                    Font-Names="Arial" Font-Size="10pt" Text="Email Customers" Width="140px" 
+                     />
                 </td>
             </tr>
             <tr>
-            <td class="style18" align="left" colspan="2">
+            <td class="style28" align="left">
                 <asp:Button ID="ViewCurrentUsers0" runat="server" CausesValidation="False" 
                     Font-Names="Arial" Font-Size="10pt" Text="Copy Apps Across Accounts" 
                     Width="191px"  OnClientClick="var oWin=radopen('Dialogs/Admin/CopyApplication.aspx', 'CopyApplicationBox');
@@ -165,227 +279,228 @@
                        oWin.setSize(800,200);
                        return false;"/>
                 </td>
-            <td class="style18">
-                <asp:Button ID="ViewActiveCustomers" runat="server" CausesValidation="False" 
-                    Font-Names="Arial" Font-Size="10pt"  
-                    Text="View Active Users" Width="127px" 
-                      />
-                </td>
-            <td class="style18">
-                &nbsp;</td>
-            <td class="style18">
+            <td class="style28" align="center">
                 <asp:Button ID="UpdateImageListing" runat="server" CausesValidation="False" 
                     Font-Names="Arial" Font-Size="10pt" Text="Update Image Listing" 
                     Width="148px" onclick="UpdateImageListing_Click" />
                 </td>
+            <td class="style28">
+                &nbsp;</td>
+            <td class="style28">
+                </td>
             </tr>
-             </table></td>
-    </tr>
-     <tr>
-         <td class="style14" colspan="5" valign="top">
-             &nbsp;</td>
-     </tr>
-     <tr>
-         <td bgcolor="#D97540" class="style14" colspan="5" valign="top">
-             &nbsp;&nbsp;
+            </table>
+           
+            </div>
+            <div align="center">            
+                <asp:Label ID="Message" runat="server" Font-Bold="True" Font-Italic="False" 
+                Font-Names="Arial" Font-Size="10pt" ForeColor="Maroon" Height="23px" 
+                Width="812px"></asp:Label>
+               </div>
+  
+     <div style=" background-color:#D97540; text-align:left">
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
              <asp:Label ID="Label24" runat="server" Font-Bold="True" Font-Names="Arial" 
-                 Font-Size="10pt" ForeColor="White" Text="Each Customer"></asp:Label>
-         </td>
-     </tr>
-     <tr>
-         <td class="style15" colspan="5" valign="top">
-             <asp:Label ID="AdminMessage" runat="server" Font-Bold="True" 
+                 Font-Size="10pt" ForeColor="White" Text="Each Account"></asp:Label>
+         </div>
+          <div style="height:10px"></div>
+          <div align="center" style="height: 25px">
+              <asp:Label ID="AdminMessage" runat="server" Font-Bold="True" 
                  Font-Italic="False" Font-Names="Arial" Font-Size="10pt" ForeColor="Maroon" 
-                 Height="23px" Width="833px"></asp:Label>
-         </td>
-     </tr>
-     <tr>
-         <td valign="top" class="style4" align="right">
-             <asp:Label ID="Label1" runat="server" Font-Names="Arial" Font-Size="10pt" 
-                 ForeColor="Black" Text="Customer by Account"></asp:Label>
-         &nbsp;
-         </td>
-         <td valign="top" class="style4">
+                 Height="16px" Width="672px"></asp:Label>
+          </div>
+          <div align="center" >
+         
+              <table style="width:920px;">
+                  <tr>
+                      <td align="left" class="style37">
+                         
+                      <asp:Label ID="Label1" runat="server" Font-Names="Arial" Font-Size="10pt" 
+                 ForeColor="Black" Text="Customer by Account" Width="131px" Height="16px"></asp:Label>
+                      </td>
+                      <td class="style38" align="left">
              <telerik:RadComboBox ID="CustomersByAccount" runat="server" AutoPostBack="True" 
                  Font-Names="Arial" Font-Size="10pt" 
-                  Width="155px" 
+                  Width="200px" 
                  MarkFirstMatch="True" 
                  onselectedindexchanged="CustomersByAccount_SelectedIndexChanged">
              </telerik:RadComboBox>
-         </td>
-         <td class="style4" valign="top" colspan="3">
-             <table style="width: 560px">
-             <tr>
-             <td class="style29" align="left" valign="top">
+                         
+                      </td>
+                      <td rowspan="2" valign="top" align="left">
+                          <div ID="LoginPanel" runat="server"  style="display:block">            
+            
+                      <table style="height: 70px; width: 524px;" align="left">
+                 <tr>
+                     <td align="left" class="style43" valign="top">
                  <asp:Button ID="LoginToUserbyAccount" runat="server" CausesValidation="False" 
-                     Font-Names="Arial" Font-Size="10pt" Text="Login To User" Visible="False" 
+                     Font-Names="Arial" Font-Size="10pt" Text="Login To User"  
                      Width="126px" onclick="LoginToUserbyAccount_Click"  />
-             </td>
-             <td class="style30">
-                 <asp:Label ID="RegisteredDateTime" runat="server" Font-Names="Arial" 
-                     Font-Size="9pt" ForeColor="Black" Visible="False" Width="200px"></asp:Label>
-             </td>
-             </tr>
+                     </td>
+                     <td align="left" class="style39">
+                 <asp:Label ID="RegisteredDateTime" runat="server"  style="font-size:10px"
+                     ></asp:Label>
+                     </td>
+                     <td align="left">
+                 <asp:Label ID="LastUsedDateTime" runat="server" style="font-size:10px"
+                     ></asp:Label>
+                     </td>
+                 </tr>
+                 <tr>
+                     <td align="left" class="style43" valign="top">
+                 <asp:Button ID="LoginToUserbyEmail" runat="server" CausesValidation="False" 
+                     Font-Names="Arial" Font-Size="10pt" Text="Login To User"  
+                     Width="126px" onclick="LoginToUserbyEmail_Click" />
+                     </td>
+                     <td align="right" class="style39" valign="top">
+                        <asp:Button ID="EmailCustomer" runat="server" CausesValidation="False" 
+                            Font-Names="Arial" Font-Size="10pt"  
+                            Text="Email This Customer"  Width="150px" />
+                     </td>
+                     <td>
+                         </td>
+                 </tr>
              </table>
-             </td>
-     </tr>
-     <tr>
-         <td valign="top" class="style4" align="right">
-             <asp:Label ID="Label25" runat="server" Font-Names="Arial" Font-Size="10pt" 
-                 ForeColor="Black" Text="Customer by Email"></asp:Label>
-         &nbsp;
-         </td>
-         <td valign="top" class="style4">
+              </div> 
+                      </td>
+                  </tr>
+                  <tr>
+                      <td align="left" class="style42">
+                          
+                      <asp:Label ID="Label25" runat="server" Font-Names="Arial" Font-Size="10pt" 
+                 ForeColor="Black" Text="Customer by Email" Width="131px"></asp:Label>
+                      </td>
+                      <td class="style40" align="left">
              <telerik:RadComboBox ID="CustomersByEmail" runat="server" AutoPostBack="True" 
                  Font-Names="Arial" Font-Size="10pt" 
-                  Width="155px" 
+                  Width="200px" 
                  MarkFirstMatch="True" 
                  onselectedindexchanged="CustomersByEmail_SelectedIndexChanged">
              </telerik:RadComboBox>
-         </td>
-         <td class="style4" valign="top" colspan="3">
-             <table style="width: 557px">
-             <tr>
-             <td class="style7" align="left" valign="top">
-                 <asp:Button ID="LoginToUserbyEmail" runat="server" CausesValidation="False" 
-                     Font-Names="Arial" Font-Size="10pt" Text="Login To User" Visible="False" 
-                     Width="126px" onclick="LoginToUserbyEmail_Click" />
-             </td>
-             <td>
-                 <asp:Label ID="LastUsedDateTime" runat="server" Font-Names="Arial" 
-                     Font-Size="9pt" ForeColor="Black" style="margin-left: 0px" Visible="False" 
-                     Width="200px"></asp:Label>
-             </td>
-             </tr>
-             </table>
-             </td>
-     </tr>
-    <tr height="20">
-        <td style="width: 404px; height: 35px" valign="top" align="right">
+                          &nbsp;
+                      </td>
+                  </tr>
+                  </table>
+             
+              </div>
+    <div id="AccountPanel" runat="server"  style="display:block" 
+        align="center">
+             <table style="width:920px;">
+                 <tr>
+                     <td class="style44" align="left">
             <asp:Label ID="PasswordLabel" runat="server" Font-Names="Arial" Font-Size="10pt" ForeColor="Black"
-                Text="Password" Visible="False"></asp:Label>&nbsp; </td>
-        <td style="width: 295px; height: 35px" valign="top">
-            <asp:TextBox ID="Password" runat="server" Font-Names="Arial" Font-Size="10pt" Visible="False"></asp:TextBox></td>
-        <td align="left" valign="top" class="style2">
+                Text="Password" ></asp:Label>
+                     </td>
+                     <td align="left" class="style47">
+            <asp:TextBox ID="Password" runat="server" Font-Names="Arial" Font-Size="10pt" 
+                 Width="200px"></asp:TextBox>
+                     </td>
+                     <td align="left" class="style47">
             <asp:Button ID="UpdatePassword" runat="server" CausesValidation="False" Font-Names="Arial"
                 Font-Size="10pt" Text="Update Password"
-                Visible="False" Width="130px" OnClick="UpdatePassword_Click" /></td>
-        <td align="left" valign="top" class="style1">
+                 Width="156px" OnClick="UpdatePassword_Click" />
+                     </td>
+                      <td class="style46">
                  <asp:Button ID="ViewUserProfile" runat="server" CausesValidation="False" 
-                     Font-Names="Arial" Font-Size="10pt" Text="View User Profile" Visible="False" 
-                     Width="126px" />
-             </td>
-        <td style="height: 35px" valign="top">
-        <asp:Label ID="PasswordMessage" runat="server" Font-Names="Arial" Font-Size="10pt"
-            ForeColor="Maroon" Width="164px" Font-Bold="True"></asp:Label></td>
-    </tr>
-     <tr height="20">
-         <td style="width: 404px; height: 35px" valign="top" align="right"><asp:DropDownList ID="ExpirationDateMode" runat="server" Font-Names="Arial" Font-Size="10pt" AutoPostBack="True"  Visible="False" Width="112px" OnSelectedIndexChanged="ExpirationDateMode_SelectedIndexChanged">
-             <asp:ListItem Selected="True">Never Expires</asp:ListItem>
-             <asp:ListItem>Expires</asp:ListItem>
-         </asp:DropDownList></td>
-         <td style="width: 295px; height: 35px" valign="top">
-             <asp:TextBox ID="ExpirationDate" runat="server" Font-Names="Arial" Font-Size="10pt"
-                 Visible="False"></asp:TextBox></td>
-         <td align="left" colspan="2" valign="top" class="style2">
-             <asp:Button ID="UpdateExpirationDate" runat="server" CausesValidation="False" Font-Names="Arial"
-                Font-Size="10pt"  Text="Update Expiration Date"
-                Visible="False" Width="156px" OnClick="UpdateExpirationDate_Click" /></td>
-         <td style="height: 35px;" valign="top">
-             <asp:Label ID="ExpirationMessage" runat="server" Font-Names="Arial" Font-Size="10pt"
-                 ForeColor="Maroon" Width="157px" Font-Bold="True"></asp:Label></td>
-     </tr>
-     <tr height="20">
-         <td style="width: 404px; height: 40px" valign="top" align="right">
+                     Font-Names="Arial" Font-Size="10pt" Text="View User Profile"  
+                     Width="156px" />
+                     </td>
+                     <td align="left" colspan="2" class="style47">
+                        
+                        </td>
+                 </tr>
+                 <tr>
+                     <td class="style44" align="left">
+             <asp:Label ID="AccountTypesLabel" runat="server" Font-Names="Arial" Font-Size="10pt"
+                 ForeColor="Black" Text="Customer Account Types " ></asp:Label> </td>
+                     <td align="left" class="style47">
+             <asp:TextBox ID="AccountTypes" runat="server" Font-Names="Arial" Font-Size="10pt"
+                  Width="200px"></asp:TextBox></td>
+                     <td align="left" class="style47">
+            <asp:Button ID="UpdateAccountTypes" runat="server" CausesValidation="False" Font-Names="Arial"
+                Font-Size="10pt" Text="Update Account Types"
+                 Width="156px" onclick="UpdateAccountTypes_Click"   />
+                     </td>
+                     <td align="left" class="style46">
+             <asp:Label ID="AccountTypesNote" runat="server" Font-Names="Arial" Font-Size="10pt"
+                 ForeColor="Black" Text="(list separated by commas)" ></asp:Label> </td>
+                     <td align="left" colspan="2" class="style47">
+                         </td>
+                 </tr>
+                 <tr>
+                     <td class="style44" align="left">
              <asp:Label ID="CustomerStatusLabel" runat="server" Font-Names="Arial" Font-Size="10pt"
-                 ForeColor="Black" Text="Customer Status: " Visible="False"></asp:Label> </td>
-         <td style="width: 295px; height: 40px" valign="top" align="center">
-             <asp:Label ID="CustomerStatus" runat="server" Font-Names="Arial" Font-Size="10pt" ForeColor="Black"
-                 Visible="False"></asp:Label></td>
-         <td colspan="3" valign="top" style="height: 40px">
-            <table width="100%">
-                <tr>
-                    <td align="left" class="style31">
+                 ForeColor="Black" Text="Customer Status: " ></asp:Label> </td>
+                     <td align="left" class="style47">
+             <asp:TextBox ID="CustomerStatus" runat="server" Font-Names="Arial" Font-Size="10pt"
+                  Width="200px"></asp:TextBox></td>
+                     <td align="left" class="style47">
             <asp:Button ID="DeactivateCustomer" runat="server" CausesValidation="False" Font-Names="Arial"
                 Font-Size="10pt" OnClick="DeactivateCustomer_Click" Text="Deactivate Customer"
-                Visible="False" Width="150px" /></td>
-                    <td align="center" class="style32">
+                 Width="156px" /></td>
+                     <td class="style46">
                         <asp:Button ID="ActivateCustomer" runat="server" CausesValidation="False"
                 Font-Names="Arial" Font-Size="10pt" Text="Activate Customer"
-                Visible="False" Width="137px" OnClick="ActivateCustomer_Click" /></td>
-                    <td class="style22">
+                 Width="156px" OnClick="ActivateCustomer_Click" /></td>
+                     <td class="style47">
             <asp:Button ID="RemoveCustomer" runat="server" CausesValidation="False" Font-Names="Arial"
-                Font-Size="10pt" OnClick="RemoveCustomer_Click" Text="Remove Customer" Visible="False"
-                Width="137px" Height="24px" /></td>
-                    <td align="right">
-                        <asp:Button ID="EmailCustomer" runat="server" CausesValidation="False" 
-                            Font-Names="Arial" Font-Size="10pt"  
-                            Text="Email This Customer" Visible="False" Width="150px" />
-                    </td>
-                </tr>
-            </table>        
-             <asp:Label ID="ActivationMessage" runat="server" Font-Bold="True" Font-Names="Arial"
-                 Font-Size="10pt" ForeColor="Maroon" Width="511px"></asp:Label></td>
-     </tr>
-     <tr height="20">
-         <td bgcolor="#CE5378" colspan="5" style="height: 20px" valign="middle">
-             &nbsp;
+                Font-Size="10pt" OnClick="RemoveCustomer_Click" Text="Remove Customer" 
+                Width="157px" Height="24px" /></td>
+                     <td class="style47">
+                         </td>
+                 </tr>
+             </table>
+             </div>
+     <div style=" background-color:#CE5378; text-align:left" >
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
              <asp:Label ID="Label11" runat="server" Font-Bold="True" Font-Names="Arial" Font-Size="10pt"
-                 ForeColor="White" Text="Each Application"></asp:Label></td>
-     </tr>
+                 ForeColor="White" Text="Each Application"></asp:Label></div>
+                  <div style="height:10px"></div>
+                  <div align="center">
+     <table style="width: 963px">
      <tr height="20">
-         <td style="width: 404px; height: 20px" valign="top">
-         </td>
-         <td style="width: 295px; height: 20px" valign="top">
-         </td>
-         <td valign="top" class="style3" colspan="2">
-         </td>
          <td style="height: 20px" valign="top">
-         </td>
-     </tr>
-    <tr height=20>
-        <td style="width: 404px; height: 34px;" valign="top" align="center">
-            <asp:Label ID="ApplicationLabel" runat="server" Font-Names="Arial" Font-Size="10pt" Text="Application" Visible="False" ForeColor="Black"></asp:Label></td>
-        <td colspan="3" style="height: 34px" valign="top" align="left">
+             <div id="AppPanel" runat="server" style="display:block" align="center">
+                 <table style="width: 920px;">
+                     <tr>
+                         <td class="style12" align="left">
+                             &nbsp;
+                         <asp:Label ID="ApplicationLabel" runat="server" Font-Names="Arial" Font-Size="10pt" Text="Application"  ForeColor="Black"></asp:Label>
+                         </td>
+                         <td align="left" class="style13">
             <telerik:RadComboBox ID="Applications" runat="server" Font-Names="Arial" 
                 Font-Size="10pt" AutoPostBack="True" 
-                 Visible="False" 
+                  
                 Width="289px" MarkFirstMatch="True" 
-                onselectedindexchanged="Applications_SelectedIndexChanged">            </telerik:RadComboBox></td>
-        <td valign="top" style="height: 34px;">
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td  style="width: 404px; height: 35px" valign="top" align="center">        
-            <asp:Label ID="ApplicationStatusLabel" runat="server" Font-Names="Arial" Font-Size="10pt"
-                ForeColor="Black" Text="Application Status" Visible="False" Width="117px"></asp:Label></td>
-        <td  style="width: 295px; height: 35px" valign="top" align="center">        
+                onselectedindexchanged="Applications_SelectedIndexChanged">            </telerik:RadComboBox>&nbsp;
+                         </td>
+                         <td>
+                             &nbsp;
+                         </td>
+                     </tr>
+                     </table>
+                     <div id="OneAppPanel" runat="server" style="display:block">
+                     <table style="width: 920px"><tr><td align="left" class="style30">                          
+                         <asp:Label ID="ApplicationStatusLabel" runat="server" Font-Names="Arial" Font-Size="10pt"
+                ForeColor="Black" Text="Application Status"  Width="117px"></asp:Label>
+                         </td>
+                         <td align="left" class="style31">
             <asp:Label ID="ApplicationStatus" runat="server" Font-Names="Arial" Font-Size="10pt"
-                 Visible="False" ForeColor="Black"></asp:Label></td>
-        <td valign="top" align="left" class="style2" colspan="2">
-                <asp:Button ID="ShowXmlDesign" runat="server" CausesValidation="False" 
-                    Font-Names="Arial" Font-Size="10pt" Text="Show XML Design" Visible="False"
+                  ForeColor="Black"></asp:Label>&nbsp;
+                         </td>
+                         <td align="left">
+                             &nbsp;
+                         <asp:Button ID="ShowXmlDesign" runat="server" CausesValidation="False" 
+                    Font-Names="Arial" Font-Size="10pt" Text="Show XML Design" 
                     Width="132px" />
-                </td>
-        <td valign="top" style="height: 35px">
-            &nbsp;</td>
-    </tr>
+                         </td>
+                     </tr>
+                     </table>
+                     </div>
+             </div></td>
+     </tr>
      </table>
 
- <div align="center" style=" background-color:#bcbcbc; width:900px; vertical-align:top;">
-                <table border="0" cellpadding="0" cellspacing="0">
-                 <tr style="height:16px">
-                             <td style="height:16px;width:16px;  background-image:url(images/round_bottom_left.png); background-position:right bottom; background-repeat:no-repeat;">
-                                   
-                             </td>
-                             <td style="background-image:url(images/white_square.png); height:16px; width:868px;background-repeat:repeat">
-                             
-                             </td>
-                             <td style="height:16px;width:16px;background-image:url(images/round_bottom_right.png); background-position:left bottom; background-repeat:no-repeat; ">
-                              </td>
-                         </tr>
-                </table>
-                </div>
 </div>
     </form>
 </body>

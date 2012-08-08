@@ -18,16 +18,21 @@ public partial class Admin : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
+        Util util = new Util();
+        if (util.CheckSessionTimeout(State, Response, "Default.aspx")) return;
+
+        State["CustomersByAccount"] = CustomersByAccount;
+        State["CustomersByEmail"] = CustomersByEmail;
+
         if (!IsPostBack)
         {
-            Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
             if (State["Password"] == null)
             {
                 Response.Redirect("Default.aspx", false);
                 return;
             }
-            Util util = new Util();
-            string status = util.LoginToViziApps(State, State["Username"].ToString(),
+             string status = util.LoginToViziApps(State, State["Username"].ToString(),
                   State["Password"].ToString());
 
             if (status != "admin")
@@ -39,9 +44,7 @@ public partial class Admin : System.Web.UI.Page
             ClearMessages();
             try
             {
-                 State["CustomersByAccount"] = CustomersByAccount;
-                 State["CustomersByEmail"] = CustomersByEmail;
-
+  
                 if ( State["ServerAdminCustomerID"] == null ||  State["ServerAdminCustomerID"].ToString() == "0")
                 {
                      State["ServerAdminCustomerID"] = "0";
@@ -52,8 +55,8 @@ public partial class Admin : System.Web.UI.Page
                 {
                     ViewUserProfile.Attributes.Add("onclick", PopupHelper.GeneratePopupScript(
                         "Dialogs/Admin/ViewUserProfile.aspx", 750, 750, true, true, true, true));
-                    ViewAllCustomers.Attributes.Add("onclick", PopupHelper.GeneratePopupScript(
-                        "Dialogs/Admin/ViewAllCustomers.aspx", 10, 10, true, true, true, true));
+                   // ViewAllCustomers.Attributes.Add("onclick", PopupHelper.GeneratePopupScript(
+                   //     "Dialogs/Admin/ViewAllCustomers.aspx", 10, 10, true, true, true, true));
                     ViewActiveCustomers.Attributes.Add("onclick", PopupHelper.GeneratePopupScript(
                         "Dialogs/Admin/ViewActiveCustomers.aspx", 120, 550, true, true, true, true));
                     ViewCurrentUsers.Attributes.Add("onclick", PopupHelper.GeneratePopupScript(
@@ -63,9 +66,7 @@ public partial class Admin : System.Web.UI.Page
                     ShowXmlDesign.Attributes.Add("onclick", PopupHelper.GeneratePopupScript(
                         "Dialogs/Admin/ShowXmlDesign.aspx", 750, 750, true, true, true, true));
 
-                    RemoveCustomer.Attributes.Add("onclick", "return confirm('Are you sure you want to remove this customer?');");
-                    DeactivateCustomer.Attributes.Add("onclick", "return confirm('Are you sure you want to deactivate this customer?');");
-                    ActivateCustomer.Attributes.Add("onclick", "return confirm('Are you sure you want to activate this customer?');");
+                    HideForCustomers();
                 }
             }
 
@@ -81,13 +82,14 @@ public partial class Admin : System.Web.UI.Page
         ClearMessages();
         HideForCustomers();
 
+        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         if (e.Text.IndexOf("->") > 0)
         {
-            AdminMessage.Text = "Select a customer and try again.";
+            CustomersByEmail.Items[0].Selected = true;
+             AdminMessage.Text = "Select a customer and try again.";
             return;
         }
-        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
-
+ 
         State["ServerAdminCustomerUsername"] = e.Text;
         string sql = "SELECT * FROM customers WHERE username='" + e.Text + "'";
         DB db = new DB();
@@ -95,23 +97,16 @@ public partial class Admin : System.Web.UI.Page
         DataRow row = rows[0];
         string customer_id = row["customer_id"].ToString();
         string email = row["email"].ToString();
+        CustomersByAccount.FindItemByText(row["username"].ToString()).Selected = true;
         CustomersByEmail.FindItemByText(email).Selected = true;
         State["ServerAdminCustomerID"] = customer_id;
         Util util = new Util();
-        RegisteredDateTime.Text = "Registered: " + row["registration_date_time"].ToString();
+        RegisteredDateTime.Text = "Signed Up: " + row["registration_date_time"].ToString();
         LastUsedDateTime.Text = "Last used: " + row["last_use_date_time"].ToString();
 
-        string expiration_date = row["expiration_date"].ToString();
-        if (expiration_date != null && expiration_date.Length > 0)
-        {
-            ExpirationDateMode.SelectedIndex = 1;
-            DateTime expires = DateTime.Parse(expiration_date);
-            this.ExpirationDate.Text = expires.ToString("d");
-        }
-        else ExpirationDateMode.SelectedIndex = 0;
-
         Password.Text = util.DecodeMySql(row["password"].ToString());
-         CustomerStatus.Text = row["status"].ToString();
+        AccountTypes.Text = util.DecodeMySql(row["account_type"].ToString().Replace("type=","").Replace(";",""));
+        CustomerStatus.Text = row["status"].ToString();
         if (row["email"] != null && row["email"].ToString().Length > 0)
         {
             util.AddEmailToButton(EmailCustomer, row["email"].ToString(), "Customer Email");
@@ -137,13 +132,14 @@ public partial class Admin : System.Web.UI.Page
         ClearMessages();
         HideForCustomers();
 
+        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         if (e.Text.IndexOf("->") > 0)
         {
+            CustomersByAccount.Items[0].Selected = true;
             AdminMessage.Text = "Select a customer and try again.";
             return;
         }
-        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
-
+ 
         State["ServerAdminCustomerUsername"] = e.Text;
         string sql = "SELECT * FROM customers WHERE email='" + e.Text + "'";
         DB db = new DB();
@@ -151,21 +147,14 @@ public partial class Admin : System.Web.UI.Page
         DataRow row = rows[0];
         string username = row["username"].ToString();
         CustomersByAccount.FindItemByText(username).Selected = true;
+        CustomersByEmail.FindItemByText(row["email"].ToString()).Selected = true;
         string customer_id = row["customer_id"].ToString();
         State["ServerAdminCustomerID"] = customer_id;
         Util util = new Util();
         RegisteredDateTime.Text = "Registered: " + row["registration_date_time"].ToString();
         LastUsedDateTime.Text = "Last used: " + row["last_use_date_time"].ToString();
 
-        string expiration_date = row["expiration_date"].ToString();
-        if (expiration_date != null && expiration_date.Length > 0)
-        {
-            ExpirationDateMode.SelectedIndex = 1;
-            DateTime expires = DateTime.Parse(expiration_date);
-            this.ExpirationDate.Text = expires.ToString("d");
-        }
-        else ExpirationDateMode.SelectedIndex = 0;
-
+        AccountTypes.Text = util.DecodeMySql(row["account_type"].ToString().Replace("type=", "").Replace(";", ""));
         Password.Text = util.DecodeMySql(row["password"].ToString());
         CustomerStatus.Text = row["status"].ToString();
         if (row["email"] != null && row["email"].ToString().Length > 0)
@@ -175,6 +164,7 @@ public partial class Admin : System.Web.UI.Page
 
         sql = "SELECT application_name FROM applications WHERE customer_id='" + customer_id + "' ORDER BY application_name";
         rows = db.ViziAppsExecuteSql(State, sql);
+
         Applications.Items.Clear();
         foreach (DataRow row1 in rows)
         {
@@ -191,56 +181,16 @@ public partial class Admin : System.Web.UI.Page
 
     protected void ShowForCustomers()
     {
-        LoginToUserbyAccount.Visible = true;
-        ViewUserProfile.Visible = true;
-        RegisteredDateTime.Visible = true;
-        LastUsedDateTime.Visible = true;
-        PasswordLabel.Visible = true;
-        Password.Visible = true;
-        UpdatePassword.Visible = true;
-        PasswordMessage.Visible = true;
-
-        ExpirationDateMode.Visible = true;
-        if (ExpirationDateMode.SelectedIndex == 1)
-        {
-            ExpirationDate.Visible = true;
-            UpdateExpirationDate.Visible = true;
-            ExpirationMessage.Visible = true;
-        }
- 
-        DeactivateCustomer.Visible = true;
-        RemoveCustomer.Visible = true;
-        EmailCustomer.Visible = true;
-        ActivateCustomer.Visible = true;
-        ApplicationLabel.Visible = true;
-        Applications.Visible = true;
-        CustomerStatus.Visible = true;
-        CustomerStatusLabel.Visible = true;
+       AccountPanel.Style.Value = "display:block";
+       LoginPanel.Style.Value = "display:block";
+       AppPanel.Style.Value = "display:block";
     }
     protected void HideForCustomers()
     {
-        LoginToUserbyAccount.Visible = false;
-        ViewUserProfile.Visible = false;
-        RegisteredDateTime.Visible = false;
-        LastUsedDateTime.Visible = false;
-        PasswordLabel.Visible = false;
-        Password.Visible = false;
-        UpdatePassword.Visible = false;
-        PasswordMessage.Visible = false;
-        ExpirationDateMode.Visible = false;
-        ExpirationDate.Visible = false;
-        UpdateExpirationDate.Visible = false;
-        ExpirationMessage.Visible = false; ;
- 
-        DeactivateCustomer.Visible = false;
-        RemoveCustomer.Visible = false;
-        EmailCustomer.Visible = false;
-        ActivateCustomer.Visible = false;
-        ApplicationLabel.Visible = false;
-        Applications.Visible = false;
-        CustomerStatus.Visible = false;
-        CustomerStatusLabel.Visible = false;
-        HideForApplications();
+       AccountPanel.Style.Value = "display:none";
+       LoginPanel.Style.Value = "display:none";
+       AppPanel.Style.Value = "display:none";
+       OneAppPanel.Style.Value = "display:none";
     }
     protected void DeactivateCustomer_Click(object sender, EventArgs e)
     {
@@ -260,7 +210,7 @@ public partial class Admin : System.Web.UI.Page
         if (status == "admin")
         {
             db.CloseViziAppsDatabase(State);
-            ActivationMessage.Text = "Admin Customer can not be deactivated.";
+            AdminMessage.Text = "Admin Customer can not be deactivated.";
         }
 
         else
@@ -269,7 +219,7 @@ public partial class Admin : System.Web.UI.Page
             db.ViziAppsExecuteNonQuery(State, sql);
             db.CloseViziAppsDatabase(State);
             CustomerStatus.Text = "inactive";
-            ActivationMessage.Text = "Customer has been deactivated.";
+            AdminMessage.Text = "Customer has been deactivated.";
 
         }
     }
@@ -291,7 +241,7 @@ public partial class Admin : System.Web.UI.Page
         if (status == "admin")
         {
             db.CloseViziAppsDatabase(State);
-            ActivationMessage.Text = "Status of Admin Customer can not be changed.";
+            AdminMessage.Text = "Status of Admin Customer can not be changed.";
         }
         else
         {
@@ -299,7 +249,7 @@ public partial class Admin : System.Web.UI.Page
             db.ViziAppsExecuteNonQuery(State, sql);
             db.CloseViziAppsDatabase(State);
             CustomerStatus.Text = "active";
-            ActivationMessage.Text = "Customer has been activated.";
+            AdminMessage.Text = "Customer has been activated.";
         }
     }
 
@@ -323,12 +273,12 @@ public partial class Admin : System.Web.UI.Page
 
         if (status != "inactive")
         {
-            ActivationMessage.Text = "Customer can only be removed after it has been deactivated.";
+            AdminMessage.Text = "Customer can only be removed after it has been deactivated.";
         }
         else
         {
             DoRemoveCustomer(username, customer_id);
-            ActivationMessage.Text = "Customer has been removed.";
+            AdminMessage.Text = "Customer has been removed.";
 
             HideForCustomers();
 
@@ -338,6 +288,8 @@ public partial class Admin : System.Web.UI.Page
         }
 
         db.CloseViziAppsDatabase(State);
+        CustomersByAccount.Items[0].Selected = true;
+        CustomersByEmail.Items[0].Selected = true; 
         HideForApplications();
     }
     private void DoRemoveCustomer(string username, string customer_id)
@@ -373,7 +325,7 @@ public partial class Admin : System.Web.UI.Page
         db.ViziAppsExecuteNonQuery(State, sql);
 
         db.CloseViziAppsDatabase(State);
-        CustomersByAccount.SelectedIndex = 0;
+       
     }
     protected void Applications_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
     {
@@ -407,18 +359,13 @@ public partial class Admin : System.Web.UI.Page
 
     protected void ShowForApplications()
     {
-        ApplicationStatus.Visible = true;
-        ApplicationStatusLabel.Visible = true;
-        ShowXmlDesign.Visible = true;
+        OneAppPanel.Style.Value = "display:block";
     }
     protected void HideForApplications()
     {
-        ApplicationStatus.Visible = false;
-        ApplicationStatusLabel.Visible = false;
-        ShowXmlDesign.Visible = false;
-     }
+        OneAppPanel.Style.Value = "display:none";
+    }
 
- 
     private bool DatabaseExists(string server, string database_name, string database_user, string database_password)
     {
         try
@@ -456,11 +403,8 @@ public partial class Admin : System.Web.UI.Page
     private void ClearMessages()
     {
         Message.Text = "";
-        ActivationMessage.Text = "";
         AdminMessage.Text = "";
-        PasswordMessage.Text = "";
-        ExpirationMessage.Text = "";
-    }
+     }
 
     protected void UpdatePassword_Click(object sender, EventArgs e)
     {
@@ -468,56 +412,16 @@ public partial class Admin : System.Web.UI.Page
         Util util = new Util();
         if (Password.Text.Length < 6)
         {
-            PasswordMessage.Text = "Passwords must 6 characters or more.";
+            AdminMessage.Text = "Passwords must 6 characters or more.";
             return;
         }
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         string sql = "UPDATE customers SET password='" + util.MySqlFilter(Password.Text) + "' WHERE customer_id='" + State["ServerAdminCustomerID"].ToString() + "'";
         db.ViziAppsExecuteNonQuery(State, sql);
         db.CloseViziAppsDatabase(State);
-        PasswordMessage.Text = "Password has been set.";
+        AdminMessage.Text = "Password has been set.";
     }
-    protected void ExpirationDateMode_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        if (ExpirationDateMode.SelectedIndex == 1)
-        {
-            ExpirationDate.Visible = true;
-            UpdateExpirationDate.Visible = true;
-        }
-        else
-        {
-            Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
-            string sql = "UPDATE customers SET expiration_date=NULL WHERE customer_id='" + State["ServerAdminCustomerID"].ToString() + "'";
-            DB db = new DB();
-            db.ViziAppsExecuteNonQuery(State, sql);
-            db.CloseViziAppsDatabase(State);
-            ExpirationMessage.Text = "Customer account has been set to never expire.";
-            ExpirationDate.Visible = false;
-            UpdateExpirationDate.Visible = false;
-        }
-    }
-    protected void UpdateExpirationDate_Click(object sender, EventArgs e)
-    {
-        DB db = new DB();
-
-        if (!Check.ValidateDateTime(ExpirationMessage, ExpirationDate.Text))
-        {
-            ExpirationMessage.Text = "Expiration date is not valid. " + ExpirationMessage.Text;
-            return;
-        }
-        DateTime expires = DateTime.Parse(ExpirationDate.Text);
-        if (expires <= DateTime.Now.ToUniversalTime())
-        {
-            ExpirationMessage.Text = "Expiration date must be in the future.";
-            return;
-        }
-        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
-        string sql = "UPDATE customers SET expiration_date='" + expires.ToString("s").Replace("T", " ") + "' WHERE customer_id='" + State["ServerAdminCustomerID"].ToString() + "'";
-        db.ViziAppsExecuteNonQuery(State, sql);
-        db.CloseViziAppsDatabase(State);
-        ExpirationMessage.Text = "Expiration date has been set.";
-    }
-    protected void LogoutButton_Click(object sender, ImageClickEventArgs e)
+     protected void LogoutButton_Click(object sender, ImageClickEventArgs e)
     {
         Session.Abandon();
         Response.Redirect("Default.aspx", false);
@@ -568,7 +472,7 @@ public partial class Admin : System.Web.UI.Page
 
         }
         db.CloseViziAppsDatabase(State);
-        AdminMessage.Text = "Image URLs have been updated in the database."; 
+        Message.Text = "Image URLs have been updated in the database."; 
     }
     protected void EmailUpgradeNotice_Click(object sender, EventArgs e)
     {
@@ -591,6 +495,20 @@ public partial class Admin : System.Web.UI.Page
         }
         db.CloseViziAppsDatabase(State);
         Message.Text = "Maintenance notice has been emailed to " + UsersList.Keys.Count.ToString() + " current users";
-    }  
-    
+    }
+    protected void UpdateAccountTypes_Click(object sender, EventArgs e)
+    {
+        DB db = new DB();
+        Util util = new Util();
+        if (AccountTypes.Text.Length == 0)
+        {
+            AdminMessage.Text = "Account Types cannot be empty.";
+            return;
+        }
+        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
+        string sql = "UPDATE customers SET account_type='type=" + util.MySqlFilter(AccountTypes.Text.Trim()) + ";' WHERE customer_id='" + State["ServerAdminCustomerID"].ToString() + "'";
+        db.ViziAppsExecuteNonQuery(State, sql);
+        db.CloseViziAppsDatabase(State);
+        AdminMessage.Text = "Account Types have been set";
+    }
 }

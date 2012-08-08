@@ -146,20 +146,9 @@
                         style=" text-align:left;  color: #006699; height: 33px; width:300px; background-color:#ffffff;padding-top:5px;padding-left:5px;"><table  style=" text-align:left;"><tr><td>
                         <img alt="" src="images/video_icon.png" height="28" width="28" /></td><td></td><td>ViziApps Videos</td></tr></table></div>
                 <div style="background-color:#ffffff;vertical-align:top; text-align:left;width:300px;font-family:Verdana;font-size:14px;color: #006699;">               
-                <p style="margin:10px;"><a style=" text-decoration:none" href="http://www.youtube.com/embed/0ps0dsBMOa4?autoplay=1">Create Mobile Business Apps. No Coding.</a> 1:35 min</p>
+                <p style="margin:10px;"><a style=" text-decoration:none" href="http://www.youtube.com/user/ViziApps">Click here to see all of our tutorial videos for ViziApps Studio on our YouTube Channel.</a></p>
                 <hr style=" line-height:1px; margin:0 10px 0 10px;color:#eeeeff; "/>
-                <p style="margin:10px;"><a style=" text-decoration:none" href="http://www.youtube.com/embed/-NiPtpWnkaI?autoplay=1">ViziApps App Creation Studio Overview</a> 1:49 min</p>
-                <hr style=" line-height:1px; margin:0 10px 0 10px;color:#eeeeff; "/>
-                 <p style="margin:10px;"><a style=" text-decoration:none" href="http://www.youtube.com/embed/U5Mb_7leAu8?autoplay=1">ViziApps Quick Start</a> 1:40 min</p>
-                 <hr style=" line-height:1px; margin:0 10px 0 10px;color:#eeeeff; "/>
-                <p style="margin:10px;"><a style=" text-decoration:none" href="http://www.youtube.com/embed/Wwt5PTFpONM?autoplay=1">ViziApps Studio Tutorial on Creating the Mobile App Layout Design</a>  1:37 min</p>   
-                <hr style=" line-height:1px; margin:0 10px 0 10px;color:#eeeeff; "/>           
-                <p style="margin:10px;"><a style=" text-decoration:none" href="http://www.youtube.com/embed/AKJ_khalN-A?autoplay=1">ViziApps Studio Form and Button Fields</a> 4:51 min</p>
-                <hr style=" line-height:1px; margin:0 10px 0 10px;color:#eeeeff; "/>
-                <p style="margin:10px;"><a style=" text-decoration:none" href="http://www.youtube.com/embed/REqLchtBKcU?autoplay=1">ViziApps Tutorial on Designing Alerts, Web Views, Audio and Video For Mobile Apps</a> 2:29 min</p>
-                <hr style=" line-height:1px; margin:0 10px 0 10px;color:#eeeeff; "/>
-                <p style="margin:10px;"><a style=" text-decoration:none" href="http://www.youtube.com/embed/yRDSO1Lri0o?autoplay=1">ViziApps Tutorial on Designing Tables For Mobile Apps</a>  1:52 min</p>  
-                <div style="height:10px"></div>             
+                                <div style="height:10px"></div>             
                 </div>
                 </td>
                 <td style="vertical-align:top" bgcolor="Silver">

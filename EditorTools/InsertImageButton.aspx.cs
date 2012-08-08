@@ -56,13 +56,11 @@ public partial class InsertImageButton : System.Web.UI.Page
                 State["SelectedDeviceType"].ToString() == Constants.ANDROID_TABLET)
                 actions.Items.Add(new RadComboBoxItem("Capture a signature", "capture_signature"));
 
-            //if (x_util.DoesAppHaveMobileCommerce(State, State["SelectedApp"].ToString()))
-            // {
+            
             actions.Items.Add(new RadComboBoxItem("Login to mobile commerce", "login_to_mcommerce"));
             actions.Items.Add(new RadComboBoxItem("Initialize card swiper for charge", "init_card_swiper"));
             actions.Items.Add(new RadComboBoxItem("Manually charge credit card", "manual_card_charge"));
             actions.Items.Add(new RadComboBoxItem("Void credit card charge", "void_charge"));
-            // }
 
             if (State["AccountType"].ToString().Contains("kofax"))
             {
@@ -70,6 +68,11 @@ public partial class InsertImageButton : System.Web.UI.Page
                 actions.Items.Add(new RadComboBoxItem("Capture and Process documents from photos", "capture_process_document"));
                 actions.Items.Add(new RadComboBoxItem("Manage document case", "manage_document_case"));
             }
+            if (State["AccountType"].ToString().Contains("intuit"))
+            {
+                actions.Items.Add(new RadComboBoxItem("Pay with Intuit GoPayment App", "call_intuit_gopayment"));
+            }
+
         }
         else if (State["SelectedAppType"].ToString() == Constants.HYBRID_APP_TYPE)
         {

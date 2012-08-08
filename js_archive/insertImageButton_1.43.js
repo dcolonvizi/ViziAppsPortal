@@ -24,6 +24,7 @@
                 case 'init_card_swiper':
                 case 'manual_card_charge':
                 case 'void_charge':
+                case 'call_intuit_gopayment':
                 case 'capture_process_document':
                 case 'manage_document_case':
                     view_name = sender.get_value() + '_view';
@@ -130,7 +131,10 @@
             if (validations != null && validations.indexOf('-') >= 0) {
                 $('#' + prop_id).before('<div id="' + div_id + '"><table style="width: 600px"><tr><td align="left" valign="top" style="width:180px" >' + param + '</td><td valign="top"><input class="param" type="text" id="' + id + '" size="30" /></td><td>[' + validations + ']</td><td style="width:20px"><img id="' + delete_id + '" alt="delete" src="../images/delete_small.gif"  /></td></tr></table></div>');
             }
-            else if (validations != null && validations != param && validations != 'NAME' && validations != 'URL') {
+            else if (validations != null && validations.indexOf('TEXTAREA') >= 0) {
+                $('#' + prop_id).before('<div id="' + div_id + '"><table style="width: 600px"><tr><td align="left" valign="top" style="width:180px" >' + param + '</td><td valign="top"><textarea class="param" rows="4" cols="50" id="' + id + '" size="30" ></textarea></td><td style="width:20px"><img id="' + delete_id + '" alt="delete" src="../images/delete_small.gif"  /></td></tr></table></div>');
+            }
+            else if (validations != null && validations != param && (validations.indexOf('NAME') < 0) && validations != 'URL') {
                 var options = '<option>select -&gt;</option>';
                 var validation_list = validations.split(',');
                 for (var i = 0; i < validation_list.length; i++) {
@@ -145,7 +149,9 @@
             $('#' + id).change(function (event) {
                 if (validations != null && validations != param) {
                     var match_found = false;
-                    if (validations == 'NAME') {
+                    if (validations.indexOf('TEXTAREA') >= 0) {
+                    }
+                    else if (validations.indexOf('NAME') >= 0) {
                         this.value = this.value.replaceAll(' ', '_');
                         if (!IsValidObjectName(this.value)) {
                             alert('entry can only contain either a letter, number, "_" and be 1 to 100 characters long');
@@ -477,6 +483,23 @@
                             }
                             $('#addVoidPropertyDiv').css('display', 'block');
                             break;
+                        case 'call_intuit_gopayment':
+                            setComboValue(actions, 'call_intuit_gopayment');
+                            var sub_parts = parts[1].split(',');
+                            for (var j = 0; j < sub_parts.length; j++) {
+                                var share_parts = sub_parts[j].split('~');
+                                switch (share_parts[0]) {
+                                    case 'amount_field':
+                                        var intuit_gopayment_amount_field = document.getElementById("intuit_gopayment_amount_field");
+                                        intuit_gopayment_amount_field.value = share_parts[1];
+                                        break;
+                                    case 'gopayment_response_field':
+                                        var intuit_gopayment_response_field = document.getElementById("intuit_gopayment_response_field");
+                                        intuit_gopayment_response_field.value = share_parts[1];
+                                        break;
+                                }
+                            }
+                            break;   
                         case 'capture_process_document':
                             setComboValue(actions, 'capture_process_document');
                             var sub_parts = parts[1].split(',');
@@ -494,8 +517,14 @@
                             for (var j = 0; j < sub_parts.length; j++) {
                                 var share_parts = sub_parts[j].split('~');
                                 var param = share_parts[0].substring(0, 1).toUpperCase() + share_parts[0].substring(1).replaceAll("_", " ");
-                                addProperty('addManageDocumentCasePropertyDiv', param,null);
-                                $('#' + share_parts[0]).attr('value', share_parts[1].replaceAll('%3A', ':'));
+                                if (param == 'About box text') {
+                                    addProperty('addManageDocumentCasePropertyDiv', param, 'TEXTAREA');
+                                    $('#' + share_parts[0]).attr('value', unescape(share_parts[1]));
+                                }
+                                else {
+                                    addProperty('addManageDocumentCasePropertyDiv', param, null);
+                                    $('#' + share_parts[0]).attr('value', share_parts[1].replaceAll('%3A', ':'));
+                                }
                             }
                             $('#addManageDocumentCasePropertyDiv').css('display', 'block');
                             break;
@@ -733,6 +762,28 @@
                     return;
                 ArgList[2] += ';';
             }
+            else if (view == 'call_intuit_gopayment_view') {
+                var intuit_gopayment_amount_field = document.getElementById("intuit_gopayment_amount_field");
+                if (intuit_gopayment_amount_field.value.length == 0) {
+                    alert('The name of the amount field must be set.');
+                    return;
+                }
+                if (!IsValidObjectName(intuit_gopayment_amount_field.value)) {
+                    alert('Amount field can only contain either a letter, number or "_" and be 1 to 100 characters long');
+                    return;
+                }
+                var intuit_gopayment_response_field = document.getElementById("intuit_gopayment_response_field");
+                if (intuit_gopayment_response_field.value.length == 0) {
+                    alert('The name of the response field must be set.');
+                    return;
+                }
+                if (!IsValidObjectName(intuit_gopayment_response_field.value)) {
+                    alert('Response field can only contain either a letter, number or "_" and be 1 to 100 characters long');
+                    return;
+                }
+                ArgList[2] = 'call_intuit_gopayment:amount_field~' + intuit_gopayment_amount_field.value.replaceAll(" ", "_") +
+                             ',gopayment_response_field~' + intuit_gopayment_response_field.value.replaceAll(" ", "_") + ';';
+            }
             else if (view == 'capture_process_document_view') {
                 ArgList[2] = 'capture_process_document:';
                 error = false;
@@ -761,7 +812,10 @@
                     }
                     if (index > 0)
                         ArgList[2] += ',';
-                    ArgList[2] += element.id + '~' + element.value.replaceAll(':', '%3A');
+                    if (element.value.indexOf('<') >= 0 || element.value.indexOf('\n') >= 0)
+                        ArgList[2] += element.id + '~' + escape(element.value);
+                    else
+                        ArgList[2] += element.id + '~' + element.value.replaceAll(':', '%3A');
                 });
                 if (error)
                     return;

@@ -137,7 +137,7 @@
            <telerik:AjaxSetting AjaxControlID="Undo">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="DeviceMultiPage"/>       
-                    <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                    <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                     <telerik:AjaxUpdatedControl ControlID="CanvasFrame"/>   
                     <telerik:AjaxUpdatedControl ControlID="RadScriptBlock1"/>                          
                      <telerik:AjaxUpdatedControl ControlID="AppTip1"/>                         
@@ -237,7 +237,7 @@
                      <telerik:AjaxUpdatedControl ControlID="PageTip5"/>                         
                      <telerik:AjaxUpdatedControl ControlID="PageTip6"/>                         
                      <telerik:AjaxUpdatedControl ControlID="PageTip7"/>    
-                     <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                     <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                      <telerik:AjaxUpdatedControl ControlID="SelectForTest" />   
                      <telerik:AjaxUpdatedControl ControlID="AppSelectedForTest" />   
                      <telerik:AjaxUpdatedControl ControlID="AppProperties"/>  
@@ -252,7 +252,7 @@
                        <telerik:AjaxUpdatedControl ControlID="ViewForDevice"/>                             
                         <telerik:AjaxUpdatedControl ControlID="DeviceMultiPage"/> 
                        <telerik:AjaxUpdatedControl ControlID="AppProperties"/>        
-                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                     <telerik:AjaxUpdatedControl ControlID="EditorTools"/>
                          <telerik:AjaxUpdatedControl ControlID="CanvasFrame"/>   
                        <telerik:AjaxUpdatedControl ControlID="RadScriptBlock1"/>                         
@@ -292,7 +292,7 @@
                     <telerik:AjaxUpdatedControl ControlID="DefaultButtonImage"/>    
                       <telerik:AjaxUpdatedControl ControlID="AppName" />   
                       <telerik:AjaxUpdatedControl ControlID="AllAppNames" /> 
-                     <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                     <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                      <telerik:AjaxUpdatedControl ControlID="SelectForTest" />   
                       <telerik:AjaxUpdatedControl ControlID="AppSelectedForTest" />   
                       <telerik:AjaxUpdatedControl ControlID="AppProperties"/>  
@@ -333,7 +333,7 @@
                          <telerik:AjaxUpdatedControl ControlID="DesignedFor" />  
                          <telerik:AjaxUpdatedControl ControlID="AppName" />   
                   <telerik:AjaxUpdatedControl ControlID="AllAppNames" />        
-                    <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                    <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                      <telerik:AjaxUpdatedControl ControlID="SelectForTest" />   
                       <telerik:AjaxUpdatedControl ControlID="AppSelectedForTest" />   
                         <telerik:AjaxUpdatedControl ControlID="SavedCanvasHtml"/>   
@@ -371,7 +371,7 @@
                          <telerik:AjaxUpdatedControl ControlID="PageName" />  
                          <telerik:AjaxUpdatedControl ControlID="AppName" />                    
                       <telerik:AjaxUpdatedControl ControlID="AllAppNames" /> 
-                   <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                   <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                      <telerik:AjaxUpdatedControl ControlID="SelectForTest" />   
                       <telerik:AjaxUpdatedControl ControlID="AppSelectedForTest" />   
                        <telerik:AjaxUpdatedControl ControlID="SavedCanvasHtml"/>   
@@ -383,7 +383,7 @@
                        <telerik:AjaxUpdatedControl ControlID="CurrentApp" />                       
                      <telerik:AjaxUpdatedControl ControlID="Message"/>                  
                    <telerik:AjaxUpdatedControl ControlID="PagePanel" />                          
-                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                         <telerik:AjaxUpdatedControl ControlID="DeviceMultiPage"/>      
                        <telerik:AjaxUpdatedControl ControlID="AppProperties"/>  
                          <telerik:AjaxUpdatedControl ControlID="CanvasFrame"/>   
@@ -442,7 +442,7 @@
                          <telerik:AjaxUpdatedControl ControlID="PageName" />  
                          <telerik:AjaxUpdatedControl ControlID="AppName" />          
                       <telerik:AjaxUpdatedControl ControlID="AllAppNames" /> 
-                    <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                    <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                      <telerik:AjaxUpdatedControl ControlID="SelectForTest" />   
                       <telerik:AjaxUpdatedControl ControlID="AppSelectedForTest" />   
                          <telerik:AjaxUpdatedControl ControlID="SavedCanvasHtml"/>   
@@ -478,7 +478,7 @@
                          <telerik:AjaxUpdatedControl ControlID="PageName" />  
                          <telerik:AjaxUpdatedControl ControlID="AppName" />          
                       <telerik:AjaxUpdatedControl ControlID="AllAppNames" /> 
-                    <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                    <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                      <telerik:AjaxUpdatedControl ControlID="SelectForTest" />   
                       <telerik:AjaxUpdatedControl ControlID="AppSelectedForTest" />   
                          <telerik:AjaxUpdatedControl ControlID="SavedCanvasHtml"/>   
@@ -493,7 +493,7 @@
                          <telerik:AjaxUpdatedControl ControlID="CanvasFrame"/>   
                        <telerik:AjaxUpdatedControl ControlID="RadScriptBlock1"/>  
                        <telerik:AjaxUpdatedControl ControlID="Background"/>                                                    
-                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                       <telerik:AjaxUpdatedControl ControlID="Message" />
         </UpdatedControls>
             </telerik:AjaxSetting>             
@@ -533,7 +533,7 @@
           <telerik:AjaxSetting AjaxControlID="DuplicatePagePost">
                 <UpdatedControls>
                         <telerik:AjaxUpdatedControl ControlID="DeviceMultiPage"/> 
-                         <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>           
+                         <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>           
                          <telerik:AjaxUpdatedControl ControlID="CanvasFrame"/>                                                
                          <telerik:AjaxUpdatedControl ControlID="AppPages"/>      
                           <telerik:AjaxUpdatedControl ControlID="PageName"/>               
@@ -606,7 +606,7 @@
              <telerik:AjaxSetting AjaxControlID="RenamePagePost">
                 <UpdatedControls>                          
                           <telerik:AjaxUpdatedControl ControlID="DeviceMultiPage"/>       
-                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                          <telerik:AjaxUpdatedControl ControlID="CanvasFrame"/>   
                      <telerik:AjaxUpdatedControl ControlID="RadScriptBlock1"/>                          
                          <telerik:AjaxUpdatedControl ControlID="AppPages"/>      
@@ -630,7 +630,7 @@
              <telerik:AjaxSetting AjaxControlID="NextPage">
                 <UpdatedControls>                         
                           <telerik:AjaxUpdatedControl ControlID="DeviceMultiPage"/>       
-                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                           <telerik:AjaxUpdatedControl ControlID="CanvasFrame"/>   
                     <telerik:AjaxUpdatedControl ControlID="RadScriptBlock1"/>                          
                          <telerik:AjaxUpdatedControl ControlID="AppPages"/>                                                       
@@ -653,7 +653,7 @@
              <telerik:AjaxSetting AjaxControlID="PreviousAppPage">
                 <UpdatedControls>                         
                           <telerik:AjaxUpdatedControl ControlID="DeviceMultiPage"/>       
-                       <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                       <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                          <telerik:AjaxUpdatedControl ControlID="CanvasFrame"/>   
                     <telerik:AjaxUpdatedControl ControlID="RadScriptBlock1"/>                          
                          <telerik:AjaxUpdatedControl ControlID="AppPages"/>                                                       
@@ -692,7 +692,7 @@
                      <telerik:AjaxUpdatedControl ControlID="PageTip5"/>                         
                       <telerik:AjaxUpdatedControl ControlID="PageTip6"/>                         
                      <telerik:AjaxUpdatedControl ControlID="PageTip7"/>                         
-                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                          <telerik:AjaxUpdatedControl ControlID="SavedCanvasHtml"/>   
                       <telerik:AjaxUpdatedControl ControlID="Message" />
           </UpdatedControls>
@@ -716,7 +716,7 @@
                      <telerik:AjaxUpdatedControl ControlID="PageTip5"/>                         
                         <telerik:AjaxUpdatedControl ControlID="PageTip6"/>                         
                      <telerik:AjaxUpdatedControl ControlID="PageTip7"/>                         
-                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                            <telerik:AjaxUpdatedControl ControlID="SavedCanvasHtml"/>   
                       <telerik:AjaxUpdatedControl ControlID="Message" />
      </UpdatedControls>
@@ -725,7 +725,7 @@
              <telerik:AjaxSetting AjaxControlID="DeletePage">
                 <UpdatedControls>
                    <telerik:AjaxUpdatedControl ControlID="PagePanel" />                          
-                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                           <telerik:AjaxUpdatedControl ControlID="DeviceMultiPage"/>       
                           <telerik:AjaxUpdatedControl ControlID="CanvasFrame"/>   
                    <telerik:AjaxUpdatedControl ControlID="RadScriptBlock1"/>                         
@@ -750,7 +750,7 @@
             <telerik:AjaxSetting AjaxControlID="AppPages">
                 <UpdatedControls>
                           <telerik:AjaxUpdatedControl ControlID="DeviceMultiPage"/>       
-                       <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                       <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                         <telerik:AjaxUpdatedControl ControlID="CanvasFrame"/>   
                      <telerik:AjaxUpdatedControl ControlID="RadScriptBlock1"/>     
                         <telerik:AjaxUpdatedControl ControlID="PageName"/>                     
@@ -776,7 +776,7 @@
                 <UpdatedControls>
                    <telerik:AjaxUpdatedControl ControlID="PagePanel" />                          
                           <telerik:AjaxUpdatedControl ControlID="DeviceMultiPage"/>       
-                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel" LoadingPanelID="ConfigureLoadingPanel"/>     
+                      <telerik:AjaxUpdatedControl ControlID="storyBoardPanel"/>     
                          <telerik:AjaxUpdatedControl ControlID="CanvasFrame"/>   
                      <telerik:AjaxUpdatedControl ControlID="RadScriptBlock1"/>     
                         <telerik:AjaxUpdatedControl ControlID="PageName"/>                     

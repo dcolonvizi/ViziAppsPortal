@@ -197,7 +197,7 @@
          <script type="text/javascript" src="../jquery/js/jquery-1.5.1.min.js"></script>
          <script  language="javascript" type="text/javascript" src="../scripts/default_script_1.6.js"></script>
          <script  language="javascript" type="text/javascript" src="../scripts/font_1.6.min.js"></script>
-         <script  language="javascript" type="text/javascript" src="js/insertImageButton_1.40.min.js"></script>
+         <script  language="javascript" type="text/javascript" src="js/insertImageButton_1.43.min.js"></script>
 </head>
 <body>
     <form id="imageform" runat="server">
@@ -673,6 +673,24 @@
         </tr></table></div>
                  
             </telerik:RadPageView>-->
+            <telerik:RadPageView ID="call_intuit_gopayment_view" runat="server" 
+                Height="35px">                
+                <div style="height:35px;">
+                    <table style="width: 770px">
+                        <tr>
+                            <td class="style103">
+                                Amount field name:</td>
+                            <td class="style38">
+                                <input type="text" id="intuit_gopayment_amount_field" size="30"/></td>
+                            <td align="right" class="style106">
+                                GoPayment response field name:</td>
+                            <td>
+                                <input type="text" id="intuit_gopayment_response_field" size="30" class="mcommerce"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </telerik:RadPageView>
              <telerik:RadPageView ID="capture_process_document_view" runat="server">
                 <div id="addCaptureProcessDocumentPropertyDiv">
                    <table style="width: 400px; height: 30px;">
@@ -682,17 +700,19 @@
                                    style="width: 173px; font-size:12px">
                                   <option>Add a property -&gt;</option>
                                    <option value="NAME">Name of field containing image processing string</option>
-                                   <option value="true,false">Auto process image</option>
                                    <option value="true,false">Show image quality feedback</option>
+                                   <option value="true,false">Auto process image</option>
                                    <option value="true,false">Use stability feature</option>
                                    <option value="0-100">Stability sensitivity </option>
                                    <option value="true,false">Do review image</option>
-                                   <option value="true,false">Do process only</option>
                                    <option value="camera,photo_album">Document image source</option>
                                    <option value="NAME">Name of field containing photo file paths</option>
+                                   <option value="NAME">Name of field containing last photo image</option>
                                    <option value="NAME">Name of field containing processed image file paths</option>
+                                   <option value="NAME">Name of field containing last processed image</option>
                                    <option value="true,false">Show capture and process settings</option>
-                               </select> </td>
+                               </select>
+                               </td>
                            <td class="style100" valign="top">
                                &nbsp;</td>
                        </tr>
@@ -708,17 +728,22 @@
                                <select name="D2" onchange="addPropertySelected(this,'addManageDocumentCasePropertyDiv');" 
                                    style="width: 173px; font-size:12px">
                                    <option>Add a property -&gt;</option>
-                                   <option value="kofax, user_defined_cases_kofax_submission, user_defined_cases_user_defined_submission">Data flow type</option>
+                                   <option value="kofax, user_defined_cases_user_defined_submission">Data flow type</option>
                                    <option value="NAME">Name of field containing case definition</option>
-                                   <option value="NAME">Name of field containing case data</option>
+                                   <option value="NAME">Name of field containing last case data</option>
                                    <option value="URL">Case management logo url</option>
-                                   <option>About box text</option>
-                                   <option value="NAME">Name of field containing email body template</option>
-                                   <option value="true,false">Show settings screen</option>
+                                   <option value="TEXTAREA">About box text</option>
+                                   <option value="NAME">Name of field containing email body</option>
+                                    <option value="true,false">Show settings screen</option>
                                    <option>Replacement for case label name </option>
                                    <option value="NAME">Name of field containing do capture and process images</option>
                                    <option value="NAME">Name of field containing case management server url</option>
-                               </select> </td>
+                                  <option value="NAME">Name of field containing photo file paths</option>
+                                   <option value="NAME">Name of field containing last photo image</option>
+                                   <option value="NAME">Name of field containing processed image file paths</option>
+                                   <option value="NAME">Name of field containing last processed image</option>
+                               </select> 
+                               </td>
                            <td class="style100" valign="top">
                                &nbsp;</td>
                        </tr>

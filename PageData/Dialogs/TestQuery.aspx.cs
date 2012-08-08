@@ -362,7 +362,7 @@ public partial class PageData_Dialogs_TestQuery : System.Web.UI.Page
 
                 Hashtable TestWhereValueMap = (Hashtable) State["TestWhereValueMap"] ;
                 HtmlInputText test_input = (HtmlInputText)TestWhereValueMap[k];
-                string condition_2nd_field = test_input.Value;
+                string condition_2nd_field = removeQuotes(test_input.Value);
                 sb_conditions.Append("\"" + condition_2nd_field + "\"");
                 k++;
 	        }
@@ -387,7 +387,7 @@ public partial class PageData_Dialogs_TestQuery : System.Web.UI.Page
 	        {
                 Hashtable TestInputValueMap = (Hashtable)State["TestInputValueMap"];
                 HtmlInputText test_input = (HtmlInputText)TestInputValueMap[FieldEntry["database_field"].ToString()];
-                string device_field = test_input.Value;
+                string device_field =  removeQuotes(test_input.Value);
                 if (device_field.Length == 0)
                     continue;
                 has_inputs = true;
@@ -409,7 +409,7 @@ public partial class PageData_Dialogs_TestQuery : System.Web.UI.Page
 	        {
                 Hashtable TestInputValueMap = (Hashtable)State["TestInputValueMap"];
                 HtmlInputText test_input = (HtmlInputText)TestInputValueMap[FieldEntry["database_field"].ToString()];
-                string device_field = test_input.Value;
+                string device_field =  removeQuotes(test_input.Value);
                 if (device_field.Length == 0)
                     continue;
                 has_inputs = true;
@@ -427,7 +427,17 @@ public partial class PageData_Dialogs_TestQuery : System.Web.UI.Page
 	        googleSpreadsheetQuery(GoogleDocsParams.ToString()+"&callback=?");	
 	    }     
     }
-
+    protected string removeQuotes(string input)
+    {
+        if(!input.Contains("\""))
+            return input;
+        string output = input;
+        if(input.StartsWith("\""))
+            output = output.Remove(0);
+        if (input.EndsWith("\""))
+            output = output.Remove(output.Length-1);
+        return output;
+    }
 
     protected void googleSpreadsheetQuery(string SpreadsheetURL)
     {

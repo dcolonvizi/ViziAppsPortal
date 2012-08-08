@@ -2829,7 +2829,19 @@ public class XmlUtil
                      if (pairs.Length >= 2)
                          CreateNode(doc, capture_signature_node, pairs[0], pairs[1]);
                      break;
- 
+                case "call_intuit_gopayment":
+                     XmlNode call_intuit_gopayment_node = CreateNode(doc, submit_node, "call_intuit_gopayment");
+                    if (sub_parts.Length > 1 && sub_parts[1].Length > 0)
+                     {
+                         string[] take_photo_pieces = sub_parts[1].Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                         foreach (string piece in take_photo_pieces)
+                         {
+                             pairs = piece.Split("~".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                             if (pairs.Length == 2)
+                                 CreateNode(doc, call_intuit_gopayment_node, pairs[0], pairs[1]);
+                         }
+                     }
+                      break;
                default:
                     break;
   
@@ -3299,6 +3311,8 @@ public class XmlUtil
     }
     public void SetAppOpenAction(Hashtable State, Hashtable AppOpenAction)
     {
+        Util util = new Util();
+
         XmlDocument doc = GetStagingAppXml(State);
         XmlNode configuration_node = doc.SelectSingleNode("//configuration");
         XmlNode on_app_open_node = null;
@@ -3309,6 +3323,10 @@ public class XmlUtil
                 return;
             else
                 configuration_node.RemoveChild(on_app_open_node);
+
+            State["AppXmlDoc"] = doc;
+            util.UpdateStagingAppXml(State);
+
             return;
         }
         on_app_open_node = configuration_node.SelectSingleNode("on_app_open");
@@ -3376,7 +3394,6 @@ public class XmlUtil
             }
         }*/
 
-        Util util = new Util();
         State["AppXmlDoc"] = doc;
         util.UpdateStagingAppXml(State);
     }

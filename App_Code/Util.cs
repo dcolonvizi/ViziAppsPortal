@@ -861,6 +861,8 @@ public class Util
     }
     public string GetAccountType(Hashtable State)
     {
+        if (State == null || State["CustomerID"] == null)
+            return "viziapps";
          DB db = new DB();
          string sql = "SELECT account_type FROM customers WHERE customer_id = '" + State["CustomerID"].ToString() + "'";
          string account_type = db.ViziAppsExecuteScalar(State, sql);
