@@ -20,12 +20,14 @@ public partial class CreateAccount : System.Web.UI.Page
         if (!IsPostBack)
         {
             Init init = new Init();
-            init.InitSiteConfigurations((Hashtable)HttpRuntime.Cache[Session.SessionID]);
+            Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
+            init.InitSiteConfigurations(State);
         }
     }
     protected void CreateAccountSubmit_ServerClick(object sender, EventArgs e)
     {
         //check for competitors
+        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         string address = EmailTextBox.Text.ToLower();
         string bad_domains = Server.MapPath(".") + @"\App_Data\BadDomains.txt";
         string[] lines = File.ReadAllLines(bad_domains);
@@ -51,18 +53,18 @@ public partial class CreateAccount : System.Web.UI.Page
         else
         {
             string query = "SELECT username FROM customers WHERE username='" + username + "'";
-            string prev_username = db.ViziAppsExecuteScalar((Hashtable)HttpRuntime.Cache[Session.SessionID],query);
+            string prev_username = db.ViziAppsExecuteScalar(State,query);
             if (username == prev_username)
             {
                /* query = "SELECT password FROM customers WHERE username='" + username + "'";
-                string password = db.ViziAppsExecuteScalar((Hashtable)HttpRuntime.Cache[Session.SessionID], query);
+                string password = db.ViziAppsExecuteScalar(State, query);
                 if(password != PasswordTextBox.Text)*/
                      err.Append("The " + username + " account already exists.<BR>");
             }
             if (address.Length> 0 && address.ToLower() != "michael@viziapps.com") //for every email not for testing
             {
                 query = "SELECT email FROM customers WHERE email='" + address + "'";
-                string email = db.ViziAppsExecuteScalar((Hashtable)HttpRuntime.Cache[Session.SessionID], query);
+                string email = db.ViziAppsExecuteScalar(State, query);
                 if (email == this.EmailTextBox.Text)
                 {
                     err.Append("An account already exists with the same email.<BR>");
@@ -101,7 +103,7 @@ public partial class CreateAccount : System.Web.UI.Page
         if (err.Length > 0)
         {
             MessageLabel.Text = "The following input(s) are required:<BR>" + err.ToString();
-            db.CloseViziAppsDatabase((Hashtable)HttpRuntime.Cache[Session.SessionID]);
+            db.CloseViziAppsDatabase(State);
             return;
         }
         try
@@ -111,19 +113,19 @@ public partial class CreateAccount : System.Web.UI.Page
             string security_question = "";
             string security_answer = "";
 
-            string customer_id = util.CreateMobiFlexAccount((Hashtable)HttpRuntime.Cache[Session.SessionID], username, PasswordTextBox.Text.Trim(), security_question, security_answer, FirstNameTextBox.Text.Trim(), LastNameTextBox.Text.Trim(),
+            string customer_id = util.CreateMobiFlexAccount(State, username, PasswordTextBox.Text.Trim(), security_question, security_answer, FirstNameTextBox.Text.Trim(), LastNameTextBox.Text.Trim(),
                     EmailTextBox.Text.ToLower().Trim(), phone, account_type, ReferralSourceList.SelectedValue,AppToBuild.Text, "inactive");
 
             string email_template_path = Server.MapPath(".") + @"\templates\EmailValidation.txt";
-            string url =  ((Hashtable)HttpRuntime.Cache[Session.SessionID])["PublicViziAppsUrl"].ToString() + "/ValidateEmail.aspx?id=" + customer_id;
-            string from =  ((Hashtable)HttpRuntime.Cache[Session.SessionID])["TechSupportEmail"].ToString();
+            string url =  State["PublicViziAppsUrl"].ToString() + "/ValidateEmail.aspx?id=" + customer_id;
+            string from =  State["TechSupportEmail"].ToString();
             string body = File.ReadAllText(email_template_path)
                     .Replace("[NAME]", FirstNameTextBox.Text.Trim())
                     .Replace("[LINK]",url)
                     .Replace("[SUPPORT]",from);
 
             Email email = new Email(); 
-            string status = email.SendEmail((Hashtable)HttpRuntime.Cache[Session.SessionID], from, EmailTextBox.Text, "", "", "ViziApps Registration", body, "",true);
+            string status = email.SendEmail(State, from, EmailTextBox.Text, "", "", "ViziApps Registration", body, "",true);
             if (status.IndexOf("OK") >= 0)
             {
                 MessageLabel.Text = "An email has been sent to you to complete your registration. Please follow the directions in the email.";
@@ -133,15 +135,15 @@ public partial class CreateAccount : System.Web.UI.Page
                 MessageLabel.Text = status;
                 //problem with email : delete account
                 string sql = "DELETE FROM customers WHERE username='" + username + "'";
-                db.ViziAppsExecuteNonQuery((Hashtable)HttpRuntime.Cache[Session.SessionID], sql);
+                db.ViziAppsExecuteNonQuery(State, sql);
             }
-            db.CloseViziAppsDatabase((Hashtable)HttpRuntime.Cache[Session.SessionID]);
+            db.CloseViziAppsDatabase(State);
         }
         catch (Exception ex)
         {
-            util.LogError((Hashtable)HttpRuntime.Cache[Session.SessionID], ex);
+            util.LogError(State, ex);
             MessageLabel.Text = ex.Message + ": " + ex.StackTrace;
-            db.CloseViziAppsDatabase((Hashtable)HttpRuntime.Cache[Session.SessionID]);
+            db.CloseViziAppsDatabase(State);
             return;
         }
     }

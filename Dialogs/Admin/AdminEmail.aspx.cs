@@ -20,6 +20,7 @@ public partial class AdminEmail : System.Web.UI.Page
 
     protected void SendEmails_Click(object sender, EventArgs e)
     {
+        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         if (EmailBody.Text.Length == 0)
         {
             Message.Text = "The email body has no text";
@@ -37,12 +38,12 @@ public partial class AdminEmail : System.Web.UI.Page
         if (type == "Production Customers")
         {
             sql = "SELECT username,email FROM customers WHERE status='active'";
-            rows = db.ViziAppsExecuteSql((Hashtable)HttpRuntime.Cache[Session.SessionID], sql);
+            rows = db.ViziAppsExecuteSql(State, sql);
         }
         else
         {
             sql = "SELECT username,email FROM customers WHERE status!='inactive'";
-            rows = db.ViziAppsExecuteSql((Hashtable)HttpRuntime.Cache[Session.SessionID], sql);
+            rows = db.ViziAppsExecuteSql(State, sql);
         }
         StringBuilder no_emails = new StringBuilder();
         StringBuilder sent_users = new StringBuilder();
@@ -53,7 +54,7 @@ public partial class AdminEmail : System.Web.UI.Page
             string to_email = row["email"].ToString();
             if (to_email.Length > 0)
             {
-                email.SendEmail((Hashtable)HttpRuntime.Cache[Session.SessionID], ((Hashtable)HttpRuntime.Cache[Session.SessionID])["TechSupportEmail"].ToString(), to_email, "", "", EmailSubject.Text, EmailBody.Text, "",false);
+                email.SendEmail(State, State["TechSupportEmail"].ToString(), to_email, "", "", EmailSubject.Text, EmailBody.Text, "",false);
                 sent_users.Append(username + "\n");
             }
             else if(username!="admin" && username != "prompts")

@@ -105,8 +105,7 @@
         <script language="javascript" type="text/javascript" src="../../scripts/browser_1.4.js"></script> 
         <script  language="javascript" type="text/javascript" src="../../jquery/js/jquery-1.5.1.min.js"></script>  
         <script  language="javascript" type="text/javascript" src="../../scripts/dialogs_1.26.min.js"></script>  
-        <!-- <script  language="javascript" type="text/javascript" src="../../scripts/onAppOpen_1.1.min.js"></script>-->
-          <script  language="javascript" type="text/javascript" src="../../js_archive/onAppOpen_1.1.js"></script>
+         <script  language="javascript" type="text/javascript" src="../../scripts/onAppOpen_1.2.min.js"></script>
 </head>
 <body>
     <form id="buttonform" runat="server">
@@ -179,34 +178,6 @@
                  </div>
        
             </telerik:RadPageView>-->
-             <telerik:RadPageView ID="capture_process_document_view" runat="server">
-                <div id="addCaptureProcessDocumentPropertyDiv">
-                   <table style="width: 400px; height: 30px;">
-                       <tr>
-                           <td align="left" class="style23" valign="top">
-                               <select name="D1" onchange="addPropertySelected(this,'addCaptureProcessDocumentPropertyDiv');" 
-                                   style="width: 173px; font-size:12px">
-                                  <option>Add a property -&gt;</option>
-                                   <option value="NAME">Name of field containing image processing string</option>
-                                   <option value="true,false">Show image quality feedback</option>
-                                   <option value="true,false">Auto process image</option>
-                                   <option value="true,false">Use stability feature</option>
-                                   <option value="0-100">Stability sensitivity </option>
-                                   <option value="true,false">Do review image</option>
-                                   <option value="camera,photo_album">Document image source</option>
-                                   <option value="NAME">Name of field containing photo file paths</option>
-                                   <option value="NAME">Name of field containing last photo image</option>
-                                   <option value="NAME">Name of field containing processed image file paths</option>
-                                   <option value="NAME">Name of field containing last processed image</option>
-                                   <option value="true,false">Show capture and process settings</option>
-                               </select> </td>
-                           <td class="style100" valign="top">
-                               &nbsp;</td>
-                       </tr>
-                   </table>
-                 </div>
-       
-            </telerik:RadPageView>
              <telerik:RadPageView ID="manage_document_case_view" runat="server">
                 <div id="addManageDocumentCasePropertyDiv">
                    <table style="width: 400px; height: 30px;">

@@ -31,7 +31,7 @@ public partial class ViewAllCustomers : System.Web.UI.Page
             query = "SELECT * FROM customers ";
 
             DB db = new DB();
-            DataTable table = db.ViziAppsQuery((Hashtable)HttpRuntime.Cache[Session.SessionID],query);
+            DataTable table = db.ViziAppsQuery(State,query);
             Worksheet sheet = excel.Worksheets[0];
             string[] column_names = new string[table.Columns.Count];
             int col = 0;
@@ -67,11 +67,11 @@ public partial class ViewAllCustomers : System.Web.UI.Page
             sheet.Name = "Customer List";
 
             excel.Save("Customer_List.xls", SaveType.OpenInExcel, FileFormatType.Default, this.Response);
-            db.CloseViziAppsDatabase((Hashtable)HttpRuntime.Cache[Session.SessionID]);
+            db.CloseViziAppsDatabase(State);
         }
         catch (Exception ex)
         {
-            util.ProcessMainExceptions((Hashtable)HttpRuntime.Cache[Session.SessionID], Response, ex);
+            util.ProcessMainExceptions(State, Response, ex);
         }
 
     }

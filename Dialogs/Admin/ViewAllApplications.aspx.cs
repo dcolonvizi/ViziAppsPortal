@@ -34,7 +34,7 @@ public partial class ViewAllApplications : System.Web.UI.Page
 
             //get all app and staging servers in Hashtable
             string sql = "SELECT app_server_id,server_name FROM app_servers WHERE use_type='production' OR use_type='staging'";
-            DataRow[] rows = db.ViziAppsExecuteSql((Hashtable)HttpRuntime.Cache[Session.SessionID], sql);
+            DataRow[] rows = db.ViziAppsExecuteSql(State, sql);
             Hashtable serverID_to_name = new Hashtable();
             foreach (DataRow row in rows)
             {
@@ -43,7 +43,7 @@ public partial class ViewAllApplications : System.Web.UI.Page
 
             //get all customer names in Hashtable
             sql = "SELECT customer_id,username FROM customers ";
-            rows = db.ViziAppsExecuteSql((Hashtable)HttpRuntime.Cache[Session.SessionID], sql);
+            rows = db.ViziAppsExecuteSql(State, sql);
             Hashtable customerID_to_username = new Hashtable();
             foreach (DataRow row in rows)
             {
@@ -52,7 +52,7 @@ public partial class ViewAllApplications : System.Web.UI.Page
 
             //get all customer names in Hashtable
             sql = "SELECT application_id,app_server_id,use_type FROM application_to_server_mappings ";
-            rows = db.ViziAppsExecuteSql((Hashtable)HttpRuntime.Cache[Session.SessionID], sql);
+            rows = db.ViziAppsExecuteSql(State, sql);
             Hashtable applicationID_to_app_serverID = new Hashtable();
             foreach (DataRow row in rows)
             {
@@ -75,7 +75,7 @@ public partial class ViewAllApplications : System.Web.UI.Page
 
             //get all application information
             sql = "SELECT * FROM applications WHERE (status='staging' OR status='staging/production' or status='production')";
-            rows = db.ViziAppsExecuteSql((Hashtable)HttpRuntime.Cache[Session.SessionID], sql);
+            rows = db.ViziAppsExecuteSql(State, sql);
             foreach (DataRow row in rows)
             {
                 try
@@ -118,7 +118,7 @@ public partial class ViewAllApplications : System.Web.UI.Page
                 }
                 catch (Exception ex)
                 {
-                    util.LogError((Hashtable)HttpRuntime.Cache[Session.SessionID], ex);
+                    util.LogError(State, ex);
                     error_list.Append(ex.Message + ": " + ex.StackTrace + "<br>");
                     continue;
                 } 
@@ -133,7 +133,7 @@ public partial class ViewAllApplications : System.Web.UI.Page
             foreach (string customer_id in bad_customerID_list.Keys)
             {
                 sql = "DELETE FROM applications where customer_id='" + customer_id + "'";
-                db.ViziAppsExecuteNonQuery((Hashtable)HttpRuntime.Cache[Session.SessionID], sql);
+                db.ViziAppsExecuteNonQuery(State, sql);
             }
 
             Worksheet sheet = excel.Worksheets[0];
@@ -171,11 +171,11 @@ public partial class ViewAllApplications : System.Web.UI.Page
             sheet.Name = "Application List";
 
             excel.Save("Application_List.xls", SaveType.OpenInExcel, FileFormatType.Default, this.Response);
-            db.CloseViziAppsDatabase((Hashtable)HttpRuntime.Cache[Session.SessionID]);
+            db.CloseViziAppsDatabase(State);
         }
         catch (Exception ex)
         {
-            util.ProcessMainExceptions((Hashtable)HttpRuntime.Cache[Session.SessionID], Response, ex);
+            util.ProcessMainExceptions(State, Response, ex);
         }
 
     }

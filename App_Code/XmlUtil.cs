@@ -845,7 +845,7 @@ public class XmlUtil
                 background_image_node = CreateNode(xmlDoc, background_node, "image_source", "https://s3.amazonaws.com/MobiFlexImages/apps/images/backgrounds/standard_w_header_iphone.jpg");
             }
             string background_image = background_image_node.InnerText;
-            if (background_image.Contains("customer_media") || background_image.Contains("s3.amazonaws.com"))
+            if (background_image.Contains("s3.amazonaws.com"))
             {
                 if (State["SelectedDeviceType"].ToString() == Constants.ANDROID_PHONE)
                     background_image = background_image.Replace("_iphone.", "_android.");

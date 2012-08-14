@@ -324,15 +324,12 @@ public partial class PublishingFormWebApps : System.Web.UI.Page
 
         WebAppsUtil web_util = new WebAppsUtil();
         AmazonS3 s3 = new AmazonS3();
-        string ApplicationHomePath =  State["ApplicationHomePath"].ToString();
-        string media_home_path = ApplicationHomePath + @"\customer_media";
-        util.CheckDirectory(media_home_path);
-        string customer_media_home_path = media_home_path + @"\" +  State["Username"].ToString();
-        util.CheckDirectory(customer_media_home_path);
-         State["IsProduction"] = true;
-        string file_name =  State["SelectedApp"].ToString() + "/index.html";
+        State["IsProduction"] = true;
+
+        
+        string file_name = State["SelectedApp"].ToString() + "/index.html";
         file_name = file_name.Replace(" ", "_");
-        string save_file_path = customer_media_home_path + @"\" + file_name.Replace("/index.html", ".html");
+        string save_file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name.Replace("/index.html", ".html");
 
         if (File.Exists(save_file_path))
             File.Delete(save_file_path);
@@ -457,14 +454,10 @@ public partial class PublishingFormWebApps : System.Web.UI.Page
 
         WebAppsUtil web_util = new WebAppsUtil();
         AmazonS3 s3 = new AmazonS3();
-        string ApplicationHomePath = State["ApplicationHomePath"].ToString();
-        string media_home_path = ApplicationHomePath + @"\customer_media";
-        util.CheckDirectory(media_home_path);
-        string customer_media_home_path = media_home_path + @"\" + State["Username"].ToString();
-        util.CheckDirectory(customer_media_home_path);
         State["IsProduction"] = true;
+        
         string file_name = State["SelectedApp"].ToString().Replace(" ", "_") + Constants.WEB_APP_TEST_SUFFIX + "/index.html";
-        string save_file_path = customer_media_home_path + @"\" + file_name.Replace(Constants.WEB_APP_TEST_SUFFIX + "/index.html", ".html");
+        string save_file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name.Replace(Constants.WEB_APP_TEST_SUFFIX + "/index.html", ".html");
 
         string ret = web_util.GetWebApp(State, util.GetStagingAppXml(State),1.0D, 1.0D);
         if (ret.StartsWith("Error:"))

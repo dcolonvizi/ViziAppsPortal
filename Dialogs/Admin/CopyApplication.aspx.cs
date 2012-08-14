@@ -44,13 +44,13 @@ public partial class CopyApplication : System.Web.UI.Page
 
         DB db = new DB();
         string sql = "SELECT customer_id FROM customers WHERE username='" + e.Text + "'";
-        string customer_id = db.ViziAppsExecuteScalar((Hashtable)HttpRuntime.Cache[Session.SessionID], sql);
-         ((Hashtable)HttpRuntime.Cache[Session.SessionID])["CopyApplicationFromCustomerID"] = customer_id;
+        string customer_id = db.ViziAppsExecuteScalar(State, sql);
+         State["CopyApplicationFromCustomerID"] = customer_id;
 
         Init init = new Init();
-        init.InitAppsList((Hashtable)HttpRuntime.Cache[Session.SessionID], Applications, customer_id);
+        init.InitAppsList(State, Applications, customer_id);
 
-        db.CloseViziAppsDatabase((Hashtable)HttpRuntime.Cache[Session.SessionID]);
+        db.CloseViziAppsDatabase(State);
     }
     protected void ToAccounts_SelectedIndexChanged(object sender, RadComboBoxSelectedIndexChangedEventArgs e)
     {
@@ -68,9 +68,9 @@ public partial class CopyApplication : System.Web.UI.Page
  
         DB db = new DB();
         string sql = "SELECT customer_id FROM customers WHERE username='" + e.Text + "'";
-        string customer_id = db.ViziAppsExecuteScalar((Hashtable)HttpRuntime.Cache[Session.SessionID], sql);
-         ((Hashtable)HttpRuntime.Cache[Session.SessionID])["CopyApplicationToCustomerID"] = customer_id;
-        db.CloseViziAppsDatabase((Hashtable)HttpRuntime.Cache[Session.SessionID]);
+        string customer_id = db.ViziAppsExecuteScalar(State, sql);
+         State["CopyApplicationToCustomerID"] = customer_id;
+        db.CloseViziAppsDatabase(State);
     }
     protected void CopyApplicationButton_Click(object sender, EventArgs e)
     {
@@ -97,7 +97,7 @@ public partial class CopyApplication : System.Web.UI.Page
         string app_name = Applications.SelectedItem.Text;
 
         //copy application
-        util.CopyAppToAccount((Hashtable)HttpRuntime.Cache[Session.SessionID], app_name);
+        util.CopyAppToAccount(State, app_name);
         Message.Text = "Application Copy is Successful.";
     }
 

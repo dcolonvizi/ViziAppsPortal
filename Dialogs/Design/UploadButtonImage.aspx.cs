@@ -54,14 +54,9 @@ public partial class Dialogs_UploadButtonImage : System.Web.UI.Page
                         UploadMessage.Text = "The image '" + name + "' is greater than 1024 w X 1024 h pixels";
                         return;
                     }
-
-                    string ApplicationHomePath =  ((Hashtable)HttpRuntime.Cache[Session.SessionID])["ApplicationHomePath"].ToString();
-                    string media_home_path = ApplicationHomePath + @"\customer_media";
-                    util.CheckDirectory(media_home_path);
-                    string customer_media_home_path = media_home_path + @"\" +  ((Hashtable)HttpRuntime.Cache[Session.SessionID])["Username"].ToString();
-                    util.CheckDirectory(customer_media_home_path);
-                    string file_name = util.FilterWebFileName(name);
-                    string save_file_path = customer_media_home_path + @"\" + file_name;
+                    
+                    string file_name = State["Username"].ToString()+ "." + util.FilterWebFileName(name);
+                    string save_file_path = State["TempFilesPath"].ToString() + file_name;
 
                     try
                     {

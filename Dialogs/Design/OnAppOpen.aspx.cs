@@ -37,8 +37,6 @@ public partial class Dialogs_OnAppOpen : System.Web.UI.Page
             if (State["SelectedAppType"].ToString() == Constants.NATIVE_APP_TYPE &&
                 State["AccountType"].ToString().Contains("kofax"))
             {
-                actions.Items.Add(new RadComboBoxItem("Capture documents from camera photos", "capture_doc"));
-                actions.Items.Add(new RadComboBoxItem("Capture and Process documents from photos", "capture_process_document"));
                 actions.Items.Add(new RadComboBoxItem("Manage document case", "manage_document_case"));
             }
         }

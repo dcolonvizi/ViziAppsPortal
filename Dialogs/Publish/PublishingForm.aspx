@@ -246,7 +246,7 @@
                     <tr>
                         <td class="style48">
         <telerik:RadUpload ID="UploadLargeIcon" runat="server" ControlObjectsVisibility="None" OverwriteExistingFiles ="true"
-             TargetFolder="~/uploaded_files" Skin="Windows7" Width="224px" />
+             TargetFolder="~/temp_files" Skin="Windows7" Width="224px" />
 
    
 	                    </td>
@@ -423,7 +423,7 @@
                     <tr>
                         <td class="style49">
         <telerik:RadUpload ID="UploadScreenSplash" runat="server" ControlObjectsVisibility="None" OverwriteExistingFiles ="true"
-             TargetFolder="~/uploaded_files" Skin="Windows7" Width="211px" />
+             TargetFolder="~/temp_files" Skin="Windows7" Width="211px" />
 
    
 	                    </td>

@@ -25,9 +25,9 @@ public partial class EmailForm : System.Web.UI.Page
             EmailType.Text = Request.QueryString.Get("type");
 
             //fill in customers applications
-            string sql = "SELECT application_name FROM applications WHERE customer_id='" +  ((Hashtable)HttpRuntime.Cache[Session.SessionID])["CustomerID"].ToString() + "' ORDER BY application_name";
+            string sql = "SELECT application_name FROM applications WHERE customer_id='" +  State["CustomerID"].ToString() + "' ORDER BY application_name";
             DB db = new DB();
-            DataRow[] rows = db.ViziAppsExecuteSql((Hashtable)HttpRuntime.Cache[Session.SessionID], sql);
+            DataRow[] rows = db.ViziAppsExecuteSql(State, sql);
             ApplicationList.Items.Clear();
             if (rows != null && rows.Length > 0)
             {
@@ -38,11 +38,11 @@ public partial class EmailForm : System.Web.UI.Page
             }
             ApplicationList.Items.Insert(0, "No Application Issue");
 
-            sql = "SELECT email FROM customers WHERE customer_id='" +  ((Hashtable)HttpRuntime.Cache[Session.SessionID])["CustomerID"].ToString() + "'";
-            string from = db.ViziAppsExecuteScalar((Hashtable)HttpRuntime.Cache[Session.SessionID], sql);
+            sql = "SELECT email FROM customers WHERE customer_id='" +  State["CustomerID"].ToString() + "'";
+            string from = db.ViziAppsExecuteScalar(State, sql);
             if (EmailType.Text == "Customer Email")
             {
-                FromEmail.Text =  ((Hashtable)HttpRuntime.Cache[Session.SessionID])["TechSupportEmail"].ToString();
+                FromEmail.Text =  State["TechSupportEmail"].ToString();
             }
             else if (from == null)
             {
@@ -52,11 +52,11 @@ public partial class EmailForm : System.Web.UI.Page
             {
                 FromEmail.Text = from;
             }
-            db.CloseViziAppsDatabase((Hashtable)HttpRuntime.Cache[Session.SessionID]);
+            db.CloseViziAppsDatabase(State);
         }
         catch (Exception ex)
         {
-            util.ProcessMainExceptions((Hashtable)HttpRuntime.Cache[Session.SessionID], Response, ex);
+            util.ProcessMainExceptions(State, Response, ex);
         }
     }
 
@@ -90,12 +90,12 @@ public partial class EmailForm : System.Web.UI.Page
         if (EmailType.Text != "Customer Email")
         {
             //get user info
-            string sql = "SELECT * FROM customers WHERE username='" +  ((Hashtable)HttpRuntime.Cache[Session.SessionID])["Username"].ToString() + "'";
+            string sql = "SELECT * FROM customers WHERE username='" +  State["Username"].ToString() + "'";
             DB db = new DB();
-            DataRow[] rows = db.ViziAppsExecuteSql((Hashtable)HttpRuntime.Cache[Session.SessionID], sql.ToString());
+            DataRow[] rows = db.ViziAppsExecuteSql(State, sql.ToString());
             DataRow row = rows[0];
             user_info.Append("User Information" + "\r\n");
-            user_info.Append("\tCustomer Username: " +  ((Hashtable)HttpRuntime.Cache[Session.SessionID])["Username"].ToString() + "\r\n");
+            user_info.Append("\tCustomer Username: " +  State["Username"].ToString() + "\r\n");
             user_info.Append("\tCustomer Company: " + row["company"] + "\r\n");
             user_info.Append("\tCustomer First Name: " + row["first_name"] + "\r\n");
             user_info.Append("\tCustomer Last Name: " + row["last_name"] + "\r\n");
@@ -109,12 +109,12 @@ public partial class EmailForm : System.Web.UI.Page
             user_info.Append("\r\n");
         }
         else
-            CC =  ((Hashtable)HttpRuntime.Cache[Session.SessionID])["TechSupportEmail"].ToString();
+            CC =  State["TechSupportEmail"].ToString();
 
         user_info.Append(EmailBody.Text);
         try
         {
-            string status = email.SendEmail((Hashtable)HttpRuntime.Cache[Session.SessionID],  ((Hashtable)HttpRuntime.Cache[Session.SessionID])["TechSupportEmail"].ToString(), ToEmail.Text, CC, "", EmailSubject.Text, user_info.ToString(), "",false);
+            string status = email.SendEmail(State,  State["TechSupportEmail"].ToString(), ToEmail.Text, CC, "", EmailSubject.Text, user_info.ToString(), "",false);
             if (status == "OK")
             {
                 if (EmailType.Text == "Customer Email")
@@ -131,7 +131,7 @@ public partial class EmailForm : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            util.LogError((Hashtable)HttpRuntime.Cache[Session.SessionID], ex);
+            util.LogError(State, ex);
             Message.Text = "Error: " + ex.Message;
         }
 

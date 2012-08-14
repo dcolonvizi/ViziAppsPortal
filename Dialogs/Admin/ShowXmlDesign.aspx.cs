@@ -29,7 +29,7 @@ public partial class Dialogs_Admin_ShowXmlDesign : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            util.ProcessMainExceptions((Hashtable)HttpRuntime.Cache[Session.SessionID], Response, ex);
+            util.ProcessMainExceptions(State, Response, ex);
         }
     }
 

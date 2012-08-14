@@ -300,16 +300,6 @@ public partial class Admin : System.Web.UI.Page
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         db.ViziAppsExecuteNonQuery(State, sql);
   
-        //remove files
-        Util util = new Util();
-        string home = util.GetApplicationHome(State);
-
-        //remove all apps in application production folder
-        string app_directory = home + @"\customer_media\" +username;
-        if (Directory.Exists(app_directory))
-            Directory.Delete(app_directory, true);
-
-
         sql = "SELECT application_id FROM applications WHERE customer_id='" + customer_id + "'";
         DataRow[] rows3 = db.ViziAppsExecuteSql(State, sql);
         foreach (DataRow row3 in rows3)

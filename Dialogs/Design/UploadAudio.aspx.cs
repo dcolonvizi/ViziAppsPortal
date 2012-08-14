@@ -42,13 +42,8 @@ public partial class Dialogs_UploadAudio : System.Web.UI.Page
                 {
                     byte[] audio_data = File.ReadAllBytes(file_path);
  
-                    string ApplicationHomePath =  ((Hashtable)HttpRuntime.Cache[Session.SessionID])["ApplicationHomePath"].ToString();
-                    string media_home_path = ApplicationHomePath + @"\customer_media";
-                    util.CheckDirectory(media_home_path);
-                    string customer_media_home_path = media_home_path + @"\" +  ((Hashtable)HttpRuntime.Cache[Session.SessionID])["Username"].ToString();
-                    util.CheckDirectory(customer_media_home_path);
-                    string file_name = name.Replace(" ", "_").Replace("%20", "_");
-                    string save_file_path = customer_media_home_path + @"\" + file_name;
+                    string file_name =  name.Replace(" ", "_").Replace("%20", "_");                    
+                    string save_file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name;
 
                     try
                     {
@@ -64,7 +59,7 @@ public partial class Dialogs_UploadAudio : System.Web.UI.Page
                     }
  
                     AmazonS3 s3 = new AmazonS3();
-                    string url = s3.UploadFile((Hashtable)HttpRuntime.Cache[Session.SessionID], file_name, save_file_path);
+                    string url = s3.UploadFile(State, file_name, save_file_path);
                     if (!url.StartsWith("http"))
                         return;
 

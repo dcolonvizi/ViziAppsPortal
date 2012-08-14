@@ -108,7 +108,7 @@
      <table><tr><td class="style2" valign="bottom">Upload the .sql file of your database without data:</td>
          </tr><tr><td class="style1">
         <telerik:RadUpload ID="SqlFileUpload" runat="server" ControlObjectsVisibility="None" OverwriteExistingFiles ="True"
-             TargetFolder="~/uploaded_files" Skin="Windows7" Width="315px" Height="34px" 
+             TargetFolder="~/temp_files" Skin="Windows7" Width="315px" Height="34px" 
                  AllowedFileExtensions=".sql" MaxFileInputsCount="1">
         </telerik:RadUpload>
              </td></tr><tr><td class="style1">

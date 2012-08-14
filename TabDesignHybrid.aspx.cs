@@ -1442,14 +1442,11 @@ public partial class TabDesignHybrid : System.Web.UI.Page
             Message.Text = "";
             WebAppsUtil web_util = new WebAppsUtil();
             AmazonS3 s3 = new AmazonS3();
-            string ApplicationHomePath =  State["ApplicationHomePath"].ToString();
-            string media_home_path = ApplicationHomePath + @"\customer_media";
-            util.CheckDirectory(media_home_path);
-            string customer_media_home_path = media_home_path + @"\" +  State["Username"].ToString();
-            util.CheckDirectory(customer_media_home_path);
-             State["IsProduction"] = false;
+
+            
+            State["IsProduction"] = false;
             string file_name =  State["SelectedApp"].ToString().Replace(" ", "_") + Constants.WEB_APP_TEST_SUFFIX +"/index.html";
-            string save_file_path = customer_media_home_path + @"\" + file_name.Replace(Constants.WEB_APP_TEST_SUFFIX + "/index.html", ".html");
+            string save_file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name.Replace(Constants.WEB_APP_TEST_SUFFIX + "/index.html", ".html");
 
             if (State["UrlAccountIdentifier"] == null)
             {

@@ -19,9 +19,7 @@ public partial class ViewActiveCustomers : System.Web.UI.Page
 
     protected void  GetActiveCustomers_Click(object sender, EventArgs e)
     {
-       // string ActiveUsersDaysLoggedIn = ConfigurationManager.AppSettings["ActiveUsersDaysLoggedIn"];
-       // string ActiveUsersMinNLogins = ConfigurationManager.AppSettings["ActiveUsersMinNLogins"];
-
+        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         string NoActiveUsersList = Server.MapPath("../../") + @"\App_Data\NoActiveUsersList.txt";
         string[] lines = File.ReadAllLines(NoActiveUsersList);
         Hashtable NoActiveUsersTable = new Hashtable();
@@ -46,8 +44,8 @@ public partial class ViewActiveCustomers : System.Web.UI.Page
             query = "SELECT * FROM customers WHERE last_use_date_time>SUBDATE(NOW(),INTERVAL " + ActiveUsersDaysLoggedIn.Text + " DAY) AND n_logins>=" + ActiveUsersMinNLogins.Text;
 
             DB db = new DB();
-            DataRow[] rows = db.ViziAppsExecuteSql((Hashtable)HttpRuntime.Cache[Session.SessionID],query);
-            DataTable table = db.ViziAppsQuery((Hashtable)HttpRuntime.Cache[Session.SessionID], query);
+            DataRow[] rows = db.ViziAppsExecuteSql(State,query);
+            DataTable table = db.ViziAppsQuery(State, query);
             table.Rows.Clear();
  
             foreach(DataRow row in rows)
@@ -93,11 +91,11 @@ public partial class ViewActiveCustomers : System.Web.UI.Page
             sheet.Name = "Customer List";
 
             excel.Save("Customer_List.xls", SaveType.OpenInExcel, FileFormatType.Default, this.Response);
-            db.CloseViziAppsDatabase((Hashtable)HttpRuntime.Cache[Session.SessionID]);
+            db.CloseViziAppsDatabase(State);
         }
         catch (Exception ex)
         {
-            util.ProcessMainExceptions((Hashtable)HttpRuntime.Cache[Session.SessionID], Response, ex);
+            util.ProcessMainExceptions(State, Response, ex);
         }
 
     }

@@ -221,17 +221,32 @@ public partial class Default : System.Web.UI.Page
         Init init = new Init();
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         init.InitSiteConfigurations(State);
-         State["NewProjectPath"] = MapPath(".") + @"\App_data\NewViziAppsNativeApp.xml";
-         State["CanvasHtml"] = File.ReadAllText(MapPath(".") + @"\App_Data\Canvas.txt");
-         State["NewWebAppHtml"] = File.ReadAllText(MapPath(".") + @"\App_Data\NewViziAppsWebApp.txt");
-         State["NewHybridAppXml"] = File.ReadAllText(MapPath(".") + @"\App_Data\NewViziAppsHybridApp.xml");
-         State["ShareThisScripts"] = File.ReadAllText(MapPath(".") + @"\App_Data\ShareThisScripts.txt");
-         //State["QRCoderExe"] = MapPath(".") + @"\Bin\qrcode.exe";
-         State["Server"] = Server;
+        State["NewProjectPath"] = MapPath(".") + @"\App_data\NewViziAppsNativeApp.xml";
+        State["CanvasHtml"] = File.ReadAllText(MapPath(".") + @"\App_Data\Canvas.txt");
+        State["NewWebAppHtml"] = File.ReadAllText(MapPath(".") + @"\App_Data\NewViziAppsWebApp.txt");
+        State["NewHybridAppXml"] = File.ReadAllText(MapPath(".") + @"\App_Data\NewViziAppsHybridApp.xml");
+        State["ShareThisScripts"] = File.ReadAllText(MapPath(".") + @"\App_Data\ShareThisScripts.txt");
+        //State["QRCoderExe"] = MapPath(".") + @"\Bin\qrcode.exe";
+        State["Server"] = Server;
 
         //set browser type
-         State["Browser"] = Request.Browser.Browser;
-         State["BrowserVersion"] = Request.Browser.Version;
+        State["Browser"] = Request.Browser.Browser;
+        State["BrowserVersion"] = Request.Browser.Version;
+
+        State["TempFilesPath"] = MapPath(".") + @"\temp_files\";
+
+        //delete any old temp files
+        string[] files = Directory.GetFiles(State["TempFilesPath"].ToString());
+        DateTime now = DateTime.UtcNow;
+        foreach (string file in files)
+        {
+            if (file.Contains("folder_placeholder.txt")) //place holder to prevent folder from being deleted
+                continue;
+            FileInfo fileInfo = new FileInfo(file);
+            TimeSpan age = now - fileInfo.LastWriteTimeUtc;
+            if (age.TotalMinutes > 5.0D)
+                File.Delete(file);
+        }
     }
 
     protected void InitUserSession()

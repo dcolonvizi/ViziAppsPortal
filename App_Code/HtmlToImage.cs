@@ -107,14 +107,9 @@ public class HtmlToImage
         } while (end >= 0);
 
         Util util = new Util();
-        string ApplicationHomePath = State["ApplicationHomePath"].ToString();
-        string media_home_path = ApplicationHomePath + @"\customer_media";
-        util.CheckDirectory(media_home_path);
-        string customer_media_home_path = media_home_path + @"\" + State["Username"].ToString();
-        util.CheckDirectory(customer_media_home_path);
-        string file_name = State["SelectedApp"].ToString() + "." + page_name + ".jpg";
+        string file_name =  State["SelectedApp"].ToString() + "." + page_name + ".jpg";
         file_name = file_name.Replace(" ","_");
-        string save_file_path = customer_media_home_path + @"\" + file_name;
+        string save_file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name;
 
         int browserWidth = Constants.IPHONE_DISPLAY_WIDTH;
         int browserHeight = Convert.ToInt32(Constants.IPHONE_SCROLL_HEIGHT_S);
@@ -136,7 +131,7 @@ public class HtmlToImage
         }
         string whole_html = State["CanvasHtml"].ToString().Replace("<REPLACE>", sb_html.ToString());
 
-        string temp_store_path = customer_media_home_path + @"\canvas.htm" ;
+        string temp_store_path = State["TempFilesPath"].ToString() + "canvas.htm";
         File.WriteAllText(temp_store_path, whole_html.Replace("iframe","div"));
 
         string siteurl = "file:///" + temp_store_path;

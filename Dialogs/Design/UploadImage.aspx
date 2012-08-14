@@ -301,7 +301,7 @@
                         <td colspan="2">
         <telerik:RadUpload ID="UploadBackground" runat="server" ControlObjectsVisibility="None" 
                                 OverwriteExistingFiles ="true" InputSize="58"
-             TargetFolder="~/uploaded_files" Skin="Windows7" Width="443px" />
+             TargetFolder="~/temp_files" Skin="Windows7" Width="443px" />
 
    
 	                    </td>

@@ -36,7 +36,7 @@ public partial class Dialogs_CoverFlow_img_TemplateiPhoneDetail : System.Web.UI.
             return;
         }
 
-        if (util.DoesAppExistInAccount((Hashtable)HttpRuntime.Cache[Session.SessionID], new_app_name))
+        if (util.DoesAppExistInAccount(State, new_app_name))
         {
             Message.Text = "The app name " + new_app_name + " already exists. Enter a unique app name.";
             return;

@@ -88,64 +88,6 @@ public class Util
         db.ViziAppsExecuteNonQuery(State, sql);
         db.CloseViziAppsDatabase(State); 
     }
-   /* public string CreateQRCode(Hashtable State, string urlToEncode,string name)
-    {
-        string ApplicationHomePath = State["ApplicationHomePath"].ToString();
-        string media_home_path = ApplicationHomePath + @"\customer_media";
-        CheckDirectory(media_home_path);
-        string customer_media_home_path = media_home_path + @"\" + State["Username"].ToString();
-        CheckDirectory(customer_media_home_path);
-        string file_name = FilterWebFileName(name);
-        string save_file_path = customer_media_home_path + @"\" + file_name;
-
-        try
-        {
-            if (File.Exists(save_file_path))
-                File.Delete(save_file_path);
-        }
-        catch
-        {
-            //Trying to overwrite the same file
-        }
-
-        AmazonS3 s3 = new AmazonS3();
-        string Bucket = ConfigurationManager.AppSettings["ImageBucket"];
-        string key = State["Username"].ToString() + "/" + file_name;
-        string url = null;
-        if (!s3.S3ObjectExists(Bucket, key))
-        {
-            Process qrcoder = new Process();
-            qrcoder.StartInfo.FileName = State["QRCoderExe"].ToString();
-            qrcoder.StartInfo.CreateNoWindow = true;
-            qrcoder.StartInfo.UseShellExecute = false;
-            //-s is size of dot in pixels; -l is level of error correction H=highest
-            qrcoder.StartInfo.Arguments = "-o \"" + save_file_path + "\" -s 2 -l H " + urlToEncode;
-            qrcoder.Start();
-            qrcoder.WaitForExit();
-
-            url = s3.UploadFile(State, file_name, save_file_path);
-            if (!url.StartsWith("http"))
-                return null;
-
-            try
-            {
-                if (File.Exists(save_file_path))
-                    File.Delete(save_file_path);
-            }
-
-            catch (Exception ex)
-            {
-            }
-        }
-        else
-            url = "https://s3.amazonaws.com/" + Bucket + "/" + key;
-
-        return url;
-    }*/
-    public string GetApplicationHome(Hashtable State)
-    {
-        return State["ApplicationHomePath"].ToString() + @"\";
-    }
     public bool IsAppSelectedForTest(Hashtable State)
     {
         string status = GetApplicationStatus(State, State["SelectedApp"].ToString());

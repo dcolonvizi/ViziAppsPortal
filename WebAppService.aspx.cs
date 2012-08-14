@@ -37,7 +37,8 @@ public partial class WebAppService : System.Web.UI.Page
     public string Report(string app_id, string customer_id, string is_production)
     {
         Init init = new Init();
-        init.InitSkuConfigurations((Hashtable)HttpRuntime.Cache[Session.SessionID]);
+        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
+        init.InitSkuConfigurations(State);
         Util util = new Util();
         XmlUtil x_util = new XmlUtil();
         XmlNode status_node = null;
@@ -52,10 +53,10 @@ public partial class WebAppService : System.Web.UI.Page
             if (is_production == "yes")
             {
                 //is payment current
-                Hashtable features = util.IsProductionAppPaid((Hashtable)HttpRuntime.Cache[Session.SessionID], app_id);
+                Hashtable features = util.IsProductionAppPaid(State, app_id);
                 if (features == null)
                 {
-                    if (!util.IsFreeProductionValid((Hashtable)HttpRuntime.Cache[Session.SessionID], app_id))
+                    if (!util.IsFreeProductionValid(State, app_id))
                     {
                         x_util.CreateNode(Report, root, "status", "kill");
                         x_util.CreateNode(Report, root, "status_message", "The account for this app is inactive. Contact ViziApps to re-activate your account.");
@@ -66,9 +67,9 @@ public partial class WebAppService : System.Web.UI.Page
 
             if (customer_id != null && customer_id.Length > 0)
             {
-                 ((Hashtable)HttpRuntime.Cache[Session.SessionID])["CustomerID"] = customer_id;
+                 State["CustomerID"] = customer_id;
                 string active_sql = "SELECT COUNT(*) FROM customers where customer_id='" + customer_id + "' AND status!='inactive'";
-                string active_count = db.ViziAppsExecuteScalar((Hashtable)HttpRuntime.Cache[Session.SessionID], active_sql);
+                string active_count = db.ViziAppsExecuteScalar(State, active_sql);
                 if (active_count == "0")
                 {
                     x_util.CreateNode(Report, root, "status", "kill");
@@ -83,7 +84,7 @@ public partial class WebAppService : System.Web.UI.Page
         }
         catch (System.Exception SE)
         {
-            util.LogError((Hashtable)HttpRuntime.Cache[Session.SessionID], SE);
+            util.LogError(State, SE);
             if (status_node == null)
             {
                 Report = new XmlDocument();

@@ -200,20 +200,19 @@ public partial class Dialogs_StoryBoard : System.Web.UI.Page
             XmlUtil x_util = new XmlUtil();
 
             //get PDF file path
-            string path = Server.MapPath(".") + @"\PDF";
-            util.CheckDirectory(path);
+            string path = Server.MapPath("../..") + @"\temp_files";
 
             //delete previous files older than 1 minute
             string[] files = Directory.GetFiles(path);
             foreach (string file in files)
             {
                 FileInfo fileInfo = new FileInfo(file);
-                if (fileInfo.LastWriteTime < DateTime.Now.AddSeconds(-10.0D))
+                if (fileInfo.LastWriteTime < DateTime.Now.AddMinutes(-1.0D))
                     File.Delete(file);
             }
-            string file_name = State["Username"].ToString() + "_" + State["SelectedApp"].ToString() + ".pdf";
+            string file_name = State["SelectedApp"].ToString() + ".pdf";
             file_name = file_name.Replace(" ", "_");
-            string save_file_path = path + @"\" + file_name;
+            string save_file_path = path + @"\" + State["Username"].ToString() + "." + file_name;
 
             //open PDF doc
             var doc = new Document(PageSize.LETTER);
@@ -275,7 +274,7 @@ public partial class Dialogs_StoryBoard : System.Web.UI.Page
             }
             doc.Close();
 
-            doPopup.Text = "PDF/" + file_name;
+            doPopup.Text = "../../temp_files/" + State["Username"].ToString() + "." +file_name;
         }
         catch (Exception ex)
         {

@@ -157,17 +157,7 @@
                     var action = parts[0];
                     var sub_parts = parts[1].split(',');
 
-                    if (action == 'capture_process_document') {
-                       
-                        for (var j = 0; j < sub_parts.length; j++) {
-                            var share_parts = sub_parts[j].split('~');
-                            var param = share_parts[0].substring(0, 1).toUpperCase() + share_parts[0].substring(1).replaceAll("_", " ");
-                            addProperty('addCaptureProcessDocumentPropertyDiv', param, null);
-                            $('#' + share_parts[0]).attr('value', share_parts[1].replaceAll('%3A', ':'));
-                        }
-                        $('#addCaptureProcessDocumentPropertyDiv').css('display', 'block');
-                    }
-                    else if (action == 'manage_document_case') {
+                    if (action == 'manage_document_case') {
                        
                         for (var j = 0; j < sub_parts.length; j++) {
                             var share_parts = sub_parts[j].split('~');
@@ -193,24 +183,7 @@
                if (view == 'post_view') {
                      action_value = ";";
                }
-               else if (view == 'capture_process_document_view') {
-                  action_value.value = 'capture_process_document:';
-                    error = false;
-                    $('.param').each(function (index, element) {
-                        if (element.value.length == 0) {
-                            alert('All parameters must have values.');
-                            error = true;
-                            return;
-                        }
-                        if (index > 0)
-                            action_value.value += ',';
-                        action_value.value += element.id + '~' + element.value.replaceAll(':', '%3A');
-                    });
-                    if (error)
-                        return;
-                    action_value.value += ';';
-                }
-                else if (view == 'manage_document_case_view') {
+               else if (view == 'manage_document_case_view') {
                     action_value.value = 'manage_document_case:';
                     error = false;
                     $('.param').each(function (index, element) {

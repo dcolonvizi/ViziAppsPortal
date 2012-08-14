@@ -11,7 +11,6 @@ using System.Text;
 using System.Net;
 using System.Data;
 using System.Drawing;
-using SpeechReco;
 
 /// <summary>
 /// Summary description for PhoneWebService
@@ -370,8 +369,8 @@ public class PhoneWebService : System.Web.Services.WebService
             if (longitude != null && longitude.Length > 0)
                 sb_sql.Append(",gps_longitude='" + longitude + "'");
 
-            db.ReportsExecuteNonQuery(State, sb_sql.ToString());
-            db.CloseReportsDatabase(State);
+            db.ViziAppsExecuteNonQuery(State, sb_sql.ToString());
+            db.CloseViziAppsDatabase(State);
 
             if (application_id != null && application_id.Length > 0)
             {
@@ -379,7 +378,7 @@ public class PhoneWebService : System.Web.Services.WebService
                 if (app_status == "production")
                 {
                     sql = "SELECT DISTINCT device_id FROM reports  WHERE application_id='" + application_id + "' GROUP BY device_id";
-                    DataRow[] users_rows = db.ReportsExecuteSql(State, sql);
+                    DataRow[] users_rows = db.ViziAppsExecuteSql(State, sql);
                     string number_of_users = users_rows.Length.ToString();
                     sql = "UPDATE applications SET number_of_uses=number_of_uses+1,number_of_users=" + number_of_users + " WHERE application_id='" +
                         application_id + "'";
@@ -583,6 +582,8 @@ public class PhoneWebService : System.Web.Services.WebService
             State["NewWebAppHtml"] = File.ReadAllText(Server.MapPath(".") + @"\App_Data\NewViziAppsWebApp.txt");
             State["NewHybridAppXml"] = File.ReadAllText(Server.MapPath(".") + @"\App_Data\NewViziAppsHybridApp.xml");
             State["ShareThisScripts"] = File.ReadAllText(Server.MapPath(".") + @"\App_Data\ShareThisScripts.txt");
+            State["TempFilesPath"] = Server.MapPath(".") + @"\temp_files\";
+
             State["Username"] = util.GetUsernameFromCustomerID(State, customer_id);
             //get original design display width and height
             string device_design_width = Design.SelectSingleNode("//configuration/device_design_width").InnerText;

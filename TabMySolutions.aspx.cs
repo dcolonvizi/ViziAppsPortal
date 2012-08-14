@@ -278,11 +278,10 @@ public partial class TabMySolutions : System.Web.UI.Page
 
         //set browser type
          State["Browser"] = Request.Browser.Browser;
-
          State["BrowserVersion"] = Request.Browser.Version;
          State["UserHostAddress"] = Request.UserHostAddress;
-
-    }
+         State["TempFilesPath"] = MapPath(".") + @"\temp_files\";
+   }
     protected void InitUserSession()
     {
         //make sure licenses are in place because a website publish by Visual Studio does not transfer licenses
