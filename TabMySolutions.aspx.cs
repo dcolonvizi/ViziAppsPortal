@@ -281,6 +281,10 @@ public partial class TabMySolutions : System.Web.UI.Page
          State["BrowserVersion"] = Request.Browser.Version;
          State["UserHostAddress"] = Request.UserHostAddress;
          State["TempFilesPath"] = MapPath(".") + @"\temp_files\";
+
+         //delete any old temp files
+         Util util = new Util();
+         util.DeleteOldTempFiles(State);
    }
     protected void InitUserSession()
     {

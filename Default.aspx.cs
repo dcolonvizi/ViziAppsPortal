@@ -236,17 +236,8 @@ public partial class Default : System.Web.UI.Page
         State["TempFilesPath"] = MapPath(".") + @"\temp_files\";
 
         //delete any old temp files
-        string[] files = Directory.GetFiles(State["TempFilesPath"].ToString());
-        DateTime now = DateTime.UtcNow;
-        foreach (string file in files)
-        {
-            if (file.Contains("folder_placeholder.txt")) //place holder to prevent folder from being deleted
-                continue;
-            FileInfo fileInfo = new FileInfo(file);
-            TimeSpan age = now - fileInfo.LastWriteTimeUtc;
-            if (age.TotalMinutes > 5.0D)
-                File.Delete(file);
-        }
+        Util util = new Util();
+        util.DeleteOldTempFiles(State);
     }
 
     protected void InitUserSession()

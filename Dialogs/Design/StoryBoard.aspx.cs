@@ -201,15 +201,6 @@ public partial class Dialogs_StoryBoard : System.Web.UI.Page
 
             //get PDF file path
             string path = Server.MapPath("../..") + @"\temp_files";
-
-            //delete previous files older than 1 minute
-            string[] files = Directory.GetFiles(path);
-            foreach (string file in files)
-            {
-                FileInfo fileInfo = new FileInfo(file);
-                if (fileInfo.LastWriteTime < DateTime.Now.AddMinutes(-1.0D))
-                    File.Delete(file);
-            }
             string file_name = State["SelectedApp"].ToString() + ".pdf";
             file_name = file_name.Replace(" ", "_");
             string save_file_path = path + @"\" + State["Username"].ToString() + "." + file_name;

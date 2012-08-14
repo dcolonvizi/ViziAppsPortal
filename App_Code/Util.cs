@@ -3400,7 +3400,20 @@ public class Util
         State["BackgroundImageUrl"] = null;
         State["AppXmlDoc"] = null;
         State["SelectedDeviceType"] = null;
-       // State["SelectedDeviceView"] = null;
+    }
+    public void DeleteOldTempFiles(Hashtable State)
+    {
+        string[] files = Directory.GetFiles(State["TempFilesPath"].ToString());
+        DateTime now = DateTime.UtcNow;
+        foreach (string file in files)
+        {
+            if (file.Contains("folder_placeholder.txt")) //place holder to prevent folder from being deleted
+                continue;
+            FileInfo fileInfo = new FileInfo(file);
+            TimeSpan age = now - fileInfo.LastWriteTimeUtc;
+            if (age.TotalMinutes > 5.0D)
+                File.Delete(file);
+        }
     }
     public static string Encrypt(string clearText, string Password)
     {
