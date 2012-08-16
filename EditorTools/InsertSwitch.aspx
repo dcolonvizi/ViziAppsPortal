@@ -181,7 +181,7 @@
         <script type="text/javascript" src="../jquery/js/jquery-1.5.1.min.js"></script>
         <script  language="javascript" type="text/javascript" src="../scripts/default_script_1.6.js"></script>
         <script  language="javascript" type="text/javascript" src="../scripts/font_1.6.min.js"></script>
-        <script  language="javascript" type="text/javascript" src="js/insertSwitch_1.22.min.js"></script>
+        <script  language="javascript" type="text/javascript" src="js/insertSwitch_1.23.min.js"></script>
 </head>
 <body>
     <form id="switchform" runat="server">
@@ -358,129 +358,65 @@
     </div>
             </telerik:RadPageView>
             <telerik:RadPageView ID="share_view" runat="server">
-                 <div style="height:33px;">
-                     All fields are optional. Set these entries with the names of the fields that 
-                     will contain the actual values. For multiple recipients,
-                     <br />
-                     separate the values with semicolons.</div>
-                 <div style="height:32px;">
-                     <table style="width: 781px">
+                 <div id="addSharePropertyDiv">
+                     <table style="width: 400px; height: 30px;">
                          <tr>
-                             <td class="style74" valign="top">
-                                 Subject in field:</td>
-                             <td class="style12" valign="top" width="200">
-                                 <input type="text" id="share_subject_field" size="30"/>
-                             </td>
-                             <td class="style12">
+                             <td align="left" class="style23" valign="top">
+                                 <select style="width: 173px; font-size:12px" 
+                                     onchange="addPropertySelected(this,'addSharePropertyDiv');">
+                                 <option>Add a property -&gt;</option>
+                                 <option value="NAME">Subject field</option>
+                                 <option value="NAME">Message field</option>                                    
+                                 <option value="NAME">Media link field</option>
+                                 <option value="NAME">Sms phone field</option>      
+                                 <option value="NAME">To email field</option>                       
+                                  </select>
+                                 </td>
+                             <td class="style100" valign="top">
                                  &nbsp;</td>
-                             <td class="style12">
-                                 &nbsp;</td>
                          </tr>
                      </table>
-                 </div>
-                 <div style="height:33px;">
-                     <table style="width: 770px">
-                         <tr>
-                             <td class="style78">
-                                 Message to share in field:</td>
-                             <td class="style76">
-                                 <input type="text" id="message_field" size="30"/>
-                             </td>
-                             <td align="right" class="style77">
-                                 Hyperlink to photo in field:</td>
-                             <td>
-                                 <input type="text" id="media_link_field" size="30"/>
-                             </td>
-                         </tr>
-                     </table>
-                 </div>
-                 <div style="height:33px;">
-                     <table style="width: 768px">
-                         <tr>
-                             <td class="style74" >
-                                 SMS phone(s) in field:</td>
-                             <td class="style79" >
-                                 <input type="text" id="sms_phone_field" 
-                size="30"/>
-                             </td>
-                             <td  align="right" class="style77">
-                                 Email(s) To, in field:</td>
-                             <td >
-                                 <input type="text" id="to_email_field" 
-                size="30"/>
-                             </td>
-                         </tr>
-                     </table>
-                 </div>
+                 </div>      
             </telerik:RadPageView>
             <telerik:RadPageView ID="email_view" runat="server">
-                 <div style="height:32px;">
-    <table style="width: 781px; height: 28px;"><tr><td class="style65" valign="top">
-        Email(s) To, in field:</td>
-        <td class="style12" valign="top" width="200">
-            <input type="text" id="to_email_field2" size="30"/></td>
-        <td class="style12">
-            delimit emails with semicolon in the field containing the values</td>
-        </tr></table>
-    </div>
-                 <div style="height:33px;">
-                     <table style="width: 770px">
+                <div id="addEmailPropertyDiv">
+                     <table style="width: 400px; height: 30px;">
                          <tr>
-                             <td class="style65">
-                                 Subject in field:</td>
-                             <td class="style38">
-                                 <input type="text" id="subject_field" size="30"/>
-                             </td>
-                             <td class="style42" align="right">
-                                 &nbsp;</td>
-                             <td>
+                             <td align="left" class="style23" valign="top">
+                                 <select style="width: 173px; font-size:12px" 
+                                     onchange="addPropertySelected(this,'addEmailPropertyDiv');">
+                                 <option>Add a property -&gt;</option>
+                                 <option value="NAME">To email field</option>
+                                 <option value="NAME">Subject field</option>
+                                 <option value="NAME">Message field</option>                                
+                                 <option value="NAME">Media link field</option>
+                                 <option value="false,true">Use html format</option>                                                     
+                                 </select>
+                                 </td>
+                             <td class="style100" valign="top">
                                  &nbsp;</td>
                          </tr>
                      </table>
-                 </div>
-                 <div style="height: 33px;">
-                     <table style="width: 770px">
-                         <tr>
-                             <td class="style65">
-                                 Message to share in field:</td>
-                             <td class="style67">
-                                 <input type="text" id="message_field2" size="30"/>
-                             </td>
-                             <td align="right" class="style69">
-                                 Hyperlink to photo in field:</td>
-                             <td>
-                                 <input type="text" id="media_link_field2" size="30"/>
-                             </td>
-                         </tr>
-                     </table>
-                 </div>
+                 </div>           
             </telerik:RadPageView>
             <telerik:RadPageView ID="sms_view" runat="server">
-                 <div style="height:33px;">
-    <table style="width: 776px"><tr><td class="style65" align="left" valign="top">
-        SMS phone(s) in field:</td>
-        <td class="style61" valign="top">
-            <input type="text" id="sms_phone_field2" size="30"/></td>
-        <td>
-            delimit numbers with semicolon in the field containing the values</td>
-        </tr></table>
-    </div>
-                 <div style="height:33px;">
-                     <table style="width: 770px">
+                 <div id="addSMSPropertyDiv">
+                     <table style="width: 400px; height: 30px;">
                          <tr>
-                             <td class="style72">
-                                 Message to share in field:</td>
-                             <td class="style70">
-                                 <input type="text" id="message_field3" size="30"/>
-                             </td>
-                             <td align="right" class="style73">
-                                 Hyperlink to photo in field:</td>
-                             <td>
-                                 <input type="text" id="media_link_field3" size="30"/>
-                             </td>
+                             <td align="left" class="style23" valign="top">
+                                 <select style="width: 173px; font-size:12px" 
+                                     onchange="addPropertySelected(this,'addSMSPropertyDiv');">
+                                 <option>Add a property -&gt;</option>
+                                 <option value="NAME">Sms phone field</option>      
+                                 <option value="NAME">Message field</option>                                    
+                                 <option value="NAME">Media link field</option>
+                                  </select>
+                                 </td>
+                             <td class="style100" valign="top">
+                                 &nbsp;</td>
                          </tr>
                      </table>
-                 </div>
+                 </div>     
             </telerik:RadPageView>
              <telerik:RadPageView ID="take_photo_view" runat="server">
                <div style="height: 32px">

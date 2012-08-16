@@ -4,39 +4,53 @@
 <head>
     <title>Guide to Using Google Docs Spreadsheets</title>
     <style type="text/css">
+        body
+        {
+            font-size: 11pt; 
+            font-family: Arial;
+        }
         .style1
         {
             font-family: "Courier New", Courier, monospace;
         }
+        .style2
+        {
+            font-size: 12pt;
+        }
+        .style3
+        {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12pt;
+        }
     </style>
-    </head>
+</head>
 <body style="width:780px">
 <div>
-<span class="body" style="font-size: 11pt; font-family: Arial">
+<span class="body" style="">
 <P>
 			Here is a guide 
             to using custom header HTML to enhance the operation of your app.</p>
-    <P>
+    <P class="style2">
 			<strong>Overview</strong></p>
     <P>
 			You can put any type of header HTML in your hybrid and web app including 
-            scripts, styling, Google Analytics, external web service calls and others. Put 
+            scripts, styling, Google Analytics, external web service calls, library plugins and others. Put 
             all of your&nbsp; HTML elements together in one
-<span class="body" style="font-size: 11pt; font-family: Arial">
+
             custom header. 
-</span>
+
            You 
             can assume a JQuery context for your scripts. You can also refer to your 
             ViziApps fields and buttons. Here a few example headers that may be useful to your 
             app:</p>
-    <P>
+    <P class="style2">
 			<strong>Google Analytics</strong></p>
     <P>
 			Copy the Javascript code right from Google Analytics into your custom header and 
             see reports on the user traffic for your mobile app from your own
-<span class="body" style="font-size: 11pt; font-family: Arial">
+
             Google Analytics. Here is a sample code. Replace &quot;UA-12345678-1&quot; with your own&nbsp; 
-            Google Analytics account number:</span></p>
+            Google Analytics account number:</p>
 </span>
 <span class="style1" style="font-size: 11pt; ">
     <P style="background-color:#FFFFCC">
@@ -52,9 +66,13 @@
   })();<br /> 
 			&lt;/script&gt;</p>
 </span>
+<span class="body" style="font-family: Arial">
+    <P class="style2">
+			<strong>Concatenation of String Values</strong></p>
+</span>
+
+
 <span class="body" style="font-size: 11pt; font-family: Arial">
-    <P>
-			<strong>Concatenation of string values</strong></p>
     <P>
 			If you want to refer to values of fields in your ViziApp, use the JQuery 
             notation and the unique identifier name you gave the field. For example to 
@@ -97,8 +115,279 @@ event.stopPropagation();<br />
     <P>
 			Here is a screen shot from a running hybrid app of what this looks like:</p>
     <P>
-			<img alt="" src="../../images/concat_screenshot.jpg"/></p>
+			<img alt="" style="width:240px;height:360px"  src="../../images/concat_screenshot.jpg"/></p>
 </span>
+
+
+<pre>
+<span class="style3"><strong>Accelerometer</strong></span><br>
+This script allows you to access the device's accelerometer.
+<span class="style1" style="font-size: 11pt; ">
+    <P style="background-color:#FFFFCC">
+// Accelerometer 
+&lt;script type="text/javascript">
+$(function () {
+$('#accelerometerButton').bind('tap',function(event){ 
+
+function onSuccess(acceleration) {
+    var alertDismissed = function () {
+    };    
+    navigator.notification.alert('Acceleration X: ' + acceleration.x + '\n' +
+          'Acceleration Y: ' + acceleration.y + '\n' +
+          'Acceleration Z: ' + acceleration.z + '\n' +
+          'Timestamp: '      + acceleration.timestamp + '\n',
+    alertDismissed,
+    'Accelerometer',
+    'Done');
+};
+function onError() {
+    navigator.notification.alert('onError!');
+};
+
+navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
+
+event.stopPropagation();
+}); 
+});
+&lt;script>
+    </pre>
+
+Here are screen shots from a running hybrid app of what this looks like:
+    <P>
+	<img src="../../images/jsRecipesAccelerometer1.jpg" alt="jsRecipesAccelerometer1" width="213" height="320" /> <img src="../../images/jsRecipesAccelerometer2.jpg" alt="jsRecipesAccelerometer2" width="213" height="320" /> <img src="../../images/jsRecipesAccelerometer3.jpg" alt="jsRecipesAccelerometer3" width="213" height="320" /></p>
+</span>
+
+<span class="body" style="font-size: 11pt; font-family: Arial">
+<pre>
+<span class="style3"><strong>Alert</strong></span><br>
+This script allows you to display alerts associated with a button click.
+<span class="style1" style="font-size: 11pt; ">
+    <P style="background-color:#FFFFCC">
+//
+// Display an alert associated with a button
+//
+&lt;script type="text/javascript">
+$(function () {
+$('#alertButton').bind('click',function(event){  
+    var alertDismissed = function () {
+    }
+     navigator.notification.alert(
+            'You are the winner!',  // message
+            alertDismissed,         // callback
+            'Game Over',            // title
+            'Done'                  // buttonName
+        );
+          event.stopPropagation();
+      });
+});
+&lt;/script>
+</pre>
+</span>
+Here are screen shots from a running hybrid app of what this looks like:
+    <P>
+	<img src="../../images/jsRecipesAlert1.jpg" alt="jsRecipesAlert1" width="213" height="320" /> <img src="../../images/jsRecipesAlert2.jpg" alt="jsRecipesAlert2" width="213" height="320" />
+	</p>
+<pre>
+<span class="style3"><strong>Check Network Connections</strong></span><br>
+This script allows you to check device network connections. It is associated with a button click.
+<span class="style1" style="font-size: 11pt; ">
+    <P style="background-color:#FFFFCC">
+//
+// Check Connections
+//
+&lt;script type="text/javascript">
+$(function () {
+$('#checkConnectionsButton').bind('click',function(event){  
+
+function checkConnection() {
+    var networkState = navigator.network.connection.type;
+    var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI]     = 'WiFi connection';
+    states[Connection.CELL_2G]  = 'Cell 2G connection';
+    states[Connection.CELL_3G]  = 'Cell 3G connection';
+    states[Connection.CELL_4G]  = 'Cell 4G connection';
+    states[Connection.NONE]     = 'No network connection';
+    
+    navigator.notification.alert('Connection type: ' + states[networkState]);
+}
+
+checkConnection();
+
+event.stopPropagation();
+});
+});
+&lt;script>
+</pre>
+</span>
+Here are screen shots from a running hybrid app of what this looks like:
+    <P>
+	<img src="../../images/jsRecipesCheckConnections1.jpg" alt="jsRecipesCheckConnections1" width="213" height="320" /> <img src="../../images/jsRecipesCheckConnections2.jpg" alt="jsRecipesCheckConnections2" width="213" height="320" />
+	</p>
+<pre>
+<span class="style3"><strong>Get Device Details</strong></span><br>
+This script gets and displays device details
+<span class="style1" style="font-size: 11pt; ">
+    <P style="background-color:#FFFFCC">
+//
+// get device details
+//
+&lt;script type="text/javascript">
+$(function () {
+$('#deviceButton').bind('tap',function(event){ 
+
+  navigator.notification.alert ('Name: '    + device.name       +  '\n' +
+                             'Cordova: '    + device.cordova    +  '\n' +
+                            'Platform: '    + device.platform   +  '\n' +
+                                'UUID: '    + device.uuid       +  '\n' +
+                             'Version: '    + device.version    +  '\n' );
+event.stopPropagation();
+}); 
+});
+&lt;script>
+</pre>
+</span>
+Here are screen shots from a running hybrid app of what this looks like:
+    <P>
+	<img src="../../images/jsRecipesDeviceDetails1.jpg" alt="jsRecipesDeviceDetails1" width="213" height="320" /> <img src="../../images/jsRecipesDeviceDetails2.jpg" alt="jsRecipesDeviceDetails2" width="213" height="320" />
+	</p>
+<pre>
+<span class="style3"><strong>Get GeoLocation</strong></span><br>
+This script gets and displays device GeoLocation
+<span class="style1" style="font-size: 11pt; ">
+    <P style="background-color:#FFFFCC">
+//
+// Get GeoLocation
+//
+&lt;script type="text/javascript">
+$(function () {
+$('#geoLocationButton').bind('click',function(event){  
+
+var onSuccess = function(position) {
+    navigator.notification.alert('Latitude: '          + position.coords.latitude          + '\n' +
+          'Longitude: '         + position.coords.longitude         + '\n' +
+          'Altitude: '          + position.coords.altitude          + '\n' +
+          'Accuracy: '          + position.coords.accuracy          + '\n' +
+          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+          'Heading: '           + position.coords.heading           + '\n' +
+          'Speed: '             + position.coords.speed             + '\n' +
+          'Timestamp: '         + new Date(position.timestamp)      + '\n');
+};
+
+// onError Callback receives a PositionError object
+//
+function onError(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+}
+
+navigator.geolocation.getCurrentPosition(onSuccess, onError);
+     
+event.stopPropagation();
+});
+});
+&lt;script>
+</pre>
+</span>
+Here are screen shots from a running hybrid app of what this looks like:
+    <P>
+	<img src="../../images/jsRecipesGeoLocation1.jpg" alt="jsRecipesGeoLocation1" width="213" height="320" /> <img src="../../images/jsRecipesGeoLocation2.jpg" alt="jsRecipesGeoLocation2" width="213" height="320" />
+	</p>
+<pre>
+<span class="style3"><strong>Save Local Data</strong></span><br>
+This script gets and displays device GeoLocation
+<span class="style1" style="font-size: 11pt; ">
+    <P style="background-color:#FFFFCC">
+&lt;script type="text/javascript">
+//
+// Save Value; persist between sessions
+//
+// If there is a saved value, load it to the screen
+$('#home').live('pageinit',function(event){  
+    var savedValue = localStorage.getItem('sValue');
+    setFieldValue('valueToSave', savedValue);  
+    event.stopPropagation();
+   });
+
+//
+// save value
+//
+$(function () {
+   $('#saveValueButton').bind('tap',function(event){  
+       var inputValue = getFieldValue('valueToSave');
+       localStorage.setItem('sValue', inputValue);
+       setFieldValue('message', 'Value saved');
+       event.stopPropagation();
+   }); 
+}); 
+
+//
+// clear saved value
+//
+$(function () {
+   $('#clearValueButton').bind('tap',function(event){  
+       localStorage.removeItem('sValue');
+       var savedValue = localStorage.getItem('sValue');
+       setFieldValue('valueToSave', savedValue); 
+       setFieldValue('message', 'Value cleared'); 
+       event.stopPropagation();
+   }); 
+}); 
+&lt;/script>
+</pre>
+</span>
+Here are screen shots from a running hybrid app of what this looks like:
+    <P>
+	<img src="../../images/jsRecipesLocalStorage1.jpg" alt="jsRecipesLocalStorage1" width="213" height="320" /> <img src="../../images/jsRecipesLocalStorage2.jpg" alt="jsRecipesLocalStorage2" width="213" height="320" />
+	</p>
+<pre>
+<span class="style3"><strong>Execute when page loads</strong></span><br>
+This script will execute when page2 loads.
+<span class="style1" style="font-size: 11pt; ">
+    <P style="background-color:#FFFFCC">
+&lt;script type="text/javascript">
+//
+// Perform action when page loads
+//
+
+$('#page2').live('pageinit',function(event){  
+    navigator.notification.alert('You just entered page 2'); 
+    event.stopPropagation();
+   });
+
+&lt;/script>
+</pre>
+</span>
+Here are screen shots from a running hybrid app of what this looks like:
+    <P>
+	<img src="../../images/jsRecipesOnPageLoad1.jpg" alt="jsRecipesOnPageLoad1" width="213" height="320" /> <img src="../../images/jsRecipesOnPageLoad2.jpg" alt="jsRecipesOnPageLoad2" width="213" height="320" />
+	</p>
+<pre>
+<span class="style3"><strong>Vibrate the Phone</strong></span><br>
+This script will vibrate the phone.
+<span class="style1" style="font-size: 11pt; ">
+    <P style="background-color:#FFFFCC">
+//
+// Vibrate when button clicked 
+//
+
+&lt;script type="text/javascript">
+$(function () {
+$('#vibrateButton').bind('click',function(event){  
+     navigator.notification.vibrate(100);
+     event.stopPropagation();
+      });
+});
+&lt;/script>
+</pre>
+</span>
+Here are screen shots from a running hybrid app of what this looks like:
+    <P>
+	<img src="../../images/jsRecipesVibrate.jpg" alt="jsRecipesVibrate" width="213" height="320" />
+	</p>
+</span>
+
 </div>
 </body>
 </html>

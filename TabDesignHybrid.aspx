@@ -133,7 +133,7 @@
         <script  language="javascript" type="text/javascript" src="jquery/js/jquery-1.5.1.min.js"></script>  
         <script type="text/javascript" src="jquery/js/jquery-ui-1.8.13.custom.min.js"></script>
         <script  language="javascript" type="text/javascript" src="scripts/dialogs_1.26.min.js"></script>
-        <script language="javascript" type="text/javascript" src="EditorTools/js/editor_custom_tools_2.41.min.js"></script>
+        <script language="javascript" type="text/javascript" src="EditorTools/js/editor_custom_tools_2.42.min.js"></script>
         <script  language="javascript" type="text/javascript">
             function PopUp(url, features) {
                 var PUtest = window.open(url, '_blank', features);

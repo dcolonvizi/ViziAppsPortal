@@ -92,7 +92,7 @@ $(function () {
    $("#map_dialog").dialog({ autoOpen: false, width: 600, height: 280, modal: true, beforeClose: function (event, ui) { $(this).children().first().remove(); } });
     $("#map").button().click(function () {InsertMapOpen(null);});
 
-   $("#hidden_field_dialog").dialog({ autoOpen: false, width: 600, height: 200, modal: true, beforeClose: function (event, ui) { $(this).children().first().remove(); } });
+   $("#hidden_field_dialog").dialog({ autoOpen: false, width: 600, height: 250, modal: true, beforeClose: function (event, ui) { $(this).children().first().remove(); } });
    $("#hidden_field").button().click(function () { InsertHiddenFieldOpen(null); });
 });
 

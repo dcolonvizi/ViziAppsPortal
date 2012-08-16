@@ -217,7 +217,101 @@
         function contains(string_var, string_val) {
             return (string_var.indexOf(string_val)  >= 0)? true : false;
         }
-        
+        function addPropertySelected(sender, div_id) {
+            addProperty(div_id, sender.options[sender.selectedIndex].label, sender.value);
+            sender.selectedIndex = 0;
+        }
+
+        $(function () {
+        });
+
+        function addProperty(prop_id, param, validations) { //if the selection option has no value attribute then param == validations
+            if (param == undefined)
+                return;
+            var id = param.replaceAll(' ', '_').toLowerCase();
+            var exists = document.getElementById(id);
+            if (exists != null)
+                return;
+            var delete_id = id + "_delete";
+            var div_id = id + "_div";
+            $('#' + prop_id).css('display', 'none');
+
+            if (validations != null && validations.indexOf('-') >= 0) {
+                $('#' + prop_id).before('<div id="' + div_id + '"><table style="width: 600px"><tr><td align="left" valign="top" style="width:180px" >' + param + '</td><td valign="top"><input class="param" type="text" id="' + id + '" size="30" /></td><td>[' + validations + ']</td><td style="width:20px"><img id="' + delete_id + '" alt="delete" src="../images/delete_small.gif"  /></td></tr></table></div>');
+            }
+            else if (validations != null && validations.indexOf('TEXTAREA') >= 0) {
+                $('#' + prop_id).before('<div id="' + div_id + '"><table style="width: 600px"><tr><td align="left" valign="top" style="width:180px" >' + param + '</td><td valign="top"><textarea class="param" rows="4" cols="50" id="' + id + '" size="30" ></textarea></td><td style="width:20px"><img id="' + delete_id + '" alt="delete" src="../images/delete_small.gif"  /></td></tr></table></div>');
+            }
+            else if (validations != null && validations != param && (validations.indexOf('NAME') < 0) && validations != 'URL') {
+                var options = '<option>select -&gt;</option>';
+                var validation_list = validations.split(',');
+                for (var i = 0; i < validation_list.length; i++) {
+                    options += '<option>' + validation_list[i] + '</option>';
+                }
+                $('#' + prop_id).before('<div id="' + div_id + '"><table style="width: 600px"><tr><td align="left" valign="top" style="width:180px" >' + param + '</td><td valign="top"><select class="param" id="' + id + '" >"' + options + '"</select></td><td style="width:20px"><img id="' + delete_id + '" alt="delete" src="../images/delete_small.gif"  /></td></tr></table></div>');
+            }
+            else
+                $('#' + prop_id).before('<div id="' + div_id + '"><table style="width: 600px"><tr><td align="left" valign="top" style="width:180px" >' + param + '</td><td valign="top"><input class="param" type="text" id="' + id + '" size="30" /></td><td style="width:20px"><img id="' + delete_id + '" alt="delete" src="../images/delete_small.gif"  /></td></tr></table></div>');
+
+            $('#' + id).focus();
+            $('#' + id).change(function (event) {
+                if (validations != null && validations != param) {
+                    var match_found = false;
+                    if (validations.indexOf('TEXTAREA') >= 0) {
+                    }
+                    else if (validations.indexOf('NAME') >= 0) {
+                        this.value = this.value.replaceAll(' ', '_');
+                        if (!IsValidObjectName(this.value)) {
+                            alert('entry can only contain either a letter, number, "_" and be 1 to 100 characters long');
+                            return;
+                        }
+                    }
+                    else if (validations == 'URL') {
+                        this.value = this.value.replaceAll(' ', '%20');
+                        if (this.value.indexOf('http://') != 0 && this.value.indexOf('https://') != 0) {
+                            alert('entry is not a valid URL');
+                            return;
+                        }
+                    }
+                    else if (validations.indexOf('-') >= 0) {//this means validation is a range of numeric values
+                        var limits = validations.split('-');
+                        var i_value = parseInt(this.value);
+                        if (i_value >= parseInt(limits[0]) && i_value <= parseInt(limits[1])) {
+                            match_found = true;
+                        }
+                        if (!match_found) {
+                            alert('entry is outside the valid range');
+                            return;
+                        }
+                    }
+                    else {//else it is a list of possible values
+                        var possible_list = validations.split(',');
+                        for (var i = 0; i < possible_list.length; i++) {
+                            if (this.value == possible_list[i].replaceAll(' ', '')) {
+                                match_found = true;
+                                break;
+                            }
+                        }
+                        if (!match_found) {
+                            alert('entry does not match possible values');
+                            return;
+                        }
+                    }
+                }
+                event.cancelBubble = true;
+                if (event.stopPropagation)
+                    event.stopPropagation();
+                $('#' + prop_id).css('display', 'block');
+            });
+
+            $('#' + delete_id).click(function (event) {
+                var delete_id = event.target.attributes[2].value;
+                var div_id = delete_id.substring(0, delete_id.length - 7) + '_div';
+                $('#' + div_id).remove();
+                $('#' + prop_id).css('display', 'block');
+            });
+        }
+                
         function initDialog() {              
             ArgList = parent.window.getDialogInputArgs();
             for (var i = 0; i < ArgList.length; i++) {
@@ -315,89 +409,34 @@
                             var sub_parts = parts[1].split(',');
                             for (var j = 0; j < sub_parts.length; j++) {
                                 var share_parts = sub_parts[j].split('~');
-                                switch (share_parts[0]) {
-                                    case 'subject_field':
-                                        var subject = document.getElementById("share_subject_field");
-                                        subject.value = share_parts[1];
-                                        break;
-                                    case 'message_field':
-                                        var message = document.getElementById("message_field");
-                                        message.value = share_parts[1];
-                                        break;
-                                    case 'media_link_field':
-                                        var media_link = document.getElementById("media_link_field");
-                                        media_link.value = share_parts[1];
-                                        break;
-                                    case 'facebook_account_field':
-                                        var facebook_account = document.getElementById("facebook_account_field");
-                                        facebook_account.value = share_parts[1];
-                                        break;
-                                    case 'twitter_account_field':
-                                        var twitter_account = document.getElementById("twitter_account_field");
-                                        twitter_account.value = share_parts[1];
-                                        break;
-                                    case 'foursquare_account_field':
-                                        var foursquare_account = document.getElementById("foursquare_account_field");
-                                        foursquare_account.value = share_parts[1];
-                                        break;
-                                    case 'sms_phone_field':
-                                        var sms_phone = document.getElementById("sms_phone_field");
-                                        sms_phone.value = share_parts[1];
-                                        break;
-                                    case 'to_email_field':
-                                        var to_email = document.getElementById("to_email_field");
-                                        to_email.value = share_parts[1];
-                                        break;
-                                }
+                                var param = share_parts[0].substring(0, 1).toUpperCase() + share_parts[0].substring(1).replaceAll("_", " ");
+                                addProperty('addSharePropertyDiv', param, null);
+                                $('#' + share_parts[0]).attr('value', share_parts[1].replaceAll('%3A', ':'));
                             }
-
-                             break;
+                            $('#addSharePropertyDiv').css('display', 'block');
+                            break;
                          case 'email':
+                             setComboValue(actions, 'email');
                              var sub_parts = parts[1].split(',');
                              for (var j = 0; j < sub_parts.length; j++) {
                                  var share_parts = sub_parts[j].split('~');
-                                 switch (share_parts[0]) {
-                                     case 'message_field':
-                                         var message = document.getElementById("message_field2");
-                                         message.value = share_parts[1];
-                                         break;
-                                     case 'media_link_field':
-                                         var media_link = document.getElementById("media_link_field2");
-                                         media_link.value = share_parts[1];
-                                         break;
-                                     case 'to_email_field':
-                                         var to_email = document.getElementById("to_email_field2");
-                                         to_email.value = share_parts[1];
-                                         break;
-                                     case 'subject_field':
-                                         var subject_field = document.getElementById("subject_field");
-                                         subject_field.value = share_parts[1];
-                                         break;
-                                 }
+                                 var param = share_parts[0].substring(0, 1).toUpperCase() + share_parts[0].substring(1).replaceAll("_", " ");
+                                 addProperty('addEmailPropertyDiv', param, null);
+                                 $('#' + share_parts[0]).attr('value', share_parts[1].replaceAll('%3A', ':'));
                              }
-                             setComboValue(actions, 'email');
+                             $('#addEmailPropertyDiv').css('display', 'block');
                              break;
                          case 'sms':
+                             setComboValue(actions, 'sms');
                              var sub_parts = parts[1].split(',');
                              for (var j = 0; j < sub_parts.length; j++) {
                                  var share_parts = sub_parts[j].split('~');
-                                 switch (share_parts[0]) {
-                                     case 'message_field':
-                                         var message = document.getElementById("message_field3");
-                                         message.value = share_parts[1];
-                                         break;
-                                     case 'media_link_field':
-                                         var media_link = document.getElementById("media_link_field3");
-                                         media_link.value = share_parts[1];
-                                         break;
-                                     case 'sms_phone_field':
-                                         var sms_phone = document.getElementById("sms_phone_field2");
-                                         sms_phone.value = share_parts[1];
-                                         break;
-                                 }
+                                 var param = share_parts[0].substring(0, 1).toUpperCase() + share_parts[0].substring(1).replaceAll("_", " ");
+                                 addProperty('addSMSPropertyDiv', param, null);
+                                 $('#' + share_parts[0]).attr('value', share_parts[1].replaceAll('%3A', ':'));
                              }
-                             setComboValue(actions, 'sms');
-                             break; 
+                             $('#addSMSPropertyDiv').css('display', 'block');
+                             break;
                        case 'compute':
                             var compute = document.getElementById("compute");
                             compute.value = parts[1].replaceAll("~", "=").replaceAll("|", ";"); // '=' is a special character, '~' is substituting for it
@@ -599,40 +638,55 @@
                 ArgList[3] = 'call:phone_field~' + phone.value.replaceAll(" ", "_") + ";";
             }
             else if (view == 'share_view') {
-                var subject = document.getElementById("share_subject_field");
-                var message = document.getElementById("message_field");
-                var media_link = document.getElementById("media_link_field");
-                var facebook_account = document.getElementById("facebook_account_field");
-                var twitter_account = document.getElementById("twitter_account_field");
-                var foursquare_account = document.getElementById("foursquare_account_field");
-                var sms_phone = document.getElementById("sms_phone_field");
-                var to_email = document.getElementById("to_email_field");
-                ArgList[3] = 'share:subject_field~' + subject.value.replaceAll(" ", "_") +
-                             ',message_field~' + message.value.replaceAll(" ", "_") +
-                              ',media_link_field~' + media_link.value.replaceAll(" ", "_") +
-                             /*',facebook_account_field~' + facebook_account.value +
-                             ',twitter_account_field~' + twitter_account.value +
-                            ',foursquare_account_field~' + foursquare_account.value +*/
-                             ',sms_phone_field~' + sms_phone.value.replaceAll(" ", "_") +
-                             ',to_email_field~' + to_email.value.replaceAll(" ", "_") + ';';
+                ArgList[3] = 'share:';
+                error = false;
+                $('.param').each(function (index, element) {
+                    if (element.value.length == 0) {
+                        alert('All parameters must have values.');
+                        error = true;
+                        return;
+                    }
+                    if (index > 0)
+                        ArgList[3] += ',';
+                    ArgList[3] += element.id + '~' + element.value.replaceAll(':', '%3A');
+                });
+                if (error)
+                    return;
+                ArgList[3] += ';';
             }
             else if (view == 'email_view') {
-                var to_email_field2 = document.getElementById("to_email_field2");
-                var subject_field = document.getElementById("subject_field");
-                var message_field2 = document.getElementById("message_field2");
-                var media_link_field2 = document.getElementById("media_link_field2");
-                ArgList[3] = 'email:to_email_field~' + to_email_field2.value.replaceAll(" ", "_") +
-                    ',subject_field~' + subject_field.value.replaceAll(" ", "_") +
-                    ',media_link_field~' + media_link_field2.value.replaceAll(" ", "_") +
-                    ',message_field~' + message_field2.value.replaceAll(" ", "_") + ';';
+                ArgList[3] = 'email:';
+                error = false;
+                $('.param').each(function (index, element) {
+                    if (element.value.length == 0) {
+                        alert('All parameters must have values.');
+                        error = true;
+                        return;
+                    }
+                    if (index > 0)
+                        ArgList[3] += ',';
+                    ArgList[3] += element.id + '~' + element.value.replaceAll(':', '%3A');
+                });
+                if (error)
+                    return;
+                ArgList[3] += ';';
             }
             else if (view == 'sms_view') {
-                var sms_phone_field2 = document.getElementById("sms_phone_field2");
-                var message_field3 = document.getElementById("message_field3");
-                var media_link_field3 = document.getElementById("media_link_field3");
-                ArgList[3] = 'sms:sms_phone_field~' + sms_phone_field2.value.replaceAll(" ", "_") +
-                    ',media_link_field~' + media_link_field3.value.replaceAll(" ", "_") +
-                    ',message_field~' + message_field3.value.replaceAll(" ", "_") + ';';
+                ArgList[3] = 'sms:';
+                error = false;
+                $('.param').each(function (index, element) {
+                    if (element.value.length == 0) {
+                        alert('All parameters must have values.');
+                        error = true;
+                        return;
+                    }
+                    if (index > 0)
+                        ArgList[3] += ',';
+                    ArgList[3] += element.id + '~' + element.value.replaceAll(':', '%3A');
+                });
+                if (error)
+                    return;
+                ArgList[3] += ';';
             }
             else
                 ArgList[3] = "";

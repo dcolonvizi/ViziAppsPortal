@@ -194,12 +194,13 @@
     </telerik:RadComboBox>
        </td></tr></table>
    </div>
-    <div style="height:32px;">
+    <div style="height:106px;">
    <table><tr><td class="style5">
   Default Value:
-   </td><td>
-    <input type="text" id="default_value" size="40"/> This field can be left empty
-       </td></tr></table>
+   </td><td valign="top">
+    <textarea  id="default_value"  rows="5" cols="40"></textarea>&nbsp;
+       </td><td>
+           This field can be left empty</td></tr></table>
    </div>
    
         <div style="height:33px;">

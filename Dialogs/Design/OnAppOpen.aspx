@@ -191,6 +191,7 @@
                                    <option value="NAME">Name of field containing last case data</option>
                                    <option value="URL">Case management logo url</option>
                                    <option value="TEXTAREA">About box text</option>
+                                   <option value="NAME">Name of field containing email template</option>
                                    <option value="NAME">Name of field containing email body</option>
                                     <option value="true,false">Show settings screen</option>
                                    <option>Replacement for case label name </option>
