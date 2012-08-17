@@ -1900,9 +1900,7 @@ public class XmlUtil
         Util util = new Util();
         util.UpdateStagingAppXml(State);
 
-        Hashtable duplicate_IDs = CheckForDuplicateIDs(page_name, doc);
-        if (duplicate_IDs != null)
-            return duplicate_IDs;
+        Hashtable duplicate_IDs = CheckForDuplicateIDs(page_name, doc); 
 
         ArrayList ComputeSymbols = (ArrayList)State["ComputeSymbols"];
         if (ComputeSymbols.Count > 0)
@@ -1911,7 +1909,8 @@ public class XmlUtil
         }
 
         util.SavePageImage(State, page_name,html);
-        return null;
+
+        return duplicate_IDs; // will return null if there are no duplicates
     }
  
     public void ValidateFieldNames(Hashtable State, Label Message)

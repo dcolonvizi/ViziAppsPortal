@@ -668,23 +668,20 @@ public partial class DesignNative : System.Web.UI.Page
             XmlUtil x_util = new XmlUtil();
 
             State["PageHtml"] = x_util.FilterCanvasOutput(SavedCanvasHtml.Text);
-            string html =  State["PageHtml"].ToString();
+            string html = State["PageHtml"].ToString();
 
-            if ( State["SelectedDeviceType"] == null /*||  State["SelectedDeviceView"] == null*/)
+            if (State["SelectedDeviceType"] == null /*||  State["SelectedDeviceView"] == null*/)
             {
-                 State["SelectedDeviceType"] = Constants.IPHONE;
-                // State["SelectedDeviceView"] = Constants.IPHONE;
-                 DeviceType.Text = State["SelectedDeviceType"].ToString();
+                State["SelectedDeviceType"] = Constants.IPHONE;
+                DeviceType.Text = State["SelectedDeviceType"].ToString();
             }
-           // if ( State["SelectedDeviceType"].ToString() !=  State["SelectedDeviceView"].ToString())
-            //    html = util.UnScaleYValues(State, html);
 
             util.CreateApp(State, page_name, State["SelectedDeviceType"].ToString(), AppDescription.Text);
             util.SetDefaultButton(State, DefaultButtonImage.Text);
-           Hashtable duplicates = x_util.EncodeAppPageToAppXml(State, page_name, html);
+            Hashtable duplicates = x_util.EncodeAppPageToAppXml(State, page_name, html);
             if (duplicates != null)
             {
-                 State["SelectedApp"] = app;
+                State["SelectedApp"] = app;
 
                 util.DeleteApplication(State);
 
@@ -704,7 +701,7 @@ public partial class DesignNative : System.Web.UI.Page
             }
             x_util.SetBackgroundImage(State);
 
-            SetViewForDevice(); 
+            SetViewForDevice();
             ShowPage(page_name);
             CurrentApp.Items.Add(new RadComboBoxItem(app, app));
             CurrentApp.SelectedIndex = CurrentApp.Items.Count - 1;
@@ -877,9 +874,13 @@ public partial class DesignNative : System.Web.UI.Page
             State["PageHtml"] = x_util.FilterCanvasOutput(SavedCanvasHtml.Text);
             string html = State["PageHtml"].ToString();
 
-           // if (State["SelectedDeviceType"].ToString() != State["SelectedDeviceView"].ToString())
-           //     html = util.UnScaleYValues(State, html);
            Hashtable duplicates = x_util.EncodeAppPageToAppXml(State, page_name, html);
+ 
+            Message.Text = "Page " + page_name + " has been saved. ";
+            ShowPage(page_name);
+
+            SavedCanvasHtml.Text = "";
+
             if (duplicates != null)
             {
                 StringBuilder errors = new StringBuilder();
@@ -887,14 +888,9 @@ public partial class DesignNative : System.Web.UI.Page
                 {
                     errors.Append(duplicate + " internal name in current page also found on " + duplicates[duplicate].ToString() + " page; ");
                 }
-                Message.Text = errors.ToString() + " Your app will not work with duplicate identifiers. Fix and then save this page before doing any more edits.";
-                return false;
+                Message.Text += errors.ToString() + " Your app will not work with duplicate identifiers. Fix and then save this page again.";
             }
 
-            Message.Text = "Page " + page_name + " has been saved. ";
-            ShowPage(page_name);
-
-            SavedCanvasHtml.Text = "";
 
             if (State["EncodeComputeWarnings"] != null)
             {
@@ -1066,19 +1062,19 @@ public partial class DesignNative : System.Web.UI.Page
             }
             if (x_util.IsCurrentPageNameUsed(State))
             {
-                Message.Text = "This page cannot be deleted because it is referred to by an action on another page.";
-                return;
+                Message.Text = "The page was deleted but note that it was referred to, by an action on another page.";
             }
-            x_util.DeleteAppPage(State,  State["SelectedAppPage"].ToString());
+            x_util.DeleteAppPage(State, State["SelectedAppPage"].ToString());
             AppPages.SelectedIndex = 0;
             InitAppPages();
 
-             State["SelectedAppPage"] = AppPages.SelectedValue;
+            State["SelectedAppPage"] = AppPages.SelectedValue;
+            PageName.Text = State["SelectedAppPage"].ToString();
 
-            string html = x_util.GetAppPage(State,  State["SelectedAppPage"].ToString());
+            string html = x_util.GetAppPage(State, State["SelectedAppPage"].ToString());
             if (html.StartsWith("Error:"))
             {
-                Message.Text = html;
+                Message.Text += html;
                 return;
             }
             State["PageHtml"] = html;
@@ -1086,7 +1082,7 @@ public partial class DesignNative : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-             util.LogError(State, ex);
+            util.LogError(State, ex);
             Message.Text = "Internal Error: " + ex.Message + ": " + ex.StackTrace;
         }
     }

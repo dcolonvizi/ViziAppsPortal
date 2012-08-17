@@ -737,12 +737,9 @@ public partial class TabDesignWeb : System.Web.UI.Page
             if ( State["SelectedDeviceType"] == null /*||  State["SelectedDeviceView"] == null*/)
             {
                  State["SelectedDeviceType"] = Constants.IPHONE;
-               //  State["SelectedDeviceView"] = Constants.IPHONE;
                 DeviceType.Text =  State["SelectedDeviceType"].ToString();
             }
-           // if ( State["SelectedDeviceType"].ToString() !=  State["SelectedDeviceView"].ToString())
-           //     html = util.UnScaleYValues(State, html);
-
+ 
             util.CreateApp(State, page_name, State["SelectedDeviceType"].ToString(), AppDescription.Text);
             util.SetDefaultButton(State, DefaultButtonImage.Text);
             Hashtable duplicates = x_util.EncodeAppPageToAppXml(State, page_name, html);
@@ -877,9 +874,9 @@ public partial class TabDesignWeb : System.Web.UI.Page
     {
         try
         {
+            Util util = new Util();
             Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
 
-            Util util = new Util();
             util.SetDefaultButton(State, DefaultButtonImage.Text);
             XmlUtil x_util = new XmlUtil();
             //save application
@@ -889,9 +886,13 @@ public partial class TabDesignWeb : System.Web.UI.Page
             State["PageHtml"] = x_util.FilterCanvasOutput(SavedCanvasHtml.Text);
             string html = State["PageHtml"].ToString();
 
-           // if (State["SelectedDeviceType"].ToString() != State["SelectedDeviceView"].ToString())
-           //     html = util.UnScaleYValues(State, html);
             Hashtable duplicates = x_util.EncodeAppPageToAppXml(State, page_name, html);
+
+            Message.Text = "Page " + page_name + " has been saved. ";
+            ShowPage(page_name);
+
+            SavedCanvasHtml.Text = "";
+
             if (duplicates != null)
             {
                 StringBuilder errors = new StringBuilder();
@@ -899,14 +900,9 @@ public partial class TabDesignWeb : System.Web.UI.Page
                 {
                     errors.Append(duplicate + " internal name in current page also found on " + duplicates[duplicate].ToString() + " page; ");
                 }
-                Message.Text = errors.ToString() + " Your app will not work with duplicate identifiers. Fix and then save this page before doing any more edits.";
-                return false;
+                Message.Text += errors.ToString() + " Your app will not work with duplicate identifiers. Fix and then save this page again.";
             }
 
-            ShowPage(page_name);
-
-            Message.Text = "Page " + page_name + " has been saved. ";
-            SavedCanvasHtml.Text = "";
 
             if (State["EncodeComputeWarnings"] != null)
             {
@@ -1084,23 +1080,22 @@ public partial class TabDesignWeb : System.Web.UI.Page
             }
             if (x_util.IsCurrentPageNameUsed(State))
             {
-                Message.Text = "This page cannot be deleted because it is referred to by an action on another page.";
-                return;
+                Message.Text = "The page was deleted but note that it was referred to, by an action on another page.";
             }
-            x_util.DeleteAppPage(State,  State["SelectedAppPage"].ToString());
+            x_util.DeleteAppPage(State, State["SelectedAppPage"].ToString());
             AppPages.SelectedIndex = 0;
             InitAppPages();
 
-             State["SelectedAppPage"] = AppPages.SelectedValue;
-             PageName.Text = State["SelectedAppPage"].ToString();
+            State["SelectedAppPage"] = AppPages.SelectedValue;
+            PageName.Text = State["SelectedAppPage"].ToString();
 
-            string html = x_util.GetAppPage(State,  State["SelectedAppPage"].ToString());
+            string html = x_util.GetAppPage(State, State["SelectedAppPage"].ToString());
             if (html.StartsWith("Error:"))
             {
-                Message.Text = html;
+                Message.Text += html;
                 return;
             }
-             State["PageHtml"] = html;
+            State["PageHtml"] = html;
             PageName.Text = "";
         }
         catch (Exception ex)
