@@ -485,7 +485,7 @@ public class PhoneWebService : System.Web.Services.WebService
 
                     return Design;
                 }
-                else
+                else 
                     SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, latitude, longitude, "app opened");
             }
             else
