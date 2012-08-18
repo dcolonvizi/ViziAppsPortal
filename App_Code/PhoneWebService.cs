@@ -11,6 +11,7 @@ using System.Text;
 using System.Net;
 using System.Data;
 using System.Drawing;
+using Amazon.DynamoDB.DocumentModel;
 
 /// <summary>
 /// Summary description for PhoneWebService
@@ -76,22 +77,27 @@ public class PhoneWebService : System.Web.Services.WebService
 
             HttpRequest request = Context.Request;
 
+            string viziapps_version = request.QueryString.Get("viziapps_version");
+            if (viziapps_version == null)
+                viziapps_version = request.QueryString.Get("mobiflex_version");
+            
+            string device_id = request.QueryString.Get("deviceid");
+            string device_model = request.QueryString.Get("device_model");
             string customer_username = request.QueryString.Get("customer");
-
             string app_status = (customer_username != null && customer_username.Length > 0)? "production" : "staging";
-
             string application_name = request.QueryString.Get("app");
-
             string application_id = request.QueryString.Get("app_id");
+            string unlimited = request.QueryString.Get("unlimited");
+            string device_version = request.QueryString.Get("device_version");
             if (application_id == null)
                 application_id = "";
 
             string sql = null;
             DataRow[] rows = null;
             string customer_id = null;
-            string user_id = "";
-            string user = null;
-            string password = null;
+            string user_id = null;
+            string user = request.QueryString.Get("user");
+            string password = request.QueryString.Get("pwd");
 
             string display_width = request.QueryString.Get("display_width");
             if (display_width == null)
@@ -101,7 +107,6 @@ public class PhoneWebService : System.Web.Services.WebService
             if (display_height == null)
                 display_height = "480";
 
-            string device_model = request.QueryString.Get("device_model");
             if (device_model == null)
                 State["SelectedDeviceType"] = Constants.IPHONE;
             else if (device_model.ToLower().Contains("iphone") || device_model.ToLower().Contains("ipod"))
@@ -113,17 +118,15 @@ public class PhoneWebService : System.Web.Services.WebService
             else
                 State["SelectedDeviceType"] = Constants.ANDROID_PHONE;
             
-            string unlimited = request.QueryString.Get("unlimited");
             if (unlimited == null || unlimited != "true")
             {
-                user = request.QueryString.Get("user");
-                password = request.QueryString.Get("pwd");
                 if (user == null || password == null)
                 {
                     Design = new XmlDocument();
-                    XmlNode root2 = Design.CreateElement("mobiflex_project");
+                    XmlNode root2 = Design.CreateElement("login_response");
                     Design.AppendChild(root2);
                     status = x_util.CreateNode(Design, root2, "status","Either the username or the password: " + password + " is incorrect.");
+                    SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: bad credentials");
                     return Design;
                 }
             }
@@ -137,7 +140,8 @@ public class PhoneWebService : System.Web.Services.WebService
                 string account_status = util.GetCustomerStatus(State);
                 if (account_status == "inactive")
                 {
-                     throw new System.InvalidOperationException("Your customer account is inactive.");
+                    SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: account inactive");
+                    throw new System.InvalidOperationException("Your customer account is inactive.");
                 }
                 application_id = util.GetAppIDFromProductionAppName(State, application_name);
 
@@ -146,7 +150,10 @@ public class PhoneWebService : System.Web.Services.WebService
                 if (features == null)
                 {
                     if (!util.IsFreeProductionValid(State, application_id))
-                           throw new System.InvalidOperationException("The production service for your app has expired. Purchase a production service to re-activate your app.");
+                    {
+                        SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: publishing service expired");
+                        throw new System.InvalidOperationException("The publishing service for your app has expired.");
+                    }
                 }
 
                 if (unlimited == null || unlimited != "true")
@@ -159,6 +166,7 @@ public class PhoneWebService : System.Web.Services.WebService
                     if (rows.Length == 0)
                     {
                         db.CloseViziAppsDatabase(State);
+                        SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: bad credentials");
                         throw new System.InvalidOperationException("Either the username or the password: " + password + " is incorrect.");
                     }
 
@@ -170,7 +178,6 @@ public class PhoneWebService : System.Web.Services.WebService
                         sql = "SELECT COUNT(*) FROM users_device_ids WHERE user_id='" + row["user_id"].ToString() + "'";
                         int device_count = Convert.ToInt32(db.ViziAppsExecuteScalar(State, sql));
 
-                        string device_id = request.QueryString.Get("deviceid");
                         sql = "SELECT COUNT(*) FROM users_device_ids WHERE device_id='" + device_id + "'";
                         string device_exists = db.ViziAppsExecuteScalar(State, sql);
 
@@ -179,6 +186,7 @@ public class PhoneWebService : System.Web.Services.WebService
                             if (device_count >= (int)features["max_users"])
                             {
                                 db.CloseViziAppsDatabase(State);
+                                SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: reached limit of users");
                                 throw new System.InvalidOperationException("Cannot download app: reached limit of users.");
                             }
                             else
@@ -198,6 +206,7 @@ public class PhoneWebService : System.Web.Services.WebService
                 if (rows.Length == 0)
                 {
                     db.CloseViziAppsDatabase(State);
+                    SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: user not registered");
                     throw new Exception("The username " + user.ToLower() + " is not registered. Go to www.viziapps.com and create a free account.");
                 }
  
@@ -205,11 +214,13 @@ public class PhoneWebService : System.Web.Services.WebService
                 if (row["password"].ToString() != password)
                 {
                     db.CloseViziAppsDatabase(State);
+                    SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: bad credentials");
                     throw new Exception("Either the username or the password: " + password + " is incorrect.");
                 }
                 if (row["status"].ToString() == "inactive")
                 {
                     db.CloseViziAppsDatabase(State);
+                    SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: account is inactive");
                     throw new Exception("Your account is inactive. Contact ViziApps to re-activate your account.");
                 }
                 customer_id = row["customer_id"].ToString();
@@ -228,6 +239,7 @@ public class PhoneWebService : System.Web.Services.WebService
                 if (application_id == null)
                 {
                     db.CloseViziAppsDatabase(State);
+                    SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: no app selected");
                     throw new System.InvalidOperationException("You need to select an app to test, on the design page of your ViziApps Studio account.");
                 }
             }
@@ -239,10 +251,14 @@ public class PhoneWebService : System.Web.Services.WebService
             if (Design == null)
             {
                 Design = new XmlDocument();
-                XmlNode root2 = Design.CreateElement("mobiflex_project");
+                XmlNode root2 = Design.CreateElement("login_response");
                 Design.AppendChild(root2);
-                status = x_util.CreateNode(Design, root2, "status", "No app has been selected for testing in your ViziApps account.");
+                SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: no app selected");
+                status = x_util.CreateNode(Design, root2, "status", "You need to select an app to test, on the design page of your ViziApps Studio account.");
             }
+            else
+                SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: design downloaded");
+
         }
         catch (System.Exception SE)
         {
@@ -251,7 +267,7 @@ public class PhoneWebService : System.Web.Services.WebService
             if (status == null)
             {
                 Design = new XmlDocument();
-                XmlNode root2 = Design.CreateElement("mobiflex_project");
+                XmlNode root2 = Design.CreateElement("login_response");
                 Design.AppendChild(root2);
                 status = x_util.CreateNode(Design, root2, "status");
 
@@ -271,7 +287,7 @@ public class PhoneWebService : System.Web.Services.WebService
         XmlUtil x_util = new XmlUtil();
         XmlNode status_node = null;
         XmlDocument Report = new XmlDocument();
-        XmlNode root = Report.CreateElement("mobiflex_report");
+        XmlNode root = Report.CreateElement("report_response");
         Report.AppendChild(root);
         try
         {
@@ -282,6 +298,17 @@ public class PhoneWebService : System.Web.Services.WebService
             string application_name = request.QueryString.Get("app");
             string isproduction = request.QueryString.Get("isproduction");
             string username = request.QueryString.Get("customer");
+            string user_id = request.QueryString.Get("userid");
+            string device_id = request.QueryString.Get("deviceid");
+            string device_version = request.QueryString.Get("device_version");
+            string device_model = request.QueryString.Get("device_model");
+ 
+            string viziapps_version = request.QueryString.Get("viziapps_version");
+            if (viziapps_version == null)
+                viziapps_version = request.QueryString.Get("mobiflex_version");
+
+            string latitude = request.QueryString.Get("latitude");
+            string longitude = request.QueryString.Get("longitude");
 
             string app_status = "staging";
             if (isproduction == "yes")
@@ -307,6 +334,7 @@ public class PhoneWebService : System.Web.Services.WebService
                     {
                         x_util.CreateNode(Report, root, "status", "kill");
                         x_util.CreateNode(Report, root, "status_message", "The account for this app is inactive. Contact ViziApps to re-activate your account.");
+                        SaveReport(State, application_id, app_status, customer_id, user_id,device_id, device_model, device_version, viziapps_version,latitude, longitude, "app killed due to inactive account");
                         return Report;
                     }
                 }
@@ -321,17 +349,12 @@ public class PhoneWebService : System.Web.Services.WebService
                 {
                     x_util.CreateNode(Report, root, "status", "kill");
                     x_util.CreateNode(Report, root, "status_message", "The account for this app is inactive. Contact ViziApps to re-activate your account.");
+                    SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, latitude, longitude, "app killed due to inactive account");
                     return Report;
                 }
             }
 
-            string user_id = request.QueryString.Get("userid");
-            string device_id = request.QueryString.Get("deviceid");
-            string device_version = request.QueryString.Get("device_version");
-            string mobiflex_version = request.QueryString.Get("mobiflex_version");
-            string latitude = request.QueryString.Get("latitude");
-            string longitude = request.QueryString.Get("longitude");
-
+ 
             string display_width = request.QueryString.Get("display_width");
             if (display_width == null)
                 display_width = "320";
@@ -340,7 +363,6 @@ public class PhoneWebService : System.Web.Services.WebService
             if (display_height == null)
                 display_height = "480";
 
-            string device_model = request.QueryString.Get("device_model");
             if (device_model == null)
                 State["SelectedDeviceType"] = Constants.IPHONE;
             else if (device_model.ToLower().Contains("iphone") || device_model.ToLower().Contains("ipod"))
@@ -351,26 +373,6 @@ public class PhoneWebService : System.Web.Services.WebService
                 State["SelectedDeviceType"] = Constants.ANDROID_TABLET;
             else
                 State["SelectedDeviceType"] = Constants.ANDROID_PHONE;
-            
-            StringBuilder sb_sql = new StringBuilder("INSERT INTO reports SET ");
-            sb_sql.Append("report_id='" + Guid.NewGuid().ToString() + "'");
-            DateTime now = DateTime.Now.ToUniversalTime();
-            sb_sql.Append(",report_date_time='" + now.ToString("u").Replace("Z", "") + "'");
-            sb_sql.Append(",application_id='" + application_id + "'");
-            sb_sql.Append(",app_status='" + app_status + "'");
-            sb_sql.Append(",customer_id='" + customer_id + "'");
-            sb_sql.Append(",user_id='" + user_id + "'");
-            sb_sql.Append(",device_id='" + device_id + "'");
-            sb_sql.Append(",device_model='" + device_model + "'");
-            sb_sql.Append(",device_version='" + device_version + "'");
-            sb_sql.Append(",mobiflex_version='" + mobiflex_version + "'");
-            if (latitude != null && latitude.Length > 0)
-                sb_sql.Append(",gps_latitude='" + latitude + "'");
-            if (longitude != null && longitude.Length > 0)
-                sb_sql.Append(",gps_longitude='" + longitude + "'");
-
-            db.ViziAppsExecuteNonQuery(State, sb_sql.ToString());
-            db.CloseViziAppsDatabase(State);
 
             if (application_id != null && application_id.Length > 0)
             {
@@ -402,16 +404,17 @@ public class PhoneWebService : System.Web.Services.WebService
                             else
                             {
                                 Design = new XmlDocument();
-                                XmlNode root2 = Design.CreateElement("mobiflex_project");
+                                XmlNode root2 = Design.CreateElement("report_response");
                                 Design.AppendChild(root2);
                                 x_util.CreateNode(Design, root2, "status", "kill");
                                 x_util.CreateNode(Design, root2, "status_message", "Application no longer exists.");
+                                SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, latitude, longitude, "app does not exist");
                             }
                             return Design;
                         }                       
                     }
-                    /*//check total testing uses per customer per week
-                    DateTime last_week = now.AddDays(-7.0D);
+                    //check total testing uses per customer per week
+                    /*DateTime last_week = now.AddDays(-7.0D);
                     sql = "SELECT COUNT(*) FROM reports WHERE app_status='staging' AND report_date_time > '" +
                         last_week.ToString("u").Replace("Z", "") + "' AND customer_id='" + customer_id + "'";
                     string s_count = db.ReportsExecuteScalar(State, sql);
@@ -467,19 +470,24 @@ public class PhoneWebService : System.Web.Services.WebService
                     if (Design != null)
                     {
                         Design.SelectSingleNode("//status").InnerText = "update_app";
+                        SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, latitude, longitude, "app updated");
                     }
                     else
                     {
                         Design = new XmlDocument();
-                        XmlNode root2 = Design.CreateElement("mobiflex_project");
+                        XmlNode root2 = Design.CreateElement("report_response");
                         Design.AppendChild(root2);
                         x_util.CreateNode(Design, root2, "status", "kill");
                         x_util.CreateNode(Design, root2, "status_message", "Application no longer exists.");
+                        SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, latitude, longitude, "app does not exist");
                     }
 
                     return Design;
                 }
             }
+            else
+                SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, latitude, longitude, "app opened");
+
             
             string status = "OK";
 
@@ -501,7 +509,7 @@ public class PhoneWebService : System.Web.Services.WebService
             if (status_node == null)
             {
                 Report = new XmlDocument();
-                XmlNode root2 = Report.CreateElement("mobiflex_project");
+                XmlNode root2 = Report.CreateElement("report_response");
                 Report.AppendChild(root2);
                 status_node = x_util.CreateNode(Report, root2, "status");
 
@@ -510,6 +518,52 @@ public class PhoneWebService : System.Web.Services.WebService
         }
 
         return Report;
+    }
+    private void SaveReport(Hashtable State, String application_id, String app_status, String customer_id, String user_id,
+        String device_id, String device_model, String device_version, String viziapps_version,
+        String latitude, String longitude, String app_use)
+    {
+        if (device_id == null)
+            return;
+
+        Document DDBDoc = new Document();
+        DDBDoc["report_id"] = Guid.NewGuid().ToString();
+        DDBDoc["app_use"] = app_use;
+        DDBDoc["report_date_time"] = DateTime.UtcNow.ToString("s") + "Z";
+        DDBDoc["app_id"] = application_id;
+        DDBDoc["app_status"] = app_status;
+        DDBDoc["customer_id"] = customer_id;
+        DDBDoc["user_id"] = user_id;
+        DDBDoc["device_id"] = device_id;
+        DDBDoc["device_model"] = device_model;
+        DDBDoc["device_version"] = device_version;
+        DDBDoc["viziapps_version"] = viziapps_version;
+        if (latitude != null && latitude.Length > 0)
+            DDBDoc["gps_latitude"] = latitude;
+        if (longitude != null && longitude.Length > 0)
+            DDBDoc["gps_longitude"] = longitude;
+        DynamoDB ddb = new DynamoDB();
+        ddb.PutItem(State, "mobile_app_usage", DDBDoc);
+
+        /*StringBuilder sb_sql = new StringBuilder("INSERT INTO reports SET ");
+        sb_sql.Append("report_id='" + Guid.NewGuid().ToString() + "'");
+        DateTime now = DateTime.Now.ToUniversalTime();
+        sb_sql.Append(",report_date_time='" + now.ToString("u").Replace("Z", "") + "'");
+        sb_sql.Append(",application_id='" + application_id + "'");
+        sb_sql.Append(",app_status='" + app_status + "'");
+        sb_sql.Append(",customer_id='" + customer_id + "'");
+        sb_sql.Append(",user_id='" + user_id + "'");
+        sb_sql.Append(",device_id='" + device_id + "'");
+        sb_sql.Append(",device_model='" + device_model + "'");
+        sb_sql.Append(",device_version='" + device_version + "'");
+        sb_sql.Append(",mobiflex_version='" + mobiflex_version + "'");
+        if (latitude != null && latitude.Length > 0)
+            sb_sql.Append(",gps_latitude='" + latitude + "'");
+        if (longitude != null && longitude.Length > 0)
+            sb_sql.Append(",gps_longitude='" + longitude + "'");
+
+        db.ViziAppsExecuteNonQuery(State, sb_sql.ToString());
+        db.CloseViziAppsDatabase(State);*/
     }
 
     [WebMethod(EnableSession = true)]

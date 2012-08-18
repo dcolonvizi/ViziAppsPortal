@@ -10,6 +10,7 @@ using System.Web;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Data;
+using System.Linq;
 
 /// <summary>
 /// Summary description for DynamoDB
@@ -61,96 +62,112 @@ public class DynamoDB
         AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
         client.DeleteTable(new DeleteTableRequest { TableName = tableName });
     }
-    public Hashtable SelectFromIDKey(Hashtable State, string TableName, string ID)
+    public void EmptyTable(Hashtable State, string tableName, string primaryKey)
     {
         if (State["DynamoDBClient"] == null)
             SetupClient(State);
         AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
-        Table table = Table.LoadTable(client, TableName);
-        Document doc = table.GetItem(ID);
-        List<String> fields = doc.GetAttributeNames();
-        Hashtable row = new Hashtable();
-        foreach (String field in fields)
+        var request = new ScanRequest
         {
-            row[field] = doc[field];
-        }
-        return row;
-    }
-    public void InsertRow(Hashtable State, string TableName, Hashtable fields)
-    {
-        if (State["DynamoDBClient"] == null)
-            SetupClient(State);
-        AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
-        Table table = Table.LoadTable(client, TableName);
+            TableName = tableName,
+            AttributesToGet = new List<string> { primaryKey }
+        };
+        var response = client.Scan(request);
+
+        Table table = Table.LoadTable(client, tableName);
+        DocumentBatchWrite batch = table.CreateBatchWrite();
         Document doc = new Document();
-        foreach (string key in fields.Keys)
+
+        DateTime start = DateTime.Now;
+        foreach (Dictionary<string, AttributeValue> item
+          in response.ScanResult.Items)
         {
-            doc[key] = fields[key].ToString();
+            foreach (KeyValuePair<string, AttributeValue> kvp in item)
+            {
+                string attributeName = kvp.Key;
+                AttributeValue value = kvp.Value;
+
+                Console.WriteLine(
+                    "Deleting " + primaryKey + "= " + value.ToString()
+                );
+                DeleteItem(State, tableName, value.S);
+            }
+
         }
-        table.PutItem(doc);
+        // batch.AddDocumentToPut(doc);
+        //batch.Execute();
+        DateTime end = DateTime.Now;
+        TimeSpan duration = end - start;
     }
-    public void InsertRows(Hashtable State, string TableName, ArrayList rows)
+    public Hashtable GetItem(Hashtable State, string tableName, string PrimaryKeyValue)
+    {
+        if (State["DynamoDBClient"] == null)
+            SetupClient(State);
+        AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
+        Table table = Table.LoadTable(client, tableName);
+        Document doc = table.GetItem(PrimaryKeyValue);
+        Hashtable item = new Hashtable();
+        foreach (var attribute in doc.GetAttributeNames())
+        {
+            string stringValue = null;
+            var value = doc[attribute];
+            if (value is Primitive)
+                stringValue = value.AsPrimitive().Value;
+            else if (value is PrimitiveList)
+                stringValue = string.Join(",", (from primitive
+                                                  in value.AsPrimitiveList().Entries
+                                                select primitive.Value).ToArray());
+            item[attribute] = stringValue;
+        }
+        return item;
+    }
+    public void PutItem(Hashtable State, string TableName, Document item)
+    {
+        if (State["DynamoDBClient"] == null)
+            SetupClient(State);
+        AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
+        Table table = Table.LoadTable(client, TableName);
+        table.PutItem(item);
+    }
+    public void PutItems(Hashtable State, string TableName, ArrayList items)
     {
         if (State["DynamoDBClient"] == null)
             SetupClient(State);
         AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
         Table table = Table.LoadTable(client, TableName);
         DocumentBatchWrite batch = table.CreateBatchWrite();
-        foreach (Hashtable fields in rows)
+        foreach (Document item in items)
         {
-            Document doc = new Document();
-            foreach (string key in fields.Keys)
-            {
-                doc[key] = fields[key].ToString();
-            }
-            batch.AddDocumentToPut(doc);
+            batch.AddDocumentToPut(item);
         }
-        DateTime start = DateTime.Now;
         batch.Execute();
-        DateTime end = DateTime.Now;
-        TimeSpan duration = end - start;
     }
-    public void UpdateRow(Hashtable State, string TableName, Hashtable fields)
+    public void UpdateItem(Hashtable State, string TableName, Document item)
     {
         if (State["DynamoDBClient"] == null)
             SetupClient(State);
         AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
         Table table = Table.LoadTable(client, TableName);
-        if (fields.ContainsKey(table.HashKeyName))
-            throw new Exception("DynamoDB update does not contain Hash Key Name");
-
-        Document doc = new Document();
-        foreach (string key in fields.Keys)
-        {
-            doc[key] = (DynamoDBEntry)fields[key]; //field value of null will delete field
-        }
-        table.UpdateItem(doc);
+        table.UpdateItem(item);
     }
-    public void CreateViziAppsDatabase(Hashtable State)
+    public void DeleteItem(Hashtable State, string TableName, string primaryKeyValue)
     {
-        DB db = new DB();
-        String query = "SHOW TABLES";
-        DataRow[] tables = db.ViziAppsExecuteSql(State, query);
-        foreach (DataRow table in tables)
+        try
         {
-            query = "SHOW COLUMNS in " + table.ItemArray[0].ToString();
-            DataRow[] fields = db.ViziAppsExecuteSql(State, query);
-            CreateTable(State, table.ItemArray[0].ToString(), fields[0].ItemArray[0].ToString());
-            query = "SELECT * FROM " + table.ItemArray[0].ToString() + " LIMIT 0,50";
-            DataRow[] dataRows = db.ViziAppsExecuteSql(State, query);
-            ArrayList rows = new ArrayList();
-            foreach (DataRow dataRow in dataRows)
+            if (State["DynamoDBClient"] == null)
+                SetupClient(State);
+            AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
+            Table table = Table.LoadTable(client, TableName);
+            DeleteItemOperationConfig config = new DeleteItemOperationConfig
             {
-                Hashtable fieldMap = new Hashtable();
-                int index = 0;
-                foreach (object o in dataRow.ItemArray)
-                {
-                    fieldMap[fields[index].ItemArray[0].ToString()] = o;
-                    index++;
-                }
-                rows.Add(fieldMap);
-            }
-            InsertRows(State, table.ItemArray[0].ToString(), rows);
+                // Return the deleted item.
+                ReturnValues = ReturnValues.AllOldAttributes
+            };
+            Document document = table.DeleteItem(primaryKeyValue, config);
+        }
+        catch (Exception ex)
+        {
+            string error = ex.Message;
         }
     }
 }
