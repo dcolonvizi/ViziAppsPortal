@@ -326,4 +326,25 @@ public class DB
         Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(MYSQL5_1_REGISTRY_PATH);
         return key.GetValue("Location").ToString();
     }
+    public DataTable GetDataTable(string query)
+    {
+        string connect = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"];
+        MySqlConnection conn = new MySqlConnection(connect);
+        MySqlDataAdapter adapter = new MySqlDataAdapter();
+        adapter.SelectCommand = new MySqlCommand(query, conn);
+
+        DataTable myDataTable = new DataTable();
+
+        conn.Open();
+        try
+        {
+            adapter.Fill(myDataTable);
+        }
+        finally
+        {
+            conn.Close();
+        }
+
+        return myDataTable;
+    }
 }

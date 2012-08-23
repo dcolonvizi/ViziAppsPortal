@@ -8,7 +8,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
-using Aspose.Excel;
 
 public partial class ViewCurrentUsers : System.Web.UI.Page
 {

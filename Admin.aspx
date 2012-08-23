@@ -257,14 +257,15 @@
                       />
                 </td>
             <td class="style27">
+                <asp:Button ID="ViewAllCustomers" runat="server" CausesValidation="False" 
+                    Font-Names="Arial" Font-Size="10pt"  
+                    Text="View All Users" Width="148px" onclick="ViewAllCustomers_Click" 
+                      />
+                </td>
+            <td class="style27">
                 <asp:Button ID="EmailUpgradeNotice" runat="server" CausesValidation="False" 
                     Font-Names="Arial" Font-Size="10pt" Text="Email Maintenance Notice" 
                     Width="167px" onclick="EmailUpgradeNotice_Click"  />
-                </td>
-            <td class="style27">
-                <asp:Button ID="EmailCustomers" runat="server" CausesValidation="False" 
-                    Font-Names="Arial" Font-Size="10pt" Text="Email Customers" Width="140px" 
-                     />
                 </td>
             </tr>
             <tr>
@@ -285,7 +286,10 @@
                     Width="148px" onclick="UpdateImageListing_Click" />
                 </td>
             <td class="style28">
-                &nbsp;</td>
+                <asp:Button ID="EmailCustomers" runat="server" CausesValidation="False" 
+                    Font-Names="Arial" Font-Size="10pt" Text="Email Customers" Width="140px" 
+                     />
+                </td>
             <td class="style28">
                 </td>
             </tr>
@@ -502,6 +506,8 @@
      </table>
 
 </div>
+<telerik:RadGrid ID="Grid" runat="server" style="display:none">
+                </telerik:RadGrid>
     </form>
 </body>
 </html>

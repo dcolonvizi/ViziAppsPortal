@@ -8,7 +8,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
-using Aspose.Excel;
 using System.Text;
 
 public partial class ViewAllApplications : System.Web.UI.Page
@@ -21,16 +20,10 @@ public partial class ViewAllApplications : System.Web.UI.Page
         try
         {
             //Instantiate an instance of license and set the license file through its path
-            Aspose.Excel.License license = new Aspose.Excel.License();
-            license.SetLicense("Aspose.Excel.lic");
             string error = "The following applications had errors:<br>";
             StringBuilder error_list = new StringBuilder();
 
-            Excel excel = new Excel();
-            string path = MapPath(".") + @"\templates\";
-            string designerFile = path + "ViewTemplate.XLS";
-            excel.Open(designerFile);
-            DB db = new DB();
+             DB db = new DB();
 
             //get all app and staging servers in Hashtable
             string sql = "SELECT app_server_id,server_name FROM app_servers WHERE use_type='production' OR use_type='staging'";
@@ -136,42 +129,7 @@ public partial class ViewAllApplications : System.Web.UI.Page
                 db.ViziAppsExecuteNonQuery(State, sql);
             }
 
-            Worksheet sheet = excel.Worksheets[0];
-            string[] column_names = new string[table.Columns.Count];
-            int col = 0;
-            foreach (DataColumn column in table.Columns)
-            {
-                column_names[col++] = column.ColumnName.Replace("_"," ");
-            }
-            sheet.Cells.ImportArray(column_names, 0, 0, false);
-            sheet.Cells.ImportDataTable(table, false, 1, 0);
-            
-            col = 0;
-            foreach (DataColumn column in table.Columns)
-            {
-                sheet.AutoFitColumn(col++);
-            }
-            int index = excel.Styles.Add();
-            Aspose.Excel.Style style = excel.Styles[index];
-            style.Number = 22;
-
-            //set date time columns
-            col = 0;
-            foreach (DataColumn column in table.Columns)
-            {
-                string name = column.ColumnName.ToLower();
-                if (name.IndexOf("date") >= 0 || name.IndexOf("time") >= 0)
-                {
-                    Range range = sheet.Cells.CreateRange(1,col,table.Rows.Count,1);
-                    range.Style = style;
-                }
-
-                col++;
-            }
-            sheet.Name = "Application List";
-
-            excel.Save("Application_List.xls", SaveType.OpenInExcel, FileFormatType.Default, this.Response);
-            db.CloseViziAppsDatabase(State);
+          db.CloseViziAppsDatabase(State);
         }
         catch (Exception ex)
         {

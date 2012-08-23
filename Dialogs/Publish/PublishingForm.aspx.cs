@@ -11,8 +11,6 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-
-using Aspose.Excel;
 using Telerik.Web.UI;
 
 public partial class ProvisionForm : System.Web.UI.Page
@@ -383,6 +381,10 @@ public partial class ProvisionForm : System.Web.UI.Page
         util.CopyStagingDesignToProduction(State);
         CopyDesignMessage.Text = "Done.";
         ProductionDesignExists.Visible = true;
+
+        //reset Dynamo DB so that a new production design is saved during high volume downloads
+        DynamoDB ddb = new DynamoDB();
+         ddb.DeleteItem(State, "apps", State["Username"].ToString(), util.GetProductionAppName( State));
     }
 
     protected void SaveProductionAppNameButton_Click(object sender, EventArgs e)

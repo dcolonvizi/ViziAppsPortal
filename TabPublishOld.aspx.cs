@@ -10,7 +10,7 @@ using Telerik.Web.UI;
 using System.Configuration;
 using MySql.Data.MySqlClient;
 
-public partial class Publish : System.Web.UI.Page
+public partial class PublishOld : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -27,7 +27,7 @@ public partial class Publish : System.Web.UI.Page
                 util.AddEmailToButton(SupportButton, State["TechSupportEmail"].ToString(), "Email To Tech Support");
             }
 
-            util.UpdateSessionLog(State, "post", "TabPublish");
+            util.UpdateSessionLog(State, "post", "TabPublishOld");
 
             /*PurchaseButton.Attributes.Add("onclick", PopupHelper.GeneratePopupScript(
                "http://stores.homestead.com/MobiFlexStore/StoreFront.bok", 700, 900, false, false, false, true));

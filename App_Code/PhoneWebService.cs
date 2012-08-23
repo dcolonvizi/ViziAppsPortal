@@ -67,10 +67,12 @@ public class PhoneWebService : System.Web.Services.WebService
         Init init = new Init();
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         init.InitSkuConfigurations(State);
+        State["TempFilesPath"] = Server.MapPath(".") + @"\temp_files\";
         Util util = new Util();
         XmlUtil x_util = new XmlUtil();
         XmlNode status = null;
         XmlDocument Design = null;
+
         try
         {
             DB db = new DB();
@@ -133,47 +135,53 @@ public class PhoneWebService : System.Web.Services.WebService
 
             if (app_status == "production")
             {
-                State["Username"] = customer_username;
-                customer_id = util.GetCustomerIDFromUsername(State, customer_username);
-                State["CustomerID"] = customer_id;
-
-                string account_status = util.GetCustomerStatus(State);
-                if (account_status == "inactive")
-                {
+                util.GetProductionAccountInfo(State, customer_username);
+                if (customer_id == null)
+                    customer_id = State["CustomerID"].ToString();
+                //State["Username"] = customer_username;
+                //customer_id = util.GetCustomerIDFromUsername(State, customer_username);
+                //State["CustomerID"] = customer_id;
+                //string account_status = util.GetCustomerStatus(State);
+               // if (account_status == "inactive")
+               if (State["AccountStatus"].ToString() == "inactive")
+               {
                     SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: account inactive");
                     throw new System.InvalidOperationException("Your customer account is inactive.");
                 }
-                application_id = util.GetAppIDFromProductionAppName(State, application_name);
+               util.GetProductionAppInfo(State, application_name);
+               application_id = State["AppID"].ToString();
 
-                //is payment current
-                Hashtable features = util.IsProductionAppPaid(State, application_id);
-                if (features == null)
-                {
-                    if (!util.IsFreeProductionValid(State, application_id))
-                    {
-                        SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: publishing service expired");
-                        throw new System.InvalidOperationException("The publishing service for your app has expired.");
-                    }
-                }
+               if (State["IsProductionAppPaid"] != null && State["IsProductionAppPaid"].ToString() != "true")
+               {
+                   //if (!util.IsFreeProductionValid(State, application_id))
+                   if (State["IsFreeProductionValid"] != null && State["IsFreeProductionValid"].ToString() != "true")
+                   {
+                       SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: publishing service expired");
+                       throw new System.InvalidOperationException("The publishing service for your app has expired.");
+                   }
+               }
 
                 if (unlimited == null || unlimited != "true")
                 {
                     //check username and password
-                    sql = "SELECT * FROM users WHERE username='" + user.ToLower() + "' AND password='" + util.MySqlFilter(password) +
-                         "' AND application_id='" + application_id + "'";
+                   // sql = "SELECT * FROM users WHERE username='" + user.ToLower() + "' AND password='" + util.MySqlFilter(password) +
+                    //     "' AND application_id='" + application_id + "'";
 
-                    rows = db.ViziAppsExecuteSql(State, sql);
-                    if (rows.Length == 0)
+                    //rows = db.ViziAppsExecuteSql(State, sql);
+                    //if (rows.Length == 0)
+                    if(State["Password"] == null)
                     {
-                        db.CloseViziAppsDatabase(State);
+                        //db.CloseViziAppsDatabase(State);
                         SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, null, null, "app login: bad credentials");
                         throw new System.InvalidOperationException("Either the username or the password: " + password + " is incorrect.");
                     }
 
                     //check number of users -- unlimited use never needs a login
-                    bool use_1_user_credential = util.GetUse1UserCredential(State, application_id);
-                    if (use_1_user_credential)
+                    //bool use_1_user_credential = util.GetUse1UserCredential(State, application_id);
+                    //if (use_1_user_credential)
+                    if(State["Use1UserCredential"] != null && State["Use1UserCredential"].ToString() == "true")
                     {
+                        Hashtable features = util.IsProductionAppPaid(State, application_id);
                         DataRow row = rows[0];
                         sql = "SELECT COUNT(*) FROM users_device_ids WHERE user_id='" + row["user_id"].ToString() + "'";
                         int device_count = Convert.ToInt32(db.ViziAppsExecuteScalar(State, sql));
@@ -247,7 +255,13 @@ public class PhoneWebService : System.Web.Services.WebService
             db.CloseViziAppsDatabase(State);
 
             //get design
-            Design = GetDesign(application_id, user_id, customer_id, Convert.ToInt32(display_width),  Convert.ToInt32(display_height), app_status,null);
+            if (State["AppDesignURL"] == null)
+                Design = GetDesign(application_id, user_id, customer_id, Convert.ToInt32(display_width), Convert.ToInt32(display_height), app_status, null);
+            else
+            {
+                Design = new XmlDocument();
+                Design.LoadXml( util.GetWebPage(State["AppDesignURL"].ToString()));
+            }
             if (Design == null)
             {
                 Design = new XmlDocument();
@@ -283,6 +297,7 @@ public class PhoneWebService : System.Web.Services.WebService
         Init init = new Init();
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         init.InitSkuConfigurations(State);
+        State["TempFilesPath"] = Server.MapPath(".") + @"\temp_files\";
         Util util = new Util();
         XmlUtil x_util = new XmlUtil();
         XmlNode status_node = null;
@@ -317,30 +332,33 @@ public class PhoneWebService : System.Web.Services.WebService
              }
 
             string customer_id = request.QueryString.Get("custid");
-            if(app_status == "production")
+            if (app_status == "production")
             {
-                if(customer_id != null && customer_id.Length > 0)
-                    State["CustomerID"] = customer_id;
-                else
-                    State["Username"] = username;
+                util.GetProductionAccountInfo(State, username);
+                util.GetProductionAppInfo(State, application_name);                
+                application_id = State["AppID"].ToString();
 
-                application_id = util.GetAppIDFromProductionAppName(State, application_name);
-               
-                //is payment current
-                Hashtable features = util.IsProductionAppPaid(State, application_id);
-                if (features == null)
+                if (State["IsProductionAppPaid"] != null && State["IsProductionAppPaid"].ToString() != "true")
                 {
-                    if (!util.IsFreeProductionValid(State, application_id))
+                    //if (!util.IsFreeProductionValid(State, application_id))
+                    if (State["IsFreeProductionValid"] != null && State["IsFreeProductionValid"].ToString() != "true")
                     {
                         x_util.CreateNode(Report, root, "status", "kill");
                         x_util.CreateNode(Report, root, "status_message", "The account for this app is inactive. Contact ViziApps to re-activate your account.");
-                        SaveReport(State, application_id, app_status, customer_id, user_id,device_id, device_model, device_version, viziapps_version,latitude, longitude, "app killed due to inactive account");
-                        return Report;
+                        SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, latitude, longitude, "app killed due to inactive account");
+                        throw new System.InvalidOperationException("The publishing service for your app has expired.");
                     }
                 }
+                if (State["AccountStatus"].ToString() == "inactive")
+                {
+                    x_util.CreateNode(Report, root, "status", "kill");
+                    x_util.CreateNode(Report, root, "status_message", "The account for this app is inactive. Contact ViziApps to re-activate your account.");
+                    SaveReport(State, application_id, app_status, customer_id, user_id, device_id, device_model, device_version, viziapps_version, latitude, longitude, "app killed due to inactive account");
+                    return Report;
+                }
             }
-
-            if (customer_id != null && customer_id.Length > 0)
+            //else app is staging
+            else if (customer_id != null && customer_id.Length > 0)
             {
                 State["CustomerID"] = customer_id;
                 string active_sql = "SELECT COUNT(*) FROM customers where customer_id='" + customer_id + "' AND status!='inactive'";
@@ -353,7 +371,6 @@ public class PhoneWebService : System.Web.Services.WebService
                     return Report;
                 }
             }
-
  
             string display_width = request.QueryString.Get("display_width");
             if (display_width == null)
@@ -377,16 +394,7 @@ public class PhoneWebService : System.Web.Services.WebService
             if (application_id != null && application_id.Length > 0)
             {
                 string sql = null;
-                if (app_status == "production")
-                {
-                    sql = "SELECT DISTINCT device_id FROM reports  WHERE application_id='" + application_id + "' GROUP BY device_id";
-                    DataRow[] users_rows = db.ViziAppsExecuteSql(State, sql);
-                    string number_of_users = users_rows.Length.ToString();
-                    sql = "UPDATE applications SET number_of_uses=number_of_uses+1,number_of_users=" + number_of_users + " WHERE application_id='" +
-                        application_id + "'";
-                    db.ViziAppsExecuteNonQuery(State, sql);
-                }
-                else // staging app
+                if (app_status == "staging")
                 {                    
                     sql = "SELECT status FROM applications WHERE application_id='" + application_id + "'";
                     string staging_status = db.ViziAppsExecuteScalar(State, sql);
@@ -414,46 +422,8 @@ public class PhoneWebService : System.Web.Services.WebService
                             return Design;
                         }                       
                     }
-                    //check total testing uses per customer per week
-                    /*DateTime last_week = now.AddDays(-7.0D);
-                    sql = "SELECT COUNT(*) FROM reports WHERE app_status='staging' AND report_date_time > '" +
-                        last_week.ToString("u").Replace("Z", "") + "' AND customer_id='" + customer_id + "'";
-                    string s_count = db.ReportsExecuteScalar(State, sql);
-                    db.CloseReportsDatabase(State);
-
-                    int count = Convert.ToInt32(s_count);
-
-                    if (count > Convert.ToInt32(ConfigurationManager.AppSettings["MaxStagingUsesPerWeek"]))
-                    {
-                        x_util.CreateNode(Report, root, "status", "kill");
-                        x_util.CreateNode(Report, root, "status_message", "Your account has too many test uses of ViziApps per week.");
-                        return Report;
-                    }
-
-                    //check on a new device_id
-                    sql = "SELECT COUNT(*) FROM customer_device_ids where device_id='" + device_id + "'";
-                    s_count = db.ViziAppsExecuteScalar(State, sql);
-                    if (s_count == "0")
-                    {
-
-                        sql = "INSERT INTO customer_device_ids SET device_id='" + device_id + "',customer_id='" + customer_id + "'";
-                        db.ViziAppsExecuteNonQuery(State, sql);
-                    }
-
-                    //check total devices per customer for testing
-                    sql = "SELECT COUNT(*) FROM customer_device_ids where customer_id='" + customer_id + "'";
-                    s_count = db.ViziAppsExecuteScalar(State, sql);
-                    count = Convert.ToInt32(s_count);
-
-                    if (count > Convert.ToInt32(ConfigurationManager.AppSettings["MaxCustomerTestingDevices"]))
-                    {
-                        x_util.CreateNode(Report, root, "status", "kill");
-                        x_util.CreateNode(Report, root, "status_message", "Your account has too many devices using ViziApps.");
-                        return Report;
-                    }*/
-
+                    db.CloseViziAppsDatabase(State);
                 }
-                db.CloseViziAppsDatabase(State);
             }
 
             string app_time_stamp = request.QueryString.Get("app_time_stamp");
@@ -462,12 +432,23 @@ public class PhoneWebService : System.Web.Services.WebService
                 string date_time_modified = null;
                 if( app_status == "staging")
                     date_time_modified = util.GetStagingAppTimeStamp(State, application_id);
-                else
-                    date_time_modified = util.GetProductionAppTimeStamp(State, application_id);
-
-                if (app_time_stamp != date_time_modified)
+                else{
+                     date_time_modified = State["DateTimeModified"].ToString();
+                }
+                DateTime AppDateTime = DateTime.Parse(app_time_stamp);
+                DateTime DateTimeModified = DateTime.Parse(date_time_modified);
+                if (AppDateTime != DateTimeModified)
                 { // assuming that there is a newer version
-                    XmlDocument Design = GetDesign(application_id, user_id, customer_id,  Convert.ToInt32(display_width),  Convert.ToInt32(display_height), app_status, date_time_modified);
+                    XmlDocument Design = null;
+                    if (app_status == "staging")
+                    {
+                        Design = GetDesign(application_id, user_id, customer_id, Convert.ToInt32(display_width), Convert.ToInt32(display_height), app_status, date_time_modified);
+                    }
+                    else
+                    {
+                        Design = new XmlDocument();
+                        Design.LoadXml(util.GetWebPage(State["AppDesignURL"].ToString()));
+                    }
                     if (Design != null)
                     {
                         Design.SelectSingleNode("//status").InnerText = "update_app";
@@ -497,10 +478,7 @@ public class PhoneWebService : System.Web.Services.WebService
             //check for unlimited use
             if (app_status == "production")
             {
-                application_name = request.QueryString.Get("app");
-                string sql2 = "SELECT has_unlimited_users FROM applications WHERE application_id='" + application_id + "'";
-                string has_unlimited_users = db.ViziAppsExecuteScalar(State, sql2);
-                if (has_unlimited_users != null && has_unlimited_users.ToLower() == "true")
+                if (State["HasUnlimitedUsers"].ToString() == "true")
                     status += " unlimited";
             }
  
@@ -546,7 +524,12 @@ public class PhoneWebService : System.Web.Services.WebService
         if (longitude != null && longitude.Length > 0)
             DDBDoc["gps_longitude"] = longitude;
         DynamoDB ddb = new DynamoDB();
-        ddb.PutItem(State, "mobile_app_usage", DDBDoc);
+        if (device_id != null && device_id.Length > 0)
+            ddb.PutItem(State, "mobile_app_usage", DDBDoc);
+        if (customer_id != null && customer_id.Length > 0)
+            ddb.PutItem(State, "customer_usage", DDBDoc);
+        if (application_id != null && application_id.Length > 0)
+            ddb.PutItem(State, "app_usage", DDBDoc);
 
         /*StringBuilder sb_sql = new StringBuilder("INSERT INTO reports SET ");
         sb_sql.Append("report_id='" + Guid.NewGuid().ToString() + "'");
@@ -694,6 +677,8 @@ public class PhoneWebService : System.Web.Services.WebService
     {
         return input.Replace("\\\"", "\"").Replace(@"\\", @"\");
     }
-
+ 
+ 
+    
 }
 

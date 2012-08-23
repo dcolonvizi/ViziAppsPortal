@@ -24,6 +24,7 @@ using MySql.Data.MySqlClient;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using Amazon.DynamoDB.DocumentModel;
 
 /// <summary>
 /// Summary description for Util
@@ -2191,6 +2192,151 @@ public class Util
         else
             return null;
     }
+    public void GetProductionAppInfo(Hashtable State, string app_name)
+    {
+        DynamoDB ddb = new DynamoDB();
+        Hashtable item  = ddb.GetItem(State, "apps", State["Username"].ToString(),app_name);
+        if (item != null)
+        {
+            State["AppID"] = item["app_id"];
+            State["IsProductionAppPaid"] = item["is_production_app_paid"];
+            string expiration = null;
+            if(item["free_production_expiration_date_time"] != null)
+                expiration = item["free_production_expiration_date_time"].ToString();
+            if (expiration == null || expiration.Length == 0)
+            {
+                State["IsFreeProductionValid"] = "false";
+            }
+            else
+            {
+                DateTime expirationDateTime = DateTime.Parse(expiration);
+                State["IsFreeProductionValid"] = (DateTime.Now.ToUniversalTime() <= expirationDateTime) ? "true" : "false";
+            }
+            State["Use1UserCredential"] = item["use_1_user_credential"];
+            State["AppDesignURL"] = item["app_design_url"];
+            State["DateTimeModified"] = item["date_time_modified"];
+            State["HasUnlimitedUsers"] = item["has_unlimited_users"];           
+            return;
+        }
+        else
+        {
+            DB db = new DB();
+            string sql = "SELECT application_id,free_production_expiration_date_time, production_date_time, has_unlimited_users FROM applications WHERE production_app_name='" + app_name +
+                   "' AND customer_id='" + State["CustomerID"].ToString() + "'";
+            DataRow[] rows = db.ViziAppsExecuteSql(State, sql);
+            db.CloseViziAppsDatabase(State);
+            if (rows.Length == 0)
+            {
+                State["IsProductionAppPaid"] = null;
+                State["IsFreeProductionValid"] = null;
+                State["Use1UserCredential"] = null;
+                State["AppDesignURL"] = null;
+                State["AppID"] = null;
+                State["DateTimeModified"] = null;
+                State["HasUnlimitedUsers"] = null;
+                return;
+            }
+            else
+            {
+                DataRow row = rows[0];
+                State["AppID"] = row["application_id"].ToString(); 
+                Hashtable features = IsProductionAppPaid(State, row["application_id"].ToString());
+                State["IsProductionAppPaid"] = (features != null) ? "true" : "false";
+                string expiration = row["free_production_expiration_date_time"].ToString();
+                if (expiration == null || expiration.Length == 0)
+                {
+                    State["IsFreeProductionValid"] = "false";
+                }
+                else
+                {
+                    DateTime expirationDateTime = DateTime.Parse(expiration);
+                    State["IsFreeProductionValid"] = (DateTime.Now.ToUniversalTime() <= expirationDateTime) ? "true" : "false";
+                }
+                State["Use1UserCredential"] = (GetUse1UserCredential(State, row["application_id"].ToString())) ? "true" : "false";
+                XmlDocument Design = GetProductionAppXml(State, app_name);
+
+                //save design in a file
+                string file_name = app_name.Replace(" ", "_") + ".xml";
+                string file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name;
+                Design.Save(file_path);
+
+                //save design in S3
+                string key = State["Username"].ToString() + "/" + app_name.Replace(" ", "_") + "/" + file_name;
+                AmazonS3 s3 = new AmazonS3();
+                State["AppDesignURL"] = s3.UploadFileWithKey(State, file_name, file_path, key);
+                DateTime DateTimeModified = DateTime.Parse(row["production_date_time"].ToString());
+                State["DateTimeModified"] = DateTimeModified.ToString("s") + "Z";
+                State["HasUnlimitedUsers"] = (row["has_unlimited_users"] != null && row["has_unlimited_users"].ToString().ToLower() == "true") ? "true" : "false";   
+ 
+                try
+                {
+                    File.Delete(file_path);
+                }
+                catch (Exception ex) { }//in case there is a problem with deleting the file
+
+                Document DDBDoc = new Document();
+                DDBDoc["username"] = State["Username"].ToString();
+                DDBDoc["appname"] = app_name;
+                DDBDoc["app_id"] = row["application_id"].ToString(); 
+                DDBDoc["is_production_app_paid"] = State["IsProductionAppPaid"].ToString();
+                if( row["free_production_expiration_date_time"] != null &&  row["free_production_expiration_date_time"].ToString().Length > 0)
+                     DDBDoc["free_production_expiration_date_time"] = row["free_production_expiration_date_time"].ToString();
+                DDBDoc["use_1_user_credential"] = State["Use1UserCredential"].ToString();
+                DDBDoc["app_design_url"] = State["AppDesignURL"].ToString();
+                DDBDoc["date_time_modified"] = State["DateTimeModified"].ToString();
+                DDBDoc["has_unlimited_users"] = State["HasUnlimitedUsers"].ToString();           
+                ddb.PutItem(State, "apps", DDBDoc);
+            }
+        }
+    }
+    public void ResetAppInDynamoDB(Hashtable State)
+    {
+        DynamoDB ddb = new DynamoDB();
+        ddb.DeleteItem(State, "apps", State["Username"].ToString(), State["SelectedApp"].ToString());
+    }
+    public void GetProductionAccountInfo(Hashtable State, string username)
+    {
+        DynamoDB ddb = new DynamoDB();
+        Hashtable item = ddb.GetItem(State, "customers", username);
+        if (item.Count > 0)
+        {
+            State["Username"] = item["username"];
+            State["Password"] = item["password"];
+            State["CustomerID"] = item["customer_id"];
+            State["AccountStatus"] = item["status"];
+            return;
+        }
+        else
+        {
+            DB db = new DB();
+            string sql = "SELECT password,customer_id,status FROM customers WHERE username='" + username + "'";
+            DataRow[] rows = db.ViziAppsExecuteSql(State, sql);
+            db.CloseViziAppsDatabase(State);
+            if (rows.Length == 0)
+            {
+                State["Username"] = null;
+                State["Password"] = null;
+                State["CustomerID"] = null;
+                State["AccountStatus"] = null;
+                return;
+            }
+            else
+            {
+                DataRow row = rows[0];
+                State["Username"] = username;
+                State["Password"] = row["password"].ToString();
+                State["CustomerID"] = row["customer_id"].ToString();
+                State["AccountStatus"] = row["status"].ToString();
+
+                Document DDBDoc = new Document();
+                DDBDoc["username"] = username;
+                DDBDoc["password"] = row["password"].ToString();
+                DDBDoc["customer_id"] = row["customer_id"].ToString();
+                DDBDoc["status"] = row["status"].ToString();
+                ddb.PutItem(State, "customers", DDBDoc);
+            }
+        }
+    }
     public string GetCustomerIDFromUsername(Hashtable State, string username)
     {
         DB db = new DB();
@@ -2330,6 +2476,8 @@ public class Util
         db.ViziAppsExecuteNonQuery(State, sql);
 
         db.CloseViziAppsDatabase(State);
+
+        ResetAppInDynamoDB(State);
     }
     public void RemoveAppFromProductionService(Hashtable State, string app_name,string sku)
     {
@@ -2347,6 +2495,8 @@ public class Util
         db.ViziAppsExecuteNonQuery(State, sql);
 
         db.CloseViziAppsDatabase(State);
+
+        ResetAppInDynamoDB(State);
     }
     public void CancelPaidService(Hashtable State, string purchase_date,string sku)
     {
@@ -2378,6 +2528,8 @@ public class Util
          b_sql.Append("AND purchase_date='" + purchase_date + "'");
         db.ViziAppsExecuteNonQuery(State, b_sql.ToString());
         db.CloseViziAppsDatabase(State);
+
+        ResetAppInDynamoDB(State);
     }
     public bool IsPaidProductionApp(Hashtable State, string app_name)
     {
@@ -2577,7 +2729,7 @@ public class Util
         XmlUtil x_util = new XmlUtil();
         x_util.RenameApp(State,new_app_name);
 
-         db.CloseViziAppsDatabase(State);
+        db.CloseViziAppsDatabase(State);
      }
     public void DeleteApplication(Hashtable State)
     {
@@ -3412,7 +3564,16 @@ public class Util
             FileInfo fileInfo = new FileInfo(file);
             TimeSpan age = now - fileInfo.LastWriteTimeUtc;
             if (age.TotalMinutes > 5.0D)
-                File.Delete(file);
+            {
+                try
+                {
+                    File.Delete(file);
+                }
+                catch (Exception ex)
+                {
+                    //happens when the file we are trying to delete is still being used
+                }
+            }
         }
     }
     public static string Encrypt(string clearText, string Password)

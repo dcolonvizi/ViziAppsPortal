@@ -1393,10 +1393,10 @@ public partial class TabDesignWeb : System.Web.UI.Page
             DisplayModeButton.Style.Value = "";//don't hide the toggle button
             CurrentAppContainer.Style.Value = "display:none";
 
-             State["WebAppMode"] = "preview";
+            State["WebAppMode"] = "preview";
             WebAppsUtil web_util = new WebAppsUtil();
             AmazonS3 s3 = new AmazonS3();
-             State["IsProduction"] = false;
+            State["IsProduction"] = false;
             string file_name =  State["SelectedApp"].ToString().Replace(" ", "_") + Constants.WEB_APP_TEST_SUFFIX +"/index.html";
 
             string save_file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name.Replace(Constants.WEB_APP_TEST_SUFFIX + "/index.html", ".html");
@@ -1405,7 +1405,6 @@ public partial class TabDesignWeb : System.Web.UI.Page
             if (ret.StartsWith("Error:"))
             {
                 Message.Text = ret;
-               // DisplayModeValue.Text = "DesignMode";
                 DisplayMode_Click(null, null);
                 return;
             }

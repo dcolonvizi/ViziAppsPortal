@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="us-ascii"?>
-<mobiflex_project>
+<app_project>
   <version>2.0</version>
   <configuration>
     <device_type>iphone</device_type>
@@ -15,4 +15,4 @@
       </first_page_name>
     </pages>
  </application>
-</mobiflex_project>
+</app_project>
