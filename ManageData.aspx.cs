@@ -2641,7 +2641,15 @@ public partial class ManageData : System.Web.UI.Page
                     if (FieldEntry["database_field"] != null && FieldEntry["database_field"].ToString().Length > 0)
                     {
                         string database_field = FieldEntry["database_field"].ToString();
-                        ((RadComboBox)FieldControl.FindControl("database_field")).SelectedValue = database_field;
+                        //check if database_field is in combobox
+                        RadComboBox database_field_select = (RadComboBox)FieldControl.FindControl("database_field");
+                        if (database_field_select.Items.FindItemByValue(database_field) != null)
+                            database_field_select.SelectedValue = database_field;
+                        else //add select item
+                        {
+                            database_field_select.Items.Insert(0,new RadComboBoxItem("Select ->","no_value"));
+                            database_field_select.SelectedIndex = 0;
+                        }
                     }
                     else
                     {

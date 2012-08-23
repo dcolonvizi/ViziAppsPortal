@@ -1,13 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DatabaseCommand.ascx.cs" Inherits="Controls_DatabaseCommand" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <style type="text/css">
-    .style1
+    .style2
     {
-        width: 80px;
+        width: 30px;
     }
 </style>
 <div>
-<table><tr>
+<table style="width: 663px"><tr>
 <td>
     <asp:Image ID="sql_image" runat="server" ImageUrl="~/images/database.gif" 
         ToolTip="Sql Command" /></td>
@@ -30,19 +30,19 @@
     <telerik:RadComboBox ID="table" runat="server" 
          OnClientSelectedIndexChanged="table_SelectedIndexChanged" Width="200px" >
     </telerik:RadComboBox></td>
-<td>
+<td class="style2">
     <asp:ImageButton ID="add_field" runat="server" ImageUrl="~/images/add_field.png" 
         OnClientClick="add_field_click(this,null);" ToolTip="Add a Field"/></td>
-<td>
+<td class="style2">
     <asp:ImageButton ID="add_condition" runat="server" 
         ImageUrl="~/images/add_filter.png" OnClientClick="add_condition_click(this,null);"
         ToolTip="Add a Where Condition" Width="18px" /></td>
-        <td>
+        <td class="style2">
          <asp:ImageButton ID="add_order_by" runat="server" 
         ImageUrl="~/images/add_order_by.png" OnClientClick="add_order_by_click(this,null);"
         ToolTip="Add Order By" Width="18px" />
         </td>
-         <td>
+         <td class="style2">
          <asp:ImageButton ID="test_query" runat="server" 
         ImageUrl="~/images/check.png" OnClientClick="test_query_click(this,null);"
         ToolTip="Test Command" Width="18px" />
