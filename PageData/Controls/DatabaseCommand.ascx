@@ -7,7 +7,7 @@
     }
 </style>
 <div>
-<table style="width: 663px"><tr>
+<table style="width: 536px"><tr>
 <td>
     <asp:Image ID="sql_image" runat="server" ImageUrl="~/images/database.gif" 
         ToolTip="Sql Command" /></td>

@@ -7,7 +7,7 @@
     }
 </style>
 <div>
-<table style="width: 592px"><tr>
+<table style="width: 490px"><tr>
 <td>
     <asp:Image ID="sql_image" runat="server" ImageUrl="~/images/sql.png" 
         ToolTip="Sql Command" /></td>
@@ -28,7 +28,7 @@
         </Items>
     </telerik:RadComboBox>
 </td>
-<td width="175">
+<td width="175" align="left">
     <telerik:RadComboBox ID="table" runat="server" 
          OnClientSelectedIndexChanged="table_SelectedIndexChanged" Width="200px" >
     </telerik:RadComboBox></td>
@@ -47,7 +47,7 @@
         <td class="style2">
          <asp:ImageButton ID="test_query" runat="server" 
         ImageUrl="~/images/check.png" OnClientClick="test_query_click(this,null);"
-        ToolTip="Test Command" Width="18px" />
+        ToolTip="Test Command" Width="19px" />
         </td>
 <td>
     <asp:ImageButton ID="delete_command" runat="server" 

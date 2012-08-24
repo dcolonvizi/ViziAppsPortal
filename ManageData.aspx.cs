@@ -2617,9 +2617,23 @@ public partial class ManageData : System.Web.UI.Page
             }
 
             string table = CommandEntry["table"].ToString();
-            ((RadComboBox)CommandControl.FindControl("table")).SelectedValue = table;
-            ArrayList DBFields = (ArrayList)CommandEntry["database_fields"];
-            if (DBFields != null && field_control_type != null)
+            //check if database_field is in combobox
+            RadComboBox table_select = (RadComboBox)CommandControl.FindControl("table");
+            ArrayList DBFields = null;
+            if (table_select.Items.FindItemByValue(table) != null)
+            {
+                table_select.SelectedValue = table;
+                DBFields = (ArrayList)CommandEntry["database_fields"];
+            }
+            else
+            {
+                table_select.Items.Insert(0, new RadComboBoxItem("Select ->", "no_value"));
+                table_select.SelectedIndex = 0;
+                GoogleDocsConfigMessage.Text = "The saved table name is no longer valid. All fields have been cleared.";
+                CommandEntry["conditions"] = null;
+                CommandEntry["order_by"] = null;
+            }
+             if (DBFields != null && field_control_type != null)
             {
                 foreach (Hashtable FieldEntry in DBFields)
                 {
@@ -2713,7 +2727,15 @@ public partial class ManageData : System.Web.UI.Page
                     if (ConditionEntry["condition_1st_field"] != null && ConditionEntry["condition_1st_field"].ToString().Length > 0)
                     {
                         string condition_1st_field = ConditionEntry["condition_1st_field"].ToString();
-                        ((RadComboBox)WhereControl.FindControl("condition_1st_field")).SelectedValue = condition_1st_field;
+                        //check if database field is in combobox
+                        RadComboBox condition_1st_field_select = (RadComboBox)WhereControl.FindControl("condition_1st_field");
+                        if (condition_1st_field_select.Items.FindItemByValue(condition_1st_field) != null)
+                            condition_1st_field_select.SelectedValue = condition_1st_field;
+                        else //add select item
+                        {
+                            condition_1st_field_select.Items.Insert(0,new RadComboBoxItem("Select ->","no_value"));
+                            condition_1st_field_select.SelectedIndex = 0;
+                        }
                     }
                     else
                     {
@@ -2764,7 +2786,15 @@ public partial class ManageData : System.Web.UI.Page
                 if (DBOrderBy["sort_field"] != null && DBOrderBy["sort_field"].ToString().Length > 0)
                 {
                     string sort_field = DBOrderBy["sort_field"].ToString();
-                    ((RadComboBox)OrderByControl.FindControl("sort_field")).SelectedValue = sort_field;
+                    //check if database_field is in combobox
+                    RadComboBox sort_field_select = (RadComboBox)OrderByControl.FindControl("sort_field");
+                    if (sort_field_select.Items.FindItemByValue(sort_field) != null)
+                        sort_field_select.SelectedValue = sort_field;
+                    else //add select item
+                    {
+                        sort_field_select.Items.Insert(0, new RadComboBoxItem("Select ->", "no_value"));
+                        sort_field_select.SelectedIndex = 0;
+                    }
                 }
                 else
                 {
@@ -2785,15 +2815,11 @@ public partial class ManageData : System.Web.UI.Page
             command_node.ExpandChildNodes();
             command_index++;
         }
-        if ( State["ManageDataType"].ToString() == "database")
-        {
+        if ( State["ManageDataType"].ToString() == "database")        
             DatabaseCommandsView.ExpandAllNodes();
-        }
-        else
-        {
+        
+        else        
             SpreadsheetCommandsView.ExpandAllNodes();
-        }
-
     }
     protected void condition_2nd_field_ItemsRequested(object o, Telerik.Web.UI.RadComboBoxItemsRequestedEventArgs e)
     {
