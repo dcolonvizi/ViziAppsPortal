@@ -443,9 +443,11 @@ public class PhoneWebService : System.Web.Services.WebService
                 {
                     date_time_modified = State["DateTimeModified"].ToString();
                 }
-                DateTime AppDateTime = DateTime.Parse(app_time_stamp);
-                DateTime DateTimeModified = DateTime.Parse(date_time_modified);
-                if (AppDateTime != DateTimeModified)
+                DateTime AppDateTime;
+                bool isGoodAppDateTime= DateTime.TryParse(app_time_stamp, out AppDateTime);
+                DateTime DateTimeModified;
+                bool isGoodDateTimeModified = DateTime.TryParse(date_time_modified, out DateTimeModified);
+                if (isGoodAppDateTime && isGoodDateTimeModified && AppDateTime != DateTimeModified)
                 { // assuming that there is a newer version
                     XmlDocument Design = null;
                     if (app_status == "staging")
