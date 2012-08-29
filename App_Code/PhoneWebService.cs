@@ -650,14 +650,12 @@ public class PhoneWebService : System.Web.Services.WebService
             string html = w_util.GetWebApp(State, Design, x_size_factor, y_size_factor);
             Design = x_util.GenerateHybridAppXml(State, Design, device_display_width.ToString(), device_display_height.ToString(), html);
         }
-        XmlNode root = Design.SelectSingleNode("mobiflex_project");
-        if (root == null)
-            root = Design.SelectSingleNode("app_project");
+        XmlNode configuration = Design.SelectSingleNode("//configuration");
 
         if (user_id != null && user_id.Length > 0)
-            x_util.CreateNode(Design, root, "user_id", user_id);
-        x_util.CreateNode(Design, root, "customer_id", customer_id);
-        XmlNode app_node = root.SelectSingleNode("//application");
+            x_util.CreateNode(Design, configuration, "user_id", user_id);
+        x_util.CreateNode(Design, configuration, "customer_id", customer_id);
+        XmlNode app_node = Design.SelectSingleNode("//application");
         if (time_stamp == null)
         {
             if (app_status == "staging")
@@ -676,6 +674,10 @@ public class PhoneWebService : System.Web.Services.WebService
             x_util.CreateNode(Design, app_node, "id", application_id);
         else
             id_node.InnerText = application_id;
+
+        XmlNode root = Design.SelectSingleNode("app_project");
+        if (root == null)
+            root = Design.SelectSingleNode("mobiflex_project");
 
         XmlNode status_node = x_util.CreateNode(Design, root, "status", "OK");
 

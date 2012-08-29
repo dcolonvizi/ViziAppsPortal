@@ -76,7 +76,7 @@ public class DataSources
         XmlDocument doc = GetStagingAppXml(State);
         if (State["SelectedAppType"] != null && State["SelectedAppType"].ToString() == Constants.NATIVE_APP_TYPE)
         {
-            XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+            XmlNode database_config = doc.SelectSingleNode("//database_config");
             XmlNode connection_string = database_config.SelectSingleNode("connection_string");
             if (connection_string != null)
             {

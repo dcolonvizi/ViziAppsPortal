@@ -294,7 +294,7 @@ public partial class ManageData : System.Web.UI.Page
             else
             {
                 //set defaut data manage type
-                XmlNode database_type = doc.SelectSingleNode("//mobiflex_project/database_config/database_type");
+                XmlNode database_type = doc.SelectSingleNode("//database_config/database_type");
                 if (database_type != null)
                 {
                     XmlNode database_config = database_type.ParentNode;
@@ -336,7 +336,7 @@ public partial class ManageData : System.Web.UI.Page
                 }
                 else
                 {
-                    XmlNode webservice_config = doc.SelectSingleNode("//mobiflex_project/phone_data_requests");
+                    XmlNode webservice_config = doc.SelectSingleNode("//phone_data_requests");
                     if (webservice_config != null && webservice_config.ChildNodes.Count != 0)
                     {
                         ManageDataType.SelectedIndex = Constants.WEB_SERVICE_INDEX;
@@ -392,19 +392,22 @@ public partial class ManageData : System.Web.UI.Page
         Util util = new Util();
         XmlUtil x_util = new XmlUtil();
         XmlDocument doc = util.GetStagingAppXml(State, app);
-        XmlNode project_node = doc.SelectSingleNode("//mobiflex_project");
-        XmlNode phone_data_requests = project_node.SelectSingleNode("phone_data_requests");
+        XmlNode root = doc.SelectSingleNode("app_project");
+        if (root == null)
+            root = doc.SelectSingleNode("mobiflex_project");
+
+        XmlNode phone_data_requests = doc.SelectSingleNode("//phone_data_requests");
         bool update_xml = false;
         if (phone_data_requests == null)
         {
-             phone_data_requests = x_util.CreateNode(doc, project_node, "phone_data_requests");
+             phone_data_requests = x_util.CreateNode(doc, root, "phone_data_requests");
              update_xml = true;
         }
 
-        XmlNode web_service_data_responses = doc.SelectSingleNode("//mobiflex_project/web_service_data_responses");
+        XmlNode web_service_data_responses = doc.SelectSingleNode("//web_service_data_responses");
         if (web_service_data_responses == null)
         {
-            web_service_data_responses = x_util.CreateNode(doc, project_node, "web_service_data_responses");
+            web_service_data_responses = x_util.CreateNode(doc, root, "web_service_data_responses");
             update_xml = true;
         }
         if (update_xml)
@@ -914,7 +917,7 @@ public partial class ManageData : System.Web.UI.Page
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         XmlDocument doc = util.GetStagingAppXml(State);
          State["AppXmlDoc"] = doc;
-        XmlNode phone_data_requests = doc.SelectSingleNode("//mobiflex_project/phone_data_requests");
+        XmlNode phone_data_requests = doc.SelectSingleNode("//phone_data_requests");
         if (phone_data_requests == null)
             return;
         string method = view_method_node.Text;
@@ -925,7 +928,7 @@ public partial class ManageData : System.Web.UI.Page
             XmlNode phone_data_request = xml_method_node.ParentNode;
             phone_data_request.ParentNode.RemoveChild(phone_data_request);
 
-            XmlNode web_service_data_responses = doc.SelectSingleNode("//mobiflex_project/web_service_data_responses");
+            XmlNode web_service_data_responses = doc.SelectSingleNode("//web_service_data_responses");
             xml_method_node = web_service_data_responses.SelectSingleNode("web_service_data_response/method[.='" + method + "']");
             if (xml_method_node != null)
             {
@@ -1111,11 +1114,14 @@ public partial class ManageData : System.Web.UI.Page
         string method = event_method[1];
 
         XmlDocument doc = util.GetStagingAppXml(State);
-        XmlNode project_node = doc.SelectSingleNode("//mobiflex_project");
-        XmlNode phone_data_requests = project_node.SelectSingleNode("phone_data_requests");
+        XmlNode root = doc.SelectSingleNode("app_project");
+        if (root == null)
+            root = doc.SelectSingleNode("mobiflex_project");
+
+        XmlNode phone_data_requests = doc.SelectSingleNode("//phone_data_requests");
         if (phone_data_requests == null)
         {
-            phone_data_requests = x_util.CreateNode(doc, project_node, "phone_data_requests");
+            phone_data_requests = x_util.CreateNode(doc, root, "phone_data_requests");
         }
         State["AppXmlDoc"] = doc;
 
@@ -1299,7 +1305,7 @@ public partial class ManageData : System.Web.UI.Page
         // find the node in the xml
         XmlDocument doc = util.GetStagingAppXml(State);
          State["AppXmlDoc"] = doc;
-        XmlNode phone_data_requests = doc.SelectSingleNode("//mobiflex_project/phone_data_requests");
+        XmlNode phone_data_requests = doc.SelectSingleNode("//phone_data_requests");
         if (phone_data_requests == null)
             return;
         XmlNode mapped_node = phone_data_requests.SelectSingleNode("phone_data_request/event_field[.='" + event_field + "']");
@@ -1310,7 +1316,7 @@ public partial class ManageData : System.Web.UI.Page
             util.UpdateStagingAppXml(State);
         }
 
-        XmlNode web_service_data_responses = doc.SelectSingleNode("//mobiflex_project/web_service_data_responses");
+        XmlNode web_service_data_responses = doc.SelectSingleNode("//web_service_data_responses");
         mapped_node = web_service_data_responses.SelectSingleNode("//web_service_data_response/method[.='" + method + "']");
         if (mapped_node != null)
         {
@@ -1331,7 +1337,7 @@ public partial class ManageData : System.Web.UI.Page
 
         ClearMessages();
          XmlDocument doc = util.GetStagingAppXml(State);
-        XmlNode phone_data_requests = doc.SelectSingleNode("//mobiflex_project/phone_data_requests");
+        XmlNode phone_data_requests = doc.SelectSingleNode("//phone_data_requests");
         if (phone_data_requests == null)
             return;
         phone_data_requests.RemoveAll();
@@ -1404,7 +1410,7 @@ public partial class ManageData : System.Web.UI.Page
             edit_array.Add(edit_list);
         }
         XmlNode output_mapping = null;
-        XmlNode web_service_data_responses = doc.SelectSingleNode("//mobiflex_project/web_service_data_responses");
+        XmlNode web_service_data_responses = doc.SelectSingleNode("//web_service_data_responses");
         if (web_service_data_responses != null) //old encoding
         {
             foreach (Hashtable list in edit_array)
@@ -1463,11 +1469,14 @@ public partial class ManageData : System.Web.UI.Page
         }
 
         //new encoding
-        XmlNode project_node = doc.SelectSingleNode("//mobiflex_project");
-        XmlNode phone_data_requests = project_node.SelectSingleNode("phone_data_requests");
+        XmlNode root = doc.SelectSingleNode("app_project");
+        if (root == null)
+            root = doc.SelectSingleNode("mobiflex_project");
+
+        XmlNode phone_data_requests = doc.SelectSingleNode("//phone_data_requests");
         if (phone_data_requests == null)
         {
-            phone_data_requests = x_util.CreateNode(doc, project_node, "phone_data_requests");
+            phone_data_requests = x_util.CreateNode(doc, root, "phone_data_requests");
         }
         XmlNode event_field = phone_data_requests.SelectSingleNode("phone_data_request/event_field[.='" + WebServiceEvents.SelectedItem.Text + "']");
         XmlNode phone_data_request = event_field.ParentNode;
@@ -1518,13 +1527,13 @@ public partial class ManageData : System.Web.UI.Page
 
         ClearMessages();
         XmlDocument doc = util.GetStagingAppXml(State);
-        XmlNode web_service_data_responses = doc.SelectSingleNode("//mobiflex_project/web_service_data_responses");
+        XmlNode web_service_data_responses = doc.SelectSingleNode("//web_service_data_responses");
         if (web_service_data_responses != null)
         {
             web_service_data_responses.RemoveAll();
         }
 
-        XmlNode phone_data_requests = doc.SelectSingleNode("//mobiflex_project/phone_data_requests");
+        XmlNode phone_data_requests = doc.SelectSingleNode("//phone_data_requests");
         if (phone_data_requests == null)
             return;
         XmlNodeList event_fields = phone_data_requests.SelectNodes("phone_data_request/event_field");
@@ -1678,7 +1687,7 @@ public partial class ManageData : System.Web.UI.Page
 
         Util util = new Util();
         XmlDocument doc = util.GetStagingAppXml(State, app);
-        XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+        XmlNode database_config = doc.SelectSingleNode("//database_config");
         if (database_config == null)
         {
             database_config = doc.CreateElement("database_config");
@@ -1768,7 +1777,7 @@ public partial class ManageData : System.Web.UI.Page
         Util util = new Util();
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         XmlDocument doc = util.GetStagingAppXml(State);
-        XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+        XmlNode database_config = doc.SelectSingleNode("//database_config");
 
         XmlNode events = database_config.SelectSingleNode("events");
         if (events == null)
@@ -1878,7 +1887,7 @@ public partial class ManageData : System.Web.UI.Page
 
         XmlUtil x_util = new XmlUtil();
          XmlDocument doc = util.GetStagingAppXml(State);
-        XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+        XmlNode database_config = doc.SelectSingleNode("//database_config");
 
         XmlNode events = database_config.SelectSingleNode("events");
         if (events == null)
@@ -1987,11 +1996,11 @@ public partial class ManageData : System.Web.UI.Page
         Util util = new Util();
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         XmlDocument doc = util.GetStagingAppXml(State);
-        XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+        XmlNode database_config = doc.SelectSingleNode("//database_config");
         if (database_config != null)        
             database_config.RemoveAll();        
 
-        XmlNode phone_data_requests = doc.SelectSingleNode("//mobiflex_project/phone_data_requests");
+        XmlNode phone_data_requests = doc.SelectSingleNode("//phone_data_requests");
         if(phone_data_requests != null)
             phone_data_requests.RemoveAll();
 
@@ -2008,7 +2017,7 @@ public partial class ManageData : System.Web.UI.Page
 
         XmlUtil x_util = new XmlUtil();
         XmlDocument doc = util.GetStagingAppXml(State);
-        XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+        XmlNode database_config = doc.SelectSingleNode("//database_config");
         XmlNode events = database_config.SelectSingleNode("events");
         if (events != null)
             events.RemoveAll();
@@ -2110,7 +2119,7 @@ public partial class ManageData : System.Web.UI.Page
         Util util = new Util();
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         XmlDocument doc = util.GetStagingAppXml(State);
-        XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+        XmlNode database_config = doc.SelectSingleNode("//database_config");
         if (database_config == null)
         {
             return null;

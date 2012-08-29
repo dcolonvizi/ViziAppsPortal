@@ -2111,8 +2111,11 @@ public class Util
     {
         XmlUtil x_util = new XmlUtil();
         XmlDocument doc = GetStagingAppXml(State);
-        XmlNode root = doc.SelectSingleNode("//mobiflex_project");
-        XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+        XmlNode root = doc.SelectSingleNode("app_project");
+        if (root == null)
+            root = doc.SelectSingleNode("mobiflex_project");
+
+        XmlNode database_config = doc.SelectSingleNode("//database_config");
         if (database_config == null)
         {
             database_config = x_util.CreateNode(doc, root, "database_config");
@@ -2159,8 +2162,11 @@ public class Util
     {
         XmlUtil x_util = new XmlUtil();
         XmlDocument doc = GetStagingAppXml(State);
-        XmlNode root = doc.SelectSingleNode("//mobiflex_project");
-        XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+        XmlNode root = doc.SelectSingleNode("app_project");
+        if (root == null)
+            root = doc.SelectSingleNode("mobiflex_project");
+
+        XmlNode database_config = doc.SelectSingleNode("//database_config");
         if (database_config != null)
         {
             root.RemoveChild(database_config);
@@ -2171,8 +2177,7 @@ public class Util
     {
         XmlUtil x_util = new XmlUtil();
         XmlDocument doc = GetStagingAppXml(State);
-        XmlNode root = doc.SelectSingleNode("//mobiflex_project");
-        XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+        XmlNode database_config = doc.SelectSingleNode("//database_config");
         return (database_config != null) ? true : false;
     }
     public string GetCustomerIDFromEmail(Hashtable State, string email)
