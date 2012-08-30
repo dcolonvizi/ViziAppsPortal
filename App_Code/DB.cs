@@ -352,7 +352,7 @@ public class DB
     }
     public static string GetConnectionString()
     {
-        string stagingURL = ConfigurationManager.AppSettings["StaggingURL"];
+        string stagingURL = ConfigurationManager.AppSettings["StagingURL"];
         string connectionString = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"];
 
         HttpContext context = HttpContext.Current;
