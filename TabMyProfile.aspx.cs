@@ -22,7 +22,9 @@ public partial class MyProfile : System.Web.UI.Page
         try
         {
             if (!IsPostBack)
+            {
                 UserLabel.Text = State["Username"].ToString();
+            }
 
             if (State["TechSupportEmail"] != null)
             {
@@ -60,6 +62,7 @@ public partial class MyProfile : System.Web.UI.Page
             StreetTextBox.Text = util.DecodeMySql(row["street_address"].ToString());
             CityTextBox.Text = util.DecodeMySql(row["city"].ToString());
 
+
             if (row["state"] != null && row["state"].ToString().Length > 0)
                 StateList.Text = row["state"].ToString();
 
@@ -69,6 +72,16 @@ public partial class MyProfile : System.Web.UI.Page
             PhoneTextbox.Text = row["phone"].ToString();
             EmailTextBox.Text = row["email"].ToString();
             string status = row["status"].ToString();
+
+            
+            //Additions for the CC fields 
+            if (!IsPostBack)
+            {
+                CCFirstNameTextbox.Text = util.DecodeMySql(row["first_name"].ToString());
+                CCLastNameTextBox.Text = util.DecodeMySql(row["last_name"].ToString());
+                CCZipTextBox.Text = row["postal_code"].ToString();
+            }
+
 
             db.CloseViziAppsDatabase(State);
 
@@ -220,8 +233,110 @@ public partial class MyProfile : System.Web.UI.Page
         TimeZones zone_util = new TimeZones();
         zone_util.GetDefaultTimeZone(State);
 
-        Message.Text = "Your account profile has been updated. ";
+        //Update with CheddarGetter the CreditCardDetails if the Checkbox for CreditCardUpdate is checked.
+        if (Update_CC_Details_CheckBox.Checked)
+        {
+            if (UpdateCheddarGetterWithCC() == true)
+                Message.Text = "Your account profile has been updated. ";
+            else
+                Message.Text = "There was a problem updating your credit card info. Please contact support@viziapps.com for assistance.";
+        }
+        else
+            Message.Text = "Your account profile has been updated. ";
+        //End CC Update
+        
     }
+
+
+
+    private bool UpdateCheddarGetterWithCC()
+    {
+        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
+        
+        //Get all paid_apps from paid_services table directly.
+        string sql = "SELECT application_id FROM paid_services WHERE customer_id='" + State["CustomerID"].ToString() + "' AND status='paid' ORDER BY app_name";
+
+        DB db = new DB();
+        DataRow[] rows = db.ViziAppsExecuteSql(State, sql);
+
+        bool status = false;
+        foreach (DataRow row in rows)
+        {
+            string AppID = row["application_id"].ToString();
+            status = UpdateCheddarGetterPerApp(AppID);
+        }
+        return status;
+}
+
+
+
+    private bool UpdateCheddarGetterPerApp(string AppID)
+    {
+
+        try
+        {
+            CGError servererror = new CGError();
+            Customer customer_details = CheddarGetter.GetCustomer(AppID, servererror);
+
+            if (String.IsNullOrEmpty(servererror.Code) == false)
+            {
+                RadNotification1.Title = "WARNING";
+                RadNotification1.Text = servererror.Message + " . Please contact support@viziapps.com for assistance";
+                RadNotification1.Visible = true;
+                RadNotification1.Show();
+                return false;
+            }
+
+
+            CustomerPost updateCustomer = new CustomerPost();
+
+            //Copy over the plan since we are not changing that.
+            updateCustomer.strPlanCode = customer_details.Subscriptions[0].SubscriptionsPlans[0].Code;
+            
+
+            updateCustomer.Company = CompanyTextBox.Text;
+            updateCustomer.FirstName = FirstNameTextBox.Text;
+            updateCustomer.LastName = LastNameTextBox.Text;
+            updateCustomer.Email = EmailTextBox.Text;
+
+            //Extra fields required for nonFREE plans
+            updateCustomer.CCFirstName = CCFirstNameTextbox.Text;
+            updateCustomer.CCLastName = CCLastNameTextBox.Text;
+            updateCustomer.CCNumber = CCNumberTextBox.Text;
+            updateCustomer.CCExpiration = CCExpirationTextBox.Text;
+            updateCustomer.CCZip = CCZipTextBox.Text;
+            updateCustomer.CCCardCode = CCCardCodeTextBox.Text;
+
+            updateCustomer.Code = AppID;
+            System.Diagnostics.Debug.WriteLine("Updating Customerinfo for AppID=" + AppID);
+
+            //Send it to the server
+            Customer returnCustomer = CheddarGetter.UpdateCustomerAndSubscription(updateCustomer, servererror);
+            //FAILURE
+            if (String.IsNullOrEmpty(servererror.Code) == false)
+            {
+                RadNotification1.Title = "WARNING";
+                RadNotification1.Text = servererror.Message + " . Please contact support@viziapps.com for assistance";
+                RadNotification1.Visible = true;
+                RadNotification1.Show();
+                return false;
+            }
+
+            //SUCCESS
+            if (String.IsNullOrEmpty(returnCustomer.Code) == false)
+                return true;
+
+        }
+
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            throw;
+        }
+        return false;
+    }
+
+
      protected void LogoutButton_Click(object sender, ImageClickEventArgs e)
     {
         Util util = new Util();
@@ -246,4 +361,5 @@ public partial class MyProfile : System.Web.UI.Page
         Session["MainMenu"] = tab;
          Response.Redirect("Tab" + tab + ".aspx", false);
     }
+            
 }

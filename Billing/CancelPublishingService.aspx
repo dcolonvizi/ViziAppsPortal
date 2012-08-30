@@ -1,20 +1,80 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TabPublish.aspx.cs" Inherits="TabPublish" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CancelPublishingService.aspx.cs" Inherits="CancelPublishingService" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-     <title>ViziApps: Build Mobile Apps Online</title>
-    <link rel="stylesheet" type="text/css" href="~/Billing/CSS/BillingStylesheet.css" /> <!--CSS-->
-           
+
+<title>ViziApps:App Billing</title>
+
+    <link rel="stylesheet" type="text/css" href="CSS/BillingStylesheet.css" />
+    <link rel="stylesheet" type="text/css" href="CSS/jquery.toastmessage.css" />
+
+
+    <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+    <script type="text/javascript"  src="Javascript/jquery.toastmessage.js"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+        });
+
+
+        function redirect(url) {
+            window.location = url;
+        }
+
+
+        function OnAjaxResponse(sender, args) {
+
+            console.log("OnAjaxResponse");
+
+
+            var cgresp = null;
+
+            if (cgresp == null)
+                cgresp = document.getElementById("<%= CGResponseFlag.ClientID %>").value;
+
+
+
+            if (cgresp != "") {
+
+                $().toastmessage('showToast', {
+                    text: '<h4>Your request to cancel has been processed. You will get an email shortly. </h4> <br><br><br> <small>Redirecting page shortly.... ',
+                    sticky: true,
+                    position: 'middle-center',
+                    type: 'success',
+                    closeText: 'OK',
+                    close: function () {
+                        console.log("toast is closed ...");
+                    }
+                });
+
+                var location = '../TabPublish.aspx';
+
+                setTimeout(function () { redirect(location); }, 6000);
+            }
+
+
+        }
+     </script>
+     
+    </telerik:RadCodeBlock>
 
 </head>
-<body class="body">
-    <form id="form1" runat="server">
+<body>
+
+       
+
+    <form id="CancelBilling" runat="server">
+
+
     
-
-      <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
-
+    
       <telerik:RadWindowManager ID="ConfigureRadWindowManager" runat="server">
             <Windows>
                
@@ -109,7 +169,7 @@
       <telerik:RadAjaxLoadingPanel ID="WholePageLoadingPanel" runat="server" Skin="Default" 
                                 Transparency="0" BackColor="LightGray"  IsSticky="true"
 	                            CssClass="MyModalPanel"></telerik:RadAjaxLoadingPanel>
-      <div align="left" id="header" style="height:80px;width:100%;  background-color:#0054c2;">
+      <div align="center" id="header" style="height:80px;width:100%;  background-color:#0054c2;">
                    <div style="height:10px;"></div>
                 <table cellpadding="0" cellspacing="0" border="0" style="width: 100%" >
                 <tr>                
@@ -126,7 +186,7 @@
                 <td class="style25">
                    
                    
-                    <asp:Label ID="UserLabel" runat="server" style="color:White" Font-Size="Medium"></asp:Label>
+                    <asp:Label ID="UserLabel" runat="server" style="color:White"></asp:Label>
                     
                     </td>
                      <td style="color:White;"></td>
@@ -147,7 +207,8 @@
                 </table>
                 </div>  
       <div align="center" style="width:100%;height: 30px">
-               <table border="0" cellpadding="0" cellspacing="0" id="tabs"  style="width:100%;height:30px; border:0px; padding:0px;  vertical-align:top;  margin:0px; background-image:url(images/tabs_section.gif); background-repeat:repeat-x  ">
+               <table border="0" cellpadding="0" cellspacing="0" id="tabs"  
+                   style="width:100%;height:30px; border:0px; padding:0px;  vertical-align:top;  margin:0px; background-image:url('../images/tabs_section.gif'); background-repeat:repeat-x">
                     <tr><td align="center" valign="top">
                      <div align="center">
                       
@@ -157,7 +218,7 @@
                       <telerik:RadMenu ID="TabMenu" runat="server" Skin=""
                                   onitemclick="TabMenu_ItemClick"                                    
                              style="border-width: 0px; margin: 0px; padding: 0px; vertical-align:top; z-index:100; top: 0px; left: 0px;" 
-                             TabIndex="1100"  >
+                             TabIndex="1100">
                          
                             <Items>
                              <telerik:RadMenuItem ImageUrl="~/images/MySolutionsButton.png" HoveredImageUrl="~/images/MySolutionsButton_hov.png"
@@ -196,119 +257,113 @@
                
                 </div>  
 
+      <telerik:RadScriptManager ID="RadScriptManager" runat="server"> </telerik:RadScriptManager>
+
+      <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+         <AjaxSettings>
+             <telerik:AjaxSetting AjaxControlID="RadComboAppSelector">
+                 <UpdatedControls>
+                     <telerik:AjaxUpdatedControl ControlID="RadComboAppSelector" />
+                     <telerik:AjaxUpdatedControl ControlID="CancelSubscriptionsButton" />
+                     <telerik:AjaxUpdatedControl ControlID="RadNotification1" />
+                     <telerik:AjaxUpdatedControl ControlID="cgbilling" />
+                 </UpdatedControls>
+             </telerik:AjaxSetting>
+             <telerik:AjaxSetting AjaxControlID="CancelSubscriptionsButton">
+                 <UpdatedControls>
+                     <telerik:AjaxUpdatedControl ControlID="CGResponseFlag" />
+                     <telerik:AjaxUpdatedControl ControlID="RadNotification1" />
+                 </UpdatedControls>
+             </telerik:AjaxSetting>
+         </AjaxSettings>
+        <ClientEvents OnResponseEnd="OnAjaxResponse" ></ClientEvents>
+        
+          
+
+        </telerik:RadAjaxManager>
+
+
+
     
 
-     <table class="billingblock" >
-     <tr>
+
+ <!-- OUTERTABLE -->    
+    <table width=100%>
+    <tr>
+    <td valign="top">
+    <asp:Button ID="Button1" runat="server" onclick="BackButton_Click" class="bluebutton"  Text="Back" Height="47px" Width="73px" />
+    </td>
      
-     <!-- Links Table -->
-     <td valign="top" >
-     <table style="width: 300px">
-          <tr><td  > 
-             <asp:Button ID="PublishingFormButton" 
-                 runat="server"  Text="1. Submit Publishing Form" CssClass="bluebutton" 
-                 onclick="PublishingFormButton_Click" Width="285px" /> </td> </tr>
-
-
-         <tr><td  > 
-             <asp:Button ID="AppBrandingButton" 
-                 runat="server"  Text="2. App Store Preparation" CssClass="bluebutton" 
-                 onclick="AppBrandingButton_Click" Width="285px" /> </td> </tr>
-         
-         <tr><td > 
-             <asp:Button ID="NewSubscriptionButton" 
-                 runat="server"  CssClass="bluebutton" Text="3. Add Publishing Service"  
-                 onclick="NewSubscriptionButton_Click" Width="285px" /> </td></tr>
-         
-         <tr><td > 
-             <asp:Button ID="ModifySubscriptionButton" 
-                runat="server" CssClass="bluebutton" Text="4. Modify Publishing Service" 
-                onclick="ModifySubscriptionButton_Click" Width="285px" /> </td></tr>
-         
-
-         <tr><td > 
-             <asp:Button ID="CancelSubscriptionButton" 
-                runat="server" CssClass="bluebutton" Text="5. Cancel Publishing Service" 
-                onclick="CancelSubscriptionButton_Click" Width="285px" /> </td></tr>
-
-
-         <tr><td > 
-             <asp:Button ID="BillingHistoryButton" 
-                runat="server" CssClass="bluebutton" Text="6. Show Billing History" 
-                Width="285px" onclick="BillingHistoryButton_Click" /> </td></tr>
-
-       </table>
-     </td>
-     <!-- Links Table -->
-
+    <td>  
+    <td>
+        <center>
+        <table class="cancelblock"> 
+    <tr><td colspan="2"> 
+    
+     <center> <h3>Cancel Publishing Service</h3> <br />
      
-
-
-     <!-- Native & Web Content Table -->
-     <td valign="top"> 
-         <center><h3>App Submission and Publishing Steps</h3> </center>
-
-
-     <table>
-     <tr><td ><p class="billinginstructions"><strong> 1. Submit Publishing Form</strong>
-     Submit the publishing form along with the splash screen and the icon for the App. </p>
-         <p class="billinginstructions">For Web Apps, ViziApps Engineering team will host 
-             your published web app but if you fail to add a publishing service (step3 below) 
-             your app will stop functioning after 14 days. </p>
-     </td></tr>
-
-
-     <tr><td >
-         <p class="billinginstructions"><strong> 2. App Store Preparation (Native and 
-             Hybrid Apps only):</strong>
-     ViziApps Engineering team will take the App that you have designed and create the final 
-             store ready version of your application and will work with you through the store 
-             submission process.</p>
-         <p class="billinginstructions">Note: If you are planning to create mulitple Apps 
-             for different target platforms from one Design then 
-             this step needs to be done separately for each of App.</p>
-     </td></tr>
-         
-     
-
-     
-     <tr><td><p class="billinginstructions"><strong>3. Add Publishing Service </strong>
-             </p>
-         <p class="billinginstructions">In order for your App to be usable after the initial 
-             14 days, you have to purchase a ViziApps Publishing Service.&nbsp; Details of 
-             the&nbsp; different services offered are available on the 
-             <a href="http://www.viziapps.com/features-pricing/" target="new"> ViziApps website. </a>When you are ready to purchase a 
-             publishing service click on the button 
-             <em>&quot;</em>3.Add Publishing Service&quot; on the left<em>. </em> <br />
-             </p>
-         <p class="billinginstructions">Note: If you are planning to create mulitple Apps 
-             for different target platforms from one Design then 
-             this step needs to be done separately for each of App.<br />
-             </p>
-          </td>
-          </tr>
-
         
-     <tr><td><p class="billinginstructions"> <strong>4. Modifying Publishing Service </strong>
-      Select this link to change your current App Publishing Service.</p>
-     </td></tr>
+  <telerik:RadComboBox ID="RadComboAppSelector" 
+                                    runat="server" 
+                                    AutoPostBack="True" 
+                                     Font-Names="Arial" 
+                                     Font-Size="12pt" 
+                                     Width="350px" 
+                                     MarkFirstMatch="True"  
+                                     Skin="Web20" 
+                                     Label="Select your App"
+                                     CssClass="combolabel"
+                                     onselectedindexchanged="RadComboAppSelector_SelectedIndexChanged">
 
-     <tr><td><p class="billinginstructions"><strong>5. Cancel Publishing Service </strong>
-     Select this link to cancel your current App Publishing Service.</p>
-     <td></tr>
+                 <Items></Items>
 
-     <tr><td><p class="billinginstructions"><strong>6.Show Billing History</strong>
-     Select this link to see your Billing History.</p>
-     </td>
-     </tr>
-     </table>
+                <WebServiceSettings>
+                <ODataSettings InitialContainerName=""></ODataSettings>
+                </WebServiceSettings>
+                 </telerik:RadComboBox>
+            <br />
+            <br />
 
-     </td>
-     <!-- Web Content Table -->
 
-     </tr>
-     </table>
+                <asp:TextBox ID="CGResponseFlag" runat='server' style="display:none"></asp:TextBox>
+                <br /><br />
+                </center>
+    </td>
+    </tr>
 
-    </form>
+
+    <tr> <td class="billing info"> <div id="cgbilling" class="canceldetails" runat="server"></div></td></tr>         
+    </table>
+        
+        <asp:Button ID="CancelSubscriptionsButton" runat="server" onclick="CancelSubscriptionsButton_Click" Text="Submit"  CssClass="bluebutton"/> <br />
+        </center>
+    </td>
+    </tr>
+    </table>
+           
+       <telerik:RadNotification ID="RadNotification1"  runat="server"  
+                        VisibleOnPageLoad="false"  
+                        Width="300px" 
+                        Height="150px"
+                        EnableRoundedCorners="True"
+                        ContentIcon="images/billing_images/warning.png"
+                        Animation="Fade" 
+                        AnimationDuration="1000"
+                        EnableShadow="True" 
+                        Position="Center"
+                        Title="Notification Title" 
+                        Text="Notification"
+                        Style="z-index: 35000" 
+                        AutoCloseDelay="5000" 
+                        ForeColor="Red"
+                        Font-Bold="True" 
+                        BorderStyle="Groove"
+                        BorderColor="#5370A6"
+                        TitleIcon="images/billing_images/warning_title.png">
+
+     </telerik:RadNotification>
+
+</center>
+</form>
 </body>
 </html>
