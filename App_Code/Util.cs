@@ -1613,7 +1613,8 @@ public class Util
     }
     public void SetApplicationIcon(Hashtable State, byte[] icon)
     {
-        string connect = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"];
+        //string connect = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"];
+        string connect = DB.GetConnectionString();
         MySqlConnection myConn = new MySqlConnection(connect);
         MySqlCommand nonqueryCommand = myConn.CreateCommand();
 
