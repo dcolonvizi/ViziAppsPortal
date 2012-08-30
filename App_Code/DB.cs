@@ -356,7 +356,7 @@ public class DB
         string connectionString = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"];
 
         HttpContext context = HttpContext.Current;
-        string baseUrl = context.Request.Url.Scheme + "://" + context.Request.Url.Authority + context.Request.ApplicationPath.TrimEnd('/') + '/';
+        string baseUrl = context.Request.Url.Authority.TrimEnd('/').Replace("www.","");
 
         if (stagingURL == baseUrl)
         {
