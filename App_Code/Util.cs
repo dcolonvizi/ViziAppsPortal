@@ -13,7 +13,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Xml;
 using System.IO;
-using System.Security.Cryptography; 
+using System.Security.Cryptography;
 using System.Security.AccessControl;
 using System.Text;
 using System.Diagnostics;
@@ -24,6 +24,7 @@ using MySql.Data.MySqlClient;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using Amazon.DynamoDB.DocumentModel;
 
 /// <summary>
 /// Summary description for Util
@@ -50,12 +51,12 @@ public class Util
         }
         return html;
     }
-    public void SetCustomHeaderHTML(Hashtable State,string html)
+    public void SetCustomHeaderHTML(Hashtable State, string html)
     {
         DB db = new DB();
         StringBuilder b_sql = new StringBuilder("UPDATE applications SET custom_header_html");
-        if(html == null || html.Length == 0)
-             b_sql.Append("=NULL ");
+        if (html == null || html.Length == 0)
+            b_sql.Append("=NULL ");
         else
             b_sql.Append("='" + MySqlFilter(html) + "' ");
         b_sql.Append("WHERE application_name='" + State["SelectedApp"].ToString() + "'");
@@ -86,7 +87,7 @@ public class Util
         string sql = "UPDATE customers SET url_account_identifier='" + account_identifier + "' WHERE customer_id='" + State["CustomerID"].ToString() + "'";
         DB db = new DB();
         db.ViziAppsExecuteNonQuery(State, sql);
-        db.CloseViziAppsDatabase(State); 
+        db.CloseViziAppsDatabase(State);
     }
     public bool IsAppSelectedForTest(Hashtable State)
     {
@@ -99,7 +100,7 @@ public class Util
             return false;
 
     }
-    public bool GetUse1UserCredential(Hashtable State,string application_id)
+    public bool GetUse1UserCredential(Hashtable State, string application_id)
     {
         DB db = new DB();
         string sql = "SELECT use_1_user_credential FROM applications WHERE application_id='" + application_id + "'";
@@ -114,21 +115,21 @@ public class Util
         }
         return use_1_user_credential;
     }
-    public bool CheckForFreeWebApp(Hashtable State,string html)
+    public bool CheckForFreeWebApp(Hashtable State, string html)
     {
         HtmlDocument HtmlDoc = new HtmlDocument();
         HtmlDoc.LoadHtml(html);
-        HtmlNodeCollection nodes =  HtmlDoc.DocumentNode.SelectNodes("//a[@href]");
-       
+        HtmlNodeCollection nodes = HtmlDoc.DocumentNode.SelectNodes("//a[@href]");
+
         foreach (HtmlNode node in nodes)
         {
             HtmlAttribute attr = node.Attributes["href"];
-            if(attr.Value.StartsWith("http"))
+            if (attr.Value.StartsWith("http"))
                 return false;
         }
         return true;
     }
-   
+
     public bool IsAppStoreSubmissionPaid(Hashtable State, string app_name)
     {
         DB db = new DB();
@@ -144,7 +145,7 @@ public class Util
         string expiration = expirationDateTime.ToString("s").Replace("T", " ");
         string sql = "UPDATE applications SET free_production_expiration_date_time='" + expiration + "' WHERE application_name ='" + State["SelectedApp"].ToString() + "' AND customer_id='" + State["CustomerID"].ToString() + "'";
         db.ViziAppsExecuteNonQuery(State, sql);
-        db.CloseViziAppsDatabase(State);    
+        db.CloseViziAppsDatabase(State);
     }
 
     public bool IsFreeProductionValid(Hashtable State, string application_id)
@@ -160,7 +161,7 @@ public class Util
     }
     public bool IsGoodApplicationName(string name)
     {
-        if (name==null || name.Length == 0 || name.Length > 100)
+        if (name == null || name.Length == 0 || name.Length > 100)
             return false;
 
         bool first = true;
@@ -196,19 +197,19 @@ public class Util
         }
         return true;
     }
-     public string GetDigits(string number)
-     {
-         if (number == null || number.Length == 0)
-             return "";
-         StringBuilder build_number = new StringBuilder();
-         foreach (char x in number)
-         {
-             if (Char.IsDigit(x))
-                 build_number.Append(x);
-         }
- 
-         return build_number.ToString();
-     }
+    public string GetDigits(string number)
+    {
+        if (number == null || number.Length == 0)
+            return "";
+        StringBuilder build_number = new StringBuilder();
+        foreach (char x in number)
+        {
+            if (Char.IsDigit(x))
+                build_number.Append(x);
+        }
+
+        return build_number.ToString();
+    }
     public string GetPhoneDigits(string phone)
     {
         if (phone == null || phone.Length == 0)
@@ -219,7 +220,7 @@ public class Util
             if (Char.IsDigit(x))
                 build_phone.Append(x);
         }
-        if (build_phone.Length>10 && build_phone[0] == '1')
+        if (build_phone.Length > 10 && build_phone[0] == '1')
             build_phone.Remove(0, 1);
 
         return build_phone.ToString();
@@ -242,11 +243,11 @@ public class Util
         StringBuilder output = new StringBuilder();
         foreach (char c in name)
         {
-            if (Char.IsLetterOrDigit(c) || c == '_' || c=='.')
+            if (Char.IsLetterOrDigit(c) || c == '_' || c == '.')
             {
                 output.Append(c);
             }
-            else if(c == ' ')
+            else if (c == ' ')
             {
                 output.Append("_");
             }
@@ -261,7 +262,7 @@ public class Util
         tw.Flush();
         tw.Close();
     }
-     // Adds an ACL entry on the specified directory for the specified account.
+    // Adds an ACL entry on the specified directory for the specified account.
     public void AddDirectorySecurity(string DirectoryName, string Account, FileSystemRights Rights, AccessControlType ControlType)
     {
         // Create a new DirectoryInfo object.
@@ -272,7 +273,7 @@ public class Util
         DirectorySecurity dSecurity = dInfo.GetAccessControl();
 
         // Add the FileSystemAccessRule to the security settings. 
-        dSecurity.AddAccessRule(new FileSystemAccessRule(Account,Rights,ControlType));
+        dSecurity.AddAccessRule(new FileSystemAccessRule(Account, Rights, ControlType));
 
         // Set the new access settings.
         dInfo.SetAccessControl(dSecurity);
@@ -312,9 +313,9 @@ public class Util
             HttpWebRequest request = (HttpWebRequest)
             WebRequest.Create(url);
 
-        // execute the request
-           HttpWebResponse response = (HttpWebResponse)
-                request.GetResponse();
+            // execute the request
+            HttpWebResponse response = (HttpWebResponse)
+                 request.GetResponse();
 
 
             // we will read data via the response stream
@@ -349,7 +350,7 @@ public class Util
         }
 
     }
- 
+
     public void SetSoapEnvelopeTemplatePHP(XmlDocument SoapEnv, string web_service_url, string method, string[] method_params)
     {
         XmlNode top = SoapEnv.ChildNodes[1];
@@ -369,7 +370,7 @@ public class Util
     {
         XmlNode top = SoapEnv.ChildNodes[1];
         XmlNode body = top.ChildNodes[0];
-        XmlNode method_node = SoapEnv.CreateElement( method);
+        XmlNode method_node = SoapEnv.CreateElement(method);
         XmlAttribute xmlns = SoapEnv.CreateAttribute("xmlns");
         xmlns.InnerText = GetTargetNameSpace(web_service_url + "?WSDL");
         method_node.Attributes.Append(xmlns);
@@ -403,9 +404,9 @@ public class Util
 
         XmlNode top = SoapEnv.ChildNodes[1];
         XmlNode body = top.ChildNodes[0];
-        XmlNode method_node = SoapEnv.CreateElement( method);
+        XmlNode method_node = SoapEnv.CreateElement(method);
         XmlAttribute xmlns = SoapEnv.CreateAttribute("xmlns");
-         xmlns.InnerText = GetTargetNameSpace(web_service_url + "?WSDL"); 
+        xmlns.InnerText = GetTargetNameSpace(web_service_url + "?WSDL");
         method_node.Attributes.Append(xmlns);
         string[] param_list = inputs.Split("&".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
         foreach (string param in param_list)
@@ -612,8 +613,8 @@ public class Util
                 UserTable["PageRequestIPAddress"] = State["PageRequestIPAddress"].ToString();
                 UserTable["SessionID"] = State["SessionID"];
                 UsersList[username] = UserTable;
-            }        
- 
+            }
+
             //initialize configurations
             State["CustomerStatus"] = row["status"].ToString();
             State["Password"] = "";
@@ -646,7 +647,7 @@ public class Util
             return "Internal error in login process.";
         }
     }
-  
+
     public string LoginToViziApps(Hashtable State, string username, string password)
     {
         try
@@ -660,7 +661,7 @@ public class Util
                 return "Either the username or the password is incorrect.";
             }
             DataRow row = rows[0];
-            if(row["status"].ToString()== "inactive")
+            if (row["status"].ToString() == "inactive")
             {
                 db.CloseViziAppsDatabase(State);
                 return "Your account is inactive. Contact ViziApps to re-activate your account.";
@@ -700,7 +701,7 @@ public class Util
                             break;
                         }
                     }
-                    if(isAccountTypeAllowed)
+                    if (isAccountTypeAllowed)
                         break;
                 }
                 if (!isAccountTypeAllowed)
@@ -708,7 +709,7 @@ public class Util
                     foreach (string account_type in account_type_list)
                     {
                         if (account_type == "google_apps")
-                            return "If you created a ViziApps account from Google Apps Marketplace, you can only login into ViziApps from your Google account to maintain secure access to your data.";                          
+                            return "If you created a ViziApps account from Google Apps Marketplace, you can only login into ViziApps from your Google account to maintain secure access to your data.";
                     }
                     return "Invalid Login";
                 }
@@ -732,7 +733,7 @@ public class Util
                 }
 
                 string force_1_user_sessions = row["force_1_user_sessions"].ToString();
-                bool one_user_allowed = force_1_user_sessions == "1" || force_1_user_sessions.ToLower() == "true"; 
+                bool one_user_allowed = force_1_user_sessions == "1" || force_1_user_sessions.ToLower() == "true";
                 if (UsersList[username] != null)
                 {
                     Hashtable UserTable = (Hashtable)UsersList[username];
@@ -748,7 +749,7 @@ public class Util
                     UserTable["PageRequestIPAddress"] = State["PageRequestIPAddress"].ToString();
                     UserTable["SessionID"] = State["SessionID"];
                     UsersList[username] = UserTable;
-                }                
+                }
 
                 //initialize configurations
                 State["CustomerStatus"] = row["status"].ToString();
@@ -805,10 +806,10 @@ public class Util
     {
         if (State == null || State["CustomerID"] == null)
             return "viziapps";
-         DB db = new DB();
-         string sql = "SELECT account_type FROM customers WHERE customer_id = '" + State["CustomerID"].ToString() + "'";
-         string account_type = db.ViziAppsExecuteScalar(State, sql);
-         return GetAccountType(account_type);
+        DB db = new DB();
+        string sql = "SELECT account_type FROM customers WHERE customer_id = '" + State["CustomerID"].ToString() + "'";
+        string account_type = db.ViziAppsExecuteScalar(State, sql);
+        return GetAccountType(account_type);
     }
     public void SetLoggedIn(Hashtable State)
     {
@@ -818,7 +819,7 @@ public class Util
         }
 
         State["LoggedIn"] = true;
-     }
+    }
     public bool HasAgreedToEula(Hashtable State)
     {
         DB db = new DB();
@@ -849,17 +850,17 @@ public class Util
     {
         DB db = new DB();
         string sql = "SELECT COUNT(*) FROM customers WHERE customer_id='" + customer_id + "'";
-        string count = db.ViziAppsExecuteScalar(State,sql);
-        if(count == "0")
+        string count = db.ViziAppsExecuteScalar(State, sql);
+        if (count == "0")
             return false;
 
         sql = "UPDATE customers SET status='trial' WHERE customer_id='" + customer_id + "'";
-        db.ViziAppsExecuteNonQuery(State,sql);
+        db.ViziAppsExecuteNonQuery(State, sql);
 
         db.CloseViziAppsDatabase(State);
         return true;
     }
-    public string CreateMobiFlexAccount(Hashtable State, 
+    public string CreateMobiFlexAccount(Hashtable State,
         string username, string password, string security_question, string security_answer, string first_name, string last_name,
         string email, string phone, string account_type, string referral_source, string app_to_build, string status)
     {
@@ -868,10 +869,10 @@ public class Util
         sql.Append("customer_id='" + customer_id + "'");
         sql.Append(",username='" + username + "'");
         sql.Append(",password='" + MySqlFilter(password) + "'");
-        if(security_question.Length > 0)
-                sql.Append(",security_question='" + security_question.Replace("'","''") + "'");
+        if (security_question.Length > 0)
+            sql.Append(",security_question='" + security_question.Replace("'", "''") + "'");
         if (security_answer.Length > 0)
-                 sql.Append(",security_answer='" + security_answer.Replace("'", "''") + "'");
+            sql.Append(",security_answer='" + security_answer.Replace("'", "''") + "'");
         sql.Append(",first_name='" + MySqlFilter(first_name) + "'");
         sql.Append(",last_name='" + MySqlFilter(last_name) + "'");
         sql.Append(",email='" + email + "'");
@@ -884,7 +885,7 @@ public class Util
             sql.Append(",phone='" + phone + "'");
         }
 
-        sql.Append(",account_type='"+ account_type + "'");
+        sql.Append(",account_type='" + account_type + "'");
         if (referral_source != null && referral_source.IndexOf("->") < 0)
         {
             sql.Append(",referral_source='" + referral_source + "'");
@@ -897,7 +898,7 @@ public class Util
 
         sql.Append(",registration_date_time='" + NOW + "',status='" + status + "'");
         DB db = new DB();
-        db.ViziAppsExecuteNonQuery(State,sql.ToString());
+        db.ViziAppsExecuteNonQuery(State, sql.ToString());
         db.CloseViziAppsDatabase(State);
         return customer_id;
     }
@@ -908,18 +909,18 @@ public class Util
             string NOW = DateTime.Now.ToUniversalTime().ToString("s").Replace("T", " ");
             string sql = "UPDATE customers SET last_use_date_time='" + NOW + "',last_user_host_address='" + State["UserHostAddress"].ToString() + "' WHERE customer_id='" + State["CustomerID"].ToString() + "'";
             DB db = new DB();
-            db.ViziAppsExecuteNonQuery(State,sql);
+            db.ViziAppsExecuteNonQuery(State, sql);
             db.CloseViziAppsDatabase(State);
         }
         catch { } // an exception may happen at logout because the State is undefined then. so let it go
     }
     public void IncrementNLogins(Hashtable State)
     {
-            DB db = new DB();
-            string sql = "UPDATE customers SET n_logins=n_logins+1 WHERE customer_id='" + State["CustomerID"].ToString() + "'";
-            db.ViziAppsExecuteNonQuery(State, sql);
-            db.CloseViziAppsDatabase(State);
-     }
+        DB db = new DB();
+        string sql = "UPDATE customers SET n_logins=n_logins+1 WHERE customer_id='" + State["CustomerID"].ToString() + "'";
+        db.ViziAppsExecuteNonQuery(State, sql);
+        db.CloseViziAppsDatabase(State);
+    }
     public string GetLastUserHostAddress(Hashtable State)
     {
         if (State["CustomerID"] != null)
@@ -952,51 +953,51 @@ public class Util
             StringBuilder output = new StringBuilder();
             foreach (char c in raw_value)
             {
-              if(c.Equals('~') || 
-				c.Equals('!') || 
-				c.Equals('?') ||
-				c.Equals('$') ||
-				c.Equals('%') ||
-				c.Equals('^') ||
-				c.Equals('*') ||
-				c.Equals('.') ||
-				c.Equals(',') ||
-				c.Equals('-') ||
-				c.Equals('_') ||
-				c.Equals('=') ||
-				c.Equals('(') ||
-				c.Equals(')') ||
-				c.Equals('[') ||
-				c.Equals(']') ||
-				c.Equals('{') ||
-				c.Equals('}') ||
-				c.Equals('|') ||
-				c.Equals('\\')||
-				c.Equals(';') ||
-				c.Equals(':') ||
-				c.Equals('"') ||
-				c.Equals('/') ||
-				c.Equals('<') ||
-				c.Equals('>') )
-                     output.Append(' ');
-              else if(c.Equals('`') || 
-                      c.Equals('\'') )
-                  continue;
-              else if(c.Equals('@'))
-                  output.Append(" at ");
-              else if(c.Equals('&') || c.Equals('+'))
-                  output.Append(" and ");
-              else if(c.Equals('#'))
-                  output.Append(" number ");
-              else if(Convert.ToUInt16(c) < 32)
-                  continue;
-             else
-                 output.Append(c);
+                if (c.Equals('~') ||
+                  c.Equals('!') ||
+                  c.Equals('?') ||
+                  c.Equals('$') ||
+                  c.Equals('%') ||
+                  c.Equals('^') ||
+                  c.Equals('*') ||
+                  c.Equals('.') ||
+                  c.Equals(',') ||
+                  c.Equals('-') ||
+                  c.Equals('_') ||
+                  c.Equals('=') ||
+                  c.Equals('(') ||
+                  c.Equals(')') ||
+                  c.Equals('[') ||
+                  c.Equals(']') ||
+                  c.Equals('{') ||
+                  c.Equals('}') ||
+                  c.Equals('|') ||
+                  c.Equals('\\') ||
+                  c.Equals(';') ||
+                  c.Equals(':') ||
+                  c.Equals('"') ||
+                  c.Equals('/') ||
+                  c.Equals('<') ||
+                  c.Equals('>'))
+                    output.Append(' ');
+                else if (c.Equals('`') ||
+                        c.Equals('\''))
+                    continue;
+                else if (c.Equals('@'))
+                    output.Append(" at ");
+                else if (c.Equals('&') || c.Equals('+'))
+                    output.Append(" and ");
+                else if (c.Equals('#'))
+                    output.Append(" number ");
+                else if (Convert.ToUInt16(c) < 32)
+                    continue;
+                else
+                    output.Append(c);
             }
             return output.ToString();
         }
- 
-        else  
+
+        else
             return raw_value.Trim().Replace("'", "''").Replace(@"\", @"\\");
     }
     public void UpdateUserCredentials(Hashtable State,
@@ -1060,11 +1061,11 @@ public class Util
     }
     public ArrayList GetEndUserCredentials(Hashtable State)
     {
-        if(State["SelectedApp"] == null)
+        if (State["SelectedApp"] == null)
             return new ArrayList();
 
         string application_id = GetAppID(State);
-        
+
         DB db = new DB();
         string sql = "SELECT username,password FROM users WHERE application_id='" + application_id + "'";
         DataRow[] rows = db.ViziAppsExecuteSql(State, sql);
@@ -1084,7 +1085,7 @@ public class Util
         StringBuilder sb = new StringBuilder();
         foreach (Char c in input)
         {
-            if(Char.IsLetterOrDigit(c) || c == ' ')
+            if (Char.IsLetterOrDigit(c) || c == ' ')
                 sb.Append(c);
         }
         return sb.ToString();
@@ -1122,9 +1123,9 @@ public class Util
     public string GetAppID(Hashtable State)
     {
         DB db = new DB();
-        string sql = "SELECT application_id FROM applications WHERE application_name='" + State["SelectedApp"].ToString() + 
+        string sql = "SELECT application_id FROM applications WHERE application_name='" + State["SelectedApp"].ToString() +
                     "' AND customer_id='" + State["CustomerID"].ToString() + "'";
-        string application_id = db.ViziAppsExecuteScalar(State,sql);
+        string application_id = db.ViziAppsExecuteScalar(State, sql);
         db.CloseViziAppsDatabase(State);
         return application_id;
     }
@@ -1194,7 +1195,7 @@ public class Util
         {
             if (app_type == Constants.WEB_APP_TYPE)
             {
-               
+
                 x_util.ConvertNativeAppToWebApp(State);
             }
             sql = "UPDATE applications SET application_type='" + app_type + "' WHERE application_name='" + State["SelectedApp"].ToString() + "' AND customer_id='" + State["CustomerID"].ToString() + "'";
@@ -1206,7 +1207,7 @@ public class Util
     {
         return input.Replace(@"\", @"\\").Replace("’", "'").Replace("'", @"\'").Replace("\"", "\\\"");
     }
- 
+
     public string DecodeMySql(string input)
     {
         if (input == null)
@@ -1215,9 +1216,9 @@ public class Util
     }
     public bool DoesAppExist(Hashtable State)
     {
-       return DoesAppExist( State, State["SelectedApp"].ToString());
+        return DoesAppExist(State, State["SelectedApp"].ToString());
     }
-    public bool DoesAppExist(Hashtable State,string app_name)
+    public bool DoesAppExist(Hashtable State, string app_name)
     {
         DB db = new DB();
         string sql = "SELECT COUNT(*) FROM applications WHERE customer_id='" + State["CustomerID"] +
@@ -1226,7 +1227,7 @@ public class Util
         db.CloseViziAppsDatabase(State);
         return (n_matches == null || n_matches == "0") ? false : true;
     }
-    public void CreateApp(Hashtable State, string page_name, string primary_device_type,String app_description)
+    public void CreateApp(Hashtable State, string page_name, string primary_device_type, String app_description)
     {
         string NOW = DateTime.Now.ToUniversalTime().ToString("u").Replace("Z", "");
 
@@ -1244,7 +1245,7 @@ public class Util
             b_sql.Append("default_button_image='" + State["DefaultButtonURL"].ToString() + "',");
         b_sql.Append("description='" + app_description.Replace("'", "''").Replace(@"\", @"\\") + "',");
         XmlUtil x_util = new XmlUtil();
- 
+
         b_sql.Append("date_time_modified='" + NOW + "'");
         db.ViziAppsExecuteNonQuery(State, b_sql.ToString());
 
@@ -1263,13 +1264,13 @@ public class Util
             "' AND application_name='" + new_app_name + "'";
         string n_matches = db.ViziAppsExecuteScalar(State, sql);
         db.CloseViziAppsDatabase(State);
-        if (n_matches != null && n_matches != "0")    
+        if (n_matches != null && n_matches != "0")
             return true;
-        
+
         return false;
     }
     public bool CopyTemplateApp(Hashtable State,
-                string template_app_name,string new_app_name)
+                string template_app_name, string new_app_name)
     {
         DB db = new DB();
 
@@ -1289,7 +1290,7 @@ public class Util
 
         b_sql = new StringBuilder("INSERT into applications SET ");
         string application_id = Guid.NewGuid().ToString();
-        b_sql.Append("application_id='"+ application_id + "',");
+        b_sql.Append("application_id='" + application_id + "',");
         b_sql.Append("customer_id='" + State["CustomerID"] + "',");
         b_sql.Append("username='" + State["Username"].ToString() + "',");
 
@@ -1298,16 +1299,16 @@ public class Util
 
         b_sql.Append("staging_app_xml='" + MySqlFilter(new_xml) + "',");
         if (row["custom_header_html"] != null)
-             b_sql.Append("custom_header_html='" + MySqlFilter(row["custom_header_html"].ToString()) + "',");
+            b_sql.Append("custom_header_html='" + MySqlFilter(row["custom_header_html"].ToString()) + "',");
         b_sql.Append("application_name='" + new_app_name + "',");
         b_sql.Append("application_type='" + row["application_type"].ToString() + "',");
- 
+
         if (row["default_button_image"] != null)
-             b_sql.Append("default_button_image='" + row["default_button_image"].ToString() + "',");        
+            b_sql.Append("default_button_image='" + row["default_button_image"].ToString() + "',");
         b_sql.Append("description='" + row["description"].ToString().Replace("'", "''").Replace(@"\", @"\\") + "',");
         b_sql.Append("date_time_modified='" + NOW + "'");
         db.ViziAppsExecuteNonQuery(State, b_sql.ToString());
-        
+
         //get all the pages
         sql = "SELECT * FROM application_pages WHERE application_id='" + previous_application_id + "'";
         rows = db.ViziAppsExecuteSql(State, sql);
@@ -1315,11 +1316,11 @@ public class Util
         //insert all the pages into the new app
         foreach (DataRow page_row in rows)
         {
-             sql = "INSERT INTO application_pages (application_page_id,application_id,page_name,page_image_url,date_time_modified) VALUES (UUID(),'" +
-             application_id + "','" +
-             page_row["page_name"].ToString() + "','" +
-             page_row["page_image_url"].ToString() + "','" + NOW + "')";
-             db.ViziAppsExecuteNonQuery(State, sql);
+            sql = "INSERT INTO application_pages (application_page_id,application_id,page_name,page_image_url,date_time_modified) VALUES (UUID(),'" +
+            application_id + "','" +
+            page_row["page_name"].ToString() + "','" +
+            page_row["page_image_url"].ToString() + "','" + NOW + "')";
+            db.ViziAppsExecuteNonQuery(State, sql);
         }
         db.CloseViziAppsDatabase(State);
         //reset
@@ -1340,14 +1341,14 @@ public class Util
 
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(DecodeMySql(row["staging_app_xml"].ToString()));
- 
-        //delete any app with the same name
-        db.ViziAppsExecuteNonQuery(State, "DELETE FROM applications WHERE application_name='" + application_name + "' AND customer_id='" + State["CopyApplicationToCustomerID"].ToString()  + "'");
 
-        string username = db.ViziAppsExecuteScalar(State, "SELECT username FROM customers WHERE customer_id='" + State["CopyApplicationToCustomerID"].ToString()  + "'");
+        //delete any app with the same name
+        db.ViziAppsExecuteNonQuery(State, "DELETE FROM applications WHERE application_name='" + application_name + "' AND customer_id='" + State["CopyApplicationToCustomerID"].ToString() + "'");
+
+        string username = db.ViziAppsExecuteScalar(State, "SELECT username FROM customers WHERE customer_id='" + State["CopyApplicationToCustomerID"].ToString() + "'");
 
         b_sql = new StringBuilder("INSERT into applications SET ");
-        b_sql.Append("application_id='" + application_id  + "',");
+        b_sql.Append("application_id='" + application_id + "',");
         b_sql.Append("customer_id='" + State["CopyApplicationToCustomerID"].ToString() + "',");
         b_sql.Append("username='" + username + "',");
 
@@ -1359,9 +1360,9 @@ public class Util
             b_sql.Append("custom_header_html='" + MySqlFilter(row["custom_header_html"].ToString()) + "',");
         b_sql.Append("application_name='" + application_name + "',");
         b_sql.Append("application_type='" + row["application_type"].ToString() + "',");
-         
+
         if (row["default_button_image"] != null)
-            b_sql.Append("default_button_image='" + row["default_button_image"].ToString() + "',");        
+            b_sql.Append("default_button_image='" + row["default_button_image"].ToString() + "',");
 
         b_sql.Append("description='" + row["description"].ToString().Replace("'", "''").Replace(@"\", @"\\") + "',");
         string NOW = DateTime.Now.ToUniversalTime().ToString("u").Replace("Z", "");
@@ -1375,11 +1376,11 @@ public class Util
         //insert all the pages into the new app
         foreach (DataRow page_row in rows)
         {
-           sql = "INSERT INTO application_pages (application_page_id,application_id,page_name,page_image_url,date_time_modified) VALUES (UUID(),'" +
-           application_id + "','" +
-           page_row["page_name"].ToString() + "','" +
-           page_row["page_image_url"].ToString() + "','" + NOW + "')";
-           db.ViziAppsExecuteNonQuery(State, sql);
+            sql = "INSERT INTO application_pages (application_page_id,application_id,page_name,page_image_url,date_time_modified) VALUES (UUID(),'" +
+            application_id + "','" +
+            page_row["page_name"].ToString() + "','" +
+            page_row["page_image_url"].ToString() + "','" + NOW + "')";
+            db.ViziAppsExecuteNonQuery(State, sql);
         }
         db.CloseViziAppsDatabase(State);
         //reset
@@ -1410,9 +1411,9 @@ public class Util
             b_sql.Append("custom_header_html='" + MySqlFilter(row["custom_header_html"].ToString()) + "',");
         b_sql.Append("application_name='" + new_application_name + "',");
         b_sql.Append("application_type='" + row["application_type"].ToString() + "',");
- 
+
         if (row["default_button_image"] != null)
-            b_sql.Append("default_button_image='" + row["default_button_image"].ToString() + "',");        
+            b_sql.Append("default_button_image='" + row["default_button_image"].ToString() + "',");
 
         b_sql.Append("description='" + row["description"].ToString().Replace("'", "''").Replace(@"\", @"\\") + "',");
         string NOW = DateTime.Now.ToUniversalTime().ToString("u").Replace("Z", "");
@@ -1426,15 +1427,15 @@ public class Util
         //insert all the pages into the new app
         foreach (DataRow page_row in rows)
         {
-           sql = "INSERT INTO application_pages (application_page_id,application_id,page_name,page_image_url,date_time_modified) VALUES (UUID(),'" +
-           application_id + "','" +
-           page_row["page_name"].ToString() + "','" +
-           page_row["page_image_url"].ToString() + "','" + NOW + "')";
-           db.ViziAppsExecuteNonQuery(State, sql);
+            sql = "INSERT INTO application_pages (application_page_id,application_id,page_name,page_image_url,date_time_modified) VALUES (UUID(),'" +
+            application_id + "','" +
+            page_row["page_name"].ToString() + "','" +
+            page_row["page_image_url"].ToString() + "','" + NOW + "')";
+            db.ViziAppsExecuteNonQuery(State, sql);
         }
-         db.CloseViziAppsDatabase(State);
+        db.CloseViziAppsDatabase(State);
         //reset
-         State["AppXmlDoc"] = null;
+        State["AppXmlDoc"] = null;
     }
     public string ScaleYValues(Hashtable State, string html)
     {
@@ -1457,7 +1458,7 @@ public class Util
 
         HtmlDocument HtmlDoc = new HtmlDocument();
         HtmlDoc.LoadHtml(html);
-       
+
         foreach (HtmlNode node in HtmlDoc.DocumentNode.ChildNodes)
         {
             if (node.Attributes["style"] != null)
@@ -1545,7 +1546,7 @@ public class Util
     }
     public string RescaleYStyleValues(string style_in, double y_factor)
     {
-        if(!style_in.Contains("top:") && !style_in.Contains("height:"))
+        if (!style_in.Contains("top:") && !style_in.Contains("height:"))
             return style_in;
         string style_out = ScaleStylePxAttribute(style_in, "top:", y_factor);
         return ScaleStylePxAttribute(style_out, "height:", y_factor); ;
@@ -1566,24 +1567,24 @@ public class Util
     private string AddToStyleTop(string style_in, int top)
     {
         int start = style_in.IndexOf("top:");
-        if(start < 0)
+        if (start < 0)
             return style_in;
 
         int first = start + 4;
-        int second = style_in.IndexOf(";",first);
-        string change = (Convert.ToInt32(style_in.Substring(first,second-first).Replace("px","").Trim()) + top).ToString() + "px";
+        int second = style_in.IndexOf(";", first);
+        string change = (Convert.ToInt32(style_in.Substring(first, second - first).Replace("px", "").Trim()) + top).ToString() + "px";
         string style_out = style_in.Substring(0, first) + change + style_in.Substring(second);
         return style_out;
     }
     public Hashtable AddToStyleAttribute(Hashtable style_attr, string style)
     {
         string[] parts = style.Split(";".ToCharArray());
-        
-        for (int i = 0;i<parts.Length;i++)
+
+        for (int i = 0; i < parts.Length; i++)
         {
-            if (parts[i].Trim().Length == 0)            
+            if (parts[i].Trim().Length == 0)
                 continue;
-            
+
             string style_part = parts[i].Trim();
             string[] sub = style_part.Split(":".ToCharArray());
             if (sub[1].Trim().StartsWith("url"))
@@ -1594,8 +1595,8 @@ public class Util
                 parts[i + 1] = "";
                 parts[i + 2] = "";
             }
-            style_attr[sub[0].Trim()] = sub[1].Trim();  
-     
+            style_attr[sub[0].Trim()] = sub[1].Trim();
+
         }
         return style_attr;
     }
@@ -1610,9 +1611,10 @@ public class Util
         db.CloseViziAppsDatabase(State);
         return (byte[])row["icon"];
     }
-    public void SetApplicationIcon(Hashtable State,byte[] icon)
+    public void SetApplicationIcon(Hashtable State, byte[] icon)
     {
-        string connect = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"];
+        //string connect = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"];
+        string connect = DB.GetConnectionString();
         MySqlConnection myConn = new MySqlConnection(connect);
         MySqlCommand nonqueryCommand = myConn.CreateCommand();
 
@@ -1626,7 +1628,7 @@ public class Util
         nonqueryCommand.Parameters.Add(DocumentFileParameter);
         myConn.Open();
         nonqueryCommand.ExecuteNonQuery();
-        myConn.Close(); 
+        myConn.Close();
     }
     /*public void SetApplicationLongDescription(Hashtable State, string long_description)
     {
@@ -1681,7 +1683,7 @@ public class Util
             credential[0] = username;
             credential[1] = password;
             UpdateUserCredentials(State, application_id, credential);
-         }
+        }
         else
             DeleteUserCredentials(State, application_id);
 
@@ -1702,16 +1704,16 @@ public class Util
         DB db = new DB();
         string sql = "SELECT production_app_name FROM applications WHERE application_name='" + State["SelectedApp"].ToString() + "'" +
         " AND customer_id='" + State["CustomerID"].ToString() + "'";
-        string production_app_name =  db.ViziAppsExecuteScalar(State, sql);
+        string production_app_name = db.ViziAppsExecuteScalar(State, sql);
         db.CloseViziAppsDatabase(State);
         return production_app_name;
     }
-    public String GetApplicationLargeIcon(Hashtable State,string application_id)
+    public String GetApplicationLargeIcon(Hashtable State, string application_id)
     {
         DB db = new DB();
         StringBuilder b_sql = new StringBuilder("SELECT url FROM branding_images ");
         b_sql.Append("WHERE application_id='" + application_id + "' AND type='icon' AND width=512");
-        string large_icon_url = db.ViziAppsExecuteScalar(State, b_sql.ToString());       
+        string large_icon_url = db.ViziAppsExecuteScalar(State, b_sql.ToString());
         db.CloseViziAppsDatabase(State);
         return large_icon_url;
     }
@@ -1758,7 +1760,7 @@ public class Util
         DeleteLargeIcon(State, application_id);
 
         AmazonS3 s3 = new AmazonS3();
- 
+
         string url = s3.UploadFile(State, file_name, file_path);
         if (!url.StartsWith("http"))
             throw new Exception("Error in SetApplicationLargeIcon: s3.UploadFile failed.");
@@ -1766,7 +1768,7 @@ public class Util
         if (File.Exists(file_path))
             File.Delete(file_path);
 
-        string[] icon_sizes = {"114","72","58","57","48","36","29"};
+        string[] icon_sizes = { "114", "72", "58", "57", "48", "36", "29" };
 
         DB db = new DB();
         StringBuilder b_sql = new StringBuilder("INSERT INTO branding_images SET ");
@@ -1780,9 +1782,9 @@ public class Util
         foreach (string icon_size in icon_sizes)
         {
             int size = Convert.ToInt32(icon_size);
-            Bitmap resized_bitmap = (Bitmap)ResizeImage(bitmap, new Size(size,size));
+            Bitmap resized_bitmap = (Bitmap)ResizeImage(bitmap, new Size(size, size));
             resized_bitmap.Save(file_path);
-            url = s3.UploadFile(State, file_name.Insert(file_name.Length-4,"_" +icon_size), file_path);
+            url = s3.UploadFile(State, file_name.Insert(file_name.Length - 4, "_" + icon_size), file_path);
             if (!url.StartsWith("http"))
                 throw new Exception("Error in SetApplicationLargeIcon: s3.UploadFile failed.");
 
@@ -1834,7 +1836,7 @@ public class Util
         db.ViziAppsExecuteNonQuery(State, sql);
         db.CloseViziAppsDatabase(State);
     }
-    public string GetApplicationDescription(Hashtable State,string application)
+    public string GetApplicationDescription(Hashtable State, string application)
     {
         DB db = new DB();
         StringBuilder b_sql = new StringBuilder("SELECT description FROM applications ");
@@ -1844,7 +1846,7 @@ public class Util
         db.CloseViziAppsDatabase(State);
         return description;
     }
- 
+
     public string GetTemplateApplicationDescription(Hashtable State, string application)
     {
         DB db = new DB();
@@ -1867,7 +1869,7 @@ public class Util
         db.CloseViziAppsDatabase(State);
         return description;
     }
- 
+
     public XmlDocument GetProductionAppXml(Hashtable State)
     {
         if (State["SelectedApp"] == null)
@@ -1892,7 +1894,7 @@ public class Util
         {
             State["AppXmlDoc"] = null;
             return null;
-        } 
+        }
         DataRow row = rows[0];
         if (row["staging_app_xml"] == DBNull.Value || row["staging_app_xml"] == null)
         {
@@ -1955,12 +1957,12 @@ public class Util
         XmlDocument doc = new XmlDocument();
         DB db = new DB();
         StringBuilder b_sql = new StringBuilder("UPDATE applications SET production_app_xml = staging_app_xml,");
-        string NOW = DateTime.Now.ToUniversalTime().ToString("u").Replace("Z", ""); 
+        string NOW = DateTime.Now.ToUniversalTime().ToString("u").Replace("Z", "");
         b_sql.Append("production_date_time='" + NOW + "' ");
         b_sql.Append("WHERE application_name='" + State["SelectedApp"].ToString() + "'");
         b_sql.Append(" AND customer_id='" + State["CustomerID"].ToString() + "'");
         db.ViziAppsExecuteNonQuery(State, b_sql.ToString());
-        db.CloseViziAppsDatabase(State);    
+        db.CloseViziAppsDatabase(State);
     }
     public string GetStagingAppTimeStamp(Hashtable State, string application_id)
     {
@@ -1998,7 +2000,7 @@ public class Util
     }
     public void UpdateStagingAppXml(Hashtable State)
     {
-        UpdateStagingAppXml(State,State["SelectedApp"].ToString());
+        UpdateStagingAppXml(State, State["SelectedApp"].ToString());
     }
     public void UpdateStagingAppXml(Hashtable State, string application_name)
     {
@@ -2009,7 +2011,7 @@ public class Util
             DB db = new DB();
             StringBuilder b_sql = new StringBuilder("UPDATE applications SET ");
             if (State["SelectedAppType"] == null)
-                 State["SelectedAppType"]= Constants.NATIVE_APP_TYPE;
+                State["SelectedAppType"] = Constants.NATIVE_APP_TYPE;
             b_sql.Append("application_type='" + State["SelectedAppType"].ToString() + "',");
             b_sql.Append("staging_app_xml='" + MySqlFilter(doc.OuterXml) + "',");
             b_sql.Append("date_time_modified='" + NOW + "' ");
@@ -2018,15 +2020,15 @@ public class Util
             db.ViziAppsExecuteNonQuery(State, b_sql.ToString());
             db.CloseViziAppsDatabase(State);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new Exception("Error in UpdateStagingAppXml: " + ex.Message + ": " + ex.StackTrace);
         }
     }
-    public void SaveAppPageImage(Hashtable State,string image_url)
+    public void SaveAppPageImage(Hashtable State, string image_url)
     {
         string application_id = GetAppID(State);
-         DB db = new DB();
+        DB db = new DB();
         string sql = "SELECT application_page_id FROM application_pages WHERE application_id='" + application_id +
             "' AND page_name='" + State["SelectedAppPage"].ToString() + "'";
         string application_page_id = db.ViziAppsExecuteScalar(State, sql);
@@ -2036,21 +2038,21 @@ public class Util
         if (query_type == "insert")
         {
             sql = "INSERT INTO application_pages (application_page_id,application_id,page_name,page_image_url,date_time_modified) VALUES (UUID(),'" +
-             application_id + "','" + 
-             State["SelectedAppPage"].ToString() + "','" + 
+             application_id + "','" +
+             State["SelectedAppPage"].ToString() + "','" +
              image_url + "','" + NOW + "')";
         }
         else
         {
-            sql = "UPDATE application_pages SET page_image_url='" + image_url + 
-                "',date_time_modified='" + NOW + 
+            sql = "UPDATE application_pages SET page_image_url='" + image_url +
+                "',date_time_modified='" + NOW +
                 "' WHERE application_page_id='" + application_page_id + "'";
         }
         db.ViziAppsExecuteNonQuery(State, sql);
         db.CloseViziAppsDatabase(State);
 
     }
-    public string GetAppPageImage(Hashtable State,string application_id, string page_name )
+    public string GetAppPageImage(Hashtable State, string application_id, string page_name)
     {
         DB db = new DB();
         string sql = "SELECT page_image_url FROM application_pages WHERE application_id='" + application_id +
@@ -2079,14 +2081,14 @@ public class Util
         DB db = new DB();
         string application_id = GetAppID(State);
 
-       //delete image file
+        //delete image file
         string sql = "SELECT page_image_url FROM application_pages WHERE application_id='" + application_id +
             "' AND page_name='" + page_name + "'";
         string page_image_url = db.ViziAppsExecuteScalar(State, sql);
         if (page_image_url != null && page_image_url.Length > 0 && page_image_url != "../images/page_not_saved.jpg")
         {
             HtmlToImage util = new HtmlToImage();
-            util.DeleteImageFromUrl(State,page_image_url);
+            util.DeleteImageFromUrl(State, page_image_url);
         }
 
         //delete DB entry
@@ -2094,7 +2096,7 @@ public class Util
         db.ViziAppsExecuteNonQuery(State, sql);
 
         db.CloseViziAppsDatabase(State);
- 
+
     }
     public string SetAppDescription(Hashtable State, string app_description)
     {
@@ -2110,8 +2112,11 @@ public class Util
     {
         XmlUtil x_util = new XmlUtil();
         XmlDocument doc = GetStagingAppXml(State);
-        XmlNode root = doc.SelectSingleNode("//mobiflex_project");
-        XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+        XmlNode root = doc.SelectSingleNode("app_project");
+        if (root == null)
+            root = doc.SelectSingleNode("mobiflex_project");
+
+        XmlNode database_config = doc.SelectSingleNode("//database_config");
         if (database_config == null)
         {
             database_config = x_util.CreateNode(doc, root, "database_config");
@@ -2158,11 +2163,14 @@ public class Util
     {
         XmlUtil x_util = new XmlUtil();
         XmlDocument doc = GetStagingAppXml(State);
-        XmlNode root = doc.SelectSingleNode("//mobiflex_project");
-        XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+        XmlNode root = doc.SelectSingleNode("app_project");
+        if (root == null)
+            root = doc.SelectSingleNode("mobiflex_project");
+
+        XmlNode database_config = doc.SelectSingleNode("//database_config");
         if (database_config != null)
         {
-           root.RemoveChild(database_config);
+            root.RemoveChild(database_config);
         }
         UpdateStagingAppXml(State);
     }
@@ -2170,8 +2178,7 @@ public class Util
     {
         XmlUtil x_util = new XmlUtil();
         XmlDocument doc = GetStagingAppXml(State);
-        XmlNode root = doc.SelectSingleNode("//mobiflex_project");
-        XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+        XmlNode database_config = doc.SelectSingleNode("//database_config");
         return (database_config != null) ? true : false;
     }
     public string GetCustomerIDFromEmail(Hashtable State, string email)
@@ -2190,6 +2197,156 @@ public class Util
         }
         else
             return null;
+    }
+    public void GetProductionAppInfo(Hashtable State, string app_name)
+    {
+        DynamoDB ddb = new DynamoDB();
+        Hashtable item = ddb.GetItem(State, "apps", State["Username"].ToString(), app_name);
+        if (item != null)
+        {
+            State["AppID"] = item["app_id"];
+            State["IsProductionAppPaid"] = item["is_production_app_paid"];
+            string expiration = null;
+            if (item["free_production_expiration_date_time"] != null)
+                expiration = item["free_production_expiration_date_time"].ToString();
+            if (expiration == null || expiration.Length == 0)
+            {
+                State["IsFreeProductionValid"] = "false";
+            }
+            else
+            {
+                DateTime expirationDateTime = DateTime.Parse(expiration);
+                State["IsFreeProductionValid"] = (DateTime.Now.ToUniversalTime() <= expirationDateTime) ? "true" : "false";
+            }
+            State["Use1UserCredential"] = item["use_1_user_credential"];
+            State["AppDesignURL"] = item["app_design_url"];
+            State["DateTimeModified"] = item["date_time_modified"];
+            State["HasUnlimitedUsers"] = item["has_unlimited_users"];
+            return;
+        }
+        else
+        {
+            DB db = new DB();
+            string sql = "SELECT application_id,free_production_expiration_date_time, production_date_time, has_unlimited_users FROM applications WHERE production_app_name='" + app_name +
+                   "' AND customer_id='" + State["CustomerID"].ToString() + "'";
+            DataRow[] rows = db.ViziAppsExecuteSql(State, sql);
+            db.CloseViziAppsDatabase(State);
+            if (rows.Length == 0)
+            {
+                State["IsProductionAppPaid"] = null;
+                State["IsFreeProductionValid"] = null;
+                State["Use1UserCredential"] = null;
+                State["AppDesignURL"] = null;
+                State["AppID"] = null;
+                State["DateTimeModified"] = null;
+                State["HasUnlimitedUsers"] = null;
+                return;
+            }
+            else
+            {
+                DataRow row = rows[0];
+                State["AppID"] = row["application_id"].ToString();
+                Hashtable features = IsProductionAppPaid(State, row["application_id"].ToString());
+                State["IsProductionAppPaid"] = (features != null) ? "true" : "false";
+                string expiration = row["free_production_expiration_date_time"].ToString();
+                State["FreeProductionExpirationDateTime"] = expiration;
+                if (expiration == null || expiration.Length == 0)
+                {
+                    State["IsFreeProductionValid"] = "false";
+                }
+                else
+                {
+                    DateTime expirationDateTime = DateTime.Parse(expiration);
+                    State["IsFreeProductionValid"] = (DateTime.Now.ToUniversalTime() <= expirationDateTime) ? "true" : "false";
+                }
+                State["Use1UserCredential"] = (GetUse1UserCredential(State, row["application_id"].ToString())) ? "true" : "false";
+
+                DateTime DateTimeModified = DateTime.Parse(row["production_date_time"].ToString());
+                State["DateTimeModified"] = DateTimeModified.ToString("s") + "Z";
+                State["HasUnlimitedUsers"] = (row["has_unlimited_users"] != null && row["has_unlimited_users"].ToString().ToLower() == "true") ? "true" : "false";
+
+            }
+        }
+    }
+    public void SaveProductionAppInfo(Hashtable State, string app_name, XmlDocument Design)
+    {
+        //save design in a file
+        DynamoDB ddb = new DynamoDB();
+        string file_name = app_name.Replace(" ", "_") + ".xml";
+        string file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name;
+        Design.Save(file_path);
+
+        //save design in S3
+        string key = State["Username"].ToString() + "/" + app_name.Replace(" ", "_") + "/" + file_name;
+        AmazonS3 s3 = new AmazonS3();
+        State["AppDesignURL"] = s3.UploadFileWithKey(State, file_name, file_path, key);
+        try
+        {
+            File.Delete(file_path);
+        }
+        catch (Exception ex) { }//in case there is a problem with deleting the file
+
+        Document DDBDoc = new Document();
+        DDBDoc["username"] = State["Username"].ToString();
+        DDBDoc["appname"] = app_name;
+        DDBDoc["app_id"] = State["AppID"].ToString();
+        DDBDoc["is_production_app_paid"] = State["IsProductionAppPaid"].ToString();
+        if (State["FreeProductionExpirationDateTime"] != null && State["FreeProductionExpirationDateTime"].ToString().Length > 0)
+            DDBDoc["free_production_expiration_date_time"] = State["FreeProductionExpirationDateTime"].ToString();
+        DDBDoc["use_1_user_credential"] = State["Use1UserCredential"].ToString();
+        DDBDoc["app_design_url"] = State["AppDesignURL"].ToString();
+        DDBDoc["date_time_modified"] = State["DateTimeModified"].ToString();
+        DDBDoc["has_unlimited_users"] = State["HasUnlimitedUsers"].ToString();
+        ddb.PutItem(State, "apps", DDBDoc);
+
+    }
+    public void ResetAppInDynamoDB(Hashtable State)
+    {
+        DynamoDB ddb = new DynamoDB();
+        ddb.DeleteItem(State, "apps", State["Username"].ToString(), State["SelectedApp"].ToString());
+    }
+    public void GetProductionAccountInfo(Hashtable State, string username)
+    {
+        DynamoDB ddb = new DynamoDB();
+        Hashtable item = ddb.GetItem(State, "customers", username);
+        if (item.Count > 0)
+        {
+            State["Username"] = item["username"];
+            State["Password"] = item["password"];
+            State["CustomerID"] = item["customer_id"];
+            State["AccountStatus"] = item["status"];
+            return;
+        }
+        else
+        {
+            DB db = new DB();
+            string sql = "SELECT password,customer_id,status FROM customers WHERE username='" + username + "'";
+            DataRow[] rows = db.ViziAppsExecuteSql(State, sql);
+            db.CloseViziAppsDatabase(State);
+            if (rows.Length == 0)
+            {
+                State["Username"] = null;
+                State["Password"] = null;
+                State["CustomerID"] = null;
+                State["AccountStatus"] = null;
+                return;
+            }
+            else
+            {
+                DataRow row = rows[0];
+                State["Username"] = username;
+                State["Password"] = row["password"].ToString();
+                State["CustomerID"] = row["customer_id"].ToString();
+                State["AccountStatus"] = row["status"].ToString();
+
+                Document DDBDoc = new Document();
+                DDBDoc["username"] = username;
+                DDBDoc["password"] = row["password"].ToString();
+                DDBDoc["customer_id"] = row["customer_id"].ToString();
+                DDBDoc["status"] = row["status"].ToString();
+                ddb.PutItem(State, "customers", DDBDoc);
+            }
+        }
     }
     public string GetCustomerIDFromUsername(Hashtable State, string username)
     {
@@ -2214,7 +2371,7 @@ public class Util
         string status = db.ViziAppsExecuteScalar(State, sql);
         db.CloseViziAppsDatabase(State);
         return status;
-    } 
+    }
     public void SetPaidService(Hashtable State, string confirm,
             string customer_id, string[] skus)
     {
@@ -2281,7 +2438,7 @@ public class Util
             string[] values = new string[2];
             values[0] = GetServiceNameFromSku(State, row["sku"].ToString());
             values[1] = row["app_name"].ToString();
-            PaidServices.Add(values);      
+            PaidServices.Add(values);
         }
         return PaidServices;
     }
@@ -2295,8 +2452,8 @@ public class Util
 
         sql = "SELECT status FROM applications WHERE application_name='" + app_name + "' AND customer_id='" + State["CustomerID"].ToString() + "'";
         string status = db.ViziAppsExecuteScalar(State, sql);
-        
-        if(!status.Contains("production"))
+
+        if (!status.Contains("production"))
             status += "/production";
 
         string has_unlimited_users = "0";
@@ -2319,23 +2476,25 @@ public class Util
                         break;
                     }
                 }
-                
+
             }
         }
- 
+
         long max_users = GetMaxUsers(State, app_name);
         sql = "UPDATE applications SET status='" + status + "'" +
-        ",has_unlimited_users='" + has_unlimited_users + 
+        ",has_unlimited_users='" + has_unlimited_users +
         "' WHERE application_name='" + app_name + "' AND customer_id='" + State["CustomerID"].ToString() + "'";
         db.ViziAppsExecuteNonQuery(State, sql);
 
         db.CloseViziAppsDatabase(State);
+
+        ResetAppInDynamoDB(State);
     }
-    public void RemoveAppFromProductionService(Hashtable State, string app_name,string sku)
+    public void RemoveAppFromProductionService(Hashtable State, string app_name, string sku)
     {
         DB db = new DB();
-         string sql = "UPDATE paid_services SET app_name=NULL, application_id=NULL " +
-            "WHERE app_name='" + app_name + "' AND sku='" + sku + "' AND customer_id='" + State["CustomerID"].ToString() + "'";
+        string sql = "UPDATE paid_services SET app_name=NULL, application_id=NULL " +
+           "WHERE app_name='" + app_name + "' AND sku='" + sku + "' AND customer_id='" + State["CustomerID"].ToString() + "'";
         db.ViziAppsExecuteNonQuery(State, sql);
 
         sql = "SELECT status FROM applications WHERE application_name='" + app_name + "' AND customer_id='" + State["CustomerID"].ToString() + "'";
@@ -2347,8 +2506,10 @@ public class Util
         db.ViziAppsExecuteNonQuery(State, sql);
 
         db.CloseViziAppsDatabase(State);
+
+        ResetAppInDynamoDB(State);
     }
-    public void CancelPaidService(Hashtable State, string purchase_date,string sku)
+    public void CancelPaidService(Hashtable State, string purchase_date, string sku)
     {
         DB db = new DB();
         string sql = "SELECT app_name FROM paid_services WHERE sku='" + sku + "' AND purchase_date='" + purchase_date + "'";
@@ -2358,7 +2519,7 @@ public class Util
             DataRow row = rows[0];
             string app_name = row["app_name"].ToString();
             if (app_name != null && app_name.Length != 0)
-                RemoveAppFromProductionService(State, app_name,sku);
+                RemoveAppFromProductionService(State, app_name, sku);
         }
 
         string NOW = DateTime.Now.ToUniversalTime().ToString("u").Replace("Z", "");
@@ -2369,15 +2530,17 @@ public class Util
             .AddDays(Convert.ToDouble(day_of_month))
             .ToString("u").Replace("Z", "");
         StringBuilder b_sql = new StringBuilder("UPDATE paid_services SET ");
-         b_sql.Append("cancellation_date_time='" + NOW + "', ");
-         b_sql.Append("expiration_date_time='" + expiration + "', ");
-         b_sql.Append("app_name='NULL', ");
-         b_sql.Append("application_id='NULL', ");
-         b_sql.Append("status='cancelled' ");
-         b_sql.Append("WHERE sku='" + sku + "' ");
-         b_sql.Append("AND purchase_date='" + purchase_date + "'");
+        b_sql.Append("cancellation_date_time='" + NOW + "', ");
+        b_sql.Append("expiration_date_time='" + expiration + "', ");
+        b_sql.Append("app_name='NULL', ");
+        b_sql.Append("application_id='NULL', ");
+        b_sql.Append("status='cancelled' ");
+        b_sql.Append("WHERE sku='" + sku + "' ");
+        b_sql.Append("AND purchase_date='" + purchase_date + "'");
         db.ViziAppsExecuteNonQuery(State, b_sql.ToString());
         db.CloseViziAppsDatabase(State);
+
+        ResetAppInDynamoDB(State);
     }
     public bool IsPaidProductionApp(Hashtable State, string app_name)
     {
@@ -2392,7 +2555,7 @@ public class Util
         string application_id = GetAppIDFromAppName(State, State["SelectedApp"].ToString());
         return IsProductionAppPaid(State, application_id);
     }
-    public Hashtable IsProductionAppPaid(Hashtable State,string application_id)
+    public Hashtable IsProductionAppPaid(Hashtable State, string application_id)
     {
         DB db = new DB();
         string sql = "SELECT status,sku FROM paid_services WHERE status='paid' AND sku != '" +
@@ -2408,7 +2571,7 @@ public class Util
             {
                 row = rows[0];
                 Hashtable features = new Hashtable();
-                if(row["max_users"] == null || row["max_users"] == DBNull.Value)
+                if (row["max_users"] == null || row["max_users"] == DBNull.Value)
                     features["max_users"] = 0;
                 else
                     features["max_users"] = Convert.ToInt32(row["max_users"].ToString());
@@ -2416,7 +2579,7 @@ public class Util
                 if (row["max_pages"] == null || row["max_pages"] == DBNull.Value)
                     features["max_pages"] = 0;
                 else
-                     features["max_pages"] = Convert.ToInt32(row["max_pages"].ToString());
+                    features["max_pages"] = Convert.ToInt32(row["max_pages"].ToString());
 
                 string allow_network_data = row["allow_network_data"].ToString();
                 features["allow_network_data"] = (allow_network_data.ToLower() == "true" || allow_network_data == "1") ? true : false;
@@ -2444,13 +2607,13 @@ public class Util
         db.CloseViziAppsDatabase(State);
         return (count == "1") ? true : false;
     }
-    
+
     public long GetMaxUsers(Hashtable State)
     {
         DB db = new DB();
         string sql = "SELECT sku FROM paid_services WHERE (sku!='" + State["iOSSubmitServiceSku"].ToString() +
-            "' AND sku!='" + State["AndroidSubmitServiceSku"].ToString() + "') AND status='paid' AND app_name='" + 
-            State["SelectedApp"].ToString() + 
+            "' AND sku!='" + State["AndroidSubmitServiceSku"].ToString() + "') AND status='paid' AND app_name='" +
+            State["SelectedApp"].ToString() +
             "' AND customer_id='" + State["CustomerID"].ToString() + "'";
         DataRow[] rows = db.ViziAppsExecuteSql(State, sql);
         if (rows.Length == 0)
@@ -2512,8 +2675,8 @@ public class Util
         else
             return 0;
     }
-   
-    public void AddDatabaseValidations(Hashtable State,string table_name, ArrayList UserDataTable)
+
+    public void AddDatabaseValidations(Hashtable State, string table_name, ArrayList UserDataTable)
     {
         XmlDocument doc = (XmlDocument)State["AppXmlDoc"];
         XmlNode data_validation_list = doc.SelectSingleNode("//data_validation_list");
@@ -2521,7 +2684,7 @@ public class Util
         XmlNode table_validation = x_util.CreateNode(doc, data_validation_list, "table_validation");
         x_util.CreateNode(doc, table_validation, "table_name", table_name);
         XmlNode fields = x_util.CreateNode(doc, table_validation, "fields");
-        
+
 
         foreach (object o in UserDataTable)
         {
@@ -2559,7 +2722,7 @@ public class Util
                     type = "float";
                     break;
             }
-            x_util.CreateNode(doc, fields, "field",set[0].ToLower() );
+            x_util.CreateNode(doc, fields, "field", set[0].ToLower());
             x_util.CreateNode(doc, fields, "type", type);
         }
         UpdateStagingAppXml(State);
@@ -2575,10 +2738,10 @@ public class Util
 
         //change the name in the XML
         XmlUtil x_util = new XmlUtil();
-        x_util.RenameApp(State,new_app_name);
+        x_util.RenameApp(State, new_app_name);
 
-         db.CloseViziAppsDatabase(State);
-     }
+        db.CloseViziAppsDatabase(State);
+    }
     public void DeleteApplication(Hashtable State)
     {
         string application_name = State["SelectedApp"].ToString();
@@ -2598,14 +2761,14 @@ public class Util
 
         db.CloseViziAppsDatabase(State);
 
-        if (State["SelectedAppType"] != null && (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE || State["SelectedAppType"].ToString() == Constants.HYBRID_APP_TYPE) && 
+        if (State["SelectedAppType"] != null && (State["SelectedAppType"].ToString() == Constants.WEB_APP_TYPE || State["SelectedAppType"].ToString() == Constants.HYBRID_APP_TYPE) &&
             State["UrlAccountIdentifier"] != null)
         {
             AmazonS3 s3 = new AmazonS3();
             string Bucket = ConfigurationManager.AppSettings["WebAppBucket"];
-            string file_name = State["SelectedApp"].ToString().Replace(" ", "_") + Constants.WEB_APP_TEST_SUFFIX + "/index.html"; 
-            string key = State["UrlAccountIdentifier"].ToString() + "/" + file_name; 
-            s3.DeleteS3Object(Bucket,key);
+            string file_name = State["SelectedApp"].ToString().Replace(" ", "_") + Constants.WEB_APP_TEST_SUFFIX + "/index.html";
+            string key = State["UrlAccountIdentifier"].ToString() + "/" + file_name;
+            s3.DeleteS3Object(Bucket, key);
 
             file_name = State["SelectedApp"].ToString().Replace(" ", "_") + "/index.html";
             key = State["UrlAccountIdentifier"].ToString() + "/" + file_name;
@@ -2616,7 +2779,7 @@ public class Util
 
     public string GetUniqueTimeID()
     {
-        return DateTime.Now.ToUniversalTime().Ticks.ToString().Remove(17,1).Remove(0,1); //accurate to 1 microsec
+        return DateTime.Now.ToUniversalTime().Ticks.ToString().Remove(17, 1).Remove(0, 1); //accurate to 1 microsec
     }
     public string HTTPUploadFile(string url, string local_file_path)
     {
@@ -2634,15 +2797,15 @@ public class Util
         }
         return xml;
     }
- 
-    public string GetApplicationStatus(Hashtable State,string application_name)
+
+    public string GetApplicationStatus(Hashtable State, string application_name)
     {
         DB db = new DB();
         string sql = "SELECT status FROM applications WHERE application_name='" + application_name + "' AND customer_id='" + State["CustomerID"].ToString() + "'";
-        string status = db.ViziAppsExecuteScalar(State,sql);
+        string status = db.ViziAppsExecuteScalar(State, sql);
         return status;
     }
-    public void LogSQLError(Hashtable State, Exception ex,string sql_used)
+    public void LogSQLError(Hashtable State, Exception ex, string sql_used)
     {
         try
         {
@@ -2666,7 +2829,7 @@ public class Util
                 string app = "No app selected";
                 if (State["SelectedApp"] != null)
                     app = State["SelectedApp"].ToString();
- 
+
                 string sql = "INSERT INTO error_log SET log_id=UUID(), timestamp='" + NOW + "',username='" +
                     username + "',app='" + app + "',error='" + error + "',stacktrace='" + stacktrace + "'";
                 db.ViziAppsExecuteNonQuery(State, sql);
@@ -2692,7 +2855,7 @@ public class Util
             {
                 DB db = new DB();
                 string error = MySqlFilter(ex.Message);
-                string stacktrace =MySqlFilter(ex.StackTrace);
+                string stacktrace = MySqlFilter(ex.StackTrace);
 
                 TimeZones tz = new TimeZones();
                 string NOW = tz.GetCurrentDateTimeMySqlFormat(State);
@@ -2707,7 +2870,7 @@ public class Util
                 db.CloseViziAppsDatabase(State);
             }
         }
-        catch{}
+        catch { }
     }
     public void StartSessionLog(Hashtable State)
     {
@@ -2737,7 +2900,7 @@ public class Util
         catch (Exception ex) { }; //exception for duplicate State ids on login in debug
         db.CloseViziAppsDatabase(State);
     }
-    public void UpdateSessionLog(Hashtable State,string type, string page)
+    public void UpdateSessionLog(Hashtable State, string type, string page)
     {
         try
         {
@@ -2773,7 +2936,7 @@ public class Util
         }
         catch { } //if there is an error keep going
     }
-    public void LogSessionTimeOut(Hashtable State,string page)
+    public void LogSessionTimeOut(Hashtable State, string page)
     {
         if (State == null)
         {
@@ -2804,7 +2967,7 @@ public class Util
                     isFirst = false;
                 else
                     values.Append(", ");
-                if( State[key] != null)
+                if (State[key] != null)
                     values.Append(key + "=" + State[key].ToString());
                 else
                     values.Append(key + "=null");
@@ -2840,13 +3003,13 @@ public class Util
             //on server 2008 requires admin rights
         }
     }
- 
-    public void AddEmailToButton(Button button, string to_email,string type)
+
+    public void AddEmailToButton(Button button, string to_email, string type)
     {
         string popupURL = "EmailForm.aspx?email=" + HttpUtility.UrlEncode(to_email) + "&type=" + HttpUtility.UrlEncode(type);
 
         button.Attributes.Add("onclick", PopupHelper.GeneratePopupScript(
-            popupURL,  700, 600));
+            popupURL, 700, 600));
     }
     public void AddEmailToButton(ImageButton button, string to_email, string type)
     {
@@ -2857,7 +3020,7 @@ public class Util
     }
     public void Logout(Hashtable State)
     {
-        UpdateSessionLog(State, "logout","Util");
+        UpdateSessionLog(State, "logout", "Util");
         Hashtable UsersList = (Hashtable)HttpRuntime.Cache["UsersList"];
         if (State != null && State["Username"] != null)
         {
@@ -2866,7 +3029,7 @@ public class Util
             State["CustomerID"] = null;
         }
     }
-    public bool CheckSessionTimeout(Hashtable State, HttpResponse Response,string URL)
+    public bool CheckSessionTimeout(Hashtable State, HttpResponse Response, string URL)
     {
         if (State == null || State.Count <= 2)
         {
@@ -2909,12 +3072,12 @@ public class Util
     }
     public void RemoveApplicationProjectAndDatabases(string application_name)
     {
-            string DatabaseUsername = ConfigurationManager.AppSettings["DatabaseUsername"];
-            string DatabasePassword = ConfigurationManager.AppSettings["DatabasePassword"];
+        string DatabaseUsername = ConfigurationManager.AppSettings["DatabaseUsername"];
+        string DatabasePassword = ConfigurationManager.AppSettings["DatabasePassword"];
 
-            //remove app database if linked
-            DB db = new DB();
-            db.MySqlDropDatabase(application_name, DatabaseUsername, DatabasePassword); 
+        //remove app database if linked
+        DB db = new DB();
+        db.MySqlDropDatabase(application_name, DatabaseUsername, DatabasePassword);
     }
     public string Encrypt(string input)
     {
@@ -2925,7 +3088,7 @@ public class Util
         }
         return output.ToString();
     }
-    public string Decrypt( string input)
+    public string Decrypt(string input)
     {
         StringBuilder output = new StringBuilder();
         foreach (char c in input)
@@ -2951,7 +3114,7 @@ public class Util
         StringBuilder CallListValues = new StringBuilder();
         foreach (string val in array)
         {
-            if(val==null)
+            if (val == null)
                 CallListValues.Append("|");
             else
                 CallListValues.Append(val + "|");
@@ -2982,7 +3145,7 @@ public class Util
         {
             for (int col = 0; col < array.GetLength(1); col++)
             {
-                if(array[row, col]==null)
+                if (array[row, col] == null)
                     CallListValues.Append("|");
                 else
                     CallListValues.Append(array[row, col] + "|");
@@ -3008,7 +3171,7 @@ public class Util
     }
 
 
-     public void CopyDropDownList(DropDownList source, DropDownList target)
+    public void CopyDropDownList(DropDownList source, DropDownList target)
     {
         target.Items.Clear();
         foreach (ListItem item in source.Items)
@@ -3030,12 +3193,12 @@ public class Util
     {
         Util util = new Util();
         XmlDocument doc = new XmlDocument();
-        string response = util.HTTPPost(strWebserviceURL+"/" + method, strInputs);
+        string response = util.HTTPPost(strWebserviceURL + "/" + method, strInputs);
         doc.LoadXml(response);
         XmlNode root = doc.FirstChild.NextSibling;
         if (root.Name == "string")
         {
-            string response2 = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>"  + root.InnerText;
+            string response2 = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" + root.InnerText;
             doc = new XmlDocument();
             doc.LoadXml(response2);
         }
@@ -3043,7 +3206,7 @@ public class Util
     }
     // KRIS. 03/24/2008. CHANGE END
 
-    public void PredefinedRange_SelectedIndexChanged(Hashtable State,string range, string start_date_time, string end_date_time)
+    public void PredefinedRange_SelectedIndexChanged(Hashtable State, string range, string start_date_time, string end_date_time)
     {
         double time_zone_delta_hours = Convert.ToDouble(State["TimeZoneDeltaHours"].ToString());
         DateTime now = DateTime.Now.ToUniversalTime().AddHours(time_zone_delta_hours);
@@ -3261,11 +3424,11 @@ public class Util
 
         return sb.ToString();
     }
-  
+
     public string GetDefaultButton(Hashtable State)
     {
         DB db = new DB();
-        string sql = "SELECT default_button_image FROM applications WHERE application_name='" + State["SelectedApp"].ToString() +  "' AND customer_id='" + State["CustomerID"].ToString() + "'";
+        string sql = "SELECT default_button_image FROM applications WHERE application_name='" + State["SelectedApp"].ToString() + "' AND customer_id='" + State["CustomerID"].ToString() + "'";
         string url = db.ViziAppsExecuteScalar(State, sql);
         if (url == null || url.Length == 0)
         {
@@ -3277,7 +3440,7 @@ public class Util
         db.CloseViziAppsDatabase(State);
         return url;
     }
-    public void SetDefaultBackgroundForView(Hashtable State,string device_view)
+    public void SetDefaultBackgroundForView(Hashtable State, string device_view)
     {
         switch (device_view)
         {
@@ -3297,7 +3460,7 @@ public class Util
         }
         State["BackgroundHtml"] = "<img id=\"background_image\" src=\"" + State["BackgroundImageUrl"].ToString() + "\" style=\"position:absolute;top:0px;left:0px;\"/>";
     }
-    public void SetDefaultButton(Hashtable State,string default_button_url)
+    public void SetDefaultButton(Hashtable State, string default_button_url)
     {
         if (State == null || State["SelectedApp"] == null || State["CustomerID"] == null)
             return;
@@ -3412,7 +3575,16 @@ public class Util
             FileInfo fileInfo = new FileInfo(file);
             TimeSpan age = now - fileInfo.LastWriteTimeUtc;
             if (age.TotalMinutes > 5.0D)
-                File.Delete(file);
+            {
+                try
+                {
+                    File.Delete(file);
+                }
+                catch (Exception ex)
+                {
+                    //happens when the file we are trying to delete is still being used
+                }
+            }
         }
     }
     public static string Encrypt(string clearText, string Password)
@@ -3505,7 +3677,7 @@ public class Util
         byte[] encryptedData = ms.ToArray();
 
         return encryptedData;
-    } 
+    }
     public static string Decrypt(string cipherText, string Password)
     {
         // First we need to turn the input string into a byte array. 

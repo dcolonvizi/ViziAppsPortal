@@ -111,7 +111,8 @@ public partial class TabMySolutions : System.Web.UI.Page
         try
         {
             Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
-            DataTable myDataTable = GetDataTable("SELECT application_name, application_type, date_time_modified, production_date_time, number_of_users,number_of_uses, status FROM applications WHERE customer_id='" + State["CustomerID"].ToString() +
+            DB db = new DB();
+            DataTable myDataTable = db.GetDataTable("SELECT application_name, application_type, date_time_modified, production_date_time, status FROM applications WHERE customer_id='" + State["CustomerID"].ToString() +
                 "' ORDER BY application_name");
             if (myDataTable.Rows.Count == 0)
             {
@@ -225,28 +226,6 @@ public partial class TabMySolutions : System.Web.UI.Page
        
         LoadData();
     }  
-    public DataTable GetDataTable(string query)
-    {
-        string connect = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"];
-        MySqlConnection conn = new MySqlConnection(connect);
-        MySqlDataAdapter adapter = new MySqlDataAdapter();
-        adapter.SelectCommand = new MySqlCommand(query, conn);
-
-        DataTable myDataTable = new DataTable();
-
-        conn.Open();
-        try
-        {
-            adapter.Fill(myDataTable);
-        }
-        finally
-        {
-            conn.Close();
-        }
-
-        return myDataTable;
-    }
-
     protected void CopyTemplateAppToAccount_Click(object sender, EventArgs e)
     {
         Util util = new Util();

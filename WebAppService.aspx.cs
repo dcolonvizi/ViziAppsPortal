@@ -88,7 +88,7 @@ public partial class WebAppService : System.Web.UI.Page
             if (status_node == null)
             {
                 Report = new XmlDocument();
-                XmlNode root2 = Report.CreateElement("mobiflex_project");
+                XmlNode root2 = Report.CreateElement("app_project");
                 Report.AppendChild(root2);
                 status_node = x_util.CreateNode(Report, root2, "status");
 

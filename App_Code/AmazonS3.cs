@@ -42,7 +42,7 @@ public class AmazonS3
         string AWSAccessKey = ConfigurationManager.AppSettings["AWSAccessKey"];
         string AWSSecretKey = ConfigurationManager.AppSettings["AWSSecretKey"];
          string Bucket = null;
-        if(file_name.EndsWith("html"))
+         if (file_name.EndsWith(".html") || file_name.EndsWith(".xml"))
             Bucket = ConfigurationManager.AppSettings["WebAppBucket"];
         else
            Bucket = ConfigurationManager.AppSettings["ImageBucket"];
@@ -79,7 +79,7 @@ public class AmazonS3
         string AWSAccessKey = ConfigurationManager.AppSettings["AWSAccessKey"];
         string AWSSecretKey = ConfigurationManager.AppSettings["AWSSecretKey"];
         string Bucket = null;
-        if (file_name.EndsWith("html"))
+        if (file_name.EndsWith(".html") || file_name.EndsWith(".xml"))
             Bucket = ConfigurationManager.AppSettings["WebAppBucket"];
         else
             Bucket = ConfigurationManager.AppSettings["ImageBucket"];

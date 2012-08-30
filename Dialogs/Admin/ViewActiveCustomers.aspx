@@ -33,6 +33,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <telerik:RadScriptManager ID="RadScriptManager1" runat="server">		
+	</telerik:RadScriptManager>
     <div style="font-family:Verdana;font-size:14px;">
    <table><tr><td class="style2">Min Logins:</td><td class="style3"> 
        <asp:TextBox ID="ActiveUsersMinNLogins" runat="server" Width="47px">6</asp:TextBox></td>
@@ -40,7 +42,10 @@
        Number of Previous Days for Last login:&nbsp;&nbsp; </td><td class="style3"> 
            <asp:TextBox ID="ActiveUsersDaysLoggedIn" runat="server" Width="46px">7</asp:TextBox></td></tr><tr>
            <td class="style1">&nbsp;</td><td colspan="2"><asp:Button ID="GetActiveCustomers" runat="server" 
-            onclick="GetActiveCustomers_Click" Text="View Active Customers" Width="154px" /></td><td></td></tr></table>
+            onclick="GetActiveCustomers_Click" Text="View Active Customers" Width="154px" /></td><td>
+                <telerik:RadGrid ID="Grid" runat="server" style="display:none">
+                </telerik:RadGrid>
+               </td></tr></table>
        
        
         

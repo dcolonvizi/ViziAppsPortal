@@ -11,8 +11,6 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-
-using Aspose.Excel;
 using Telerik.Web.UI;
 
 public partial class Dialogs_UploadButtonImage : System.Web.UI.Page

@@ -8,7 +8,6 @@ using System.IO;
 using System.Xml;
 using System.Data;
 using System.Text;
-using Aspose.Excel;
 using Telerik.Web.UI;
 
 public partial class Help_DBWebService : System.Web.UI.Page
@@ -35,8 +34,11 @@ public partial class Help_DBWebService : System.Web.UI.Page
         //save in app xml
         XmlUtil x_util = new XmlUtil();
         XmlDocument doc = util.GetStagingAppXml(State);
-        XmlNode root = doc.SelectSingleNode("//mobiflex_project");
-        XmlNode database_config = doc.SelectSingleNode("//mobiflex_project/database_config");
+        XmlNode root = doc.SelectSingleNode("app_project");
+        if (root == null)
+            root = doc.SelectSingleNode("mobiflex_project");
+
+        XmlNode database_config = doc.SelectSingleNode("//database_config");
         if (database_config == null)
         {
             database_config = x_util.CreateNode(doc, root, "database_config");

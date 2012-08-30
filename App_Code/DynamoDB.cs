@@ -62,64 +62,108 @@ public class DynamoDB
         AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
         client.DeleteTable(new DeleteTableRequest { TableName = tableName });
     }
-    public void EmptyTable(Hashtable State, string tableName, string primaryKey)
-    {
-        if (State["DynamoDBClient"] == null)
-            SetupClient(State);
-        AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
-        var request = new ScanRequest
-        {
-            TableName = tableName,
-            AttributesToGet = new List<string> { primaryKey }
-        };
-        var response = client.Scan(request);
-
-        Table table = Table.LoadTable(client, tableName);
-        DocumentBatchWrite batch = table.CreateBatchWrite();
-        Document doc = new Document();
-
-        DateTime start = DateTime.Now;
-        foreach (Dictionary<string, AttributeValue> item
-          in response.ScanResult.Items)
-        {
-            foreach (KeyValuePair<string, AttributeValue> kvp in item)
-            {
-                string attributeName = kvp.Key;
-                AttributeValue value = kvp.Value;
-
-                Console.WriteLine(
-                    "Deleting " + primaryKey + "= " + value.ToString()
-                );
-                DeleteItem(State, tableName, value.S);
-            }
-
-        }
-        // batch.AddDocumentToPut(doc);
-        //batch.Execute();
-        DateTime end = DateTime.Now;
-        TimeSpan duration = end - start;
-    }
     public Hashtable GetItem(Hashtable State, string tableName, string PrimaryKeyValue)
     {
         if (State["DynamoDBClient"] == null)
             SetupClient(State);
         AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
-        Table table = Table.LoadTable(client, tableName);
-        Document doc = table.GetItem(PrimaryKeyValue);
-        Hashtable item = new Hashtable();
-        foreach (var attribute in doc.GetAttributeNames())
+
+        var request = new GetItemRequest
         {
-            string stringValue = null;
-            var value = doc[attribute];
-            if (value is Primitive)
-                stringValue = value.AsPrimitive().Value;
-            else if (value is PrimitiveList)
-                stringValue = string.Join(",", (from primitive
-                                                  in value.AsPrimitiveList().Entries
-                                                select primitive.Value).ToArray());
-            item[attribute] = stringValue;
+            TableName = tableName,
+            Key = new Key { HashKeyElement = new AttributeValue { S = PrimaryKeyValue } },
+            ConsistentRead = true
+        };
+        var response = client.GetItem(request);
+
+        // Check the response.
+        var result = response.GetItemResult;
+        var attributeList = result.Item; // attribute list in the response.
+        Hashtable map = new Hashtable();
+        if (attributeList != null)
+        {
+            foreach (KeyValuePair<string, AttributeValue> kvp in attributeList)
+            {
+                string attributeName = kvp.Key;
+                AttributeValue value = kvp.Value;
+
+                map[attributeName] = value.S;
+            }
         }
-        return item;
+        return map;
+    }
+    public Hashtable GetItem(Hashtable State, string tableName, string PrimaryKeyValue, string RangeKeyValue)
+    {
+        if (State["DynamoDBClient"] == null)
+            SetupClient(State);
+        AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
+
+        var request = new QueryRequest
+        {
+            TableName = tableName,
+            HashKeyValue = new AttributeValue { S = PrimaryKeyValue },
+            // Optional parameters.
+            RangeKeyCondition = new Condition
+            {
+                ComparisonOperator = "EQ",
+                AttributeValueList = new List<AttributeValue>()
+                    {
+                        new AttributeValue { S = RangeKeyValue }
+                    }
+            },
+            ConsistentRead = true
+        };
+
+        var response = client.Query(request);
+
+        foreach (Dictionary<string, AttributeValue> item
+          in response.QueryResult.Items)
+        {
+            Hashtable map = new Hashtable();
+            foreach (string key in item.Keys)
+            {
+                AttributeValue value = item[key];
+                map[key] = value.S;
+            }
+            return map;
+        }
+        return null;
+    }
+
+    public ArrayList GetItems(Hashtable State, string tableName, string PrimaryKeyValue)
+    {
+        ArrayList output = new ArrayList();
+        try
+        {
+            if (State["DynamoDBClient"] == null)
+                SetupClient(State);
+            AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
+
+            var request = new QueryRequest
+            {
+                TableName = tableName,
+                HashKeyValue = new AttributeValue { S = PrimaryKeyValue }
+            };
+
+            var response = client.Query(request);
+
+            foreach (Dictionary<string, AttributeValue> item in response.QueryResult.Items)
+            {
+                Hashtable map = new Hashtable();
+                foreach (string key in item.Keys)
+                {
+                    AttributeValue value = item[key];
+                    map[key] = value.S;
+                }
+                output.Add(map);
+            }
+        }
+        catch (Exception ex)
+        {
+            string error = ex.Message;
+            return null;
+        }
+        return output;
     }
     public void PutItem(Hashtable State, string TableName, Document item)
     {
@@ -164,6 +208,26 @@ public class DynamoDB
                 ReturnValues = ReturnValues.AllOldAttributes
             };
             Document document = table.DeleteItem(primaryKeyValue, config);
+        }
+        catch (Exception ex)
+        {
+            string error = ex.Message;
+        }
+    }
+    public void DeleteItem(Hashtable State, string TableName, string primaryKeyValue,string RangeKeyValue)
+    {
+        try
+        {
+            if (State["DynamoDBClient"] == null)
+                SetupClient(State);
+            AmazonDynamoDB client = (AmazonDynamoDB)State["DynamoDBClient"];
+            Table table = Table.LoadTable(client, TableName);
+            DeleteItemOperationConfig config = new DeleteItemOperationConfig
+            {
+                // Return the deleted item.
+                ReturnValues = ReturnValues.AllOldAttributes
+            };
+            Document document = table.DeleteItem(primaryKeyValue, RangeKeyValue,config);
         }
         catch (Exception ex)
         {

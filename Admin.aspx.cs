@@ -501,4 +501,28 @@ public partial class Admin : System.Web.UI.Page
         db.CloseViziAppsDatabase(State);
         AdminMessage.Text = "Account Types have been set";
     }
+    protected void ViewAllCustomers_Click(object sender, EventArgs e)
+    {
+        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
+
+        Util util = new Util();
+        try
+        {
+            //Instantiate an instance of license and set the license file through its path
+
+            string query = "SELECT first_name, last_name, company, email, username, phone , registration_date_time FROM customers ";
+
+            DB db = new DB();
+            DataTable myDataTable = db.GetDataTable(query);
+
+            Grid.DataSource = myDataTable;
+            Grid.DataBind();
+            Grid.MasterTableView.ExportToExcel();
+
+        }
+        catch (Exception ex)
+        {
+            util.ProcessMainExceptions(State, Response, ex);
+        }
+    }
 }

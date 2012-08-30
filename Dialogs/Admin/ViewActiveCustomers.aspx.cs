@@ -8,7 +8,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
-using Aspose.Excel;
 using System.IO;
 
 public partial class ViewActiveCustomers : System.Web.UI.Page
@@ -33,65 +32,16 @@ public partial class ViewActiveCustomers : System.Web.UI.Page
         try
         {
             //Instantiate an instance of license and set the license file through its path
-            Aspose.Excel.License license = new Aspose.Excel.License();
-            license.SetLicense("Aspose.Excel.lic");
-
-            Excel excel = new Excel();
-            string path = MapPath("../../") + @"\templates\";
-            string query = "";
-            string designerFile = path + "ViewTemplate.XLS";
-            excel.Open(designerFile);
-            query = "SELECT * FROM customers WHERE last_use_date_time>SUBDATE(NOW(),INTERVAL " + ActiveUsersDaysLoggedIn.Text + " DAY) AND n_logins>=" + ActiveUsersMinNLogins.Text;
-
-            DB db = new DB();
-            DataRow[] rows = db.ViziAppsExecuteSql(State,query);
-            DataTable table = db.ViziAppsQuery(State, query);
-            table.Rows.Clear();
  
-            foreach(DataRow row in rows)
-            {
-                 if(!NoActiveUsersTable.ContainsKey(row["username"].ToString()))
-                 {
-                     table.ImportRow(row);
-                 }
-            }
+           string  query = "SELECT * FROM customers WHERE last_use_date_time>SUBDATE(NOW(),INTERVAL " + ActiveUsersDaysLoggedIn.Text + " DAY) AND n_logins>=" + ActiveUsersMinNLogins.Text;
 
-            Worksheet sheet = excel.Worksheets[0];
-            string[] column_names = new string[table.Columns.Count];
-            int col = 0;
-            foreach (DataColumn column in table.Columns)
-            {
-                column_names[col++] = column.ColumnName.Replace("_"," ");
-            }
-            sheet.Cells.ImportArray(column_names, 0, 0, false);
-            sheet.Cells.ImportDataTable(table, false, 1, 0);
-            
-            col = 0;
-            foreach (DataColumn column in table.Columns)
-            {
-                sheet.AutoFitColumn(col++);
-            }
-            int index = excel.Styles.Add();
-            Aspose.Excel.Style style = excel.Styles[index];
-            style.Number = 22;
+            DB db = new DB();            
+            DataTable myDataTable = db.GetDataTable(query);
 
-            //set date time columns
-            col = 0;
-            foreach (DataColumn column in table.Columns)
-            {
-                string name = column.ColumnName.ToLower();
-                if (name.IndexOf("date") >= 0 || name.IndexOf("time") >= 0)
-                {
-                    Range range = sheet.Cells.CreateRange(1,col,table.Rows.Count,1);
-                    range.Style = style;
-                }
+            Grid.DataSource = myDataTable;
+            Grid.DataBind();
+            Grid.MasterTableView.ExportToExcel();
 
-                col++;
-            }
-            sheet.Name = "Customer List";
-
-            excel.Save("Customer_List.xls", SaveType.OpenInExcel, FileFormatType.Default, this.Response);
-            db.CloseViziAppsDatabase(State);
         }
         catch (Exception ex)
         {
@@ -99,4 +49,5 @@ public partial class ViewActiveCustomers : System.Web.UI.Page
         }
 
     }
+
 }

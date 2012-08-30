@@ -184,7 +184,8 @@ public class DB
     {
         try
         {
-            string connect = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"]; 
+            //string connect = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"]; 
+            string connect = GetConnectionString();
             MySqlConnection ViziAppsDB = new MySqlConnection(connect);
             try
             {
@@ -213,7 +214,8 @@ public class DB
     /// <returns></returns>
     private MySqlConnection GetViziAppsDatabase()
     {
-        string connect = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"];
+        //string connect = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"];
+        string connect = GetConnectionString();
         return new MySqlConnection(connect);
     }
     public void CloseViziAppsDatabase(Hashtable State)
@@ -325,5 +327,42 @@ public class DB
         string MYSQL5_1_REGISTRY_PATH = "Software\\MySQL AB\\MySQL Server 5.1";
         Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(MYSQL5_1_REGISTRY_PATH);
         return key.GetValue("Location").ToString();
+    }
+    public DataTable GetDataTable(string query)
+    {
+        //string connect = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"];
+        string connect = GetConnectionString();
+        MySqlConnection conn = new MySqlConnection(connect);
+        MySqlDataAdapter adapter = new MySqlDataAdapter();
+        adapter.SelectCommand = new MySqlCommand(query, conn);
+
+        DataTable myDataTable = new DataTable();
+
+        conn.Open();
+        try
+        {
+            adapter.Fill(myDataTable);
+        }
+        finally
+        {
+            conn.Close();
+        }
+
+        return myDataTable;
+    }
+    public static string GetConnectionString()
+    {
+        string stagingURL = ConfigurationManager.AppSettings["StaggingURL"];
+        string connectionString = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"];
+
+        HttpContext context = HttpContext.Current;
+        string baseUrl = context.Request.Url.Scheme + "://" + context.Request.Url.Authority + context.Request.ApplicationPath.TrimEnd('/') + '/';
+
+        if (stagingURL == baseUrl)
+        {
+            connectionString = ConfigurationManager.AppSettings["ViziAppsAdminStagingConnectionString"];
+        }
+
+        return connectionString;
     }
 }

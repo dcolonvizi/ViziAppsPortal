@@ -18,7 +18,7 @@ public partial class Controls_DatabaseCommand : System.Web.UI.UserControl
         XmlNode database_config = doc.SelectSingleNode("//application/data_sources/data_source"); //new config
         if (database_config == null)
         {
-            database_config = doc.SelectSingleNode("//mobiflex_project/database_config"); //old config
+            database_config = doc.SelectSingleNode("//database_config"); //old config
             if (database_config == null)
             {
                 return;
