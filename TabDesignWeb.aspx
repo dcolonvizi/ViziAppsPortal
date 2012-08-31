@@ -137,7 +137,27 @@
                     alert('For correct operation, popups need to be allowed from this website.');
                 }
             }
-        </script>          
+            function selectMenu(sender, eventArgs) {
+                var item = eventArgs.get_item();
+                var text = item.get_value();
+                if (text == 'Help') {
+                    var iframe = document.getElementById("HelpFrame");
+                    iframe.src = 'Help/Help.aspx';
+                }
+                else {
+                    var MenuValue = document.getElementById("MenuValue");
+                    MenuValue.value = text;
+                    var MenuButton = document.getElementById("MenuButton");
+                    MenuButton.click();
+                }
+                return false;
+            }
+            function closeHelp() {
+                var iframe = document.getElementById("HelpFrame");
+                iframe.src = '';
+                return false;
+            }
+       </script>      
          
  </head>
 <body onload="onCurrentAppChanged();">
@@ -943,8 +963,8 @@
                                  <telerik:RadAjaxLoadingPanel ID="ConfigureLoadingPanel" runat="server" Skin="Default" 
                                 Transparency="0" BackColor="LightGray"  
                                ></telerik:RadAjaxLoadingPanel> 
-     <div align="center" id="header" style="height:80px;  background-color:#0054c2;">
-                 <div style="height:10px"></div>
+     <div align="center" id="header" style="height:60px;  background-color:#0054c2;">
+                 
                 <table cellpadding="0" cellspacing="0" border="0" style="width: 100%" >
                 <tr>                
                
@@ -952,27 +972,7 @@
                 <asp:Image ID="HeaderImage" ImageUrl="~/images/logo_header_300.png" runat="server" style="border:0px">
                                                             </asp:Image></a>
                     </td>
-                    <td> <table style="width: 335px"><tr><td>
-                   <asp:ImageButton ID="LayoutVideo" runat="server" CausesValidation="False" 
-                       Height="55px" Width="75px"                        
-                        CssClass="config_menu" ImageUrl="~/images/layout_video_button.png"  
-                         OnClientClick= "PopUp('Help/Design/LayoutVideo.htm', 'height=325, width=570, left=200, top=200, menubar=no, status=no, location=no, toolbar=no, scrollbars=no, resizable=no');return false;"
-
-                        />
-                   </td><td>
-                   <asp:ImageButton ID="BasicFieldsVideo" runat="server" CausesValidation="False"                        
-                        CssClass="config_menu" Height="55px" Width="75px" ImageUrl="~/images/basic_fields_video_button.png" 
-                         OnClientClick= "PopUp('Help/Design/BasicFieldsVideo.htm', 'height=325, width=570, left=200, top=200, menubar=no, status=no, location=no, toolbar=no, scrollbars=no, resizable=no');return false;"
-
-                        />
-                   </td><td>
-                   <asp:ImageButton ID="SeeAllFields" runat="server" CausesValidation="False" 
-                       Height="55px" Width="75px"                       
-                        CssClass="config_menu" 
-                       ImageUrl="~/images/all_fields_button.png" 
-                       OnClientClick= "PopUp('Help/Design/ViewAllWebAppFields.htm', 'height=650, width=800, left=200, top=200, menubar=no, status=no, location=no, toolbar=no, scrollbars=yes, resizable=yes');return false;"
-/>
-                   </td></tr></table></td>
+                   
                
                 <td class="style27">
                    
@@ -1006,7 +1006,7 @@
                      <td >
                        
                       <telerik:RadMenu ID="TabMenu" runat="server" Skin=""
-                                  onitemclick="TabMenu_ItemClick"                                    
+                                  OnClientItemClicked="selectMenu"                                      
                              style="border-width: 0px; margin: 0px; padding: 0px; vertical-align:top; z-index:100;" 
                              TabIndex="1100"  >
                          
@@ -1027,7 +1027,7 @@
                         SelectedImageUrl="~/images/FAQButton_sel.png"  Value="FAQ" TabIndex="1600"/>
                        <telerik:RadMenuItem ImageUrl="~/images/MyProfileButton.png" HoveredImageUrl="~/images/MyProfileButton_hov.png"
                         SelectedImageUrl="~/images/MyProfileButton_sel.png"  Value="MyProfile" TabIndex="1700"/>
-                       
+                        <telerik:RadMenuItem ImageUrl="~/images/HelpButton.png"   Value="Help" TabIndex="1800"/>
 
                          </Items>
                           </telerik:RadMenu>
@@ -1044,7 +1044,7 @@
       <div align="center" style=" background-color:#ffffff; width:100%; vertical-align:top;height:15px;">&nbsp;</div>
               <div align="center" style=" background-color:#ffffff; width:100%; vertical-align:top;">
              
-            
+             <table><tr><td>
  <table border="0" cellpadding="0" cellspacing="0" style="width: 684px">
     <tr>
         <td>
@@ -1366,7 +1366,9 @@
                                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 61px"><tr>
                                 <td align="left" valign="top">
                                 <asp:Button ID="DisplayMode" runat="server" onclick="DisplayMode_Click"   Width="1px" Height="1px" BackColor="White" BorderColor="White" BorderStyle="None" BorderWidth="0" />
-                                 <telerik:RadButton ID="DisplayModeButton" runat="server" ButtonType="ToggleButton" ToggleType="CheckBox"  
+                                <asp:Button ID="MenuButton" runat="server" onclick="MenuButton_Click" style="display:none;"  />
+                                <asp:TextBox ID="MenuValue" runat="server" Width="1px" style="display:none;"/>
+                                <telerik:RadButton ID="DisplayModeButton" runat="server" ButtonType="ToggleButton" ToggleType="CheckBox"  
                     Width="150px" Height="30px" AutoPostBack="False"     Checked="true"  OnClientClicked="checkURLIdentifier"
                                         >
                     <ToggleStates>
@@ -1586,7 +1588,13 @@
            </td>
            </tr>
            </table>
-          
+           </td><td style="vertical-align:top;width:255px;height:800px;">
+           <table><tr>
+            <td style=" vertical-align:top;width:255px;height:800px;">
+            <iframe id="HelpFrame" runat="server" src="" width="100%" height="100%" scrolling="auto" frameborder="0"></iframe>
+            </td>
+            </tr></table>
+            </td></tr></table>
                
                 </div>
                  <telerik:RadToolTip runat="server" ID="HelpTip2" Width = "175px" Height = "25px" TargetControlId = "HelpClick" 

@@ -1502,7 +1502,7 @@ public partial class TabDesignHybrid : System.Web.UI.Page
             Response.Redirect("Default.aspx", false);
 
     }
-    protected void TabMenu_ItemClick(object sender, RadMenuEventArgs e)
+    protected void MenuButton_Click(object sender, EventArgs e)
     {
         Util util = new Util();
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
@@ -1511,7 +1511,7 @@ public partial class TabDesignHybrid : System.Web.UI.Page
         if (SavedCanvasHtml.Text.Length > 0)
             SavePage();
 
-        string tab = e.Item.Value;
+        string tab = MenuValue.Text;
         Session["MainMenu"] = tab;
         if (tab == "DesignNative" || tab == "DesignWeb")
             State["SelectedApp"] = null;

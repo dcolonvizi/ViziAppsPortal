@@ -68,10 +68,7 @@ public partial class DesignNative : System.Web.UI.Page
             }
 
             DeletePage.Attributes.Add("onclick", "return confirm('Are you sure you want to delete this page?');");
-            SeeAllFields.Attributes.Add("onclick", "javascript: PopUp('Help/Design/ViewAllNativeFields.htm', 'height=800, width=800, left=200, top=200, menubar=no, status=no, location=no, toolbar=no, scrollbars=yes, resizable=yes');return false;");
-            LayoutVideo.Attributes.Add("onclick", "javascript: PopUp('Help/Design/LayoutVideo.htm', 'height=325, width=570, left=200, top=200, menubar=no, status=no, location=no, toolbar=no, scrollbars=no, resizable=no');return false;");
-            BasicFieldsVideo.Attributes.Add("onclick", "javascript: PopUp('Help/Design/BasicFieldsVideo.htm', 'height=325, width=570, left=200, top=200, menubar=no, status=no, location=no, toolbar=no, scrollbars=no, resizable=no');return false;");
-
+ 
             if (State["ResetConfigApps"] != null)
             {
                 State["SelectedApp"] = null;
@@ -1389,7 +1386,7 @@ public partial class DesignNative : System.Web.UI.Page
             Response.Redirect("Default.aspx", false);
 
     }
-    protected void TabMenu_ItemClick(object sender, RadMenuEventArgs e)
+    protected void MenuButton_Click(object sender, EventArgs e)
     {
         Util util = new Util();
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
@@ -1398,7 +1395,7 @@ public partial class DesignNative : System.Web.UI.Page
         if (SavedCanvasHtml.Text.Length > 0)
             SavePage();
 
-        string tab = e.Item.Value;
+        string tab = MenuValue.Text;
         Session["MainMenu"] = tab;
         if (tab == "DesignHybrid" || tab == "DesignWeb")
             State["SelectedApp"] = null;
@@ -1445,6 +1442,5 @@ public partial class DesignNative : System.Web.UI.Page
         if (util.CheckSessionTimeout(State, Response, "Default.aspx")) return;
 
         ShowPage(State["SelectedAppPage"].ToString());
-    }
-
+    } 
 }
