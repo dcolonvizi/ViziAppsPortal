@@ -1,6 +1,9 @@
+<<<<<<< HEAD:TabPublish.aspx
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TabPublish.aspx.cs" Inherits="TabPublish" %>
+=======
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="TabPublishOld.aspx.cs" Inherits="PublishOld" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-
+>>>>>>> 282fcd8b95fa0aad979c8f1657ab542a20d084b7:TabPublishOld.aspx
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -172,8 +175,14 @@
                                  <telerik:RadMenuItem  ImageUrl="~/images/DisplayHybridDesignButton.png" HoveredImageUrl="~/images/DisplayHybridDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayHybridDesignButton_sel.png" Value="DesignHybrid"/>
                                  </Items>
                              </telerik:RadMenuItem>
+<<<<<<< HEAD:TabPublish.aspx
+
+                            <telerik:RadMenuItem ImageUrl="~/images/ProvisionButton_sel.png" HoveredImageUrl="~/images/ProvisionButton_hov.png"
+                        SelectedImageUrl="~/images/ProvisionButton_sel.png"  Value="Publish" TabIndex="1500"/>
+=======
                             <telerik:RadMenuItem ImageUrl="~/images/ProvisionButton.png" HoveredImageUrl="~/images/ProvisionButton_hov.png"
                         SelectedImageUrl="~/images/ProvisionButton_sel.png"  Value="PublishOld" Selected="true" TabIndex="1500"/>
+>>>>>>> 282fcd8b95fa0aad979c8f1657ab542a20d084b7:TabPublishOld.aspx
                             <telerik:RadMenuItem ImageUrl="~/images/FAQButton.png" HoveredImageUrl="~/images/FAQButton_hov.png"
                         SelectedImageUrl="~/images/FAQButton_sel.png"  Value="FAQ" TabIndex="1600"/>
                        <telerik:RadMenuItem ImageUrl="~/images/MyProfileButton.png" HoveredImageUrl="~/images/MyProfileButton_hov.png"
