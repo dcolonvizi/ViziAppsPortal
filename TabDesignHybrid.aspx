@@ -141,27 +141,31 @@
                     alert('For correct operation, popups need to be allowed from this website.');
                 }
             }
-       
-           function selectMenu(sender, eventArgs) {
-               var item = eventArgs.get_item();
-               var text = item.get_value();
-               if (text == 'Help') {
-                   var iframe = document.getElementById("HelpFrame");
-                   iframe.src = 'Help/Help.aspx';                  
-               }
-               else {
-                   var MenuValue = document.getElementById("MenuValue");
-                   MenuValue.value = text;
-                   var MenuButton = document.getElementById("MenuButton");
-                   MenuButton.click();
-               }
-               return false;
-           }
-           function closeHelp() {
-               var iframe = document.getElementById("HelpFrame");
-               iframe.src = '';
-               return false;
-           }
+
+            function selectMenu(sender, eventArgs) {
+                var item = eventArgs.get_item();
+                var text = item.get_value();
+                if (text == 'Help') {
+                    var iframe = document.getElementById("HelpFrame");
+                    iframe.src = 'Help/Help.aspx';
+                    iframe.width = '255px';
+                    iframe.height = '800px';
+                }
+                else {
+                    var MenuValue = document.getElementById("MenuValue");
+                    MenuValue.value = text;
+                    var MenuButton = document.getElementById("MenuButton");
+                    MenuButton.click();
+                }
+                return false;
+            }
+            function closeHelp() {
+                var iframe = document.getElementById("HelpFrame");
+                iframe.src = '';
+                iframe.width = '0px';
+                iframe.height = '0px';
+                return false;
+            }
        </script>     
          
  </head>
@@ -1647,10 +1651,10 @@
            </table>
               </td>
             </tr></table>
-           </td><td style="vertical-align:top;width:255px;height:800px;">
+           </td><td style="vertical-align:top;">
            <table><tr>
-            <td style=" vertical-align:top;width:255px;height:800px;">
-            <iframe id="HelpFrame" runat="server" src="" width="100%" height="100%" scrolling="auto" frameborder="0"></iframe>
+            <td style=" vertical-align:top">
+            <iframe id="HelpFrame" runat="server" src="" width="0px" height="0px" scrolling="auto" frameborder="0"></iframe>
             </td>
             </tr></table>
             </td></tr></table>
