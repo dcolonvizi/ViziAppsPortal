@@ -1,0 +1,300 @@
+/*  CSS For various form sections */
+body{
+    background: #ffffff;
+    font-family: Arial,sans-serif ;
+    font-size:medium;
+    margin:0 0 0 0 ;
+    } 
+
+
+/*---------- Class -------*/
+    /* Used in all pages */
+   .pagetitle
+    {
+        font-size:x-large;
+        font-weight:bold;
+        margin-left:auto;
+        margin-right:auto;
+     }
+    
+    
+    .validatortext
+    {
+        color:Red;
+        font-size:small;
+    }
+    
+    .bluebutton
+    {    
+            background:#0054c2; 
+            color:White;
+            font-size:larger;
+            font-weight:bold;
+            margin-left:auto;
+            margin-right:auto;
+            padding:10px 10px 15px 15px;
+            border-radius:10px;
+            text-align:left;
+    }
+    
+
+    .bluesmallbutton
+    {    
+            background:#0054c2; 
+            color:White;
+            margin-left:auto;
+            margin-right:auto;
+            text-align:left;
+            border-radius:3px;
+    }
+
+    .small_gap
+    {
+           width:25px;   
+    }
+    
+
+     .table_headrow
+      {
+       background:#0054c2;  
+       color:White;
+       text-align:center;
+       border-radius: 20px;
+       font-weight:bold;
+      }
+
+      .table_item
+      {
+       color:#666666;
+       text-align:left;
+      }
+
+      .table_itemtitle
+      {
+       color:#555555;
+       text-align:left;
+       font-weight:bold;
+      }
+
+     .textbox
+     {
+        border-color:#0054c2;  
+            
+      }
+      
+      .combolabel
+      {
+         font-size:medium;   
+      }
+
+   
+   /*Billing main page */
+   .billinginstructions    
+    {
+        margin-left:50px;
+        margin-right:50px;
+    }
+    
+   /*Billing main page */
+     /*Start- Add PublishingService Page*/         
+        .subscription_spacercolumn
+        {
+               width:30px;   
+        }
+       
+        .subscriptionlabel_title
+        {
+            width:200px;  
+            font-size:medium;
+            font-weight:normal;       
+        }
+ 
+        .plan
+         {
+         color:#444444;
+         padding:2px 2px 2px 2px;
+         width : 180px;
+         height: 30px;
+         }
+         
+       .basicproprem
+         {
+         color:#444444;
+         padding:2px 2px 2px 2px;
+         width : 85px;
+         height: 30px;
+         font-weight:normal;
+         }
+         table.basicproprem:hover {background-color:#AED4D4}
+         
+        .tick
+        {
+         height: 30px;
+         text-align:center;
+         }
+ 
+        .ticktext
+        {
+         height: 30px;
+         text-align:left;
+         }
+         
+        .tabgridbutton
+        {
+            background:#0054c2; 
+            color:White;
+            width : 75px;
+            padding:4px 4px 4px 4px;
+            border-style:outset;
+            border-radius:8px;
+        }
+        
+        .tabgridpage
+        {
+        border-style:solid;
+        border-width: 1px;
+        margin-left  :auto;
+        margin-right:auto;
+        border-color:#0054c2;
+        border-width:thin;
+        border-radius: 20px;
+        font-weight:bold;
+        width:80%; 
+        }
+            
+        .shortrow
+        {
+           height:5px;
+        }
+        
+       /*End- Add PublishingService Page*/
+       
+       
+       /*Start - ShowHistory Page */
+              
+      .billingdetails
+      {
+       margin-left  :auto;
+       margin-right:auto;
+       width:80%;  
+      }
+      
+
+      .invoicepopup{
+        display: none;
+        position: absolute;
+        width: 680px;
+        padding: 20px;
+        background: #fefefe;
+        color: #000000;
+        border: 1px solid #0054c2;
+        border-radius: 20px;
+        font-size:small;
+      }
+         
+      .singleinvoicetable   
+      {
+        border-color:#BBBBBB;
+        background:#ffffff;
+        margin:auto auto auto auto;
+      }
+         
+         
+      .singleinvoicedescription
+      {
+          font-size:smaller;
+          color:#666666;
+      }
+      
+      .singleinvoicetableitem
+      {
+        text-align:right;   
+        padding:5px 5px 5px 5px;
+        
+      }
+      
+     /*End - ShowHistory Page */
+
+
+     /*CANCEL PLAN*/      
+      .cancelwarning
+      {
+          text-align:center;
+          color:Red;
+          font-weight:bold;
+      }
+      
+      .cancelblock
+      {
+       border-style:solid;
+       border-width:thin;
+       margin-left  :auto;
+       margin-right:auto;
+       border-color:#0054c2;
+       border-radius: 20px;
+       background:#FFFFFF;  
+       width:45%;
+      }
+      
+      
+      .cancelpagemaintable
+      {
+          width:95%;
+          margin:auto auto auto auto;
+      }
+      
+      .disabledcancelbutton
+      {
+          background-image:"~/images/billing_images/cancel_disabled.png";
+      }
+
+      .cancelbutton
+      {
+          background-image:"~/images/billing_images/cancel.png";
+      }
+
+      
+     /*CANCEL PLAN*/
+      
+          /* APP BRANDING  Page    */
+        .branding_icon
+        {
+           width:100px;
+        }
+                  
+        .newbrandingtable
+        {
+         border-style:solid;
+         border-width: 1px;
+         margin-left  :auto;
+         margin-right :auto;
+         border-color:#0054c2;
+         border-width:thin;
+         border-radius: 20px;
+         font-weight:bold;
+         width:85%;
+        } 
+          
+        .branding_desc
+        {
+         font-size:larger;
+        }  
+        
+     
+         .brandingitem
+         {
+         color:#444444;
+         padding:2px 2px 2px 2px;
+         width : 100%;
+         text-align:center;
+         font-size:small;
+         font-weight:normal;
+         }
+         /*table.brandingitem:hover {background-color:#AED4D4}               */
+        
+        /*End  App Branding */  
+          
+          
+          
+          
+     

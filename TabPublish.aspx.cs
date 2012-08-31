@@ -4,12 +4,8 @@ using System.Web;
 using System.Web.UI;
 using Telerik.Web.UI;
 
-<<<<<<< HEAD:TabPublish.aspx.cs
 
 public partial class TabPublish : System.Web.UI.Page
-=======
-public partial class PublishOld : System.Web.UI.Page
->>>>>>> 282fcd8b95fa0aad979c8f1657ab542a20d084b7:TabPublishOld.aspx.cs
 {
 
     // Data members
@@ -31,7 +27,7 @@ public partial class PublishOld : System.Web.UI.Page
                 util.AddEmailToButton(SupportButton, State["TechSupportEmail"].ToString(), "Email To Tech Support");
             }
 
-            util.UpdateSessionLog(State, "post", "TabPublishOld");
+            util.UpdateSessionLog(State, "post", "TabPublish");
 
             if (!IsPostBack)
             {
