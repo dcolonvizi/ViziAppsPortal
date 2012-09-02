@@ -24,7 +24,6 @@ public class TimeZones
         DateTime now = GetCurrentDateTime(State);
         return now.ToString("s").Replace("T", " ");
     }
-
     public DateTime GetCurrentDateTime(Hashtable State)
     {
         double time_zone_delta_hours = 0.0;

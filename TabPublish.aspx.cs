@@ -22,15 +22,16 @@ public partial class TabPublish : System.Web.UI.Page
             if (util.CheckSessionTimeout(State, Response, "Default.aspx")) return;
 
 
-            if (State["TechSupportEmail"] != null)
+            if ( HttpRuntime.Cache["TechSupportEmail"] != null)
             {
-                util.AddEmailToButton(SupportButton, State["TechSupportEmail"].ToString(), "Email To Tech Support");
+                util.AddEmailToButton(SupportButton,  HttpRuntime.Cache["TechSupportEmail"].ToString(), "Email To Tech Support");
             }
 
             util.UpdateSessionLog(State, "post", "TabPublish");
 
             if (!IsPostBack)
             {
+                CopyRight.InnerText = HttpRuntime.Cache["CopyRight"].ToString();
                 UserLabel.Text = State["Username"].ToString();
             }
 

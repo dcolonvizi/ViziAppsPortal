@@ -26,7 +26,7 @@ public class Email
     }
     public string SendEmail(Hashtable State, string from, string to, string cc, string bcc, string subject, string body, string attach_path, bool isBodyHtml)
     {
-        string smtp = State["smtp"].ToString();
+        string smtp =  HttpRuntime.Cache["smtp"].ToString();
         if (smtp.Contains("amazonaws"))
         {
             AmazonSES ses = new AmazonSES();
@@ -64,10 +64,10 @@ public class Email
 
             try
             {
-                string smtp_username = State["smtp_username"].ToString();
+                string smtp_username =  HttpRuntime.Cache["smtp_username"].ToString();
                 if (smtp_username.Length > 0)
                     mailClient.Credentials = new System.Net.NetworkCredential(smtp_username,
-                        State["smtp_password"].ToString());
+                         HttpRuntime.Cache["smtp_password"].ToString());
 
                 mailClient.Send(mail);
                 return "OK";

@@ -19,6 +19,8 @@
         body
         {
         	 background-color:#bcbcbc;
+        	 font-family:Arial;
+        	 font-size:11px;
         }
         
     .style6
@@ -545,5 +547,6 @@
                 </div>
                 </div>
     </form>
+     <div align="center" id="CopyRight" runat="server"></div>
 </body>
 </html>

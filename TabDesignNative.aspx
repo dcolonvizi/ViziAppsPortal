@@ -20,6 +20,8 @@
         body
         {
         	 background-color:#ffffff;
+        	  font-family:Arial;
+        	 font-size:11px;
         }
         .MyModalPanel
         {
@@ -109,7 +111,7 @@
        <script type="text/javascript" src="jquery/js/jquery-ui-1.8.13.custom.min.js"></script>
        <script language="javascript" type="text/javascript" src="scripts/browser_1.4.js"></script> 
        <script  language="javascript" type="text/javascript" src="scripts/dialogs_1.26.min.js"></script>
-       <script language="javascript" type="text/javascript" src="EditorTools/js/editor_custom_tools_2.42.min.js"></script>
+       <script language="javascript" type="text/javascript" src="EditorTools/js/editor_custom_tools_2.43.min.js"></script>
        <script language="javascript" type="text/javascript">
            function selectMenu(sender, eventArgs) {
                var item = eventArgs.get_item();
@@ -1176,7 +1178,7 @@
                                          <table cellpadding="0" cellspacing="0"><tr><td style="width:22px"><img alt="Hidden Field" src="images/editor_images/hidden_field_icon.jpg" /> 
                                </td><td style="font-family:verdana;font-size:11px;width:113px">Hidden Field</td>
                               </tr></table></div></td>
-                            </tr>
+                            </tr>                           
                               <tr>
                               <td>
                                <div id="BringToMostFront" onclick="BringToMostFront();" style=" cursor:pointer;padding:5px 0px 0px 10px; background-image:url('images/editor_images/blank_button.png'); background-repeat:no-repeat;width:135px;height:26px;text-align:left; vertical-align:top;">
@@ -1189,8 +1191,16 @@
                                 <div id="SendToMostBack" onclick="SendToMostBack();" style="cursor:pointer;padding:5px 0px 0px 10px; background-image:url('images/editor_images/blank_button.png'); background-repeat:no-repeat;width:135px;height:26px;text-align:left; vertical-align:top;">
                               <table cellpadding="0" cellspacing="0"><tr><td style="width:22px"><img alt="Label Field" src="images/editor_images/send_to_back.png" />
                               </td><td style="font-family:verdana;font-size:11px;width:113px;font-weight:bold">Send To Back</td>
-                              </tr></table></div></td>
-                              </tr>     
+                              </tr></table></div>
+                              </td>
+                              </tr>   
+                              <tr><td>
+                               <div id="snap_to_grid_action" style="width:135px;height:26px;text-align:left; vertical-align:top;">
+                                         <table cellpadding="0" cellspacing="0"><tr><td style="width:22px"><img alt="Snap to Grid" src="images/editor_images/grid_icon.jpg" /> 
+                               </td><td id="snap_to_grid_label" style="font-family:verdana;font-size:11px;width:113px">Snap to Grid</td>
+                              </tr></table> </div>   
+                              <div id="snap_to_grid_edit" style=" text-align:right;width:18px;height:18px;position:relative;top:-24px;left:116px"><img style="position:relative;top:-4px;left:-12px" alt="" src="images/edit.png" /></div>            
+                             </td></tr>
                               </table>
                               <asp:TextBox ID="SavedCanvasHtml" runat="server" Width="1px" style="display:none;"/>                             
                               <asp:TextBox ID="DefaultButtonImage" runat="server" style="display:none;" AutoPostBack="True" />   
@@ -1548,6 +1558,7 @@
                 
 
     </form>
+     <div align="center" id="CopyRight" runat="server"></div>
     <div id="new_app_dialog" title="New App"></div>
     <div id="rename_app_dialog" title="Rename App"></div>
     <div id="duplicate_app_dialog" title="Duplicate App"></div>
@@ -1557,7 +1568,6 @@
     <div id="duplicate_page_dialog" title="Duplicate Page"></div>
     <div id="tool_help_dialog" title="Tools Help"></div>
     <div id="design_page_help_dialog" title="Design Page Help"></div>
-
     <div id="web_data_sources_dialog" title="Web Data Source"></div>
     <div id="google_spreadsheet_data_source_dialog" title="Google Spreadsheet Data Source"></div>
     <div id="rss_data_surce_dialog" title="RSS Data Source"></div>
@@ -1590,5 +1600,7 @@
     <div id="alert_dialog" title="Alert Properties"></div>
     <div id="map_dialog" title="Map Properties"></div>
     <div id="hidden_field_dialog" title="Hidden Field Properties"></div>
+    <div id="snap_to_grid_action_dialog" title="Snap To Grid"></div>
+    <div id="snap_to_grid_edit_dialog" title="Edit Grid Size"></div>
 </body>
 </html>

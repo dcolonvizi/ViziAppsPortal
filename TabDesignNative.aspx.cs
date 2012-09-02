@@ -31,9 +31,9 @@ public partial class DesignNative : System.Web.UI.Page
             Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
             if (util.CheckSessionTimeout(State,Response,"Default.aspx")) return;
 
-            if (State["TechSupportEmail"] != null)
+            if ( HttpRuntime.Cache["TechSupportEmail"] != null)
             {
-                util.AddEmailToButton(SupportButton, State["TechSupportEmail"].ToString(), "Email To Tech Support");
+                util.AddEmailToButton(SupportButton,  HttpRuntime.Cache["TechSupportEmail"].ToString(), "Email To Tech Support");
             }
 
             util.UpdateSessionLog(State, "post", "TabDesign");
@@ -42,6 +42,7 @@ public partial class DesignNative : System.Web.UI.Page
 
             if (!IsPostBack)
             {
+                CopyRight.InnerText = HttpRuntime.Cache["CopyRight"].ToString();
                 string attr = "javascript: NamedPopUp('ManageData.aspx', 'ManageDataPopup','height=800, width=1000, left=50, top=50, menubar=no, status=no, location=no, toolbar=no, scrollbars=yes, resizable=yes');return false;";
                 ManageData.Attributes.Add("onclick", attr);
 

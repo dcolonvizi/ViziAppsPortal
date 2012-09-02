@@ -22,7 +22,7 @@ public partial class EULAAgreement : System.Web.UI.Page
         if (!IsPostBack)
         {
             Instructions.Text = "Please review the following End User License Agreement and click on the button that says “I Understand and Agree” to continue or on the button that says “I Do Not Accept”.";
-            string EULAFile =  State["EULAFile"].ToString();
+            string EULAFile =   HttpRuntime.Cache["EULAFile"].ToString();
             string path = Server.MapPath(".") + @"\" + EULAFile;
 
             StreamReader sr = File.OpenText(path);
@@ -98,7 +98,7 @@ public partial class EULAAgreement : System.Web.UI.Page
         }
 
         Email email = new Email();
-        email.SendEmail((Hashtable)HttpRuntime.Cache[Session.SessionID],  State["TechSupportEmail"].ToString(),  State["SalesEmail"].ToString(), "", "", subject, body.ToString(), "",true);
+        email.SendEmail((Hashtable)HttpRuntime.Cache[Session.SessionID],   HttpRuntime.Cache["TechSupportEmail"].ToString(),   HttpRuntime.Cache["SalesEmail"].ToString(), "", "", subject, body.ToString(), "",true);
 
         string welcome_body = null;
         if ( State["LoggedInFromGoogleApps"] != null)
@@ -112,7 +112,7 @@ public partial class EULAAgreement : System.Web.UI.Page
             email_template_path = Server.MapPath(".") + @"\templates\CustomerWelcomeEmail.txt";
             welcome_body = File.ReadAllText(email_template_path).Replace("[NAME]", row["first_name"].ToString());
         }
-        email.SendEmail((Hashtable)HttpRuntime.Cache[Session.SessionID],  State["SalesEmail"].ToString(), row["email"].ToString(), "", "", "Welcome to ViziApps", welcome_body, "",true);
+        email.SendEmail((Hashtable)HttpRuntime.Cache[Session.SessionID],   HttpRuntime.Cache["SalesEmail"].ToString(), row["email"].ToString(), "", "", "Welcome to ViziApps", welcome_body, "",true);
     }
     protected void RejectButton_Click(object sender, EventArgs e)
     {

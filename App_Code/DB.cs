@@ -184,7 +184,6 @@ public class DB
     {
         try
         {
-            //string connect = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"]; 
             string connect = GetConnectionString();
             MySqlConnection ViziAppsDB = new MySqlConnection(connect);
             try
@@ -355,13 +354,17 @@ public class DB
         string stagingURL = ConfigurationManager.AppSettings["StagingURL"];
         string connectionString = ConfigurationManager.AppSettings["ViziAppsAdminConnectionString"];
 
-        HttpContext context = HttpContext.Current;
-        string baseUrl = context.Request.Url.Authority.TrimEnd('/').Replace("www.","");
-
-        if (stagingURL == baseUrl)
+        try
         {
-            connectionString = ConfigurationManager.AppSettings["ViziAppsAdminStagingConnectionString"];
+            HttpContext context = HttpContext.Current;
+            string baseUrl = context.Request.Url.Authority.TrimEnd('/').Replace("www.", "");
+
+            if (stagingURL == baseUrl)
+            {
+                connectionString = ConfigurationManager.AppSettings["ViziAppsAdminStagingConnectionString"];
+            }
         }
+        catch { } //during the initialization in Global.asax.cs there is no Request so an exeption occurs which will be ignored
 
         return connectionString;
     }

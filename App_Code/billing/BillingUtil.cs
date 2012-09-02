@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System;
 using System.Text;
-
+using System.Web;
+using System.Web.SessionState;
+using System.Web.Caching;
 
 /// <summary>
 /// 
@@ -265,8 +267,8 @@ using System.Text;
         public bool IsAppStoreSubmissionPaid(Hashtable State, string app_name)
         {
             DB db = new DB();
-            string sql = "SELECT COUNT(*) FROM paid_services WHERE (sku='" + State["iOSSubmitServiceSku"].ToString() +
-                "' OR sku='" + State["AndroidSubmitServiceSku"].ToString() + "') AND app_name ='" + app_name + "' AND customer_id='" + State["CustomerID"].ToString() + "'";
+            string sql = "SELECT COUNT(*) FROM paid_services WHERE (sku='" +  HttpRuntime.Cache["iOSSubmitServiceSku"].ToString() +
+                "' OR sku='" +  HttpRuntime.Cache["AndroidSubmitServiceSku"].ToString() + "') AND app_name ='" + app_name + "' AND customer_id='" + State["CustomerID"].ToString() + "'";
             string count = db.ViziAppsExecuteScalar(State, sql);
             db.CloseViziAppsDatabase(State);
             return (count == "0") ? false : true;

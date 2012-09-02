@@ -329,7 +329,7 @@ public partial class PublishingFormWebApps : System.Web.UI.Page
         
         string file_name = State["SelectedApp"].ToString() + "/index.html";
         file_name = file_name.Replace(" ", "_");
-        string save_file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name.Replace("/index.html", ".html");
+        string save_file_path =  HttpRuntime.Cache["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name.Replace("/index.html", ".html");
 
         if (File.Exists(save_file_path))
             File.Delete(save_file_path);
@@ -461,7 +461,7 @@ public partial class PublishingFormWebApps : System.Web.UI.Page
         State["IsProduction"] = true;
         
         string file_name = State["SelectedApp"].ToString().Replace(" ", "_") + Constants.WEB_APP_TEST_SUFFIX + "/index.html";
-        string save_file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name.Replace(Constants.WEB_APP_TEST_SUFFIX + "/index.html", ".html");
+        string save_file_path =  HttpRuntime.Cache["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name.Replace(Constants.WEB_APP_TEST_SUFFIX + "/index.html", ".html");
 
         string ret = web_util.GetWebApp(State, util.GetStagingAppXml(State),1.0D, 1.0D);
         if (ret.StartsWith("Error:"))

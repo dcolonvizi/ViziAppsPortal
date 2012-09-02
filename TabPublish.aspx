@@ -6,7 +6,14 @@
 <head id="Head1" runat="server">
      <title>ViziApps: Build Mobile Apps Online</title>
     <link rel="stylesheet" type="text/css" href="~/Billing/CSS/BillingStylesheet.css" /> <!--CSS-->
-           
+     <style type="text/css">
+          body
+        {
+        	 background-color:#bcbcbc;
+        	 font-family:Arial;
+        	 font-size:11px;
+        }   
+        </style>
 
 </head>
 <body class="body">
@@ -310,5 +317,6 @@
      </table>
 
     </form>
+     <div align="center" id="CopyRight" runat="server"></div>
 </body>
 </html>

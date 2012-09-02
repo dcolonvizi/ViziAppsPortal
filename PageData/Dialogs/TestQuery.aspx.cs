@@ -333,7 +333,7 @@ public partial class PageData_Dialogs_TestQuery : System.Web.UI.Page
 
     protected void  doSqlCommand(Hashtable State, bool doGoogleApps,string initGoogleDocsParams) 
     {  
-        string SpreadsheetRequestUrl = doGoogleApps?  State["google_apps_spreadsheet_web_service_url"].ToString(): State["google_spreadsheet_web_service_url"].ToString();
+        string SpreadsheetRequestUrl = doGoogleApps?   HttpRuntime.Cache["google_apps_spreadsheet_web_service_url"].ToString():  HttpRuntime.Cache["google_spreadsheet_web_service_url"].ToString();
         StringBuilder GoogleDocsParams = new StringBuilder(SpreadsheetRequestUrl + initGoogleDocsParams);
         Hashtable CommandEntry =  (Hashtable)State["TestCommandEntry"]  ;
         string table = CommandEntry["table"].ToString();

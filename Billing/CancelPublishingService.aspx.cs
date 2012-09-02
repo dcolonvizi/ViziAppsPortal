@@ -67,7 +67,7 @@ public partial class CancelPublishingService : System.Web.UI.Page
 
 
                 //Get only paid_apps from paid_services table directly.
-                string sql = "SELECT app_name FROM paid_services WHERE customer_id='" + State["CustomerID"].ToString() + "' AND status='paid' AND sku != '" + State["iOSSubmitServiceSku"].ToString() + "' AND  sku != '" + State["AndroidSubmitServiceSku"].ToString() + "' ORDER BY app_name"; 
+                string sql = "SELECT app_name FROM paid_services WHERE customer_id='" + State["CustomerID"].ToString() + "' AND status='paid' AND sku != '" +  HttpRuntime.Cache["iOSSubmitServiceSku"].ToString() + "' AND  sku != '" +  HttpRuntime.Cache["AndroidSubmitServiceSku"].ToString() + "' ORDER BY app_name"; 
                 //string sql = "SELECT app_name FROM paid_services WHERE customer_id='" + State["CustomerID"].ToString() + "' AND status='paid' ORDER BY app_name";
 
 

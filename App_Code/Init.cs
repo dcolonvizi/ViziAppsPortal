@@ -11,6 +11,7 @@ using System.Xml;
 using System.Collections;
 using System.Text;
 using Telerik.Web.UI;
+using System.Web.Caching;
 
 /// <summary>
 /// Summary description for Init
@@ -44,34 +45,29 @@ public class Init
 
         db.CloseViziAppsDatabase(State);
     }
-
-    public void InitSiteConfigurations(HttpRequest Request, Hashtable State)
-    {
-        State["RequestUrlHost"] = Request.Url.Host;
-        InitSiteConfigurations(State);
-    }
-    public void InitSiteConfigurations(Hashtable State)
+    public void InitSiteConfigurations()
     {
         DB db = new DB();
         string sql = "SELECT configuration,value FROM site_configuration";
+        Hashtable State = new Hashtable();
         DataRow[] rows = db.ViziAppsExecuteSql(State, sql);
         foreach (DataRow row in rows)
         {
             string configuration = row["configuration"].ToString();
             string value = row["value"].ToString();
-            State[configuration] = value;
+            HttpRuntime.Cache[configuration] = value;
         }
         db.CloseViziAppsDatabase(State);
 
-        if (State["OEMConfigs"] != null)
+        if (HttpRuntime.Cache["OEMConfigs"] != null)
         {
-            DataRow oem = (DataRow)State["OEMConfigs"];
+            DataRow oem = (DataRow)HttpRuntime.Cache["OEMConfigs"];
             string support_email = oem["support_email"].ToString();
             if (support_email != null && support_email.Length > 0)
-                State["TechSupportEmail"] = support_email;
+                HttpRuntime.Cache["TechSupportEmail"] = support_email;
             string sales_email = oem["sales_email"].ToString();
             if (sales_email != null && sales_email.Length > 0)
-                State["SalesEmail"] = sales_email;
+                HttpRuntime.Cache["SalesEmail"] = sales_email;
        }
      }
     public void InitSkuConfigurations(Hashtable State)
@@ -199,13 +195,13 @@ public class Init
 
         DB db = new DB();
         string template_account = null;
-        if (State["Username"].ToString() == State["TemplatesAccount"].ToString())
+        if (State["Username"].ToString() ==  HttpRuntime.Cache["TemplatesAccount"].ToString())
         {
-            template_account = State["DevAccount"].ToString();
-            State["TemplatesAccount"] = template_account;
+            template_account =  HttpRuntime.Cache["DevAccount"].ToString();
+             HttpRuntime.Cache["TemplatesAccount"] = template_account;
         }
         else
-            template_account = State["TemplatesAccount"].ToString();
+            template_account =  HttpRuntime.Cache["TemplatesAccount"].ToString();
 
         string sql = "SELECT customer_id FROM customers WHERE username='" + template_account + "'";
         string customer_id = db.ViziAppsExecuteScalar(State, sql);

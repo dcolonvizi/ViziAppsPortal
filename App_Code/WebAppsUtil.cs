@@ -32,7 +32,7 @@ public class WebAppsUtil
             HtmlDocument htmlDoc = new HtmlDocument();
 
             //Load App Foundation
-            StringBuilder NewWebAppHtml = new StringBuilder(State["NewWebAppHtml"].ToString());
+            StringBuilder NewWebAppHtml = new StringBuilder( HttpRuntime.Cache["NewWebAppHtml"].ToString());
             if (State["IsProduction"] == null)
                 State["IsProduction"] = false;
             if ((bool)State["IsProduction"]== true)
@@ -47,7 +47,7 @@ public class WebAppsUtil
 
             /*if(false)
             {
-                 NewWebAppHtml.Replace("ADDON_VIZIAPPS_SCRIPTS", State["ShareThisScripts"].ToString());
+                 NewWebAppHtml.Replace("ADDON_VIZIAPPS_SCRIPTS",  HttpRuntime.Cache["ShareThisScripts"].ToString());
             }
             else*/
                 NewWebAppHtml.Replace("ADDON_VIZIAPPS_SCRIPTS", "");

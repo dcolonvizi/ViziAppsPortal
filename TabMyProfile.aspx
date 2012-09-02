@@ -20,6 +20,8 @@
         body
         {
         	 background-color:#bcbcbc;
+        	  font-family:Arial;
+        	 font-size:11px;
         }
 
      .style3
@@ -727,5 +729,6 @@
                 <!-- End RadNotification for CheddarGetter error notifications -->
 
     </form>
+     <div align="center" id="CopyRight" runat="server"></div>
 </body>
 </html>

@@ -16,9 +16,11 @@
 
 		<link href="styles/baseStyle.css" type="text/css" rel="stylesheet"/>
        <style type="text/css">
-        body
+         body
         {
         	 background-color:#bcbcbc;
+        	 font-family:Arial;
+        	 font-size:11px;
         }
  
            .style1
@@ -860,6 +862,7 @@
  
     </div>
     </div>
+     <div align="center" id="CopyRight" runat="server"></div>
     </form>
 </body>
 </html>

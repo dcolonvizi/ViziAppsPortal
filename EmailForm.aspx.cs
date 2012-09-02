@@ -42,7 +42,7 @@ public partial class EmailForm : System.Web.UI.Page
             string from = db.ViziAppsExecuteScalar(State, sql);
             if (EmailType.Text == "Customer Email")
             {
-                FromEmail.Text =  State["TechSupportEmail"].ToString();
+                FromEmail.Text =   HttpRuntime.Cache["TechSupportEmail"].ToString();
             }
             else if (from == null)
             {
@@ -109,12 +109,12 @@ public partial class EmailForm : System.Web.UI.Page
             user_info.Append("\r\n");
         }
         else
-            CC =  State["TechSupportEmail"].ToString();
+            CC =   HttpRuntime.Cache["TechSupportEmail"].ToString();
 
         user_info.Append(EmailBody.Text);
         try
         {
-            string status = email.SendEmail(State,  State["TechSupportEmail"].ToString(), ToEmail.Text, CC, "", EmailSubject.Text, user_info.ToString(), "",false);
+            string status = email.SendEmail(State,   HttpRuntime.Cache["TechSupportEmail"].ToString(), ToEmail.Text, CC, "", EmailSubject.Text, user_info.ToString(), "",false);
             if (status == "OK")
             {
                 if (EmailType.Text == "Customer Email")

@@ -29,7 +29,7 @@ public class XmlUtil
         WebAppsUtil w_util = new WebAppsUtil();
         XmlUtil x_util = new XmlUtil();
         XmlDocument hybridXmlDoc = new XmlDocument();
-        hybridXmlDoc.LoadXml(State["NewHybridAppXml"].ToString());
+        hybridXmlDoc.LoadXml( HttpRuntime.Cache["NewHybridAppXml"].ToString());
         XmlNode app_project = hybridXmlDoc.SelectSingleNode("//app_project");
 
         XmlNode configuration = app_project.SelectSingleNode("configuration");
@@ -252,7 +252,7 @@ public class XmlUtil
         string application_name, string application_id, string page_name)
     {
         XmlDocument doc = new XmlDocument();
-        doc.Load(State["NewProjectPath"].ToString());
+        doc.Load( HttpRuntime.Cache["NewProjectPath"].ToString());
 
         //set app type
         XmlNode application_node = doc.SelectSingleNode("//application");
@@ -2168,7 +2168,7 @@ public class XmlUtil
         try
         {
             XmlNode field_node = null;
-            HttpServerUtility Server = (HttpServerUtility)State["Server"];
+            HttpServerUtility Server = (HttpServerUtility) HttpRuntime.Cache["Server"];
             Util util = new Util();
 
             ArrayList sortedNodeList = new ArrayList();

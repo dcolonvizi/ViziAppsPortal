@@ -67,7 +67,7 @@ public class PhoneWebService : System.Web.Services.WebService
         Init init = new Init();
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         init.InitSkuConfigurations(State);
-        State["TempFilesPath"] = Server.MapPath(".") + @"\temp_files\";
+         HttpRuntime.Cache["TempFilesPath"] = Server.MapPath(".") + @"\temp_files\";
         Util util = new Util();
         XmlUtil x_util = new XmlUtil();
         XmlNode status = null;
@@ -304,7 +304,7 @@ public class PhoneWebService : System.Web.Services.WebService
         Init init = new Init();
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         init.InitSkuConfigurations(State);
-        State["TempFilesPath"] = Server.MapPath(".") + @"\temp_files\";
+         HttpRuntime.Cache["TempFilesPath"] = Server.MapPath(".") + @"\temp_files\";
         Util util = new Util();
         XmlUtil x_util = new XmlUtil();
         XmlNode status_node = null;
@@ -629,10 +629,10 @@ public class PhoneWebService : System.Web.Services.WebService
         {
             WebAppsUtil w_util = new WebAppsUtil();
             State["SelectedAppType"] = Constants.HYBRID_APP_TYPE;
-            State["NewWebAppHtml"] = File.ReadAllText(Server.MapPath(".") + @"\App_Data\NewViziAppsWebApp.txt");
-            State["NewHybridAppXml"] = File.ReadAllText(Server.MapPath(".") + @"\App_Data\NewViziAppsHybridApp.xml");
-            State["ShareThisScripts"] = File.ReadAllText(Server.MapPath(".") + @"\App_Data\ShareThisScripts.txt");
-            State["TempFilesPath"] = Server.MapPath(".") + @"\temp_files\";
+             HttpRuntime.Cache["NewWebAppHtml"] = File.ReadAllText(Server.MapPath(".") + @"\App_Data\NewViziAppsWebApp.txt");
+             HttpRuntime.Cache["NewHybridAppXml"] = File.ReadAllText(Server.MapPath(".") + @"\App_Data\NewViziAppsHybridApp.xml");
+             HttpRuntime.Cache["ShareThisScripts"] = File.ReadAllText(Server.MapPath(".") + @"\App_Data\ShareThisScripts.txt");
+             HttpRuntime.Cache["TempFilesPath"] = Server.MapPath(".") + @"\temp_files\";
 
             State["Username"] = util.GetUsernameFromCustomerID(State, customer_id);
             //get original design display width and height

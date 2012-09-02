@@ -41,7 +41,7 @@ public partial class Dialogs_UploadAudio : System.Web.UI.Page
                     byte[] audio_data = File.ReadAllBytes(file_path);
  
                     string file_name =  name.Replace(" ", "_").Replace("%20", "_");                    
-                    string save_file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name;
+                    string save_file_path =  HttpRuntime.Cache["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name;
 
                     try
                     {

@@ -24,9 +24,9 @@ public partial class TabMySolutions : System.Web.UI.Page
         if (util.CheckSessionTimeout(State,Response,"Default.aspx")) return;
         try
         {
-            if (State["TechSupportEmail"] != null)
+            if ( HttpRuntime.Cache["TechSupportEmail"] != null)
             {
-                util.AddEmailToButton(SupportButton, State["TechSupportEmail"].ToString(), "Email To Tech Support");
+                util.AddEmailToButton(SupportButton,  HttpRuntime.Cache["TechSupportEmail"].ToString(), "Email To Tech Support");
             }
 
             util.UpdateSessionLog(State, "post", "TabMySolutions");
@@ -76,6 +76,7 @@ public partial class TabMySolutions : System.Web.UI.Page
             }
             else
             {
+                CopyRight.InnerText = HttpRuntime.Cache["CopyRight"].ToString();
                 UserLabel.Text = State["Username"].ToString();
                 LoadData();
             }
@@ -247,23 +248,16 @@ public partial class TabMySolutions : System.Web.UI.Page
     {
         Init init = new Init();
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
-        init.InitSiteConfigurations(State);
-        State["NewProjectPath"] = MapPath(".") + @"\App_data\NewViziAppsNativeApp.xml";
-         State["CanvasHtml"] = File.ReadAllText(MapPath(".") + @"\App_Data\Canvas.txt");
-         State["NewWebAppHtml"] = File.ReadAllText(MapPath(".") + @"\App_Data\NewViziAppsWebApp.txt");
-         State["NewHybridAppXml"] = File.ReadAllText(MapPath(".") + @"\App_Data\NewViziAppsHybridApp.xml");
-         State["ShareThisScripts"] = File.ReadAllText(MapPath(".") + @"\App_Data\ShareThisScripts.txt");
-         State["Server"] = Server;
-
+ 
         //set browser type
          State["Browser"] = Request.Browser.Browser;
          State["BrowserVersion"] = Request.Browser.Version;
          State["UserHostAddress"] = Request.UserHostAddress;
-         State["TempFilesPath"] = MapPath(".") + @"\temp_files\";
 
          //delete any old temp files
          Util util = new Util();
          util.DeleteOldTempFiles(State);
+         util.DeleteOldErrorsInLog(State);
    }
     protected void InitUserSession()
     {

@@ -54,7 +54,7 @@ public partial class AdminEmail : System.Web.UI.Page
             string to_email = row["email"].ToString();
             if (to_email.Length > 0)
             {
-                email.SendEmail(State, State["TechSupportEmail"].ToString(), to_email, "", "", EmailSubject.Text, EmailBody.Text, "",false);
+                email.SendEmail(State,  HttpRuntime.Cache["TechSupportEmail"].ToString(), to_email, "", "", EmailSubject.Text, EmailBody.Text, "",false);
                 sent_users.Append(username + "\n");
             }
             else if(username!="admin" && username != "prompts")

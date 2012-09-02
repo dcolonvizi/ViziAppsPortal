@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.Caching;
+using System.IO;
 
 namespace MobiFlex 
 {
@@ -26,6 +27,17 @@ namespace MobiFlex
 		protected void Application_Start(Object sender, EventArgs e)
 		{
             HttpRuntime.Cache["UsersList"] = new Hashtable();
+
+            Init init = new Init();
+            init.InitSiteConfigurations();
+            HttpRuntime.Cache["NewProjectPath"] = Server.MapPath(".") + @"\App_data\NewViziAppsNativeApp.xml";
+            HttpRuntime.Cache["CanvasHtml"] = File.ReadAllText(Server.MapPath(".") + @"\App_Data\Canvas.txt");
+            HttpRuntime.Cache["NewWebAppHtml"] = File.ReadAllText(Server.MapPath(".") + @"\App_Data\NewViziAppsWebApp.txt");
+            HttpRuntime.Cache["NewHybridAppXml"] = File.ReadAllText(Server.MapPath(".") + @"\App_Data\NewViziAppsHybridApp.xml");
+            HttpRuntime.Cache["ShareThisScripts"] = File.ReadAllText(Server.MapPath(".") + @"\App_Data\ShareThisScripts.txt");
+            HttpRuntime.Cache["TempFilesPath"] = Server.MapPath(".") + @"\temp_files\";
+            HttpRuntime.Cache["Server"] = Server;
+
 		}
  
 		protected void Session_Start(Object sender, EventArgs e)

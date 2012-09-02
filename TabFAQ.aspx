@@ -17,6 +17,8 @@
              body
         {
         	 background-color:#bcbcbc;
+        	  font-family:Arial;
+        	 font-size:11px;
         }
 #accordion { width:700px; margin: 0; padding: 10; }
 #accordion p span { cursor:pointer; }
@@ -538,7 +540,7 @@ Send us an
 </table>
 
 </div>
-
+ <div align="center" id="CopyRight" runat="server"></div>
     </form>
 </body>
 </html>

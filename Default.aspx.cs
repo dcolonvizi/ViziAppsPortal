@@ -209,8 +209,8 @@ public partial class Default : System.Web.UI.Page
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         if (State["UserHostAddress"].ToString() == "::1")
             return true;
-        if (username == State["TemplatesAccount"].ToString() &&
-            State["UserHostAddress"].ToString() != State["ViziAppsClientIPAddressForTemplatesAccount"].ToString())
+        if (username ==  HttpRuntime.Cache["TemplatesAccount"].ToString() &&
+            State["UserHostAddress"].ToString() !=  HttpRuntime.Cache["ViziAppsClientIPAddressForTemplatesAccount"].ToString())
         {
             return false;
         }
@@ -218,23 +218,12 @@ public partial class Default : System.Web.UI.Page
     }
     private void InitPortalSession()
     {
-        Init init = new Init();
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
-        init.InitSiteConfigurations(State);
-        State["NewProjectPath"] = MapPath(".") + @"\App_data\NewViziAppsNativeApp.xml";
-        State["CanvasHtml"] = File.ReadAllText(MapPath(".") + @"\App_Data\Canvas.txt");
-        State["NewWebAppHtml"] = File.ReadAllText(MapPath(".") + @"\App_Data\NewViziAppsWebApp.txt");
-        State["NewHybridAppXml"] = File.ReadAllText(MapPath(".") + @"\App_Data\NewViziAppsHybridApp.xml");
-        State["ShareThisScripts"] = File.ReadAllText(MapPath(".") + @"\App_Data\ShareThisScripts.txt");
-        //State["QRCoderExe"] = MapPath(".") + @"\Bin\qrcode.exe";
-        State["Server"] = Server;
-
         //set browser type
         State["Browser"] = Request.Browser.Browser;
         State["BrowserVersion"] = Request.Browser.Version;
-
-        State["TempFilesPath"] = MapPath(".") + @"\temp_files\";
-
+        State["RequestUrlHost"] = Request.Url.Host;
+ 
         //delete any old temp files
         Util util = new Util();
         util.DeleteOldTempFiles(State);
@@ -282,7 +271,7 @@ public partial class Default : System.Web.UI.Page
             string body = "Your ViziApps credentials are:\nUsername: " + row["username"].ToString() + "\nPassword: " + row["password"].ToString();
             Email email = new Email();
             InitPortalSession(); //to init from email
-            email.SendEmail(State, State["TechSupportEmail"].ToString(), user_email, "", "", "ViziApps Credentials", body, "", false);
+            email.SendEmail(State,  HttpRuntime.Cache["TechSupportEmail"].ToString(), user_email, "", "", "ViziApps Credentials", body, "", false);
             LoginPages.SelectedIndex = 0;
             FailureText.Text = "An email has been sent to you with your credentials.";
         }

@@ -94,6 +94,13 @@ $(function () {
 
    $("#hidden_field_dialog").dialog({ autoOpen: false, width: 600, height: 250, modal: true, beforeClose: function (event, ui) { $(this).children().first().remove(); } });
    $("#hidden_field").button().click(function () { InsertHiddenFieldOpen(null); });
+
+   $("#snap_to_grid_edit_dialog").dialog({ autoOpen: false, width: 300, height: 280, modal: true, beforeClose: function (event, ui) { $(this).children().first().remove(); } });
+   $("#snap_to_grid_edit").button().click(function () { GridEditOpen(); });
+
+   $("#snap_to_grid_action_dialog").dialog({ autoOpen: false, width: 350, height: 150, modal: true, beforeClose: function (event, ui) { $(this).children().first().remove(); } });
+   $("#snap_to_grid_action").button().click(function () { ToggleSnapToGrid(); });
+
 });
 
     function BringToMostFront() {
@@ -1136,10 +1143,8 @@ $(function () {
            $("#audio_recorder_dialog").dialog("open"); 
            addIFrame($("#audio_recorder_dialog"), 'EditorTools/InsertAudioRecorder.aspx');
      }
-     function InsertAudioRecorderCallback(args) {
-        
-             
-             if (args == null)
+     function InsertAudioRecorderCallback(args) {    
+         if (args == null)
                  return;
              deleteSelectedElement();
              var z_index = getNextZIndex();
@@ -1159,6 +1164,30 @@ $(function () {
         return inputs;
      };
      //--------------------------------------------------------------
+     var gridSnapToggle = 0;
+     function ToggleSnapToGrid() {
+         var iframe = document.getElementById("canvas");
+         gridSnapToggle = 1 - gridSnapToggle;
+         if (gridSnapToggle == 1) {
+             iframe.contentWindow.SetSnapToGrid();
+             $("#snap_to_grid_label").text('No Snap');
+         }
+         else {
+             iframe.contentWindow.ResetSnapToGrid();
+             $("#snap_to_grid_label").text('Snap to Grid');
+         }
+     }
+     function GridEditOpen() {
+         var iframe = document.getElementById("canvas");
+         var gridSize = iframe.contentWindow.getGridSize();
+         $("#snap_to_grid_edit_dialog").dialog("open");
+         addIFrame($("#snap_to_grid_edit_dialog"), 'Dialogs/Design/SetSnapGridSize.aspx?grid_size=' + gridSize);
+     }
+     function setSnapGridSize(sender, args) {
+         var iframe = document.getElementById("canvas");
+         iframe.contentWindow.setGridSize(args.get_item().get_text());
+         $("#snap_to_grid_edit_dialog").dialog("close"); 
+     }
      function IsValidObjectName(sText) {
          var ValidChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_ ";
          var Char;

@@ -475,7 +475,7 @@ public class GDocs
     public string UploadImageFile(Hashtable State, string local_file_path)
     {
         DocumentsService service = new DocumentsService("MobiFlexDocs");
-        service.setUserCredentials(State["MobiFlexGDocsUsername"].ToString(), State["MobiFlexGDocsPassword"].ToString());
+        service.setUserCredentials( HttpRuntime.Cache["MobiFlexGDocsUsername"].ToString(),  HttpRuntime.Cache["MobiFlexGDocsPassword"].ToString());
         string name = local_file_path.Substring(local_file_path.IndexOf(@"media\") + 6).Replace(@"\", ".");
         DocumentEntry newEntry = service.UploadFile(local_file_path, name,"text/html",true);
         return newEntry.AlternateUri.ToString();
@@ -483,7 +483,7 @@ public class GDocs
     public void DeleteImageFile(Hashtable State,string url)
     {
         DocumentsService service = new DocumentsService("MobiFlexDocs");
-        service.setUserCredentials(State["MobiFlexGDocsUsername"].ToString(), State["MobiFlexGDocsPassword"].ToString());
+        service.setUserCredentials( HttpRuntime.Cache["MobiFlexGDocsUsername"].ToString(),  HttpRuntime.Cache["MobiFlexGDocsPassword"].ToString());
         AtomEntry entry = service.Get(url);
         entry.Delete();
     }

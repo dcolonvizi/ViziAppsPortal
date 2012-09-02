@@ -51,7 +51,7 @@ public class HtmlToImage
                 start = end ;
                 if (sb_html.ToString().Substring(start, 4) != "http")
                 {
-                    sb_html.Insert(start,State["PublicViziAppsUrl"].ToString() + "/");
+                    sb_html.Insert(start, HttpRuntime.Cache["PublicViziAppsUrl"].ToString() + "/");
                 }
             }
         }while(end >=0);
@@ -81,7 +81,7 @@ public class HtmlToImage
 
                 if (sb_html.ToString().Substring(start, 4) != "http")
                 {
-                    sb_html.Insert(start, State["PublicViziAppsUrl"].ToString() + "/");
+                    sb_html.Insert(start,  HttpRuntime.Cache["PublicViziAppsUrl"].ToString() + "/");
                 }
                 //get image url
                 switch (quote_type)
@@ -109,7 +109,7 @@ public class HtmlToImage
         Util util = new Util();
         string file_name =  State["SelectedApp"].ToString() + "." + page_name + ".jpg";
         file_name = file_name.Replace(" ","_");
-        string save_file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name;
+        string save_file_path =  HttpRuntime.Cache["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name;
 
         int browserWidth = Constants.IPHONE_DISPLAY_WIDTH;
         int browserHeight = Convert.ToInt32(Constants.IPHONE_SCROLL_HEIGHT_S);
@@ -129,9 +129,9 @@ public class HtmlToImage
             thumbnailWidth = browserWidth;
             thumbnailHeight = browserHeight;
         }
-        string whole_html = State["CanvasHtml"].ToString().Replace("<REPLACE>", sb_html.ToString());
+        string whole_html =  HttpRuntime.Cache["CanvasHtml"].ToString().Replace("<REPLACE>", sb_html.ToString());
 
-        string temp_store_path = State["TempFilesPath"].ToString() + "canvas.htm";
+        string temp_store_path =  HttpRuntime.Cache["TempFilesPath"].ToString() + "canvas.htm";
         File.WriteAllText(temp_store_path, whole_html.Replace("iframe","div"));
 
         string siteurl = "file:///" + temp_store_path;

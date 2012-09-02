@@ -218,7 +218,7 @@ public partial class ManageData_GoogleSpreadsheetOperations : System.Web.UI.Page
         XmlNode data_sources = page_name.ParentNode.SelectSingleNode("data_sources");
         if (data_sources == null)
         {
-            Message.Text = "There was an internal error with your design. Please notify ViziApps: " + State["TechSupportEmail"].ToString();
+            Message.Text = "There was an internal error with your design. Please notify ViziApps: " +  HttpRuntime.Cache["TechSupportEmail"].ToString();
             return;
         }
         XmlNodeList list = data_sources.SelectNodes("data_source");
@@ -262,7 +262,7 @@ public partial class ManageData_GoogleSpreadsheetOperations : System.Web.UI.Page
         XmlNode data_sources = page_name.ParentNode.SelectSingleNode("data_sources");
         if (data_sources == null)
         {
-            Message.Text = "There was an internal error with your design. Please notify ViziApps: " + State["TechSupportEmail"].ToString();
+            Message.Text = "There was an internal error with your design. Please notify ViziApps: " +  HttpRuntime.Cache["TechSupportEmail"].ToString();
             return;
         }
         XmlNodeList list = data_sources.SelectNodes("data_source");

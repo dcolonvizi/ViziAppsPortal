@@ -28,14 +28,17 @@ public partial class ManageData : System.Web.UI.Page
          try
         {
             if (!IsPostBack)
-               UserLabel.Text = State["Username"].ToString();
-
-            if (State["TechSupportEmail"] != null)
             {
-                util.AddEmailToButton(SupportButton, State["TechSupportEmail"].ToString(), "Email To Tech Support");
+                CopyRight.InnerText = HttpRuntime.Cache["CopyRight"].ToString();
+                UserLabel.Text = State["Username"].ToString();
             }
 
-            util.UpdateSessionLog(State, "post", "TabManageData");
+            if ( HttpRuntime.Cache["TechSupportEmail"] != null)
+            {
+                util.AddEmailToButton(SupportButton,  HttpRuntime.Cache["TechSupportEmail"].ToString(), "Email To Tech Support");
+            }
+
+            util.UpdateSessionLog(State, "post", "ManageData");
 
             State["DatabaseEvents"] = DatabaseEvents;
             State["SpreadSheetEvents"] = SpreadSheetEvents;

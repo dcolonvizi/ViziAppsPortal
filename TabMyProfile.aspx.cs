@@ -23,12 +23,13 @@ public partial class MyProfile : System.Web.UI.Page
         {
             if (!IsPostBack)
             {
+                CopyRight.InnerText = HttpRuntime.Cache["CopyRight"].ToString();
                 UserLabel.Text = State["Username"].ToString();
             }
 
-            if (State["TechSupportEmail"] != null)
+            if ( HttpRuntime.Cache["TechSupportEmail"] != null)
             {
-                util.AddEmailToButton(SupportButton, State["TechSupportEmail"].ToString(), "Email To Tech Support");
+                util.AddEmailToButton(SupportButton,  HttpRuntime.Cache["TechSupportEmail"].ToString(), "Email To Tech Support");
             }
 
             util.UpdateSessionLog(State, "post", "TabMyProfile");
@@ -198,7 +199,7 @@ public partial class MyProfile : System.Web.UI.Page
                 body.Append("If you did not change it, contact our support team at support@viziapps.com right away. ");
                 body.Append("\n\n - The ViziApps Team \n");
 
-                email.SendEmail(State,  State["TechSupportEmail"].ToString(), to_email, "", "", "ViziApps Notice", body.ToString(), "",false);
+                email.SendEmail(State,   HttpRuntime.Cache["TechSupportEmail"].ToString(), to_email, "", "", "ViziApps Notice", body.ToString(), "",false);
             }
             else
             {

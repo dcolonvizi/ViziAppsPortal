@@ -20,11 +20,14 @@ public partial class TabFAQ : System.Web.UI.Page
         try
         {
             if (!IsPostBack)
-               UserLabel.Text = State["Username"].ToString();
-
-            if (State["TechSupportEmail"] != null)
             {
-                util.AddEmailToButton(SupportButton, State["TechSupportEmail"].ToString(), "Email To Tech Support");
+                CopyRight.InnerText = HttpRuntime.Cache["CopyRight"].ToString();
+                UserLabel.Text = State["Username"].ToString();
+            }
+
+            if ( HttpRuntime.Cache["TechSupportEmail"] != null)
+            {
+                util.AddEmailToButton(SupportButton,  HttpRuntime.Cache["TechSupportEmail"].ToString(), "Email To Tech Support");
             }
         }
         catch (Exception ex)

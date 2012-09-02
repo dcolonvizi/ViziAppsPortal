@@ -32,7 +32,7 @@
    <script type="text/javascript" src="jquery/js/jquery.ui.draggable.js"></script>
    <script language="javascript" type="text/javascript" src="scripts/browser_1.4.js"></script>
    <script  language="javascript" type="text/javascript" src="scripts/default_script_1.6.js"></script>
-   <script type="text/javascript" src="scripts/canvas_1.14.min.js"></script> 
+   <script type="text/javascript" src="scripts/canvas_1.15.min.js"></script>
 </head>
 <body>
     <form id="form1" runat="server" style="vertical-align:top" >     

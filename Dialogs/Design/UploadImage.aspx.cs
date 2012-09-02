@@ -54,7 +54,7 @@ public partial class Dialogs_UploadImage : System.Web.UI.Page
                     }
                      
                      string file_name = util.FilterWebFileName(name);
-                     string save_file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name;
+                     string save_file_path =  HttpRuntime.Cache["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name;
 
                     try
                     {

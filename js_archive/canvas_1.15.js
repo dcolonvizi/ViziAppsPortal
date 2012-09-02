@@ -109,11 +109,39 @@ function createDragResize(selector) {
     box[3] = parseInt(CanvasFrame.style.height.replace('px', ''));
     $(selector).draggable({ distance: 5,
         drag: function (event, ui) {
+            var grid = $(selector).draggable("option", "grid");
+            if (isGridSnapSet && (!grid || grid[0] != gridSize)) {
+                //make sure we start at the correct grid point
+                var top = parseInt($(this).css('top').replace('px', ''));
+                if (top % gridSize != 0)
+                    $(this).css('top', top - top % gridSize + 'px');
+
+                var left = parseInt($(this).css('left').replace('px', ''));
+                if (left % gridSize != 0)
+                    $(this).css('left', left - left % gridSize + 'px');
+            }
+            else if (isGridSnapSet) {
+                //then go on with grid snap
+                $(this).draggable("option", "grid", [gridSize, gridSize]);
+            }
+            else if (!isGridSnapSet) {
+                $(".selector").draggable("option", "snap", false);
+                //$(this).draggable("option", "grid", [1, 1]);
+            }
+
             createHelper(this);
             createAlignment(this);
-            $(this).draggable("option", "distance", 1);
         },
         stop: function (event, ui) {
+            if (isGridSnapSet) {
+                var top = parseInt($(this).css('top').replace('px', ''));
+                if (top % gridSize != 0)
+                    $(this).css('top', top - top % gridSize + 'px');
+
+                var left = parseInt($(this).css('left').replace('px', ''));
+                if (left % gridSize != 0)
+                    $(this).css('left', left - left % gridSize + 'px');
+            }
             removeAlignment();
             $(this).draggable("option", "distance", 5);
             getCanvasHtml();
@@ -432,4 +460,18 @@ function resumeScrolling() {
         scrollIE();
     else
         scrollNS();
+}
+var isGridSnapSet = false;
+var gridSize = 10;
+function SetSnapToGrid() {
+    isGridSnapSet = true;
+}
+function ResetSnapToGrid() {
+    isGridSnapSet = false;
+}
+function setGridSize(size) {
+    gridSize = size;
+}
+function getGridSize() {
+    return gridSize;
 }

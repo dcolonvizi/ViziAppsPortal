@@ -33,9 +33,9 @@ public partial class TabDesignWeb : System.Web.UI.Page
         try
         {
             if (util.CheckSessionTimeout(State,Response,"Default.aspx")) return;
-            if (State["TechSupportEmail"] != null)
+            if ( HttpRuntime.Cache["TechSupportEmail"] != null)
             {
-                util.AddEmailToButton(SupportButton, State["TechSupportEmail"].ToString(), "Email To Tech Support");
+                util.AddEmailToButton(SupportButton,  HttpRuntime.Cache["TechSupportEmail"].ToString(), "Email To Tech Support");
             }
             util.UpdateSessionLog(State, "post", "TabDesignWeb");
 
@@ -43,6 +43,7 @@ public partial class TabDesignWeb : System.Web.UI.Page
 
             if (!IsPostBack)
             {
+                CopyRight.InnerText = HttpRuntime.Cache["CopyRight"].ToString();
                 UserLabel.Text = State["Username"].ToString();
 
                 if (CurrentApp.Items.Count == 0 || CurrentApp.SelectedValue.Contains("->") ||
@@ -1399,7 +1400,7 @@ public partial class TabDesignWeb : System.Web.UI.Page
             State["IsProduction"] = false;
             string file_name =  State["SelectedApp"].ToString().Replace(" ", "_") + Constants.WEB_APP_TEST_SUFFIX +"/index.html";
 
-            string save_file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name.Replace(Constants.WEB_APP_TEST_SUFFIX + "/index.html", ".html");
+            string save_file_path =  HttpRuntime.Cache["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name.Replace(Constants.WEB_APP_TEST_SUFFIX + "/index.html", ".html");
 
             string ret = web_util.GetWebApp(State, util.GetStagingAppXml(State), 1.0D,1.0D);
             if (ret.StartsWith("Error:"))

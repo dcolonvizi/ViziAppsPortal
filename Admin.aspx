@@ -287,7 +287,7 @@
                 </td>
             <td class="style28">
                 <asp:Button ID="EmailCustomers" runat="server" CausesValidation="False" 
-                    Font-Names="Arial" Font-Size="10pt" Text="Email Customers" Width="140px" 
+                    Font-Names="Arial" Font-Size="10pt" Text="Email Customers" Width="148px" 
                      />
                 </td>
             <td class="style28">

@@ -473,7 +473,7 @@ public partial class Admin : System.Web.UI.Page
         {
             string To = db.ViziAppsExecuteScalar(State, "SELECT email FROM customers WHERE username='" + username + "'");
             Email email = new Email();
-            string From =  State["TechSupportEmail"].ToString();
+            string From =   HttpRuntime.Cache["TechSupportEmail"].ToString();
             string Body = "The ViziApps Studio will be down in 1 minute for 5 minutes for an upgrade maintenance.\n\nSorry for the inconvenience.\n\n--ViziApps Support";
             string status = email.SendEmail(State, From, To, "", "", "ViziApps Studio Maintenance Notice", Body, "",false);
             if (status.IndexOf("OK") < 0)

@@ -317,7 +317,7 @@ public partial class AppBrandingBilling : System.Web.UI.Page
             body.Append("App Name: " + State["SelectedApp"].ToString() + "\n");
             body.Append("\n-- ViziApps Support");
             Email email = new Email();
-            string status = email.SendEmail(State, State["TechSupportEmail"].ToString(), State["TechSupportEmail"].ToString(),"", "", "Customer submitted App for App Store Preparation", body.ToString(), "", false);
+            string status = email.SendEmail(State,  HttpRuntime.Cache["TechSupportEmail"].ToString(),  HttpRuntime.Cache["TechSupportEmail"].ToString(),"", "", "Customer submitted App for App Store Preparation", body.ToString(), "", false);
             
             
             return true;

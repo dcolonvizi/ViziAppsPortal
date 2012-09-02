@@ -17,12 +17,6 @@ public partial class CreateAccount : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         MessageLabel.Text = "";
-        if (!IsPostBack)
-        {
-            Init init = new Init();
-            Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
-            init.InitSiteConfigurations(State);
-        }
     }
     protected void CreateAccountSubmit_ServerClick(object sender, EventArgs e)
     {
@@ -117,8 +111,8 @@ public partial class CreateAccount : System.Web.UI.Page
                     EmailTextBox.Text.ToLower().Trim(), phone, account_type, ReferralSourceList.SelectedValue,AppToBuild.Text, "inactive");
 
             string email_template_path = Server.MapPath(".") + @"\templates\EmailValidation.txt";
-            string url =  State["PublicViziAppsUrl"].ToString() + "/ValidateEmail.aspx?id=" + customer_id;
-            string from =  State["TechSupportEmail"].ToString();
+            string url =   HttpRuntime.Cache["PublicViziAppsUrl"].ToString() + "/ValidateEmail.aspx?id=" + customer_id;
+            string from =   HttpRuntime.Cache["TechSupportEmail"].ToString();
             string body = File.ReadAllText(email_template_path)
                     .Replace("[NAME]", FirstNameTextBox.Text.Trim())
                     .Replace("[LINK]",url)

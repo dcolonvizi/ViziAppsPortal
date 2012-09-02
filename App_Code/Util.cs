@@ -133,8 +133,8 @@ public class Util
     public bool IsAppStoreSubmissionPaid(Hashtable State, string app_name)
     {
         DB db = new DB();
-        string sql = "SELECT COUNT(*) FROM paid_services WHERE (sku='" + State["iOSSubmitServiceSku"].ToString() +
-            "' OR sku='" + State["AndroidSubmitServiceSku"].ToString() + "') AND app_name ='" + app_name + "' AND customer_id='" + State["CustomerID"].ToString() + "' AND status='paid'";
+        string sql = "SELECT COUNT(*) FROM paid_services WHERE (sku='" +  HttpRuntime.Cache["iOSSubmitServiceSku"].ToString() +
+            "' OR sku='" +  HttpRuntime.Cache["AndroidSubmitServiceSku"].ToString() + "') AND app_name ='" + app_name + "' AND customer_id='" + State["CustomerID"].ToString() + "' AND status='paid'";
         string count = db.ViziAppsExecuteScalar(State, sql);
         db.CloseViziAppsDatabase(State);
         return (count == "0") ? false : true;
@@ -584,8 +584,7 @@ public class Util
             {
                 //this shouldn't happen so report this now and go on
                 String error = "Application Cache UsersList has been set to null";
-                TimeZones tz = new TimeZones();
-                string NOW = tz.GetCurrentDateTimeMySqlFormat(State);
+                string NOW = GetCurrentDateTimeUTCMySqlFormat();
 
                 sql = "INSERT INTO error_log SET log_id=UUID(), timestamp='" + NOW + "',username='" +
                    username + "',app='no app selectred',error='" + error + "',stacktrace='no stack trace'";
@@ -720,8 +719,7 @@ public class Util
                 {
                     //this shouldn't happen so report this now and go on
                     String error = "Application Cache UsersList has been set to null";
-                    TimeZones tz = new TimeZones();
-                    string NOW = tz.GetCurrentDateTimeMySqlFormat(State);
+                    string NOW = GetCurrentDateTimeUTCMySqlFormat();
 
                     sql = "INSERT INTO error_log SET log_id=UUID(), timestamp='" + NOW + "',username='" +
                        username + "',app='no app selectred',error='" + error + "',stacktrace='no stack trace'";
@@ -813,11 +811,7 @@ public class Util
     }
     public void SetLoggedIn(Hashtable State)
     {
-        if (ConfigurationManager.AppSettings["DebugSessions"] == "true")
-        {
-            StartSessionLog(State);
-        }
-
+        StartSessionLog(State);
         State["LoggedIn"] = true;
     }
     public bool HasAgreedToEula(Hashtable State)
@@ -876,7 +870,7 @@ public class Util
         sql.Append(",first_name='" + MySqlFilter(first_name) + "'");
         sql.Append(",last_name='" + MySqlFilter(last_name) + "'");
         sql.Append(",email='" + email + "'");
-        double DefaultTimeZoneDeltaHours = Convert.ToDouble(State["DefaultTimeZoneDeltaHours"].ToString());
+        double DefaultTimeZoneDeltaHours = Convert.ToDouble( HttpRuntime.Cache["DefaultTimeZoneDeltaHours"].ToString());
         TimeZones zone_util = new TimeZones();
         string zone = Convert.ToString(DefaultTimeZoneDeltaHours + zone_util.GetDaylightSavingsTimeOffset(DateTime.Now.ToUniversalTime()));
         sql.Append(",default_time_zone_delta_hours='" + zone + "'");
@@ -1275,7 +1269,7 @@ public class Util
         DB db = new DB();
 
         //This function assumes that the new_app_name is unique;
-        string sql = "SELECT customer_id FROM customers WHERE username='" + State["TemplatesAccount"].ToString() + "'";
+        string sql = "SELECT customer_id FROM customers WHERE username='" +  HttpRuntime.Cache["TemplatesAccount"].ToString() + "'";
         string customer_id = db.ViziAppsExecuteScalar(State, sql);
 
         StringBuilder b_sql = new StringBuilder("SELECT * FROM applications ");
@@ -1851,13 +1845,13 @@ public class Util
     {
         DB db = new DB();
         string template_account = null;
-        if (State["Username"].ToString() == State["TemplatesAccount"].ToString())
+        if (State["Username"].ToString() ==  HttpRuntime.Cache["TemplatesAccount"].ToString())
         {
-            template_account = State["DevAccount"].ToString();
-            State["TemplatesAccount"] = template_account;
+            template_account =  HttpRuntime.Cache["DevAccount"].ToString();
+             HttpRuntime.Cache["TemplatesAccount"] = template_account;
         }
         else
-            template_account = State["TemplatesAccount"].ToString();
+            template_account =  HttpRuntime.Cache["TemplatesAccount"].ToString();
 
         string sql = "SELECT customer_id FROM customers WHERE username='" + template_account + "'";
         string customer_id = db.ViziAppsExecuteScalar(State, sql);
@@ -2273,7 +2267,7 @@ public class Util
         //save design in a file
         DynamoDB ddb = new DynamoDB();
         string file_name = app_name.Replace(" ", "_") + ".xml";
-        string file_path = State["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name;
+        string file_path =  HttpRuntime.Cache["TempFilesPath"].ToString() + State["Username"].ToString() + "." + file_name;
         Design.Save(file_path);
 
         //save design in S3
@@ -2559,8 +2553,8 @@ public class Util
     {
         DB db = new DB();
         string sql = "SELECT status,sku FROM paid_services WHERE status='paid' AND sku != '" +
-             State["iOSSubmitServiceSku"].ToString() + "' AND  sku != '" +
-             State["AndroidSubmitServiceSku"].ToString() + "' AND application_id='" + application_id + "'";
+              HttpRuntime.Cache["iOSSubmitServiceSku"].ToString() + "' AND  sku != '" +
+              HttpRuntime.Cache["AndroidSubmitServiceSku"].ToString() + "' AND application_id='" + application_id + "'";
         DataRow[] rows = db.ViziAppsExecuteSql(State, sql);
         if (rows.Length > 0)
         {
@@ -2598,21 +2592,11 @@ public class Util
             return null;
         }
     }
-    public bool IsFreeTrialDone(Hashtable State)
-    {
-        DB db = new DB();
-        string sql = "SELECT COUNT(*) FROM customers WHERE customer_id='" + State["CustomerID"].ToString() +
-            "' AND n_logins>3 AND registration_date_time < DATE_SUB(CURDATE(),INTERVAL " + ConfigurationManager.AppSettings["DaysForFreeTrial"] + " DAY) ";
-        string count = db.ViziAppsExecuteScalar(State, sql);
-        db.CloseViziAppsDatabase(State);
-        return (count == "1") ? true : false;
-    }
-
     public long GetMaxUsers(Hashtable State)
     {
         DB db = new DB();
-        string sql = "SELECT sku FROM paid_services WHERE (sku!='" + State["iOSSubmitServiceSku"].ToString() +
-            "' AND sku!='" + State["AndroidSubmitServiceSku"].ToString() + "') AND status='paid' AND app_name='" +
+        string sql = "SELECT sku FROM paid_services WHERE (sku!='" +  HttpRuntime.Cache["iOSSubmitServiceSku"].ToString() +
+            "' AND sku!='" +  HttpRuntime.Cache["AndroidSubmitServiceSku"].ToString() + "') AND status='paid' AND app_name='" +
             State["SelectedApp"].ToString() +
             "' AND customer_id='" + State["CustomerID"].ToString() + "'";
         DataRow[] rows = db.ViziAppsExecuteSql(State, sql);
@@ -2823,8 +2807,7 @@ public class Util
                 string error = MySqlFilter(ex.Message + "; sql: " + sql_used);
                 string stacktrace = MySqlFilter(ex.StackTrace);
 
-                TimeZones tz = new TimeZones();
-                string NOW = tz.GetCurrentDateTimeMySqlFormat(State);
+                string NOW = GetCurrentDateTimeUTCMySqlFormat();
 
                 string app = "No app selected";
                 if (State["SelectedApp"] != null)
@@ -2857,8 +2840,7 @@ public class Util
                 string error = MySqlFilter(ex.Message);
                 string stacktrace = MySqlFilter(ex.StackTrace);
 
-                TimeZones tz = new TimeZones();
-                string NOW = tz.GetCurrentDateTimeMySqlFormat(State);
+                string NOW = GetCurrentDateTimeUTCMySqlFormat();
 
                 string app = "No app selected";
                 if (State["SelectedApp"] != null)
@@ -2874,67 +2856,23 @@ public class Util
     }
     public void StartSessionLog(Hashtable State)
     {
-        DB db = new DB();
-        //does State already exist?
-        string sql = "SELECT COUNT(*) FROM sessions WHERE session_id='" + State["SessionID"].ToString() + "'";
-        string count = db.ViziAppsExecuteScalar(State, sql);
-        if (count != "0")
-        {
-            UpdateSessionLog(State, "login", "Default");
-            return;
-        }
-
-        string timestamp = DateTime.Now.ToString("u").Replace("Z", "");
-        string trace = "time: " + timestamp + ", type: login, page: Default";
-        sql = "INSERT INTO sessions SET " +
-             "session_id='" + State["SessionID"].ToString() + "'," +
-             "username='" + State["Username"].ToString() + "'," +
-             "first_session_date_time='" + timestamp + "'," +
-             "last_session_date_time='" + timestamp + "'," +
-             "session_duration='0'," +
-             "trace='" + trace + "'";
-        try
-        {
-            db.ViziAppsExecuteNonQuery(State, sql);
-        }
-        catch (Exception ex) { }; //exception for duplicate State ids on login in debug
-        db.CloseViziAppsDatabase(State);
-    }
-    public void UpdateSessionLog(Hashtable State, string type, string page)
+        UpdateSessionLog(State,"login","Default");
+     }
+    public void UpdateSessionLog(Hashtable State, string use, string page)
     {
         try
         {
-            DB db = new DB();
-            string sql = "SELECT first_session_date_time,last_session_date_time FROM sessions WHERE session_id='" + State["SessionID"].ToString() + "'";
-            DataRow[] rows = db.ViziAppsExecuteSql(State, sql);
-            if (rows.Length == 0)
-                return; // call is before login
-            DataRow row = rows[0];
-            string first_session_date_time = row["first_session_date_time"].ToString();
-            if (first_session_date_time == null)
-                return; // call is before login
-
-            if (type.Contains("timeout:"))
-            {
-                sql = "UPDATE sessions SET n_timeouts=n_timeouts+1 WHERE session_id='" + State["SessionID"].ToString() + "'";
-                db.ViziAppsExecuteNonQuery(State, sql);
-            }
-            string last_session_date_time = row["last_session_date_time"].ToString();
-            DateTime first = DateTime.Parse(first_session_date_time);
-            DateTime last = DateTime.Parse(last_session_date_time);
-            DateTime now = DateTime.Now;
-            string timestamp = now.ToString("u").Replace("Z", "");
-            TimeSpan total_duration = now - first;
-            TimeSpan step_duration = now - last;
-            string trace = "; time: " + timestamp + ", step_duration: " + step_duration.TotalMinutes.ToString() + ", type: " + type + ", page: " + page;
-            sql = "UPDATE sessions SET " +
-                "last_session_date_time='" + timestamp + "'," +
-                "session_duration='" + total_duration.TotalMinutes.ToString() + "'," +
-                "trace=concat(trace,'" + trace + "') WHERE session_id='" + State["SessionID"].ToString() + "'";
-            db.ViziAppsExecuteNonQuery(State, sql);
-            db.CloseViziAppsDatabase(State);
+            DynamoDB ddb = new DynamoDB();
+            Document DDBDoc = new Document();
+            DDBDoc["username"] = State["Username"].ToString();
+            DDBDoc["session_date_time"] = DateTime.UtcNow.ToString("s") + "Z";
+            DDBDoc["use"] = use;
+            DDBDoc["page"] = page;
+            int n_current_users = GetNumberOfCurrentUsers(State);
+            DDBDoc["n_current_users"] = n_current_users.ToString();
+            ddb.PutItem(State, "studio_usage", DDBDoc);
         }
-        catch { } //if there is an error keep going
+        catch{} //if there is an error keep going
     }
     public void LogSessionTimeOut(Hashtable State, string page)
     {
@@ -2975,7 +2913,7 @@ public class Util
         }
         string info = "cache values: " + values.ToString();
 
-        string trace = "timeout: " + info + ", stack: " + stack.ToString();
+        string trace = "timeout: " + info + "; stack: " + stack.ToString();
         UpdateSessionLog(State, trace, page);
     }
     public void LogWindowsEvent(string event_message)
@@ -3566,7 +3504,7 @@ public class Util
     }
     public void DeleteOldTempFiles(Hashtable State)
     {
-        string[] files = Directory.GetFiles(State["TempFilesPath"].ToString());
+        string[] files = Directory.GetFiles( HttpRuntime.Cache["TempFilesPath"].ToString());
         DateTime now = DateTime.UtcNow;
         foreach (string file in files)
         {
@@ -3587,6 +3525,16 @@ public class Util
             }
         }
     }
+    public void DeleteOldErrorsInLog(Hashtable State)
+    {
+        DB db = new DB();
+        DateTime old = DateTime.UtcNow.AddDays(-Convert.ToDouble(ConfigurationManager.AppSettings["DaysToKeepErrorLogs"]));
+        String OLD =  old.ToString("s").Replace("T", " ");
+        string sql = "DELETE FROM error_log  WHERE timestamp<'" + OLD + "'";
+        db.ViziAppsExecuteNonQuery(State, sql);
+        db.CloseViziAppsDatabase(State);
+    }
+    
     public static string Encrypt(string clearText, string Password)
     {
         // First we need to turn the input string into a byte array. 
@@ -3770,4 +3718,15 @@ public class Util
 
         return decryptedData;
     }
+    public string GetCurrentDateTimeUTCMySqlFormat()
+    {
+        DateTime now = DateTime.UtcNow;
+        return now.ToString("s").Replace("T", " ");
+    }
+    public int GetNumberOfCurrentUsers(Hashtable State)
+    {
+        Hashtable UsersList = (Hashtable)HttpRuntime.Cache["UsersList"];
+        return UsersList.Keys.Count;
+    }
+
 }
