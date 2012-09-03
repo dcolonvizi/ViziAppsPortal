@@ -11,8 +11,20 @@
         {
         	 background-color:#bcbcbc;
         	 font-family:Arial;
-        	 font-size:11px;
+        	 font-size:12px;
         }   
+         .style1
+         {
+             height: 48px;
+         }
+         .style2
+         {
+             height: 101px;
+         }
+         .style3
+         {
+             height: 113px;
+         }
         </style>
 
 </head>
@@ -154,7 +166,8 @@
                 </table>
                 </div>  
       <div align="center" style="width:100%;height: 30px">
-               <table border="0" cellpadding="0" cellspacing="0" id="tabs"  style="width:100%;height:30px; border:0px; padding:0px;  vertical-align:top;  margin:0px; background-image:url(images/tabs_section.gif); background-repeat:repeat-x  ">
+               <table border="0" cellpadding="0" cellspacing="0" id="tabs"  
+                   style="border-style: none; border-color: inherit; border-width: 0px; width:100%;height:2px; padding:0px;  vertical-align:top;  margin:0px; background-image:url('images/tabs_section.gif'); background-repeat:repeat-x">
                     <tr><td align="center" valign="top">
                      <div align="center">
                       
@@ -168,31 +181,25 @@
                          
                             <Items>
                              <telerik:RadMenuItem ImageUrl="~/images/MySolutionsButton.png" HoveredImageUrl="~/images/MySolutionsButton_hov.png"
-                        SelectedImageUrl="~/images/MySolutionsButton_sel.png"  Value="MySolutions" 
+                        SelectedImageUrl="~/images/MySolutionsButton_sel.png"  Value="TabMySolutions.aspx" 
                                     TabIndex="1200"/>
-                               <telerik:RadMenuItem ImageUrl="~/images/DisplayDesignButton.png" HoveredImageUrl="~/images/DisplayDesignButton_hov.png"
-                        SelectedImageUrl="~/images/DisplayDesignButton_sel.png"  Value="DesignNative" TabIndex="1300" ><Items>
-                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayNativeDesignButton_sel.png" HoveredImageUrl="~/images/DisplayNativeDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayNativeDesignButton_sel.png" Value="DesignNative"/>
-                               <telerik:RadMenuItem  ImageUrl="~/images/DisplayWebDesignButton.png" HoveredImageUrl="~/images/DisplayWebDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayWebDesignButton_sel.png" Value="DesignWeb"/>
-                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayHybridDesignButton.png" HoveredImageUrl="~/images/DisplayHybridDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayHybridDesignButton_sel.png" Value="DesignHybrid"/>
+                              <telerik:RadMenuItem ImageUrl="~/images/DisplayDesignButton.png" HoveredImageUrl="~/images/DisplayDesignButton_hov.png"
+                        SelectedImageUrl="~/images/DisplayDesignButton_sel.png"  Value="TabDesignNative.aspx" TabIndex="1300" ><Items>
+                                <telerik:RadMenuItem  ImageUrl="~/images/DisplayNativeDesignButton.png" HoveredImageUrl="~/images/DisplayNativeDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayNativeDesignButton_sel.png" Value="TabDesignNative.aspx"/>
+                                <telerik:RadMenuItem  ImageUrl="~/images/DisplayWebDesignButton.png" HoveredImageUrl="~/images/DisplayWebDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayWebDesignButton_sel.png" Value="TabDesignWeb.aspx"/>
+                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayHybridDesignButton.png" HoveredImageUrl="~/images/DisplayHybridDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayHybridDesignButton_sel.png" Value="TabDesignHybrid.aspx"/>
                                  </Items>
                              </telerik:RadMenuItem>
-
-                            <telerik:RadMenuItem ImageUrl="~/images/ProvisionButton_sel.png" HoveredImageUrl="~/images/ProvisionButton_hov.png"
-                        SelectedImageUrl="~/images/ProvisionButton_sel.png"  Value="Publish" TabIndex="1500"/>
+                            <telerik:RadMenuItem ImageUrl="~/images/ProvisionButton.png" HoveredImageUrl="~/images/ProvisionButton_hov.png"
+                        SelectedImageUrl="~/images/ProvisionButton_sel.png"  Value="TabPublish.aspx" Selected="true" TabIndex="1500"/>
                             <telerik:RadMenuItem ImageUrl="~/images/FAQButton.png" HoveredImageUrl="~/images/FAQButton_hov.png"
-                        SelectedImageUrl="~/images/FAQButton_sel.png"  Value="FAQ" TabIndex="1600"/>
+                        SelectedImageUrl="~/images/FAQButton_sel.png"  Value="TabFAQ.aspx" TabIndex="1600"/>
                        <telerik:RadMenuItem ImageUrl="~/images/MyProfileButton.png" HoveredImageUrl="~/images/MyProfileButton_hov.png"
-                        SelectedImageUrl="~/images/MyProfileButton_sel.png"  Value="MyProfile" TabIndex="1700"/>
+                        SelectedImageUrl="~/images/MyProfileButton_sel.png"  Value="TabMyProfile.aspx" TabIndex="1700"/>
                        
 
                          </Items>
-
-<WebServiceSettings>
-<ODataSettings InitialContainerName=""></ODataSettings>
-</WebServiceSettings>
                           </telerik:RadMenu>
-                      
                        
                           </td></tr>
                           </table>
@@ -202,62 +209,41 @@
                 </table>   
                
                 </div>  
+                <div style="height:15px"></div>
+    <div align="center">
+    <table style="width:800px; text-align:left; background-image:url('Billing/images/billing_background.png'); background-repeat:no-repeat"><tr>
+        <td style="width:225px; vertical-align:top">
+    <div style="height:20px;"></div>
+   <telerik:RadMenu ID="PublishMenu" runat="server" Skin="" 
+                                                               
+                             style="border-width: 0px; margin: 0px; padding: 0px; vertical-align:top; z-index:100; top: 0px; left: 0px;" 
+                             TabIndex="1100"  Flow="Vertical"  
+            onitemclick="PublishMenu_ItemClick">
+                         
+                            <Items>
+                             <telerik:RadMenuItem ImageUrl="~/Billing/images/SubmitPublishingFormButton.png" HoveredImageUrl="~/Billing/images/SubmitPublishingFormButton_hov.png"
+                          Value="~/Billing/PublishingForm.aspx" 
+                                    TabIndex="1200"/>
+                               <telerik:RadMenuItem ImageUrl="~/Billing/images/AppStorePreparationButton.png" HoveredImageUrl="~/Billing/images/AppStorePreparationButton_hov.png"
+                          Value="~/Billing/AppBrandingBilling.aspx" TabIndex="1300" />
+                                 <telerik:RadMenuItem  ImageUrl="~/Billing/images/AddPublishingServiceButton.png" HoveredImageUrl="~/Billing/images/AddPublishingServiceButton_hov.png"  Value="~/Billing/NewPublishingService.aspx"/>
+                               <telerik:RadMenuItem  ImageUrl="~/Billing/images/ModifyPublishingServiceButton.png" HoveredImageUrl="~/Billing/images/ModifyPublishingServiceButton_hov.png"   Value="~/Billing/ModifyPublishingService.aspx"/>
+                                 <telerik:RadMenuItem  ImageUrl="~/Billing/images/CancelPublishingServiceButton.png" HoveredImageUrl="~/Billing/images/CancelPublishingServiceButton_hov.png"  Value="~/Billing/CancelPublishingService.aspx"/>
+                                
+                            <telerik:RadMenuItem ImageUrl="~/Billing/images/ShowBillingHistoryButton.png" HoveredImageUrl="~/Billing/images/ShowBillingHistoryButton_hov.png"
+                          Value="~/Billing/ShowBillingHistory.aspx" TabIndex="1500"/>
+                         </Items>
 
-    
-
-     <table class="billingblock" >
-     <tr>
-     
-     <!-- Links Table -->
-     <td valign="top" >
-     <table style="width: 300px">
-          <tr><td  > 
-             <asp:Button ID="PublishingFormButton" 
-                 runat="server"  Text="1. Submit Publishing Form" CssClass="bluebutton" 
-                 onclick="PublishingFormButton_Click" Width="285px" /> </td> </tr>
-
-
-         <tr><td  > 
-             <asp:Button ID="AppBrandingButton" 
-                 runat="server"  Text="2. App Store Preparation" CssClass="bluebutton" 
-                 onclick="AppBrandingButton_Click" Width="285px" /> </td> </tr>
-         
-         <tr><td > 
-             <asp:Button ID="NewSubscriptionButton" 
-                 runat="server"  CssClass="bluebutton" Text="3. Add Publishing Service"  
-                 onclick="NewSubscriptionButton_Click" Width="285px" /> </td></tr>
-         
-         <tr><td > 
-             <asp:Button ID="ModifySubscriptionButton" 
-                runat="server" CssClass="bluebutton" Text="4. Modify Publishing Service" 
-                onclick="ModifySubscriptionButton_Click" Width="285px" /> </td></tr>
-         
-
-         <tr><td > 
-             <asp:Button ID="CancelSubscriptionButton" 
-                runat="server" CssClass="bluebutton" Text="5. Cancel Publishing Service" 
-                onclick="CancelSubscriptionButton_Click" Width="285px" /> </td></tr>
+                         </telerik:RadMenu>
+    </td><td>
+    <div>
+    <td valign="top"> 
+         <center><span style="font-size:18px;color:#444444;height:30px">App Submission and Publishing Steps</span> </center>
 
 
-         <tr><td > 
-             <asp:Button ID="BillingHistoryButton" 
-                runat="server" CssClass="bluebutton" Text="6. Show Billing History" 
-                Width="285px" onclick="BillingHistoryButton_Click" /> </td></tr>
-
-       </table>
-     </td>
-     <!-- Links Table -->
-
-     
-
-
-     <!-- Native & Web Content Table -->
-     <td valign="top"> 
-         <center><h3>App Submission and Publishing Steps</h3> </center>
-
-
-     <table>
-     <tr><td ><p class="billinginstructions"><strong> 1. Submit Publishing Form</strong>
+     <table style="font-family:Arial;font-size:12px; text-align:left;height:445px" cellpadding="0" 
+             cellspacing="0">
+     <tr><td class="style1" ><p class="billinginstructions"><strong> 1. Submit Publishing Form</strong>
      Submit the publishing form along with the splash screen and the icon for the App. </p>
          <p class="billinginstructions">For Web Apps, ViziApps Engineering team will host 
              your published web app but if you fail to add a publishing service (step3 below) 
@@ -265,7 +251,7 @@
      </td></tr>
 
 
-     <tr><td >
+     <tr><td class="style2" >
          <p class="billinginstructions"><strong> 2. App Store Preparation (Native and 
              Hybrid Apps only):</strong>
      ViziApps Engineering team will take the App that you have designed and create the final 
@@ -279,9 +265,7 @@
      
 
      
-     <tr><td><p class="billinginstructions"><strong>3. Add Publishing Service </strong>
-             </p>
-         <p class="billinginstructions">In order for your App to be usable after the initial 
+     <tr><td class="style3"><p class="billinginstructions"><strong>3. Add Publishing Service </strong>In order for your App to be usable after the initial 
              14 days, you have to purchase a ViziApps Publishing Service.&nbsp; Details of 
              the&nbsp; different services offered are available on the 
              <a href="http://www.viziapps.com/features-pricing/" target="new"> ViziApps website. </a>When you are ready to purchase a 
@@ -302,8 +286,7 @@
 
      <tr><td><p class="billinginstructions"><strong>5. Cancel Publishing Service </strong>
      Select this link to cancel your current App Publishing Service.</p>
-     <td></tr>
-
+     
      <tr><td><p class="billinginstructions"><strong>6.Show Billing History</strong>
      Select this link to see your Billing History.</p>
      </td>
@@ -311,10 +294,11 @@
      </table>
 
      </td>
-     <!-- Web Content Table -->
+    </div>
+    </td></tr></table>
+    </div>
+    
 
-     </tr>
-     </table>
 
     </form>
      <div align="center" id="CopyRight" runat="server"></div>

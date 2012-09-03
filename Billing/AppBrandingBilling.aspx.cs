@@ -462,7 +462,7 @@ public partial class AppBrandingBilling : System.Web.UI.Page
         //     SavePage();
 
         string tab = e.Item.Value;
-        Session["MainMenu"] = tab;
+        
         if (tab == "DesignHybrid" || tab == "DesignWeb")
             State["SelectedApp"] = null;
 

@@ -245,29 +245,26 @@
                          
                             <Items>
                              <telerik:RadMenuItem ImageUrl="~/images/MySolutionsButton.png" HoveredImageUrl="~/images/MySolutionsButton_hov.png"
-                        SelectedImageUrl="~/images/MySolutionsButton_sel.png"  Value="MySolutions" 
+                        SelectedImageUrl="~/images/MySolutionsButton_sel.png"  Value="TabMySolutions.aspx" 
                                     TabIndex="1200"/>
                                <telerik:RadMenuItem ImageUrl="~/images/DisplayDesignButton.png" HoveredImageUrl="~/images/DisplayDesignButton_hov.png"
-                        SelectedImageUrl="~/images/DisplayDesignButton_sel.png"  Value="DesignNative" TabIndex="1300" ><Items>
-                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayNativeDesignButton_sel.png" HoveredImageUrl="~/images/DisplayNativeDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayNativeDesignButton_sel.png" Value="DesignNative"/>
-                               <telerik:RadMenuItem  ImageUrl="~/images/DisplayWebDesignButton.png" HoveredImageUrl="~/images/DisplayWebDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayWebDesignButton_sel.png" Value="DesignWeb"/>
-                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayHybridDesignButton.png" HoveredImageUrl="~/images/DisplayHybridDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayHybridDesignButton_sel.png" Value="DesignHybrid"/>
+                        SelectedImageUrl="~/images/DisplayDesignButton_sel.png"  Value="TabDesignNative.aspx" TabIndex="1300" ><Items>
+                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayNativeDesignButton_sel.png" HoveredImageUrl="~/images/DisplayNativeDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayNativeDesignButton_sel.png" Value="TabDesignNative.aspx"/>
+                               <telerik:RadMenuItem  ImageUrl="~/images/DisplayWebDesignButton.png" HoveredImageUrl="~/images/DisplayWebDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayWebDesignButton_sel.png" Value="TabDesignWeb.aspx"/>
+                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayHybridDesignButton.png" HoveredImageUrl="~/images/DisplayHybridDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayHybridDesignButton_sel.png" Value="TabDesignHybrid.aspx"/>
                                  </Items>
                              </telerik:RadMenuItem>
 
                             <telerik:RadMenuItem ImageUrl="~/images/ProvisionButton_sel.png" HoveredImageUrl="~/images/ProvisionButton_hov.png"
                         SelectedImageUrl="~/images/ProvisionButton_sel.png"  Value="Publish" TabIndex="1500"/>
                             <telerik:RadMenuItem ImageUrl="~/images/FAQButton.png" HoveredImageUrl="~/images/FAQButton_hov.png"
-                        SelectedImageUrl="~/images/FAQButton_sel.png"  Value="FAQ" TabIndex="1600"/>
+                        SelectedImageUrl="~/images/FAQButton_sel.png"  Value="TabFAQ.aspx" TabIndex="1600"/>
                        <telerik:RadMenuItem ImageUrl="~/images/MyProfileButton.png" HoveredImageUrl="~/images/MyProfileButton_hov.png"
-                        SelectedImageUrl="~/images/MyProfileButton_sel.png"  Value="MyProfile" TabIndex="1700"/>
+                        SelectedImageUrl="~/images/MyProfileButton_sel.png"  Value="TabMyProfile.aspx" TabIndex="1700"/>
                        
 
                          </Items>
 
-<WebServiceSettings>
-<ODataSettings InitialContainerName=""></ODataSettings>
-</WebServiceSettings>
                           </telerik:RadMenu>
                       
                        
@@ -313,11 +310,12 @@
 
      
 
-     <!-- OUTERTABLE -->    
-     <table width=100%>
+     <div align="center">
+     <table style="width:800px">
      <tr><td valign="top">
 
-      <asp:Button ID="BackButton" runat="server" onclick="BackButton_Click"   class="bluebutton"  Text="Back" Height="47px" Width="73px" />      
+      <asp:Button ID="BackButton" runat="server" onclick="BackButton_Click"   
+             class="bluebutton"  Text="Back" Height="30px" Width="73px" />      
  
      </td>
      
@@ -330,7 +328,7 @@
      <!-- BRANDING TABLE -->    
     <tr><td colspan=5>
     <center>
-    <h3> App Store Preparation</h3>
+    <div class="billinglabel" style="height: 20px;"> App Store Preparation</div>
                      <telerik:RadComboBox ID="RadComboAppSelector" 
                                      runat="server" 
                                     AutoPostBack="True" 
@@ -338,10 +336,11 @@
                                      Font-Size="12pt" 
                                      Width="350px" 
                                      MarkFirstMatch="True"  
-                                     Skin="Web20" 
-                                     Label="Select your App"
+                                     Skin="Vista" 
+                                     Label="Select your App   "
                                      CssClass="combolabel"
-                                     onselectedindexchanged="RadComboAppSelector_SelectedIndexChanged">
+                                     
+            onselectedindexchanged="RadComboAppSelector_SelectedIndexChanged">
 
                  <Items>
                  </Items>
@@ -546,7 +545,7 @@
                                      Font-Size="10pt" 
                                      Width="155px" 
                                      MarkFirstMatch="True"  
-                                     Skin="Web20">
+                                     Skin="Vista">
 
                  <Items>
                      <telerik:RadComboBoxItem runat="server"  Text=""  Value="" />
@@ -901,7 +900,7 @@
                     Text="Submit" 
                     CausesValidation="true" 
                     validationGroup="formdata" 
-                    OnClick="SubmitButton_Click" />
+                    OnClick="SubmitButton_Click" Height="30px" />
 
             
          </center>
@@ -914,7 +913,7 @@
                        Text="Reset" 
                        CausesValidation="true" 
                        ValidationGroup="formdata" 
-                       OnClientClick="theForm.reset();return false;" />
+                       OnClientClick="theForm.reset();return false;" Height="30px" />
             </center>
            </td>
            
@@ -935,7 +934,7 @@
     
     </td></tr>   
     </table>
-    <!-- END OUTERTABLE -->    
+   </div>  
 
 
 

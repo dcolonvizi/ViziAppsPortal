@@ -198,7 +198,6 @@ public partial class Default : System.Web.UI.Page
                     {
                          State["LoggedInFromGoogleApps"] = null;
                     }
-                     State["MainMenu"] = "MySolutions";
                     Response.Redirect("TabMySolutions.aspx", false);
                 }
                 break;

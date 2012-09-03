@@ -181,7 +181,6 @@ public partial class TabMySolutions : System.Web.UI.Page
         string app = cell.Text;
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         State["SelectedApp"] = app;
-         State["MainMenu"] = "Design";
         Util util = new Util();
          State["SelectedAppType"] = util.GetAppType(State);
          switch (State["SelectedAppType"].ToString())
@@ -302,8 +301,8 @@ public partial class TabMySolutions : System.Web.UI.Page
         if (util.CheckSessionTimeout(State, Response, "Default.aspx")) return;
 
         string tab = e.Item.Value;
-        Session["MainMenu"] = tab;
-        Response.Redirect("Tab" + tab + ".aspx", false);
+        
+        Response.Redirect(tab, false);
     }
     protected void Close_Click(object sender, ImageClickEventArgs e)
     {

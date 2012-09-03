@@ -359,8 +359,8 @@ public partial class MyProfile : System.Web.UI.Page
         if (util.CheckSessionTimeout(State, Response, "Default.aspx")) return;
 
         string tab = e.Item.Value;
-        Session["MainMenu"] = tab;
-         Response.Redirect("Tab" + tab + ".aspx", false);
+        
+         Response.Redirect(tab, false);
     }
             
 }

@@ -222,29 +222,26 @@
                          
                             <Items>
                              <telerik:RadMenuItem ImageUrl="~/images/MySolutionsButton.png" HoveredImageUrl="~/images/MySolutionsButton_hov.png"
-                        SelectedImageUrl="~/images/MySolutionsButton_sel.png"  Value="MySolutions" 
+                        SelectedImageUrl="~/images/MySolutionsButton_sel.png"  Value="TabMySolutions.aspx" 
                                     TabIndex="1200"/>
                                <telerik:RadMenuItem ImageUrl="~/images/DisplayDesignButton.png" HoveredImageUrl="~/images/DisplayDesignButton_hov.png"
-                        SelectedImageUrl="~/images/DisplayDesignButton_sel.png"  Value="DesignNative" TabIndex="1300" ><Items>
-                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayNativeDesignButton_sel.png" HoveredImageUrl="~/images/DisplayNativeDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayNativeDesignButton_sel.png" Value="DesignNative"/>
-                               <telerik:RadMenuItem  ImageUrl="~/images/DisplayWebDesignButton.png" HoveredImageUrl="~/images/DisplayWebDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayWebDesignButton_sel.png" Value="DesignWeb"/>
-                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayHybridDesignButton.png" HoveredImageUrl="~/images/DisplayHybridDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayHybridDesignButton_sel.png" Value="DesignHybrid"/>
+                        SelectedImageUrl="~/images/DisplayDesignButton_sel.png"  Value="TabDesignNative.aspx" TabIndex="1300" ><Items>
+                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayNativeDesignButton_sel.png" HoveredImageUrl="~/images/DisplayNativeDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayNativeDesignButton_sel.png" Value="TabDesignNative.aspx"/>
+                               <telerik:RadMenuItem  ImageUrl="~/images/DisplayWebDesignButton.png" HoveredImageUrl="~/images/DisplayWebDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayWebDesignButton_sel.png" Value="TabDesignWeb.aspx"/>
+                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayHybridDesignButton.png" HoveredImageUrl="~/images/DisplayHybridDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayHybridDesignButton_sel.png" Value="TabDesignHybrid.aspx"/>
                                  </Items>
                              </telerik:RadMenuItem>
 
                             <telerik:RadMenuItem ImageUrl="~/images/ProvisionButton_sel.png" HoveredImageUrl="~/images/ProvisionButton_hov.png"
                         SelectedImageUrl="~/images/ProvisionButton_sel.png"  Value="Publish" TabIndex="1500"/>
                             <telerik:RadMenuItem ImageUrl="~/images/FAQButton.png" HoveredImageUrl="~/images/FAQButton_hov.png"
-                        SelectedImageUrl="~/images/FAQButton_sel.png"  Value="FAQ" TabIndex="1600"/>
+                        SelectedImageUrl="~/images/FAQButton_sel.png"  Value="TabFAQ.aspx" TabIndex="1600"/>
                        <telerik:RadMenuItem ImageUrl="~/images/MyProfileButton.png" HoveredImageUrl="~/images/MyProfileButton_hov.png"
-                        SelectedImageUrl="~/images/MyProfileButton_sel.png"  Value="MyProfile" TabIndex="1700"/>
+                        SelectedImageUrl="~/images/MyProfileButton_sel.png"  Value="TabMyProfile.aspx" TabIndex="1700"/>
                        
 
                          </Items>
 
-<WebServiceSettings>
-<ODataSettings InitialContainerName=""></ODataSettings>
-</WebServiceSettings>
                           </telerik:RadMenu>
                       
                        
@@ -287,20 +284,21 @@
     
 
 
- <!-- OUTERTABLE -->    
-    <table width=100%>
+ <div align="center" >
+    <table style="width:646px" >
     <tr>
     <td valign="top">
-    <asp:Button ID="Button1" runat="server" onclick="BackButton_Click" class="bluebutton"  Text="Back" Height="47px" Width="73px" />
+    <asp:Button ID="Button1" runat="server" onclick="BackButton_Click" 
+            class="bluebutton"  Text="Back" Height="30px" Width="73px" />
     </td>
      
     <td>  
     <td>
-        <center>
-        <table class="cancelblock"> 
-    <tr><td colspan="2"> 
+        <center style="width: 526px">
+        <table > 
+    <tr><td colspan="2" class="cancelblock"> 
     
-     <center> <h3>Cancel Publishing Service</h3> <br />
+      <div class="billinglabel">Cancel Publishing Service</div>
      
         
   <telerik:RadComboBox ID="RadComboAppSelector" 
@@ -310,16 +308,12 @@
                                      Font-Size="12pt" 
                                      Width="350px" 
                                      MarkFirstMatch="True"  
-                                     Skin="Web20" 
-                                     Label="Select your App"
+                                     Skin="Vista" 
+                                     Label="Select your App   "
                                      CssClass="combolabel"
-                                     onselectedindexchanged="RadComboAppSelector_SelectedIndexChanged">
+                                     
+             onselectedindexchanged="RadComboAppSelector_SelectedIndexChanged">
 
-                 <Items></Items>
-
-                <WebServiceSettings>
-                <ODataSettings InitialContainerName=""></ODataSettings>
-                </WebServiceSettings>
                  </telerik:RadComboBox>
             <br />
             <br />
@@ -327,20 +321,21 @@
 
                 <asp:TextBox ID="CGResponseFlag" runat='server' style="display:none"></asp:TextBox>
                 <br /><br />
-                </center>
+               
     </td>
     </tr>
 
 
     <tr> <td class="billing info"> <div id="cgbilling" class="canceldetails" runat="server"></div></td></tr>         
     </table>
-        
-        <asp:Button ID="CancelSubscriptionsButton" runat="server" onclick="CancelSubscriptionsButton_Click" Text="Submit"  CssClass="bluebutton"/> <br />
+        <asp:Button ID="CancelSubscriptionsButton" runat="server" 
+                onclick="CancelSubscriptionsButton_Click" Text="Submit"  CssClass="bluebutton" 
+                Height="30px"/> <br />
         </center>
     </td>
     </tr>
     </table>
-           
+   </div>        
        <telerik:RadNotification ID="RadNotification1"  runat="server"  
                         VisibleOnPageLoad="false"  
                         Width="300px" 
@@ -362,8 +357,6 @@
                         TitleIcon="images/billing_images/warning_title.png">
 
      </telerik:RadNotification>
-
-</center>
 </form>
 </body>
 </html>

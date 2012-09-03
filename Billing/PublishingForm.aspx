@@ -10,8 +10,10 @@
 
  	<telerik:RadStyleSheetManager id="RadStyleSheetManager1" runat="server" />
     <style type="text/css">
-        .style31
+        body
         {
+            font-family:Arial;
+            font-size:11px;
         }
 
 
@@ -86,9 +88,6 @@
         {
             height: 14px;
         }
-        .style66
-        {
-        }
         .style67
         {
             width: 481px;
@@ -110,11 +109,7 @@
         {
             height: 80px;
         }
-        .style72
-        {
-            height: 37px;
-        }
-    </style>
+        </style>
     
     <script  language="javascript" type="text/javascript" src="../../scripts/default_script_1.6.js"></script>
     <script type="text/javascript" >
@@ -147,7 +142,73 @@
 
 <body>
     <form id="form1" runat="server">
+    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+        <AjaxSettings>    
+                  <telerik:AjaxSetting AjaxControlID="NumberOfUsers">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="NumberOfUsers" > </telerik:AjaxUpdatedControl>   
+                     <telerik:AjaxUpdatedControl ControlID="LimitedUsersPanel" > </telerik:AjaxUpdatedControl>   
+                     <telerik:AjaxUpdatedControl ControlID="UploadPublishedUserCredentials" > </telerik:AjaxUpdatedControl> 
+                      <telerik:AjaxUpdatedControl ControlID="ViewPublishedUserCredentials" > </telerik:AjaxUpdatedControl>                                                             
+                 </UpdatedControls>
+            </telerik:AjaxSetting>        
 
+           <telerik:AjaxSetting AjaxControlID="SaveUserCredentials">
+                <UpdatedControls>
+                     <telerik:AjaxUpdatedControl ControlID="SaveCredentialsMessage" > </telerik:AjaxUpdatedControl> 
+                      <telerik:AjaxUpdatedControl ControlID="SaveNumberOfUsersMessage" > </telerik:AjaxUpdatedControl>                                                             
+                 </UpdatedControls>
+            </telerik:AjaxSetting>        
+
+          <telerik:AjaxSetting AjaxControlID="UploadAppLargeIcon">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="IconUploadMessage" > </telerik:AjaxUpdatedControl>   
+                     <telerik:AjaxUpdatedControl ControlID="repeaterResultsLargeIcon" > </telerik:AjaxUpdatedControl>                    
+                 </UpdatedControls>
+            </telerik:AjaxSetting>
+            
+             <telerik:AjaxSetting AjaxControlID="UploadAppSplash">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="SplashUploadMessage" > </telerik:AjaxUpdatedControl>                   
+                     <telerik:AjaxUpdatedControl ControlID="repeaterResultsSplashImage" > </telerik:AjaxUpdatedControl>                    
+                 </UpdatedControls>
+            </telerik:AjaxSetting>
+
+        <telerik:AjaxSetting AjaxControlID="UploadScreenShots">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="ScreenShotsUploadMessage" > </telerik:AjaxUpdatedControl>                   
+                     <telerik:AjaxUpdatedControl ControlID="repeaterResultsScreenShots" > </telerik:AjaxUpdatedControl>                    
+                 </UpdatedControls>
+            </telerik:AjaxSetting>
+
+             <telerik:AjaxSetting AjaxControlID="SubmitForProvisioning">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="ProvisioningMessage" > </telerik:AjaxUpdatedControl>                   
+                 </UpdatedControls>
+            </telerik:AjaxSetting>
+
+       </AjaxSettings>
+	</telerik:RadAjaxManager>
+     <telerik:RadProgressManager ID="Radprogressmanager1" runat="server" />
+         <telerik:RadWindowManager ID="RadWindowManager1" runat="server">
+            <Windows>
+                <telerik:RadWindow 
+                    id="LargeIconBox" 
+                    runat="server"
+                    showcontentduringload="false"
+                    title="Large App Icon"
+                    behaviors="Close" Skin="Web20">
+                </telerik:RadWindow>
+                
+            <telerik:RadWindow 
+                    id="ScreenShotBox" 
+                    runat="server"
+                    showcontentduringload="false"
+                    title="Screen Image" VisibleStatusbar="false"
+                    behaviors="Close" Skin="Web20">
+           </telerik:RadWindow>
+            </Windows>
+            </telerik:RadWindowManager>
     <asp:TextBox ID="SelectedDeviceType" runat="server" style="display:none"></asp:TextBox>
 
 	<telerik:RadScriptManager ID="RadScriptManager1" runat="server">	</telerik:RadScriptManager>
@@ -300,30 +361,27 @@
                          
                             <Items>
                              <telerik:RadMenuItem ImageUrl="~/images/MySolutionsButton.png" HoveredImageUrl="~/images/MySolutionsButton_hov.png"
-                        SelectedImageUrl="~/images/MySolutionsButton_sel.png"  Value="MySolutions" 
+                        SelectedImageUrl="~/images/MySolutionsButton_sel.png"  Value="TabMySolutions.aspx" 
                                     TabIndex="1200"/>
                                <telerik:RadMenuItem ImageUrl="~/images/DisplayDesignButton.png" HoveredImageUrl="~/images/DisplayDesignButton_hov.png"
-                        SelectedImageUrl="~/images/DisplayDesignButton_sel.png"  Value="DesignNative" 
+                        SelectedImageUrl="~/images/DisplayDesignButton_sel.png"  Value="TabDesignNative.aspx" 
                                     TabIndex="1300" ><Items>
-                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayNativeDesignButton_sel.png" HoveredImageUrl="~/images/DisplayNativeDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayNativeDesignButton_sel.png" Value="DesignNative"/>
-                               <telerik:RadMenuItem  ImageUrl="~/images/DisplayWebDesignButton.png" HoveredImageUrl="~/images/DisplayWebDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayWebDesignButton_sel.png" Value="DesignWeb"/>
-                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayHybridDesignButton.png" HoveredImageUrl="~/images/DisplayHybridDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayHybridDesignButton_sel.png" Value="DesignHybrid"/>
+                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayNativeDesignButton_sel.png" HoveredImageUrl="~/images/DisplayNativeDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayNativeDesignButton_sel.png" Value="TabDesignNative.aspx"/>
+                               <telerik:RadMenuItem  ImageUrl="~/images/DisplayWebDesignButton.png" HoveredImageUrl="~/images/DisplayWebDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayWebDesignButton_sel.png" Value="TabDesignWeb.aspx"/>
+                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayHybridDesignButton.png" HoveredImageUrl="~/images/DisplayHybridDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayHybridDesignButton_sel.png" Value="TabDesignHybrid.aspx"/>
                                  </Items>
                              </telerik:RadMenuItem>
 
                             <telerik:RadMenuItem ImageUrl="~/images/ProvisionButton_sel.png" HoveredImageUrl="~/images/ProvisionButton_hov.png"
                         SelectedImageUrl="~/images/ProvisionButton_sel.png"  Value="Publish" TabIndex="1500"/>
                             <telerik:RadMenuItem ImageUrl="~/images/FAQButton.png" HoveredImageUrl="~/images/FAQButton_hov.png"
-                        SelectedImageUrl="~/images/FAQButton_sel.png"  Value="FAQ" TabIndex="1600"/>
+                        SelectedImageUrl="~/images/FAQButton_sel.png"  Value="TabFAQ.aspx" TabIndex="1600"/>
                        <telerik:RadMenuItem ImageUrl="~/images/MyProfileButton.png" HoveredImageUrl="~/images/MyProfileButton_hov.png"
-                        SelectedImageUrl="~/images/MyProfileButton_sel.png"  Value="MyProfile" TabIndex="1700"/>
+                        SelectedImageUrl="~/images/MyProfileButton_sel.png"  Value="TabMyProfile.aspx" TabIndex="1700"/>
                        
 
                          </Items>
 
-<WebServiceSettings>
-<ODataSettings InitialContainerName=""></ODataSettings>
-</WebServiceSettings>
                           </telerik:RadMenu>
                       
                        
@@ -335,91 +393,13 @@
                 </table>   
                
                 </div>  
-
-
-
-
-
-
-
-	<script type="text/javascript">
-	    //Put your JavaScript code here.
-    </script>
-
-
-	<telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
-        <AjaxSettings>    
-                  <telerik:AjaxSetting AjaxControlID="NumberOfUsers">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="NumberOfUsers" > </telerik:AjaxUpdatedControl>   
-                     <telerik:AjaxUpdatedControl ControlID="LimitedUsersPanel" > </telerik:AjaxUpdatedControl>   
-                     <telerik:AjaxUpdatedControl ControlID="UploadPublishedUserCredentials" > </telerik:AjaxUpdatedControl> 
-                      <telerik:AjaxUpdatedControl ControlID="ViewPublishedUserCredentials" > </telerik:AjaxUpdatedControl>                                                             
-                 </UpdatedControls>
-            </telerik:AjaxSetting>        
-
-           <telerik:AjaxSetting AjaxControlID="SaveUserCredentials">
-                <UpdatedControls>
-                     <telerik:AjaxUpdatedControl ControlID="SaveCredentialsMessage" > </telerik:AjaxUpdatedControl> 
-                      <telerik:AjaxUpdatedControl ControlID="SaveNumberOfUsersMessage" > </telerik:AjaxUpdatedControl>                                                             
-                 </UpdatedControls>
-            </telerik:AjaxSetting>        
-
-          <telerik:AjaxSetting AjaxControlID="UploadAppLargeIcon">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="IconUploadMessage" > </telerik:AjaxUpdatedControl>   
-                     <telerik:AjaxUpdatedControl ControlID="repeaterResultsLargeIcon" > </telerik:AjaxUpdatedControl>                    
-                 </UpdatedControls>
-            </telerik:AjaxSetting>
-            
-             <telerik:AjaxSetting AjaxControlID="UploadAppSplash">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="SplashUploadMessage" > </telerik:AjaxUpdatedControl>                   
-                     <telerik:AjaxUpdatedControl ControlID="repeaterResultsSplashImage" > </telerik:AjaxUpdatedControl>                    
-                 </UpdatedControls>
-            </telerik:AjaxSetting>
-
-        <telerik:AjaxSetting AjaxControlID="UploadScreenShots">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="ScreenShotsUploadMessage" > </telerik:AjaxUpdatedControl>                   
-                     <telerik:AjaxUpdatedControl ControlID="repeaterResultsScreenShots" > </telerik:AjaxUpdatedControl>                    
-                 </UpdatedControls>
-            </telerik:AjaxSetting>
-
-             <telerik:AjaxSetting AjaxControlID="SubmitForProvisioning">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="ProvisioningMessage" > </telerik:AjaxUpdatedControl>                   
-                 </UpdatedControls>
-            </telerik:AjaxSetting>
-
-       </AjaxSettings>
-	</telerik:RadAjaxManager>
-     <telerik:RadProgressManager ID="Radprogressmanager1" runat="server" />
-         <telerik:RadWindowManager ID="RadWindowManager1" runat="server">
-            <Windows>
-                <telerik:RadWindow 
-                    id="LargeIconBox" 
-                    runat="server"
-                    showcontentduringload="false"
-                    title="Large App Icon"
-                    behaviors="Close" Skin="Web20">
-                </telerik:RadWindow>
-                
-            <telerik:RadWindow 
-                    id="ScreenShotBox" 
-                    runat="server"
-                    showcontentduringload="false"
-                    title="Screen Image" VisibleStatusbar="false"
-                    behaviors="Close" Skin="Web20">
-           </telerik:RadWindow>
-            </Windows>
-            </telerik:RadWindowManager>
-
-
-    <table width=100%>
+                <div style="height:15px"></div>
+<div align="center">
+    <table style="width:800px">
     <tr>
     <td valign="top">
-    <asp:Button ID="BackButton" runat="server" onclick="BackButton_Click" class="bluebutton"  Text="Back" Height="47px" Width="73px" />
+    <asp:Button ID="BackButton" runat="server" onclick="BackButton_Click" 
+            class="bluebutton"  Text="Back" Height="31px" Width="73px" />
     </td>
      
     
@@ -428,7 +408,7 @@
 
 
     <center>
-    <h3>Submit Publishing Form</h3>
+    <div class="billinglabel">Submit Publishing Form</div>
             <telerik:RadComboBox ID="RadComboAppSelector" 
                                     runat="server" 
                                     AutoPostBack="True" 
@@ -436,17 +416,13 @@
                                      Font-Size="12pt" 
                                      Width="350px" 
                                      MarkFirstMatch="True"  
-                                     Skin="Web20" 
-                                     Label="Select your App"
+                                     Skin="Vista" 
+                                     Label="Select your App   "
                                      CssClass="combolabel"
-                                     onselectedindexchanged="RadComboAppSelector_SelectedIndexChanged">
+                                     
+            onselectedindexchanged="RadComboAppSelector_SelectedIndexChanged" 
+            BorderStyle="None">
 
-                 <Items>
-                 </Items>
-
-                <WebServiceSettings>
-                <ODataSettings InitialContainerName=""></ODataSettings>
-                </WebServiceSettings>
                  </telerik:RadComboBox>
             <br />
             <br />
@@ -460,7 +436,8 @@
 
 
         <div>
-        <asp:Label ID="App" runat="server" Font-Bold="True"  Font-Names="Arial" Font-Size="14pt" ForeColor="#003399"     Width="620px"></asp:Label>
+        <asp:Label ID="App" runat="server" 
+                    Width="620px" CssClass="billinglabel"></asp:Label>
         <br />
         </div>
 
@@ -484,7 +461,10 @@
                 </tr>
                 
                 <tr><td class="style64">
-                <asp:Button runat="server" ID="SaveProductionAppNameButton" Text="Save Publishing App Name" Width="176px" onclick="SaveProductionAppNameButton_Click"  class="bluesmallbutton" />
+                <asp:Button runat="server" ID="SaveProductionAppNameButton" 
+                        Text="Save Publishing App Name" Width="176px" 
+                        onclick="SaveProductionAppNameButton_Click"  class="bluesmallbutton" 
+                        Height="30px" />
                
                 </td><td class="style70">
                
@@ -498,7 +478,9 @@
             </tr><tr>
         <td class="style69" valign="top"> 
         <table><tr><td>
-    <asp:Button runat="server" ID="CopyDesignToProduction" Text="Save Test Design To Publishing Design" Width="246px" onclick="CopyDesignToProduction_Click" class="bluesmallbutton" /></td>
+    <asp:Button runat="server" ID="CopyDesignToProduction" 
+                Text="Save Test Design To Publishing Design" Width="250px" 
+                onclick="CopyDesignToProduction_Click" class="bluesmallbutton" Height="30px" /></td>
     <td>
             
                 <asp:Image ID="ProductionDesignExists" runat="server" ImageUrl="../../images/check.gif" 
@@ -544,7 +526,8 @@
                     </tr>
                     <tr>
                     <td class="style41">
-                        <asp:Button runat="server" ID="UploadLargeIconButton" Text="Upload File" onclick="UploadLargeIconButton_Click" class="bluesmallbutton" />
+                        <asp:Button runat="server" ID="UploadLargeIconButton" Text="Upload File" 
+                            onclick="UploadLargeIconButton_Click" class="bluesmallbutton" Height="30px" />
                     </td>
                     
                     <td class="style34">     &nbsp;</td>
@@ -559,7 +542,8 @@
                                                                                   return false;" Text="Large Icon" 
                                                                     Visible="false" 
                                                                     Width="95px" 
-                                                                    class="bluesmallbutton" />
+                                                                    class="bluesmallbutton" 
+                           Height="30px" />
 
 
                        <asp:ImageButton    ID="DeleteIcon" 
@@ -617,7 +601,9 @@
                     </tr>
                     <tr>
                         <td class="style50">
-    <asp:Button runat="server" ID="UploadScreenSplashButton" Text="Upload File" onclick="UploadScreenSplashButton_Click" class="bluesmallbutton" />
+    <asp:Button runat="server" ID="UploadScreenSplashButton" Text="Upload File" 
+                                onclick="UploadScreenSplashButton_Click" class="bluesmallbutton" 
+                                Height="30px" />
                         </td>
                         <td class="style34">
                             &nbsp;</td>
@@ -630,7 +616,7 @@
                                                   oWin.moveTo(100, 100); 
                                                   return false;" Text="See Splash Screen" 
                                                   Visible="false" Width="126px"   
-                                class="bluesmallbutton" />
+                                class="bluesmallbutton" Height="30px" />
                 
                 <asp:ImageButton ID="DeleteSplashImage" runat="server" 
                                 ImageUrl="../images/delete_small.gif" AlternateText="Delete Splash Image" 
@@ -705,26 +691,7 @@
                        </asp:Panel>  
                    </td></tr>
                    <tr><td>
-                   <table style="width: 450px; height: 102px">
-                   <tr><td class="style72">                              
-                                    <asp:Button ID="UploadPublishedUserCredentials" runat="server"  CausesValidation="False" Text="Upload Published User Credentials" Width="228px" style="display:none" class="bluesmallbutton" />  
-                        </td>
-                        <td class="style72"></td>
-                    </tr>
-
-
-
-                    <tr><td class="style66">
-                               
-                             <asp:Button ID="ViewPublishedUserCredentials" runat="server" CausesValidation="False" Text="View Published User Credentials" Width="228px"  style="display:none" class="bluesmallbutton"/>
-                            </td><td>&nbsp;</td></tr>
-                            
-                            <tr><td class="style66" colspan="2">
-                               
-                <asp:Label ID="SaveNumberOfUsersMessage" runat="server" Font-Bold="True" 
-                    Font-Names="Arial" Font-Size="10pt" ForeColor="Maroon" Width="388px" Height="16px"></asp:Label>
-                            </td></tr></table>
-                       </td></tr>
+                       &nbsp;</td></tr>
                    <tr><td class="style58" valign="bottom">
                        <asp:Label ID="SubmissionNotesLabel" runat="server" Font-Bold="True" 
                            Font-Names="Arial" Font-Size="10pt" ForeColor="#003399" Width="383px">Add any notes about your submission or update:</asp:Label>
@@ -795,7 +762,10 @@
 	
 		    <tr>
 		    <td class="style64">
-                	    <asp:Button runat="server" ID="Web_SaveProductionAppNameButton" Text="Save Publishing App Name"  Width="176px" onclick="Web_SaveProductionAppNameButton_Click"  class="bluesmallbutton" />
+                	    <asp:Button runat="server" ID="Web_SaveProductionAppNameButton" 
+                            Text="Save Publishing App Name"  Width="176px" 
+                            onclick="Web_SaveProductionAppNameButton_Click"  class="bluesmallbutton" 
+                            Height="30px" />
 	            </td>
 
 		    <td>
@@ -816,7 +786,10 @@
 		<table>
 		<tr>
 		<td>
-		    <asp:Button runat="server" ID="Web_CopyDesignToProduction"   Text="Save Test Design To Publishing Design" Width="252px" onclick="Web_CopyDesignToProduction_Click"  class="bluesmallbutton" />
+		    <asp:Button runat="server" ID="Web_CopyDesignToProduction"   
+                Text="Save Test Design To Publishing Design" Width="256px" 
+                onclick="Web_CopyDesignToProduction_Click"  class="bluesmallbutton" 
+                Height="30px" />
 		</td>
 		
 		<td>
@@ -872,7 +845,9 @@
 
                     <tr>
                         <td class="style41">
-			    <asp:Button runat="server" ID="Web_UploadLargeIconButton" Text="Upload File" onclick="Web_UploadLargeIconButton_Click" class="bluesmallbutton"  />
+			    <asp:Button runat="server" ID="Web_UploadLargeIconButton" Text="Upload File" 
+                                onclick="Web_UploadLargeIconButton_Click" class="bluesmallbutton" 
+                                Height="30px"  />
                         </td>
 
                         <td class="style34"> &nbsp;</td>
@@ -888,7 +863,7 @@
                                         Text="See Large Icon" 
 					                    Visible="false" 
                                         Width="107px" 
-                                        class="bluesmallbutton" />
+                                        class="bluesmallbutton" Height="30px" />
 		
 		                <asp:ImageButton ID="Web_DeleteIcon" runat="server" ImageUrl="../images/delete_small.gif" 
                                 AlternateText="Delete Icon" onclick="Web_DeleteIcon_Click" Visible="False" />
@@ -953,14 +928,16 @@
                     	
 			<tr>
                         <td class="style50">
-    			<asp:Button runat="server" ID="Web_UploadScreenSplashButton" Text="Upload File" onclick="Web_UploadScreenSplashButton_Click" class="bluesmallbutton"  />
+    			<asp:Button runat="server" ID="Web_UploadScreenSplashButton" Text="Upload File" 
+                                onclick="Web_UploadScreenSplashButton_Click" class="bluesmallbutton" 
+                                Height="30px"  />
                         </td>
                         <td class="style34">
                             &nbsp;</td>
                         <td class="style34">
 	
 			        <asp:Button ID="Web_ScreenSplashButton" runat="server" Text="See Screen Splash" 
-                                Visible="false" Width="126px" class="bluesmallbutton" 
+                                Visible="false" Width="126px" class="bluesmallbutton" Height="30px" 
                                 />
 
 
@@ -1042,7 +1019,7 @@
     </td>
     </tr>
     </table>
-
+</div>
           <telerik:RadNotification ID="RadNotification1"  runat="server"  
                         Width="300px" 
                         Height="150px"

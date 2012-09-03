@@ -254,13 +254,7 @@ public partial class ProvisionForm : System.Web.UI.Page
                     LimitedUsersPanel.Style.Value = "display:none";
                     util.SetUnlimitedUsers(State);
                 }
-                else
-                {
-                    UploadPublishedUserCredentials.Style.Value = "";
-                    ViewPublishedUserCredentials.Style.Value = "";
-                    UploadPublishedUserCredentials.Attributes.Add("onclick", PopupHelper.GeneratePopupScript("~/Dialogs/Publish/UploadUserCredentials.aspx", 350, 800, false, false, false, true));
-                    ViewPublishedUserCredentials.Attributes.Add("onclick", PopupHelper.GeneratePopupScript("~/Dialogs/Publish/ViewUserCredentials.aspx", 800, 350, false, false, false, true));
-                }
+  
             }
         }
 
@@ -464,7 +458,6 @@ public partial class ProvisionForm : System.Web.UI.Page
     private void ClearMessages()
     {
         SaveCredentialsMessage.Text = "";
-        SaveNumberOfUsersMessage.Text = "";
         SaveProductionAppNameMessage.Text = "";
         ProvisioningMessage.Text = "";
         IconUploadMessage.Text = "";
@@ -558,25 +551,13 @@ public partial class ProvisionForm : System.Web.UI.Page
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         if (util.CheckSessionTimeout(State, Response, "../Default.aspx")) return;
 
-        /*        if (NumberOfUsers.SelectedIndex == 1)
-        { */
+        
         
         
         LimitedUsersPanel.Style.Value = "";
-        UploadPublishedUserCredentials.Style.Value = "display:none";
-        ViewPublishedUserCredentials.Style.Value = "display:none";
-
+ 
         
-        /*}
-        else
-        {
-            util.SetLimitedUsersCredentialMethod(State, false, "", "");
-            LimitedUsersPanel.Style.Value = "display:none";
-            UploadPublishedUserCredentials.Style.Value = "";
-            ViewPublishedUserCredentials.Style.Value = "";
-            UploadPublishedUserCredentials.Attributes.Add("onclick", PopupHelper.GeneratePopupScript("~/Dialogs/Publish/UploadUserCredentials.aspx", 350, 800, false, false, false, true));
-            ViewPublishedUserCredentials.Attributes.Add("onclick", PopupHelper.GeneratePopupScript("~/Dialogs/Publish/ViewUserCredentials.aspx", 800, 350, false, false, false, true));
-        }*/
+       
                
     }
 
@@ -589,12 +570,12 @@ public partial class ProvisionForm : System.Web.UI.Page
 
         if (SingleUsername.Text.Length == 0)
         {
-            SaveNumberOfUsersMessage.Text = "Enter Single Username.";
+            SaveCredentialsMessage.Text = "Enter Single Username.";
             return;
         }
         if (SinglePassword.Text.Length == 0)
         {
-            SaveNumberOfUsersMessage.Text = "Enter Single Password.";
+            SaveCredentialsMessage.Text = "Enter Single Password.";
             return;
         }
         util.SetLimitedUsersCredentialMethod(State, true, SingleUsername.Text.Trim(), SinglePassword.Text.Trim());
@@ -638,7 +619,7 @@ public partial class ProvisionForm : System.Web.UI.Page
         //     SavePage();
 
         string tab = e.Item.Value;
-        Session["MainMenu"] = tab;
+        
         if (tab == "DesignHybrid" || tab == "DesignWeb")
             State["SelectedApp"] = null;
 

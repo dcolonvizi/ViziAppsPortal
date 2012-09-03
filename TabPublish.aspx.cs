@@ -47,114 +47,6 @@ public partial class TabPublish : System.Web.UI.Page
         }
     }
 
-    protected void AppBrandingButton_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Response.Redirect("~/Billing/AppBrandingBilling.aspx", false);
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
-            throw;
-        }
-    }
-
-    protected void NewSubscriptionButton_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Response.Redirect("~/Billing/NewPublishingService.aspx", false);
-            //Response.Redirect("~/Billing/AppBrandingBilling.aspx", false);
-        }
-
-
-        catch (ArgumentNullException ex)
-        {
-            System.Diagnostics.Debug.WriteLine(ex.StackTrace.ToString() + ex.Message.ToString());
-            throw;
-        }
-
-        catch (ArgumentException ex)
-        {
-            System.Diagnostics.Debug.WriteLine(ex.StackTrace.ToString() + ex.Message.ToString());
-            throw;
-        }
-
-        catch (HttpException ex)
-        {
-            System.Diagnostics.Debug.WriteLine(ex.StackTrace.ToString() + ex.Message.ToString());
-            throw;
-        }
-
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
-            throw;
-        }
-
-    }
-
-    protected void ModifySubscriptionButton_Click(object sender, EventArgs e)
-    {
-
-        try
-        {
-            Response.Redirect("~/Billing/ModifyPublishingService.aspx", false);
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
-            throw;
-        }
-
-    }
-
-    protected void CancelSubscriptionButton_Click(object sender, EventArgs e)
-    {
-
-        try
-        {
-            Response.Redirect("~/Billing/CancelPublishingService.aspx", false);
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
-            throw;
-        }
-    }
-
-    protected void BillingHistoryButton_Click(object sender, EventArgs e)
-    {
-
-        try
-        {
-            Response.Redirect("~/Billing/ShowBillingHistory.aspx",false);
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
-            throw;
-        }
-    }
-
-
-
-    protected void PublishingFormButton_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Response.Redirect("~/Billing/PublishingForm.aspx", false);
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
-            throw;
-        }
-
-
-    }
-
 
     protected void LogoutButton_Click(object sender, ImageClickEventArgs e)
     {
@@ -176,17 +68,23 @@ public partial class TabPublish : System.Web.UI.Page
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         if (util.CheckSessionTimeout(State, Response, "Default.aspx")) return;
 
-        //if (SavedCanvasHtml.Text.Length > 0)
-       //     SavePage();
-
         string tab = e.Item.Value;
-        Session["MainMenu"] = tab;
-        if (tab == "DesignHybrid" || tab == "DesignWeb")
+        
+        if (tab == "TabDesignHybrid.aspx" || tab == "TabDesignWeb.aspx")
             State["SelectedApp"] = null;
 
-        Response.Redirect("Tab" + tab + ".aspx", false);
+        Response.Redirect(tab, false);
     }
 
 
-  
+
+    protected void PublishMenu_ItemClick(object sender, RadMenuEventArgs e)
+    {
+        Util util = new Util();
+        Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
+        if (util.CheckSessionTimeout(State, Response, "Default.aspx")) return;
+
+        string tab = e.Item.Value;
+        Response.Redirect(tab, false);
+    }
 }

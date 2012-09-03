@@ -1397,11 +1397,11 @@ public partial class DesignNative : System.Web.UI.Page
             SavePage();
 
         string tab = MenuValue.Text;
-        Session["MainMenu"] = tab;
-        if (tab == "DesignHybrid" || tab == "DesignWeb")
+        
+        if (tab == "TabDesignHybrid.asp" || tab == "TabDesignWeb.aspx")
             State["SelectedApp"] = null;
 
-        Response.Redirect("Tab" + tab + ".aspx", false);
+        Response.Redirect(tab, false);
     }
     protected void GoToPage_Click(object sender, EventArgs e)
     {

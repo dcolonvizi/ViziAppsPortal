@@ -414,7 +414,7 @@ public partial class ShowBillingHistory : System.Web.UI.Page
         if (util.CheckSessionTimeout(State, Response, "../Default.aspx")) return;
 
         string tab = e.Item.Value;
-        Session["MainMenu"] = tab;
+        
         if (tab == "DesignHybrid" || tab == "DesignWeb")
             State["SelectedApp"] = null;
 

@@ -1018,21 +1018,21 @@
                          
                             <Items>
                              <telerik:RadMenuItem ImageUrl="~/images/MySolutionsButton.png" HoveredImageUrl="~/images/MySolutionsButton_hov.png"
-                        SelectedImageUrl="~/images/MySolutionsButton_sel.png"  Value="MySolutions" 
+                        SelectedImageUrl="~/images/MySolutionsButton_sel.png"  Value="TabMySolutions.aspx" 
                                     TabIndex="1200"/>
                               <telerik:RadMenuItem ImageUrl="~/images/DisplayWebDesignButton_sel.png" HoveredImageUrl="~/images/DisplayWebDesignButton_hov.png"
-                        SelectedImageUrl="~/images/DisplayDesignButton_sel.png"  Value="DesignNative" TabIndex="1300" ><Items>
-                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayNativeDesignButton.png" HoveredImageUrl="~/images/DisplayNativeDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayNativeDesignButton_sel.png" Value="DesignNative"/>
-                               <telerik:RadMenuItem  ImageUrl="~/images/DisplayWebDesignButton_sel.png" HoveredImageUrl="~/images/DisplayWebDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayWebDesignButton_sel.png" Value="DesignWeb"/>
-                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayHybridDesignButton.png" HoveredImageUrl="~/images/DisplayHybridDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayHybridDesignButton_sel.png" Value="DesignHybrid"/>
+                        SelectedImageUrl="~/images/DisplayDesignButton_sel.png"  Value="TabDesignNative.aspx" TabIndex="1300" ><Items>
+                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayNativeDesignButton.png" HoveredImageUrl="~/images/DisplayNativeDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayNativeDesignButton_sel.png" Value="TabDesignNative.aspx"/>
+                               <telerik:RadMenuItem  ImageUrl="~/images/DisplayWebDesignButton_sel.png" HoveredImageUrl="~/images/DisplayWebDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayWebDesignButton_sel.png" Value="TabDesignWeb.aspx"/>
+                                 <telerik:RadMenuItem  ImageUrl="~/images/DisplayHybridDesignButton.png" HoveredImageUrl="~/images/DisplayHybridDesignButton_hov.png"  SelectedImageUrl="~/images/DisplayHybridDesignButton_sel.png" Value="TabDesignHybrid.aspx"/>
                                  </Items>
                              </telerik:RadMenuItem>
                             <telerik:RadMenuItem ImageUrl="~/images/ProvisionButton.png" HoveredImageUrl="~/images/ProvisionButton_hov.png"
-                        SelectedImageUrl="~/images/ProvisionButton_sel.png"  Value="PublishOld" TabIndex="1500"/>
+                        SelectedImageUrl="~/images/ProvisionButton_sel.png"  Value="TabPublish.aspx" TabIndex="1500"/>
                             <telerik:RadMenuItem ImageUrl="~/images/FAQButton.png" HoveredImageUrl="~/images/FAQButton_hov.png"
-                        SelectedImageUrl="~/images/FAQButton_sel.png"  Value="FAQ" TabIndex="1600"/>
+                        SelectedImageUrl="~/images/FAQButton_sel.png"  Value="TabFAQ.aspx" TabIndex="1600"/>
                        <telerik:RadMenuItem ImageUrl="~/images/MyProfileButton.png" HoveredImageUrl="~/images/MyProfileButton_hov.png"
-                        SelectedImageUrl="~/images/MyProfileButton_sel.png"  Value="MyProfile" TabIndex="1700"/>
+                        SelectedImageUrl="~/images/MyProfileButton_sel.png"  Value="TabMyProfile.aspx" TabIndex="1700"/>
                         <telerik:RadMenuItem ImageUrl="~/images/HelpButton.png"   Value="Help" TabIndex="1800"/>
 
                          </Items>
@@ -1064,46 +1064,69 @@
                             <table cellpadding="0" cellspacing="0" border="0">
                             <tr>
                             <td valign="top" style="width:135px;">
-                            <table> <tr>
-                              
-                              <td><span id="HelpClick" onclick="ToolHelp();"> <img alt="" 
-                                                src="images/help.gif" /></span>
-                                                   
-                                                                                </td>
-                               </tr></table>
+                            
                               <table id="edit_tools" style="width:135px;font-size:11px; font-weight:bold;display:none" cellspacing="0" cellpadding="0" runat="server">
-                             
-                              <tr>
+                             <tr><td style=" vertical-align:top">
+                              <table>                          
+                              <tr>                           
                               <td>
-                              <div id="EditClick" onclick="doEditProperties();" style="cursor:pointer;padding:5px 0px 0px 10px; background-image:url('images/editor_images/blank_button.png'); background-repeat:no-repeat;width:135px;height:26px;text-align:left; vertical-align:top;">
+                              <div id="EditClick" onclick="doEditProperties();" style="cursor:pointer;padding:5px 0px 0px 10px; background-image:url('images/editor_images/blank_button.png'); background-repeat:no-repeat;width:132px;height:26px;text-align:left; vertical-align:top;">
                               <table cellpadding="0" cellspacing="0"><tr><td style="width:22px"><img alt="Label Field" src="images/editor_images/edit.png" />
                               </td><td style="font-family:verdana;font-size:11px;width:113px;font-weight:bold">Edit Field</td>
                               </tr></table></div></td>
                               </tr>
-                                                           <tr>
+                              <tr>
                               <td>
-                              <div id="CopyClick" onclick="copySelectedElement();" style="cursor:pointer;padding:5px 0px 0px 10px; background-image:url('images/editor_images/blank_button.png'); background-repeat:no-repeat;width:135px;height:26px;text-align:left; vertical-align:top;">
-                              <table cellpadding="0" cellspacing="0"><tr><td style="width:22px"><img id="CopyClickImage" alt="Label Field" src="images/editor_images/copy.gif" />
+                              <div id="CopyClick" onclick="copySelectedElement();" style="cursor:pointer;padding:5px 0px 0px 10px; background-image:url('images/editor_images/blank_button.png'); background-repeat:no-repeat;width:132px;height:26px;text-align:left; vertical-align:top;">
+                              <table cellpadding="0" cellspacing="0"><tr><td style="width:22px" ><img id="Img1" alt="Label Field" src="images/editor_images/copy.gif" />
                               </td><td style="font-family:verdana;font-size:11px;width:113px;font-weight:bold">Copy Field</td>
                               </tr></table></div>
                               </td>
                               </tr>
                               <tr>
                               <td>
-                              <div id="PasteClick" onclick="pasteSelectedElement();" style="cursor:pointer;padding:5px 0px 0px 10px; background-image:url('images/editor_images/blank_button.png'); background-repeat:no-repeat;width:135px;height:26px;text-align:left; vertical-align:top;">
+                              <div id="PasteClick" onclick="pasteSelectedElement();" style="cursor:pointer;padding:5px 0px 0px 10px; background-image:url('images/editor_images/blank_button.png'); background-repeat:no-repeat;width:132px;height:26px;text-align:left; vertical-align:top;">
                               <table cellpadding="0" cellspacing="0"><tr><td style="width:22px"><img alt="Label Field" src="images/editor_images/paste.gif" />
                               </td><td style="font-family:verdana;font-size:11px;width:113px;font-weight:bold">Paste Field</td>
+                              </tr></table></div>
+                              </td>
+                              </tr>
+                              <tr>
+                              <td>
+                              <div id="DeleteClick" onclick="deleteSelectedElement();" style="cursor:pointer;padding:5px 0px 0px 10px; background-image:url('images/editor_images/blank_button.png'); background-repeat:no-repeat;width:132px;height:26px;text-align:left; vertical-align:top;">
+                              <table cellpadding="0" cellspacing="0"><tr><td style="width:22px"><img alt="Label Field" src="images/editor_images/delete.gif" />
+                              </td><td style="font-family:verdana;font-size:11px;width:113px;font-weight:bold">Delete Field</td>
                               </tr></table></div>
                               </td>
                               </tr>
 
                               <tr>
                               <td>
-                              <div id="DeleteClick" onclick="deleteSelectedElement();" style="cursor:pointer;padding:5px 0px 0px 10px; background-image:url('images/editor_images/blank_button.png'); background-repeat:no-repeat;width:135px;height:26px;text-align:left; vertical-align:top;">
-                              <table cellpadding="0" cellspacing="0"><tr><td style="width:22px"><img alt="Label Field" src="images/editor_images/delete.gif" />
-                              </td><td style="font-family:verdana;font-size:11px;width:113px;font-weight:bold">Delete Field</td>
+                               <div id="BringToMostFront" onclick="BringToMostFront();" 
+                                      style=" cursor:pointer;padding:5px 0px 0px 10px; background-image:url('images/editor_images/blank_button.png'); background-repeat:no-repeat;width:132px;height:26px;text-align:left; vertical-align:top;">
+                              <table cellpadding="0" cellspacing="0"><tr><td style="width:22px"><img alt="Label Field" src="images/editor_images/send_to_front.png" />
+                              </td><td style="font-family:verdana;font-size:11px;width:113px;font-weight:bold">Bring To Front</td>
                               </tr></table></div></td>
                               </tr>
+                              <tr>
+                              <td>
+                                <div id="BringToMosBack" onclick="SendToMostBack();" 
+                                      style="cursor:pointer;padding:5px 0px 0px 10px; background-image:url('images/editor_images/blank_button.png'); background-repeat:no-repeat;width:132px;height:26px;text-align:left; vertical-align:top;">
+                              <table cellpadding="0" cellspacing="0"><tr><td style="width:22px"><img alt="Label Field" src="images/editor_images/send_to_back.png" />
+                              </td><td style="font-family:verdana;font-size:11px;width:113px;font-weight:bold">Send To Back</td>
+                              </tr></table></div>
+                              </td>
+                              </tr>   
+                              <tr><td>
+                               <div id="snap_to_grid_action" style="width:135px;height:26px;text-align:left; vertical-align:top;">
+                                         <table cellpadding="0" cellspacing="0"><tr><td style="width:22px"><img alt="Snap to Grid" src="images/editor_images/grid_icon.jpg" /> 
+                               </td><td id="snap_to_grid_label" style="font-family:verdana;font-size:11px;width:113px">Snap to Grid</td>
+                              </tr></table> </div>   
+                              <div id="snap_to_grid_edit" style=" text-align:right;width:18px;height:18px;position:relative;top:-24px;left:116px"><img style="position:relative;top:-4px;left:-12px" alt="" src="images/edit.png" /></div>            
+                             </td></tr>  
+                              </table>
+                             </td><td>
+                              <table>
                               <tr>
                               <td>
                               <div id="html_panel" class="edit_tool_button">
@@ -1213,29 +1236,9 @@
                                </td><td class="edit_tool_text">Hidden Field</td>
                               </tr></table></div></td>
                             </tr>
-                              <tr>
-                              <td>
-                               <div id="BringToMostFront" onclick="BringToMostFront();" style=" cursor:pointer;padding:5px 0px 0px 10px; background-image:url('images/editor_images/blank_button.png'); background-repeat:no-repeat;width:135px;height:26px;text-align:left; vertical-align:top;">
-                              <table cellpadding="0" cellspacing="0"><tr><td style="width:22px"><img alt="Label Field" src="images/editor_images/send_to_front.png" />
-                              </td><td style="font-family:verdana;font-size:11px;width:113px;font-weight:bold">Bring To Front</td>
-                              </tr></table></div></td>
-                              </tr>
-                              <tr>
-                              <td>
-                                <div id="SendToMostBack" onclick="SendToMostBack();" style="cursor:pointer;padding:5px 0px 0px 10px; background-image:url('images/editor_images/blank_button.png'); background-repeat:no-repeat;width:135px;height:26px;text-align:left; vertical-align:top;">
-                              <table cellpadding="0" cellspacing="0"><tr><td style="width:22px"><img alt="Label Field" src="images/editor_images/send_to_back.png" />
-                              </td><td style="font-family:verdana;font-size:11px;width:113px;font-weight:bold">Send To Back</td>
-                              </tr></table></div></td>
-                              </tr>  
-                              <tr><td>
-                               <div id="snap_to_grid_action" style="width:135px;height:26px;text-align:left; vertical-align:top;">
-                                         <table cellpadding="0" cellspacing="0"><tr><td style="width:22px"><img alt="Snap to Grid" src="images/editor_images/grid_icon.jpg" /> 
-                               </td><td id="snap_to_grid_label" style="font-family:verdana;font-size:11px;width:113px">Snap to Grid</td>
-                              </tr></table> </div>   
-                              <div id="snap_to_grid_edit" style=" text-align:right;width:18px;height:18px;position:relative;top:-24px;left:116px"><img style="position:relative;top:-4px;left:-12px" alt="" src="images/edit.png" /></div>            
-                             </td></tr>                              
+                                                           
                               </table>
-                             
+                             </td></tr></table>
                               <asp:TextBox ID="DefaultButtonImage" runat="server" style="display:none;" AutoPostBack="True" />   
                               <asp:TextBox ID="SavedCanvasHtml" runat="server" Width="1px" style="display:none;"/>
                               <asp:TextBox ID="AllAppNames" runat="server" Width="1px" style="display:none;"/>

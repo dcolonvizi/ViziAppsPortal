@@ -186,9 +186,6 @@
                                                  <telerik:RadComboBoxItem Text="Hybrid App"  Value="hybrid" /> 
                                                 </Items>
 
-<WebServiceSettings>
-<ODataSettings InitialContainerName=""></ODataSettings>
-</WebServiceSettings>
                                             </telerik:RadComboBox></td><td><span id="HelpClick" runat="server"> 
                         <img  alt="" 
                                                 src="../../images/help.gif" /></span></td><td>&nbsp;&nbsp; </td></tr></table> </td>

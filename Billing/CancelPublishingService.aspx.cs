@@ -296,7 +296,7 @@ public partial class CancelPublishingService : System.Web.UI.Page
             //     SavePage();
 
             string tab = e.Item.Value;
-            Session["MainMenu"] = tab;
+            
             if (tab == "DesignHybrid" || tab == "DesignWeb")
                 State["SelectedApp"] = null;
 
