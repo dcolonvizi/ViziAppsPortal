@@ -10,7 +10,7 @@
 	 <style type="text/css">
   </style>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+    <script type="text/javascript" src="http://s3.amazonaws.com/viziapps/apps/jquery.mobile-1.1.1a.min.js"></script>
 	<script type="text/javascript" src="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/touch-scroll.min.js"></script>
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript" src="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/jshashtable-2.1.js"></script>		
