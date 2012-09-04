@@ -1,6 +1,6 @@
-﻿var reportURL = "http://www.viziapps.mobi/mobiflex/ViziAppsPortal/WebAppService.aspx";
-var GAppsAccessUrl = "http://www.viziapps.mobi/gapps/default.aspx";
-var AWSServiceUrl = "http://www.viziapps.mobi/AWSService/UploadFile.aspx";
+﻿var reportURL = "https://viziapps.mobi/mobiflex/ViziAppsPortal/WebAppService.aspx";
+var GAppsAccessUrl = "https://viziapps.mobi/gapps/default.aspx";
+var AWSServiceUrl = "https://viziapps.mobi/AWSService/UploadFile.aspx";
 var previous_page_name;
 var current_page_name;
 var previous_orientation;

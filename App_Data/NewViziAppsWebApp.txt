@@ -9,13 +9,13 @@
 	<link rel="stylesheet"  href="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/viziapps_device_web_apps_1.11.css" />
 	 <style type="text/css">
   </style>
-   <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="https://s3.amazonaws.com/viziapps/apps/jquery.mobile-1.1.1a.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
 	<script type="text/javascript" src="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/touch-scroll.min.js"></script>
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript" src="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/jshashtable-2.1.js"></script>		
-    <script type="text/javascript" src="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/viziapps_device_web_apps_1.15.min.js"></script>	
-    <script type="text/javascript" src="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/google_spreadsheet_util_1.9.min.js"></script>	
+    <script type="text/javascript" src="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/viziapps_device_web_apps_1.16.min.js"></script>	
+    <script type="text/javascript" src="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/google_spreadsheet_util_1.10.min.js"></script>	
 	<script type="text/javascript" src="http://viziapps.s3-website-us-east-1.amazonaws.com/apps/s3_util_1.0.js"></script>	
 	ADDON_VIZIAPPS_SCRIPTS
 	<script type="text/javascript">
