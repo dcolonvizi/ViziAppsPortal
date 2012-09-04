@@ -364,7 +364,7 @@ public class WebAppsUtil
                             field_node.Attributes["style"].Value += "text-shadow:none;";
                             break;
                         case "text_field":
-                            field_node.Attributes["style"].Value += "background-color:#f0f0f0;text-shadow:none;padding:4px";
+                            field_node.Attributes["style"].Value += "background-color:#f0f0f0;text-shadow:none;padding:4px;margin:0px";
                             if (field_map["text"] != null)
                             {
                                 HtmlAttribute text_field_value = htmlDoc.CreateAttribute("value");
@@ -1173,10 +1173,6 @@ public class WebAppsUtil
                     break;
                 case "height":
                     int height = Convert.ToInt32(field_map[key].ToString());
-                    if (field_type == "text_field")
-                    {
-                        height -= 10; //because there is border of 1 and padding of 4 added
-                    }
                     if (y_size_factor != 1.0D)
                     {
                         if (field_type == "image" || field_type == "image_button")
