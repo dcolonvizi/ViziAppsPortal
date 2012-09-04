@@ -55,13 +55,7 @@ public partial class InsertButton : System.Web.UI.Page
             actions.Items.Add(new RadComboBoxItem("Email message", "email"));
             actions.Items.Add(new RadComboBoxItem("Text message", "sms"));
             actions.Items.Add(new RadComboBoxItem("Take a photo", "take_photo"));
-
-            if (State["SelectedDeviceType"].ToString() == Constants.ANDROID_PHONE ||
-                State["SelectedDeviceType"].ToString() == Constants.ANDROID_TABLET)
-            {
-                actions.Items.Add(new RadComboBoxItem("Capture a signature", "capture_signature"));
-            }
-
+            actions.Items.Add(new RadComboBoxItem("Capture a signature", "capture_signature"));
             actions.Items.Add(new RadComboBoxItem("Login to mobile commerce", "login_to_mcommerce"));
             actions.Items.Add(new RadComboBoxItem("Initialize card swiper for charge", "init_card_swiper"));
             actions.Items.Add(new RadComboBoxItem("Manually charge credit card", "manual_card_charge"));

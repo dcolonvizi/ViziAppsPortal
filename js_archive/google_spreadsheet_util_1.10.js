@@ -1,6 +1,6 @@
 ﻿//GoogleDocs globals
-var google_spreadsheet_web_service_url = 'http://viziapps.mobi/mobiflex/WebServices/GoogleDocs/GoogleSpreadsheet.aspx';
-var google_apps_spreadsheet_web_service_url = 'http://www.viziapps.mobi/gapps/default.aspx';
+var google_spreadsheet_web_service_url = 'https://viziapps.mobi/mobiflex/WebServices/GoogleDocs/GoogleSpreadsheet.aspx';
+var google_apps_spreadsheet_web_service_url = 'https://viziapps.mobi/gapps/default.aspx';
 var GoogleDocsParams;
 var initGoogleDocsParams;
 var nSqlCommands;

@@ -283,8 +283,16 @@ a
                                                  Font-Names="Arial" Font-Size="10pt"                                                  
                                                  Width="250px" 
                                                  onselectedindexchanged="PageTransitions_SelectedIndexChanged"><Items>
+                                                     <telerik:RadComboBoxItem Text="fade" Value="fade" />  
                                                      <telerik:RadComboBoxItem Text="slide" Value="slide" />
-                                                     <telerik:RadComboBoxItem Text="fade" Value="fade" />                                                     
+                                                     <telerik:RadComboBoxItem Text="pop" Value="pop" />
+                                                     <telerik:RadComboBoxItem Text="flip" Value="flip" />
+                                                     <telerik:RadComboBoxItem Text="turn" Value="turn" />
+                                                     <telerik:RadComboBoxItem Text="flow" Value="flow" />
+                                                     <telerik:RadComboBoxItem Text="slidefade" Value="slidefade" />
+                                                     <telerik:RadComboBoxItem Text="slideup" Value="slideup" />
+                                                     <telerik:RadComboBoxItem Text="slidedown" Value="slidedown" />
+                                                                                                    
                                                </Items></telerik:RadComboBox></td></tr><tr><td colspan="2">
                                 <asp:Label ID="Message" runat="server" Font-Bold="True" Font-Names="Arial" 
                                     Font-Size="10pt" ForeColor="Maroon" Height="42px" 

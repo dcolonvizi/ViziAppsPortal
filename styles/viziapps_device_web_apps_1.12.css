@@ -1,3 +1,6 @@
+.ui-page  {
+    -webkit-backface-visibility: hidden; 
+} 
 .ui-btn-inner {
     display: block;
     overflow: hidden;
