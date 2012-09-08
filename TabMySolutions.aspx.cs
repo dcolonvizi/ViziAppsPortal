@@ -182,19 +182,27 @@ public partial class TabMySolutions : System.Web.UI.Page
         Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
         State["SelectedApp"] = app;
         Util util = new Util();
-         State["SelectedAppType"] = util.GetAppType(State);
-         switch (State["SelectedAppType"].ToString())
-         {
-             case Constants.NATIVE_APP_TYPE:
-                 Response.Redirect("TabDesignNative.aspx", false);
-                 break;
-             case Constants.WEB_APP_TYPE:
-                 Response.Redirect("TabDesignWeb.aspx", false);
-                 break;
-             case Constants.HYBRID_APP_TYPE:
-                 Response.Redirect("TabDesignHybrid.aspx", false);
-                 break;
-         }
+
+        //if SelectedAppType is null let's set it to an empty string so we can continue to the default case
+        string SelectedAppType = util.GetAppType(State) ?? "";
+        State["SelectedAppType"] = SelectedAppType;
+
+        switch (SelectedAppType)
+        {
+            case Constants.NATIVE_APP_TYPE:
+                Response.Redirect("TabDesignNative.aspx", false);
+                break;
+            case Constants.WEB_APP_TYPE:
+                Response.Redirect("TabDesignWeb.aspx", false);
+                break;
+            case Constants.HYBRID_APP_TYPE:
+                Response.Redirect("TabDesignHybrid.aspx", false);
+                break;
+            //Lets refresh the page if we get here.  Maybe the selection we made no longer exists.
+            default:
+                Response.Redirect("TabMySolutions.aspx", false);
+                break;
+        }
     }
 
     protected void MySolutions_PageIndexChanged(object source, Telerik.Web.UI.GridPageChangedEventArgs e)
