@@ -70,7 +70,7 @@ namespace MobiFlex
 		{
             Hashtable UsersList = (Hashtable)HttpRuntime.Cache["UsersList"];
             Hashtable State = (Hashtable)HttpRuntime.Cache[Session.SessionID];
-            if (State !=  null && State["Username"] != null)
+            if (State !=  null && State["Username"] != null && UsersList != null)
             {
                 UsersList.Remove(State["Username"].ToString());
                 HttpRuntime.Cache["UsersList"] = UsersList;
